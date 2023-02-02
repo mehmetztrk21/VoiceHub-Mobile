@@ -2,7 +2,7 @@ import React from "react";
 import {
   Image,
   Dimensions,
-  homeStyleheet,
+  StyleSheet,
   ScrollView,
   TouchableOpacity,
   Text,
@@ -18,8 +18,6 @@ import mypost from "../assets/images/mypost.jpg";
 import post1 from "../assets/images/post1.jpg";
 import post2 from "../assets/images/post2.jpg";
 import post3 from "../assets/images/post3.jpg";
-
-import { homeStyle } from "../styles/styles";
 
 // Importing User Images
 import user1 from "../assets/userImages/user1.jpg";
@@ -137,9 +135,9 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={homeStyle.container}>
-      <View style={homeStyle.head}>
-        <Text style={homeStyle.headText}>Instagram</Text>
+    <View style={styles.container}>
+      <View style={styles.head}>
+        <Text style={styles.headText}>Instagram</Text>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -149,7 +147,7 @@ export default function HomeScreen() {
           data={UserStoryData}
           renderItem={RenderStory}
           keyExtractor={(item) => item.id}
-          style={homeStyle.storyContainer}
+          style={styles.storyContainer}
           showsHorizontalScrollIndicator={false}
         />
 
@@ -160,4 +158,25 @@ export default function HomeScreen() {
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
 
+    marginTop: 20,
+  },
+
+  head: {
+    padding: 10,
+  },
+
+  headText: {
+    fontSize: 25,
+  },
+
+  storyContainer: {
+    height: 120,
+  },
+});

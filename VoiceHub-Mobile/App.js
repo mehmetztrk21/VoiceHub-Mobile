@@ -2,12 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { createBottomTabNavigator, createAppContainer} from 'react-navigation';  
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';  
+//import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';  
 import Icon from 'react-native-vector-icons/Ionicons';  
-import HomeScreen from './screens/home'
-import SearchScreen from './screens/search'
-import ActivityScreen from './screens/activity'
-import ProfileScreen from './screens/profile'
+import HomeScreen from './screens/home';
+import SearchScreen from './screens/search';
+import ActivityScreen from './screens/activity';
+import ProfileScreen from './screens/profile';
 
 
 
@@ -55,8 +55,6 @@ const TabNavigator = createMaterialBottomTabNavigator(
           ),
           activeColor: '#000000',  
             inactiveColor: '#000000', 
-
-
       }
 
     },

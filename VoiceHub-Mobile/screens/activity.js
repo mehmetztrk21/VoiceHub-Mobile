@@ -1,9 +1,15 @@
+import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { Text, View, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  ScrollView,
+  Text,
+  View,
+  FlatList,
+} from "react-native";
 
-import ActivityBar from "./components/userActivity";
-
-import activityStyle from "../styles/styles";
+import ActivityBar from "../screens/components/userActivity";
 
 import user1 from "../assets/userImages/user1.jpg";
 import user2 from "../assets/userImages/user2.jpg";
@@ -34,9 +40,9 @@ const ActivityScreen = () => {
   );
 
   return (
-    <View style={activityStyle.container}>
-      <View style={activityStyle.aHeadView}>
-        <Text style={activityStyle.head}>Activity</Text>
+    <View style={styles.container}>
+      <View style={styles.aHeadView}>
+        <Text style={styles.head}>Activity</Text>
       </View>
 
       <FlatList
@@ -44,7 +50,7 @@ const ActivityScreen = () => {
         renderItem={RenderActivity}
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
-        style={activityStyle.flatList}
+        style={styles.flatList}
       />
     </View>
   );
@@ -52,3 +58,38 @@ const ActivityScreen = () => {
 
 export default ActivityScreen;
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  aHeadView: {
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: 60,
+    width: "90%",
+    marginTop: 22,
+  },
+
+  head: {
+    fontSize: 22,
+    padding: 20,
+    paddingLeft: 5,
+    fontWeight: "bold",
+  },
+
+  sContainer: {
+    backgroundColor: "white",
+
+    width: "95%",
+  },
+
+  flatList: {
+    width: "100%",
+    height: "90%",
+  },
+});

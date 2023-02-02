@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
-  searchStyleheet,
+  StyleSheet,
   Image,
   ScrollView,
   TouchableOpacity,
@@ -19,7 +19,6 @@ import user3 from "../assets/userImages/user3.jpg";
 import user4 from "../assets/userImages/rohit.jpg";
 import user5 from "../assets/userImages/aditi.jpg";
 import Uk from "../assets/userImages/userUK.png";
-import { searchStyle } from "../styles/styles";
 
 const adminuser = "Suyash";
 const username1 = "Alex";
@@ -53,11 +52,11 @@ export default function SearchScreen() {
   };
 
   return (
-    <View style={searchStyle.container}>
-      <View style={searchStyle.sbarHolder}>
+    <View style={styles.container}>
+      <View style={styles.sbarHolder}>
         <Searchbar
           placeholder="Search"
-          style={searchStyle.sbar}
+          style={styles.sbar}
           onChangeText={onChangeSearch}
           value={searchQuery}
         />
@@ -65,10 +64,10 @@ export default function SearchScreen() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={searchStyle.sContainer}
+        style={styles.sContainer}
       >
-        <Text style={searchStyle.Shead}>Recommended</Text>
-        <View style={searchStyle.userHodler}>
+        <Text style={styles.Shead}>Recommended</Text>
+        <View style={styles.userHodler}>
           <RenderUser RecData={recUser} />
         </View>
       </ScrollView>
@@ -76,4 +75,47 @@ export default function SearchScreen() {
   );
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
+  sbarHolder: {
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: 80,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 22,
+  },
+
+  sbar: {
+    backgroundColor: "whitesmoke",
+    borderRadius: 15,
+    width: "90%",
+  },
+
+  sContainer: {
+    backgroundColor: "white",
+    width: "92%",
+  },
+
+  Shead: {
+    fontSize: 20,
+    fontWeight: "bold",
+    padding: 20,
+  },
+
+  userHodler: {
+    flex: 1,
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap",
+  },
+});

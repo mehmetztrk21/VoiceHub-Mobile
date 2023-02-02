@@ -4,7 +4,6 @@ export const homeStyle = StyleSheet.create({
       flexDirection: "column",
       alignItems: "center",
       justifyContent: "center",
-  
       marginTop: 20,
     },
   
