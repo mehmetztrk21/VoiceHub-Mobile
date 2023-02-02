@@ -1,102 +1,24 @@
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
 
-export default function App() {
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
-  const [username, setUserName] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [show, setShow] = React.useState(true);
+import LoginScreen from './pages/LoginScreen';
+import MainScreen from './pages/MainScreen';
+import ForgotMyPassword from './pages/ForgotMyPassword';
 
-  function login(){
-    //go to App2.js
-  }
+const Stack = createStackNavigator();
 
-  function forgot(){
-    //go to (I forgot my password)'s page
-  }
-
+function App() {
   return (
-    <SafeAreaView style={styles.container}>
-
-      <View style={styles.content}>
-
-        <View style={styles.logo}>
-          <Image source={require("./assets/favicon.png")} style={{ width: 150, height: 150 }} />
-        </View>
-
-        <Text style={styles.Label}>User Name</Text>
-        <TextInput style={styles.Inputs} value={username} onChangeText={username => setUserName(username)}/>
-
-        <Text style={styles.Label}>Password</Text>
-        <TextInput style={styles.Inputs} keyboardType={'visible-password'} value={password} onChangeText={password => setPassword(password)}/>
-
-
-        <TouchableOpacity onPress={() => {login()}}>
-          <Text style={styles.LogInText}>Log In</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => {forgot()}}>
-          <Text style={styles.ForgotPasswordText}>Forgot Password</Text>
-        </TouchableOpacity>
-      </View>
-
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen name="MainScreen" component={MainScreen} />
+        <Stack.Screen name="ForgotMyPassword" component={ForgotMyPassword} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-
-  
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#212121',
-    flex: 1,
-
-  },
-  content: {
-    backgroundColor: '#313131',
-    flex: 1,
-    margin: "2%",
-    padding: "12.5%"
-  },
-  logo: {
-    textAlignVertical: 'center',
-    marginBottom: '30%',
-    marginTop: '20%',
-    alignItems: 'center'
-  },
-  Label: {
-    color: '#ff6101',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-  Inputs: {
-    borderColor: '#ff6101',
-    color: '#ff6101',
-    fontSize: 16,
-    borderWidth: 3,
-    borderRadius: 10,
-    marginBottom: '5%',
-    paddingBottom: '1.5%',
-    paddingTop: '1.5%',
-    paddingLeft: '3%',
-  },
-  LogInText: {
-    backgroundColor: '#ff6101',
-    borderRadius: 10,
-    color: 'aliceblue',
-    textAlign: 'center',
-    marginTop: '25%',
-    paddingBottom: '1.5%',
-    paddingTop: '1.5%',
-    fontWeight: 'bold',
-    fontSize: 20,
-  },
-  ForgotPasswordText: {
-    color: '#ff6101',
-    textAlign: 'center',
-    paddingBottom: '1.5%',
-    marginTop: '3%',
-    fontSize: 16,
-  }
-});
-
+export default App;

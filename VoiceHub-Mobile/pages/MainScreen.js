@@ -1,11 +1,13 @@
+import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
+import * as React from 'react';
+import Footer from '../components/footer';
+import Post from '../components/post';
 
-import { StyleSheet, Text, View, Image, ScrollView, SafeAreaView } from 'react-native';
-import React from 'react';
-import Footer from './components/footer';
-import Post from './components/post';
+function MainScreen(props) {
 
-export default function App() {
-
+  function logout() {
+    props.navigation.navigate('MainScreen');
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -29,6 +31,8 @@ export default function App() {
     </SafeAreaView>
   );
 }
+
+export default MainScreen;
 
 const styles = StyleSheet.create({
   container: {
