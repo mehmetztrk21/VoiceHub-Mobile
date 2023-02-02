@@ -19,10 +19,14 @@ function LoginScreen(props) {
 
     }
 
+    function register() {
+        props.navigation.navigate('Register');
+        console.log("Go to register page");
+    }
+
     function forgot() {
         props.navigation.navigate('ForgotMyPassword');
         console.log("Go to forgot my password page");
-        //go to (I forgot my password)'s page
     }
 
     return (
@@ -42,7 +46,11 @@ function LoginScreen(props) {
 
 
                 <TouchableOpacity onPress={() => login()}>
-                    <Text style={styles.LogInText}>Log In</Text>
+                    <Text style={styles.ButtonText}>Log In</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity onPress={() => register()}>
+                    <Text style={styles.ButtonText}>Register</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => forgot()}>
@@ -89,16 +97,16 @@ const styles = StyleSheet.create({
         paddingTop: '1.5%',
         paddingLeft: '3%',
     },
-    LogInText: {
+    ButtonText: {
         backgroundColor: '#ff6101',
         borderRadius: 10,
         color: 'aliceblue',
         textAlign: 'center',
-        marginTop: '25%',
         paddingBottom: '1.5%',
         paddingTop: '1.5%',
         fontWeight: 'bold',
         fontSize: 20,
+        marginBottom: '5%',
     },
     ForgotPasswordText: {
         color: '#ff6101',
