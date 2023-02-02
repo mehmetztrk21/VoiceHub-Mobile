@@ -1,14 +1,12 @@
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from 'react-native';
-import * as React from 'react';
-import Footer from '../components/footer';
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, Pressable, Image } from 'react-native';
+import React from 'react';
 import Post from '../components/post';
 
 function MainScreen(props) {
-
-  function logout() {
-    props.navigation.navigate('MainScreen');
-  }
-
+  function gotoProfile() {
+    props.navigation.navigate('Profile');
+    console.log("Go to register page");
+}
   return (
     <SafeAreaView style={styles.container}>
 
@@ -27,7 +25,19 @@ function MainScreen(props) {
         </ScrollView>
       </View>
 
-      <Footer></Footer>
+      <View style={styles.footer}>
+        <Pressable>
+          <Image style={styles.Main} source={{ uri: "https://cdn-icons-png.flaticon.com/512/9055/9055175.png", width: 50, height: 50, }} />
+        </Pressable>
+
+        <Pressable>
+          <Image style={styles.Store} source={{ uri: "https://cdn-icons-png.flaticon.com/512/1170/1170576.png", width: 50, height: 50, }} />
+        </Pressable>
+
+        <Pressable onPress={()=> gotoProfile()}>
+          <Image style={styles.Profile} source={{ uri: "https://cdn-icons-png.flaticon.com/512/456/456283.png", width: 50, height: 50, }} />
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 }
@@ -54,5 +64,13 @@ const styles = StyleSheet.create({
   contents: {
     padding: "3%",
     backgroundColor: "#252525",
+  },
+  footer: {
+    backgroundColor: "#252525",
+    flexDirection: 'row',
+    paddingTop: "2%",
+    paddingBottom: "2%",
+    marginTop: "2%",
+    justifyContent: 'space-evenly',//eşit aralıklarda boşluk bırak
   },
 });

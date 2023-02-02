@@ -7,6 +7,7 @@ import LoginScreen from './pages/LoginScreen';
 import MainScreen from './pages/MainScreen';
 import ForgotMyPassword from './pages/ForgotMyPassword';
 import Register from './pages/Register';
+import Profile from './pages/Profile';
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ function App() {
         <Stack.Screen name="MainScreen" component={MainScreen} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="ForgotMyPassword" component={ForgotMyPassword} />
+        <Stack.Screen name="Profile" component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );
