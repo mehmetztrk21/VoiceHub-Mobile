@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   StyleSheet,
@@ -45,7 +44,7 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.aHeadView}>
-        <Text style={styles.head}>suyash.codes</Text>
+        <Text style={styles.head}>k.kayserili</Text>
         <Image source={verfy} style={styles.ver} />
       </View>
 
@@ -72,11 +71,7 @@ export default function ProfileScreen() {
 
         {/* Bio */}
         <View style={styles.bioCont}>
-          <Text style={styles.name}>Suyash | Self Taught Dev</Text>
-          <Text style={styles.catg}>Digital Creator</Text>
-          <Text style={styles.bio}>Programmer</Text>
-          <Text style={styles.bio}>Self taught by Errors</Text>
-          <Text style={styles.bio}>Graphic Designer</Text>
+          <Text style={styles.name}>Kaan Kayserili | Software Developer</Text>
         </View>
 
         {/* Follow n Buttons */}
@@ -84,37 +79,6 @@ export default function ProfileScreen() {
           <TouchableOpacity style={styles.follow}>
             <Text style={styles.btnTextF}>Follow</Text>
           </TouchableOpacity>
-
-          <TouchableOpacity style={styles.msg}>
-            <Text style={styles.btnTextM}>Message</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.msg}>
-            <Text style={styles.btnTextM}>Contact</Text>
-          </TouchableOpacity>
-        </View>
-
-        {/* Tabs */}
-
-        <View style={styles.iconCont}>
-          <Icon
-            style={styles.icons}
-            type="material-community"
-            size={35}
-            name={"grid"}
-          />
-          <Icon
-            style={styles.icons}
-            type="material"
-            size={33}
-            name={"videocam"}
-          />
-          <Icon
-            style={styles.icons}
-            type="font-awesome-5"
-            size={28}
-            name={"tag"}
-          />
         </View>
 
         {/* Posts */}
@@ -234,26 +198,24 @@ const styles = StyleSheet.create({
   catg: {
     color: "grey",
   },
-
   btnHolder: {
-    flexDirection: "row",
-
-    width: "85%",
-    marginVertical: 10,
-    marginHorizontal: 10,
+    marginBottom:"2%",
+    marginTop:"1%",
   },
+
 
   follow: {
     backgroundColor: "#0095f6",
-    paddingHorizontal: 30,
-    paddingVertical: 7,
-
     borderRadius: 5,
-    marginHorizontal: 4,
+    width:"85%",
+    marginLeft:"7.5%",
+    paddingTop:"2%",
+    paddingBottom:"2%",
+    
   },
   msg: {
     backgroundColor: "white",
-    paddingHorizontal: 30,
+    paddingLeft: 30,
     paddingVertical: 7,
 
     borderRadius: 5,
@@ -262,8 +224,9 @@ const styles = StyleSheet.create({
     borderColor: "black",
   },
   btnTextF: {
-    fontSize: 15,
+    fontSize: 16,
     color: "white",
+    paddingLeft:"42.5%",
   },
 
   btnTextM: {
