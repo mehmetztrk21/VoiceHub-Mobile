@@ -1,13 +1,9 @@
 import React from "react";
 import {
-  Image,
-  Dimensions,
-  StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  StyleSheet,
   Text,
   View,
-  FlatList,
 } from "react-native";
 
 import PostView from "../screens/components/postView";
@@ -25,6 +21,9 @@ import user3 from "../assets/userImages/user3.jpg";
 import admin from "../assets/userImages/admin.jpg";
 import rohitpic from "../assets/userImages/rohit.jpg";
 import aditi from "../assets/userImages/aditi.jpg";
+
+//importing styles
+import homeStyles from '../assets/styles/home.style';
 
 const userPostData = [
   {
@@ -112,13 +111,12 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.head}>
-        <Text style={styles.headText}>Voice Hub</Text>
+    <View style={homeStyles.container}>
+      <View style={homeStyles.head}>
+        <Text style={homeStyles.headText}>Voice Hub</Text>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        
+      <ScrollView showsVerticalScrollIndicator={false}>        
         {/* User Posts */}
         <RenderPost PostData={userPostData} />
       </ScrollView>
@@ -126,22 +124,4 @@ export default function HomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  head:{
-    padding:10,
-  },
-  headText: {
-    fontSize: 25,
-    fontWeight:'bold',
-  },
 
-  storyContainer: {
-    height: 120,
-  },
-});

@@ -31,7 +31,6 @@ const TabNavigator = createMaterialBottomTabNavigator(
                   
           }  
       },  
-
       Search: { screen: SearchScreen,  
         navigationOptions:{  
             tabBarLabel:'Search',  
