@@ -1,14 +1,10 @@
-import React, { useState } from "react";
-import {
-  ScrollView,
-  Text,
-  View,
-} from "react-native";
+import React from "react";
+import { ScrollView, Text, View} from "react-native";
 import { Searchbar } from "react-native-paper";
 
 import searchStyles from '../assets/styles/search.style';
 
-import RecUser from "../screens/components/recoUser";
+import RecoUser from "../screens/components/recoUser";
 
 import user1 from "../assets/userImages/user1.jpg";
 import user2 from "../assets/userImages/user2.jpg";
@@ -44,7 +40,7 @@ export default function SearchScreen() {
 
   const RenderUser = ({ RecData }) => {
     return RecData.map((item) => (
-      <RecUser key={item.id} userPic={item.userPic} userName={item.userName} />
+      <RecoUser key={item.id} userPic={item.userPic} userName={item.userName} />
     ));
   };
 
@@ -65,6 +61,7 @@ export default function SearchScreen() {
       >
         <Text style={searchStyles.Shead}>Recommended</Text>
         <View style={searchStyles.userHodler}>
+          {/* Get Users Infos */}
           <RenderUser RecData={recUser} />
         </View>
       </ScrollView>

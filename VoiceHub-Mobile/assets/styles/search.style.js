@@ -37,11 +37,8 @@ export default StyleSheet.create({
   
     userHodler: {
       flex: 1,
-      flexDirection: "row",
+      flexDirection: "column",
       width: "100%",
-      alignItems: "center",
-      justifyContent: "center",
-      flexWrap: "wrap",
     },
   });
   
