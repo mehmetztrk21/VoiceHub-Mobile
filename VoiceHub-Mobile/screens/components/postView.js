@@ -1,7 +1,6 @@
 import React from "react";
 import { Image,StyleSheet,TouchableOpacity,Text,View,TextInput } from "react-native";
 import { Icon } from "react-native-elements";
-import IconFasw from "react-native-vector-icons/FontAwesome";
 
 export default function PostView({
   userPostPic,

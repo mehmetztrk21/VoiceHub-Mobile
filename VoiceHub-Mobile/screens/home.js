@@ -10,7 +10,6 @@ import {
   FlatList,
 } from "react-native";
 
-import StoryView from "../screens/components/storyView";
 import PostView from "../screens/components/postView";
 
 // Importing Posts
@@ -26,16 +25,6 @@ import user3 from "../assets/userImages/user3.jpg";
 import admin from "../assets/userImages/admin.jpg";
 import rohitpic from "../assets/userImages/rohit.jpg";
 import aditi from "../assets/userImages/aditi.jpg";
-
-// Arrays for Story and posts
-const UserStoryData = [
-  { id: "1", userName: "Your Story", userPic: admin },
-  { id: "2", userName: "Alex", userPic: user1 },
-  { id: "3", userName: "Synthia", userPic: user2 },
-  { id: "4", userName: "Martha", userPic: user3 },
-  { id: "5", userName: "Rohit", userPic: rohitpic },
-  { id: "6", userName: "Aditi", userPic: aditi },
-];
 
 const userPostData = [
   {
@@ -88,11 +77,6 @@ const userPostData = [
   },
 ];
 
-const openStory = () => {
-  alert("You user Viewed his Story !");
-  // do something
-};
-
 const postLiked = () => {
   alert("You liked this Post !");
 };
@@ -106,18 +90,11 @@ const postSend = () => {
 };
 
 export default function HomeScreen() {
-  // Rendering Stories with Array
-  const RenderStory = ({ item }) => (
-    <StoryView
-      storyFunction={openStory}
-      userProfilePic={item.userPic}
-      userProfileName={item.userName}
-    />
-  );
 
   // Rendering Post with arrays
   const RenderPost = ({ PostData }) => {
     return PostData.map((item) => (
+      
       <PostView
         key={item.id}
         userPostPic={item.userPic}
@@ -137,20 +114,11 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <View style={styles.head}>
-        <Text style={styles.headText}>Instagram</Text>
+        <Text style={styles.headText}>Voice Hub</Text>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>
-        {/* User Story */}
-        <FlatList
-          horizontal={true}
-          data={UserStoryData}
-          renderItem={RenderStory}
-          keyExtractor={(item) => item.id}
-          style={styles.storyContainer}
-          showsHorizontalScrollIndicator={false}
-        />
-
+        
         {/* User Posts */}
         <RenderPost PostData={userPostData} />
       </ScrollView>
@@ -164,16 +132,13 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-
-    marginTop: 20,
   },
-
-  head: {
-    padding: 10,
+  head:{
+    padding:10,
   },
-
   headText: {
     fontSize: 25,
+    fontWeight:'bold',
   },
 
   storyContainer: {
