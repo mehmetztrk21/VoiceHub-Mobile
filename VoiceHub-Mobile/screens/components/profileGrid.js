@@ -1,28 +1,12 @@
 import React from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Text,
-  View,
-} from "react-native";
-
+import {TouchableOpacity,} from "react-native";
+import profileGridStyle from "../../assets/styles/profileGrid.style";
 export default function PostImg({ postImg }) {
   return (
     <TouchableOpacity style={styles.post}>
-      
+      {/* Voices is here */}
     </TouchableOpacity>
   );
 }
 
-const styles = StyleSheet.create({
-  postImg: {
-    width: 124,
-    height: 124,
-  },
 
-  post: {
-    margin: 3,
-  },
-});
