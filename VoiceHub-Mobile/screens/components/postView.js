@@ -1,5 +1,5 @@
 import React from "react";
-import { Image,StyleSheet,TouchableOpacity,Text,View,TextInput } from "react-native";
+import { Image, StyleSheet, TouchableOpacity, Text, View, TextInput } from "react-native";
 import { Icon } from "react-native-elements";
 
 export default function PostView({
@@ -17,6 +17,8 @@ export default function PostView({
   const [comment, onChangeComment] = React.useState(null);
   return (
     <View style={styles.postContainer}>
+
+      {/* Users Info (pp and username) */}
       <View style={styles.postUser}>
         <TouchableOpacity style={styles.userpic}>
           <Image source={userPostPic} style={styles.userpostImg} />
@@ -24,8 +26,12 @@ export default function PostView({
         <Text style={styles.userName}>{userPostName}</Text>
       </View>
 
+
+      {/* Voices is here */}
       <Image source={userPostPost} style={styles.postimg} />
 
+
+      {/* Post's like, comment and save are here*/}
       <View style={styles.postActions}>
         <TouchableOpacity style={styles.pactions} onPress={likeFuction}>
           <Icon type="feather" size={28} name={"heart"} />
@@ -40,22 +46,22 @@ export default function PostView({
         </TouchableOpacity>
       </View>
 
+
+
       <View style={styles.textCounter}>
         <Text style={styles.likesText}>{likesCount} likes</Text>
+
         <View style={styles.textHolder}>
           <Text style={styles.userCap}>{userid}</Text>
           <Text style={styles.captext}> {caption}</Text>
         </View>
+
         <View style={styles.postUser}>
-          <TouchableOpacity style={styles.userpic}>
-            <Image source={useradmin} style={styles.userpostImg} />
-          </TouchableOpacity>
-          <TextInput
-            style={styles.input}
-            onChangeText={onChangeComment}
-            value={comment}
-            placeholder="Add Comment ..."
-          />
+          {/* Voice Recorder's PP is here */}
+          <Image source={useradmin} style={styles.userpostImg} />
+
+          {/* Voice Recorder for comments is here */}
+
         </View>
       </View>
     </View>
@@ -73,22 +79,18 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   userpostImg: {
+    marginTop:10,
     height: 30,
     width: 30,
+    borderRadius:30,
   },
-  input: {
-    width: "70%",
-    borderWidth: 0,
-  },
-
   userName: {
     fontSize: 18,
-    fontWeight: "400",
+    fontWeight: "700",
   },
   userpic: {
     width: 30,
     height: 30,
-
     overflow: "hidden",
     borderRadius: 100,
     backgroundColor: "black",
@@ -123,7 +125,6 @@ const styles = StyleSheet.create({
   textHolder: {
     flex: 1,
     flexDirection: "row",
-
     marginTop: 0,
   },
 
@@ -140,5 +141,8 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 
-  postimg: { width: 389, height: 389 },
+  postimg: { 
+    width: 389, 
+    height: 389 
+  },
 });
