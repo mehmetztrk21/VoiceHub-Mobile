@@ -11,7 +11,7 @@ import {
 export default function PostImg({ postImg }) {
   return (
     <TouchableOpacity style={styles.post}>
-      <Image source={postImg} style={styles.postImg} />
+      
     </TouchableOpacity>
   );
 }

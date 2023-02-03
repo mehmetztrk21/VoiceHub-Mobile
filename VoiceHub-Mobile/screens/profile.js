@@ -5,9 +5,7 @@ import {
   TouchableOpacity,
   Text,
   View,
-  FlatList,
 } from "react-native";
-import { Icon } from "react-native-elements";
 import PostImg from "../screens/components/profileGrid";
 
 import mypost from "../assets/images/mypost.jpg";
@@ -17,8 +15,6 @@ import mypost4 from "../assets/images/mypost4.jpg";
 import mypost5 from "../assets/images/mypost5.jpg";
 import mypost6 from "../assets/images/mypost6.jpg";
 import mypost7 from "../assets/images/mypost7.jpg";
-import post1 from "../assets/images/post1.jpg";
-import post2 from "../assets/images/post2.jpg";
 import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
 

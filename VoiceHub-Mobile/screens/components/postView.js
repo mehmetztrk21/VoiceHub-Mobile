@@ -1,6 +1,8 @@
 import React from "react";
-import { Image, StyleSheet, TouchableOpacity, Text, View, TextInput } from "react-native";
+import { Image, TouchableOpacity, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
+
+import postViewStyle from "../../assets/styles/postView.style";
 
 export default function PostView({
   userPostPic,
@@ -16,49 +18,49 @@ export default function PostView({
 }) {
   const [comment, onChangeComment] = React.useState(null);
   return (
-    <View style={styles.postContainer}>
+    <View style={postViewStyle.postContainer}>
 
       {/* Users Info (pp and username) */}
-      <View style={styles.postUser}>
-        <TouchableOpacity style={styles.userpic}>
-          <Image source={userPostPic} style={styles.userpostImg} />
+      <View style={postViewStyle.postUser}>
+        <TouchableOpacity style={postViewStyle.userpic}>
+          <Image source={userPostPic} style={postViewStyle.userpostImg} />
         </TouchableOpacity>
-        <Text style={styles.userName}>{userPostName}</Text>
+        <Text style={postViewStyle.userName}>{userPostName}</Text>
       </View>
 
 
       {/* Voices is here */}
-      <Image source={userPostPost} style={styles.postimg} />
+      <Image source={userPostPost} style={postViewStyle.postimg} />
 
 
       {/* Post's like, comment and save are here*/}
-      <View style={styles.postActions}>
-        <TouchableOpacity style={styles.pactions} onPress={likeFuction}>
+      <View style={postViewStyle.postActions}>
+        <TouchableOpacity style={postViewStyle.pactions} onPress={likeFuction}>
           <Icon type="feather" size={28} name={"heart"} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.pactions} onPress={commentFunction}>
+        <TouchableOpacity style={postViewStyle.pactions} onPress={commentFunction}>
           <Icon type="fontisto" size={28} name={"comments"} />
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.pactions} onPress={sendFunction}>
+        <TouchableOpacity style={postViewStyle.pactions} onPress={sendFunction}>
           <Icon type="feather" size={28} name={"send"} />
         </TouchableOpacity>
       </View>
 
 
 
-      <View style={styles.textCounter}>
-        <Text style={styles.likesText}>{likesCount} likes</Text>
+      <View style={postViewStyle.textCounter}>
+        <Text style={postViewStyle.likesText}>{likesCount} likes</Text>
 
-        <View style={styles.textHolder}>
-          <Text style={styles.userCap}>{userid}</Text>
-          <Text style={styles.captext}> {caption}</Text>
+        <View style={postViewStyle.textHolder}>
+          <Text style={postViewStyle.userCap}>{userid}</Text>
+          <Text style={postViewStyle.captext}> {caption}</Text>
         </View>
 
-        <View style={styles.postUser}>
+        <View style={postViewStyle.postUser}>
           {/* Voice Recorder's PP is here */}
-          <Image source={useradmin} style={styles.userpostImg} />
+          <Image source={useradmin} style={postViewStyle.userpostImg} />
 
           {/* Voice Recorder for comments is here */}
 
@@ -68,81 +70,4 @@ export default function PostView({
   );
 }
 
-const styles = StyleSheet.create({
-  postContainer: {
-    marginBottom: 20,
-  },
 
-  postUser: {
-    flex: 1,
-    flexDirection: "row",
-    margin: 10,
-  },
-  userpostImg: {
-    marginTop:10,
-    height: 30,
-    width: 30,
-    borderRadius:30,
-  },
-  userName: {
-    fontSize: 18,
-    fontWeight: "700",
-  },
-  userpic: {
-    width: 30,
-    height: 30,
-    overflow: "hidden",
-    borderRadius: 100,
-    backgroundColor: "black",
-    marginRight: 10,
-  },
-
-  postcaption: {
-    fontSize: 15,
-    fontWeight: "bold",
-  },
-
-  postActions: {
-    flex: 1,
-    flexDirection: "row",
-    margin: 10,
-    marginTop: 0,
-    marginBottom: 0,
-  },
-
-  textCounter: {
-    flex: 1,
-    flexDirection: "column",
-    margin: 10,
-    marginTop: 0,
-  },
-
-  likesText: {
-    fontWeight: "bold",
-    fontSize: 14,
-  },
-
-  textHolder: {
-    flex: 1,
-    flexDirection: "row",
-    marginTop: 0,
-  },
-
-  userCap: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-
-  captext: {
-    fontSize: 16,
-  },
-
-  pactions: {
-    margin: 10,
-  },
-
-  postimg: { 
-    width: 389, 
-    height: 389 
-  },
-});

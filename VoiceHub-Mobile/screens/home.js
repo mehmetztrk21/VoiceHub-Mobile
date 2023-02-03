@@ -16,7 +16,6 @@ import post3 from "../assets/images/post3.jpg";
 
 // Importing User Images
 import user1 from "../assets/userImages/user1.jpg";
-import user2 from "../assets/userImages/user2.jpg";
 import user3 from "../assets/userImages/user3.jpg";
 import admin from "../assets/userImages/admin.jpg";
 import rohitpic from "../assets/userImages/rohit.jpg";
@@ -77,15 +76,15 @@ const userPostData = [
 ];
 
 const postLiked = () => {
-  alert("You liked this Post !");
+  alert("You Liked this Voice !");
 };
 
 const postComment = () => {
-  alert("You Commented on this Post !");
+  alert("You Commented on this Voice !");
 };
 
-const postSend = () => {
-  alert("You Sent this Post !");
+const postSave = () => {
+  alert("You Saved this Voice !");
 };
 
 export default function HomeScreen() {
@@ -103,9 +102,11 @@ export default function HomeScreen() {
         userid={item.userName.toLowerCase()}
         useradmin={admin}
         caption={item.caption}
+
+        /* Like, Comment, Save */
         likeFuction={postLiked}
         commentFunction={postComment}
-        sendFunction={postSend}
+        sendFunction={postSave}
       />
     ));
   };
