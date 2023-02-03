@@ -1,18 +1,16 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
-  StyleSheet,
-  Image,
   ScrollView,
-  TouchableOpacity,
   Text,
   View,
 } from "react-native";
 import { Searchbar } from "react-native-paper";
 
+import searchStyles from '../assets/styles/search.style';
+
 import RecUser from "../screens/components/recoUser";
 
-import admin from "../assets/userImages/admin.jpg";
 import user1 from "../assets/userImages/user1.jpg";
 import user2 from "../assets/userImages/user2.jpg";
 import user3 from "../assets/userImages/user3.jpg";
@@ -52,11 +50,11 @@ export default function SearchScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      <View style={styles.sbarHolder}>
+    <View style={searchStyles.container}>
+      <View style={searchStyles.sbarHolder}>
         <Searchbar
           placeholder="Search"
-          style={styles.sbar}
+          style={searchStyles.sbar}
           onChangeText={onChangeSearch}
           value={searchQuery}
         />
@@ -64,10 +62,10 @@ export default function SearchScreen() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={styles.sContainer}
+        style={searchStyles.sContainer}
       >
-        <Text style={styles.Shead}>Recommended</Text>
-        <View style={styles.userHodler}>
+        <Text style={searchStyles.Shead}>Recommended</Text>
+        <View style={searchStyles.userHodler}>
           <RenderUser RecData={recUser} />
         </View>
       </ScrollView>
@@ -75,47 +73,3 @@ export default function SearchScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  sbarHolder: {
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: 80,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 22,
-  },
-
-  sbar: {
-    backgroundColor: "whitesmoke",
-    borderRadius: 15,
-    width: "90%",
-  },
-
-  sContainer: {
-    backgroundColor: "white",
-    width: "92%",
-  },
-
-  Shead: {
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 20,
-  },
-
-  userHodler: {
-    flex: 1,
-    flexDirection: "row",
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    flexWrap: "wrap",
-  },
-});
