@@ -45,7 +45,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     margin: 10,
     marginTop: 0,
-    marginBottom: 0,
+    marginBottom: -30,
   },
   pactions: {
     marginTop: 10,
@@ -58,8 +58,9 @@ export default StyleSheet.create({
   textCounter: {
     flex: 1,
     flexDirection: "column",
-    margin: 10,
-    marginTop: 0,
+    marginLeft: 10,
+    marginBottom: 10,
+    marginRight: 10,
   },
 
   likesText: {

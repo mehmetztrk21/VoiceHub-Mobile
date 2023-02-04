@@ -12,14 +12,14 @@ export default StyleSheet.create({
     },
   
     userPic: {
-      width: 67,
-      height: 67,
-      borderRadius: 67,
+      width: 44,
+      height: 44,
+      borderRadius: 22,
       marginBottom: 5,
     },
   
     userName: {
-      fontSize: 18,
+      fontSize: 16,
       paddingLeft:18,
     },
     userTexts:{
@@ -27,6 +27,7 @@ export default StyleSheet.create({
     },
     userJointFollowers:{
       paddingLeft:18,
+      fontSize:12,
     },
   });
   

@@ -15,7 +15,7 @@ export default StyleSheet.create({
       height: 80,
       alignItems: "center",
       justifyContent: "center",
-      marginTop: 22,
+      marginTop: 20,
     },
   
     sbar: {
@@ -32,7 +32,7 @@ export default StyleSheet.create({
     Shead: {
       fontSize: 20,
       fontWeight: "bold",
-      padding: 20,
+      padding: 5,
     },
   
     userHodler: {
