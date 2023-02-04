@@ -29,12 +29,13 @@ export default function PostView({
       </View>
 
 
-      {/* Voices is here */}
+      {/* Voices are here */}
       <Image source={userPostPost} style={postViewStyle.postimg} />
 
 
-      {/* Post's like, comment and save are here*/}
+      {/* Post's like, comment and save buttons are here*/}
       <View style={postViewStyle.postActions}>
+
         <TouchableOpacity style={postViewStyle.pactions} onPress={likeFuction}>
           <Icon type="feather" size={28} name={"heart"} />
         </TouchableOpacity>
@@ -51,20 +52,25 @@ export default function PostView({
 
 
       <View style={postViewStyle.textCounter}>
+        {/*Posts Like Count*/}
         <Text style={postViewStyle.likesText}>{likesCount} likes</Text>
 
+        {/*User Name and User Caption*/}
         <View style={postViewStyle.textHolder}>
           <Text style={postViewStyle.userCap}>{userid}</Text>
           <Text style={postViewStyle.captext}> {caption}</Text>
         </View>
 
-        <View style={postViewStyle.postUser}>
+        {/*User Add Comment View*/}
+        <View style={postViewStyle.commentUser}>
           {/* Voice Recorder's PP is here */}
-          <Image source={useradmin} style={postViewStyle.userpostImg} />
+          <Image source={useradmin} style={postViewStyle.userPostCommentImg} />
 
           {/* Voice Recorder for comments is here */}
 
         </View>
+
+        <Text style={postViewStyle.timeAgo}>29 minutes ago</Text>
       </View>
     </View>
   );

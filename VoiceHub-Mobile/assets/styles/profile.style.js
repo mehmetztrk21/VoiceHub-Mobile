@@ -41,62 +41,49 @@ export default StyleSheet.create({
     actView: {
       flexDirection: "row",
       padding: 10,
-  
+      marginTop:12,
       top: 0,
       left: 5,
-  
       width: "95%",
     },
-  
-    fView1: {
-      flexDirection: "row",
-      flex: 1,
-      marginHorizontal: 20,
-  
-      height: 0,
-    },
-  
-    fView: {
-      flexDirection: "row",
-      flex: 1,
-      marginHorizontal: 20,
-    },
-  
+    
     userPic: {
       width: 90,
       height: 90,
-  
       borderRadius: 50,
       margin: 10,
-      marginLeft: 4,
-      marginVertical: 3,
+      marginLeft: "1%",
+      marginVertical: -12,
       borderWidth: 3,
       borderColor: "black",
     },
-  
-    actText: {
-      flexDirection: "row",
-      flex: 1,
-      fontSize: 20,
-      textAlign: "center",
-  
-      fontWeight: "bold",
+    followContents:{
+      flexDirection:"row",  
     },
-  
-    actText2: {
-      flexDirection: "row",
-      flex: 1,
-      fontSize: 14,
-      textAlign: "center",
-      marginBottom: 0,
+    postCount:{
+      flexDirection:"column",
+      textAlign:"center",
+      paddingLeft:28,
     },
-  
+    followerCount:{
+      flexDirection:"column",
+      textAlign:"center",
+      paddingLeft:28,
+    },
+    followCount:{
+      flexDirection:"column",
+      textAlign:"center",
+      paddingLeft:28,
+    },
+    fNumber:{
+      fontWeight:"bold",
+      fontSize:18,
+    },
     bioCont: {
-      width: "95%",
+      width: "90%",
       padding: 10,
-  
-      paddingLeft: 15,
-      paddingTop: 5,
+      paddingLeft: "5%",
+      paddingTop: "3%",
     },
   
     name: {
@@ -116,8 +103,8 @@ export default StyleSheet.create({
     follow: {
       backgroundColor: "#0095f6",
       borderRadius: 5,
-      width:"85%",
-      marginLeft:"7.5%",
+      width:"90%",
+      marginLeft:"5%",
       paddingTop:"2%",
       paddingBottom:"2%",
       

@@ -1,13 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
-  StyleSheet,
-  Image,
-  ScrollView,
   Text,
   View,
   FlatList,
 } from "react-native";
+
+import activityStyles from "../assets/styles/activity.style";
 
 import ActivityBar from "../screens/components/userActivity";
 
@@ -40,9 +39,9 @@ const ActivityScreen = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.aHeadView}>
-        <Text style={styles.head}>Activity</Text>
+    <View style={activityStyles.container}>
+      <View style={activityStyles.aHeadView}>
+        <Text style={activityStyles.head}>Activity</Text>
       </View>
 
       <FlatList
@@ -50,7 +49,7 @@ const ActivityScreen = () => {
         renderItem={RenderActivity}
         keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
-        style={styles.flatList}
+        style={activityStyles.flatList}
       />
     </View>
   );
@@ -58,38 +57,4 @@ const ActivityScreen = () => {
 
 export default ActivityScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
 
-  aHeadView: {
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: 60,
-    width: "90%",
-    marginTop: 22,
-  },
-
-  head: {
-    fontSize: 22,
-    padding: 20,
-    paddingLeft: 5,
-    fontWeight: "bold",
-  },
-
-  sContainer: {
-    backgroundColor: "white",
-
-    width: "95%",
-  },
-
-  flatList: {
-    width: "100%",
-    height: "90%",
-  },
-});

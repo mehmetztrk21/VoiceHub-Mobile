@@ -22,5 +22,11 @@ export default StyleSheet.create({
       fontSize: 18,
       paddingLeft:18,
     },
+    userTexts:{
+      flexDirection:'column',
+    },
+    userJointFollowers:{
+      paddingLeft:18,
+    },
   });
   

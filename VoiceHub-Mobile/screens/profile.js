@@ -52,17 +52,23 @@ export default function ProfileScreen() {
         {/* Profile heads */}
         <View style={profileStyles.actView}>
           <Image source={admin} style={profileStyles.userPic} />
-          <View style={{ flex: 1, flexDirection: "column" }}>
-            <View style={profileStyles.fView1}>
-              <Text style={profileStyles.actText}>47</Text>
-              <Text style={profileStyles.actText}>1M</Text>
-              <Text style={profileStyles.actText}>150</Text>
+          <View style={profileStyles.followContents}>
+
+            <View style={profileStyles.postCount}>
+              <Text style={profileStyles.fNumber}>47</Text>
+              <Text style={profileStyles.fText}>Post</Text>
             </View>
-            <View style={profileStyles.fView}>
-              <Text style={profileStyles.actText2}>Post</Text>
-              <Text style={profileStyles.actText2}>Followers</Text>
-              <Text style={profileStyles.actText2}>Following</Text>
+
+            <View style={profileStyles.followerCount}>
+              <Text style={profileStyles.fNumber}>1M</Text>
+              <Text style={profileStyles.fText}>Followers</Text>
             </View>
+
+            <View style={profileStyles.followCount}>
+              <Text style={profileStyles.fNumber}>150</Text>
+              <Text style={profileStyles.fText}>Following</Text>
+            </View>
+
           </View>
         </View>
 
