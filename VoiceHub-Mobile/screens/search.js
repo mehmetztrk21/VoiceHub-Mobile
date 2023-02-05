@@ -1,10 +1,10 @@
 import React from "react";
-import { ScrollView, Text, View} from "react-native";
+import { ScrollView, Text, TouchableOpacity, View} from "react-native";
 import { Searchbar } from "react-native-paper";
 
 import searchStyles from '../assets/styles/search.style';
 
-import RecoUser from "../screens/components/recoUser";
+import Post from "../screens/components/post";
 
 import user1 from "../assets/userImages/user1.jpg";
 import user2 from "../assets/userImages/user2.jpg";
@@ -32,15 +32,36 @@ const recUser = [
   { id: "6", userName: "Praveen", userPic: Uk },
   { id: "7", userName: "Hemant", userPic: Uk },
   { id: "8", userName: "Kakashi", userPic: Uk },
+  { id: "1", userName: "Alex", userPic: user1 },
+  { id: "2", userName: "Synthia", userPic: user2 },
+  { id: "3", userName: "Martha", userPic: user3 },
+  { id: "4", userName: "Rohit", userPic: user4 },
+  { id: "5", userName: "Aditi", userPic: user5 },
+  { id: "6", userName: "Praveen", userPic: Uk },
+  { id: "7", userName: "Hemant", userPic: Uk },
+  { id: "8", userName: "Kakashi", userPic: Uk },
+  { id: "1", userName: "Alex", userPic: user1 },
+  { id: "2", userName: "Synthia", userPic: user2 },
+  { id: "3", userName: "Martha", userPic: user3 },
+  { id: "4", userName: "Rohit", userPic: user4 },
+  { id: "5", userName: "Aditi", userPic: user5 },
+  { id: "6", userName: "Praveen", userPic: Uk },
+  { id: "7", userName: "Hemant", userPic: Uk },
+  { id: "8", userName: "Kakashi", userPic: Uk },
 ];
 
 export default function SearchScreen() {
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
+  {/*Coming Soon --->*/}
+    const [searchQuery, setSearchQuery] = React.useState("");
+    const onChangeSearch = (query) => setSearchQuery(query);
+  {/*<--- Coming Soon */}
+
 
   const RenderUser = ({ RecData }) => {
     return RecData.map((item) => (
-      <RecoUser key={item.id} userPic={item.userPic} userName={item.userName} />
+      <TouchableOpacity style={{ paddingBottom: 20 }}>
+        <Post/>
+      </TouchableOpacity>
     ));
   };
 
@@ -59,7 +80,6 @@ export default function SearchScreen() {
         showsVerticalScrollIndicator={false}
         style={searchStyles.sContainer}
       >
-        <Text style={searchStyles.Shead}>Recommended</Text>
         <View style={searchStyles.userHodler}>
           {/* Get Users Infos */}
           <RenderUser RecData={recUser} />
