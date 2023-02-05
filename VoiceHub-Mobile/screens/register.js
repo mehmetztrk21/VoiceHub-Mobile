@@ -4,7 +4,7 @@ import registerStyle from "../../assets/styles/register.style";
 
 export default function Register() {
     return (
-        <View style={loginStyle.container}>
+        <View style={registerStyle.container}>
 
             <Text>Name</Text>
             <TextInput />
