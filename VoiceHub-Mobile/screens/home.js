@@ -1,9 +1,10 @@
 import React from "react";
+import { Icon } from "react-native-elements";
 import {
   ScrollView,
-  StyleSheet,
   Text,
   View,
+  TouchableOpacity,
 } from "react-native";
 
 import PostView from "../screens/components/postView";
@@ -67,6 +68,30 @@ const userPostData = [
   },
   {
     id: "6",
+    userName: "Rohit",
+    userPic: rohitpic,
+    userPost: post3,
+    likesCount: "1451",
+    caption: "Flowers",
+  },
+  {
+    id: "7",
+    userName: "Rohit",
+    userPic: rohitpic,
+    userPost: post3,
+    likesCount: "1451",
+    caption: "Flowers",
+  },
+  {
+    id: "8",
+    userName: "Rohit",
+    userPic: rohitpic,
+    userPost: post3,
+    likesCount: "1451",
+    caption: "Flowers",
+  },
+  {
+    id: "9",
     userName: "Suyash",
     userPic: admin,
     userPost: mypost,
@@ -85,6 +110,11 @@ const postComment = () => {
 
 const postSave = () => {
   alert("You Saved this Voice !");
+};
+
+const uploadFunction = () => {
+  
+  alert("Go to Upload Screen !");
 };
 
 export default function HomeScreen() {
@@ -113,8 +143,13 @@ export default function HomeScreen() {
 
   return (
     <View style={homeStyles.container}>
+
       <View style={homeStyles.head}>
         <Text style={homeStyles.headText}>Voice Hub</Text>
+
+        <TouchableOpacity style={homeStyles.pactions} onPress={uploadFunction}>
+          <Icon type="feather" size={28} name={"plus"} />
+        </TouchableOpacity>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false}>        

@@ -3,21 +3,23 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     actView: {
       flexDirection: "row",
-      padding: 10,
+      paddingBottom: 5,
+      paddingTop: 5,
+      paddingRight: 10,
       alignItems: "center",
+      paddingLeft: 15,
     },
   
     userPic: {
-      width: 50,
-      height: 50,
-  
-      borderRadius: 15,
-      margin: 10,
+      width: 44,
+      height: 44,
+      borderRadius: 22,
       marginLeft: 4,
-      marginVertical: 3,
+      marginRight:10,
+      marginVertical: 2,
     },
   
     actText: {
-      fontSize: 16,
+      fontSize: 14,
     },
   });

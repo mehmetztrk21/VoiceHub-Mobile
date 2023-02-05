@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
@@ -9,7 +8,6 @@ import HomeScreen from './screens/home'
 import SearchScreen from './screens/search'
 import ActivityScreen from './screens/activity'
 import ProfileScreen from './screens/profile'
-import UploadScreen from './screens/upload'
 
 
 
@@ -72,7 +70,9 @@ const TabNavigator = createMaterialBottomTabNavigator(
           activeColor: '#000000',  
           inactiveColor: '#000000',   
       }  
-    }
+    },
+
+    
 
   },
   {  
