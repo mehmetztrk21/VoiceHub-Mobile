@@ -105,6 +105,7 @@ export default function ProfileScreen() {
         {/* Bio */}
         <View style={profileStyles.bioCont}>
           <Text style={profileStyles.name}>Kaan Kayserili | Software Developer</Text>
+          <Post/>{/*User Bio*/}
         </View>
 
         {/* Follow n Buttons */}
