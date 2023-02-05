@@ -33,28 +33,6 @@ export default StyleSheet.create({
 
 
 
-  postimg: {
-    width: 389,
-    height: 389,
-  },
-
-
-
-  postActions: {
-    flex: 1,
-    flexDirection: "row",
-    margin: 10,
-    marginTop: 0,
-    marginBottom: -30,
-  },
-  pactions: {
-    marginTop: 10,
-    marginBottom: 10,
-    marginRight: 10,
-  },
-
-
-
   textCounter: {
     flex: 1,
     flexDirection: "column",

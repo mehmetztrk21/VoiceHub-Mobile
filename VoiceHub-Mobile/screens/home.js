@@ -100,20 +100,8 @@ const userPostData = [
   },
 ];
 
-const postLiked = () => {
-  alert("You Liked this Voice !");
-};
-
-const postComment = () => {
-  alert("You Commented on this Voice !");
-};
-
-const postSave = () => {
-  alert("You Saved this Voice !");
-};
 
 const uploadFunction = () => {
-  
   alert("Go to Upload Screen !");
 };
 
@@ -132,11 +120,6 @@ export default function HomeScreen() {
         userid={item.userName.toLowerCase()}
         useradmin={admin}
         caption={item.caption}
-
-        /* Like, Comment, Save */
-        likeFuction={postLiked}
-        commentFunction={postComment}
-        sendFunction={postSave}
       />
     ));
   };
@@ -159,5 +142,3 @@ export default function HomeScreen() {
     </View>
   );
 }
-
-
