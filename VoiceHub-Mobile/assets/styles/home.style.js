@@ -24,6 +24,5 @@ export default StyleSheet.create({
     rightTop:{
         flexDirection:"row",
         justifyContent:"flex-end",
-        
-    }
+    },
 });

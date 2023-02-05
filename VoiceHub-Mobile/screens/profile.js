@@ -6,6 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { Icon } from "react-native-elements";
 
 import mypost from "../assets/images/mypost.jpg";
 import mypost2 from "../assets/images/mypost2.jpg";
@@ -38,11 +39,18 @@ const PostData = [
   { id: "14", PostPic: mypost7 },
 ];
 
+const uploadFunction = () => {
+  alert("Go to Upload Screen !");
+};
+const SavedFunction = () => {
+  alert("Go to Saved Screen !");
+}
+
 export default function ProfileScreen() {
   // Rendering Post with arrays
   const RenderPost = ({ PostData }) => {
     return PostData.map((item) => (
-      <TouchableOpacity style={{paddingBottom:15}}>
+      <TouchableOpacity style={{ paddingBottom: 15 }}>
         <Post key={item.id} postImg={item.PostPic} />
       </TouchableOpacity>
     ));
@@ -51,8 +59,20 @@ export default function ProfileScreen() {
   return (
     <View style={profileStyles.container}>
       <View style={profileStyles.aHeadView}>
-        <Text style={profileStyles.head}>k.kayserili</Text>
-        <Image source={verfy} style={profileStyles.ver} />
+        <View style={profileStyles.leftTop}>
+          <Text style={profileStyles.head}>k.kayserili</Text>
+          <Image source={verfy} style={profileStyles.ver} />
+        </View>
+
+        <View style={profileStyles.rightTop}>
+          <TouchableOpacity style={profileStyles.pactions} onPress={SavedFunction}>
+            <Icon type="feather" size={28} name={"save"} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={profileStyles.pactions} onPress={uploadFunction}>
+            <Icon type="feather" size={28} name={"plus"} />
+          </TouchableOpacity>
+        </View>
       </View>
 
       <ScrollView
@@ -97,7 +117,7 @@ export default function ProfileScreen() {
         {/* Posts */}
 
         <View style={profileStyles.postView}>
-          <RenderPost PostData={PostData}/>
+          <RenderPost PostData={PostData} />
         </View>
       </ScrollView>
     </View>
