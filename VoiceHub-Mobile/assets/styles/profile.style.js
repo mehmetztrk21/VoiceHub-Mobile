@@ -103,7 +103,8 @@ export default StyleSheet.create({
     follow: {
       backgroundColor: "#0095f6",
       borderRadius: 5,
-      width:"90%",
+      width:"50%",
+      marginLeft:"25%",
       marginLeft:"5%",
       paddingTop:"2%",
       paddingBottom:"2%",
