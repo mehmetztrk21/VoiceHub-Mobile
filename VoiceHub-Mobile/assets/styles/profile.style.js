@@ -35,7 +35,6 @@ export default StyleSheet.create({
     profileScroll: {
       marginTop: 100,
       width: "100%",
-      marginLeft: 1,
     },
   
     actView: {
@@ -146,10 +145,8 @@ export default StyleSheet.create({
     postView: {
       backgroundColor: "white",
       paddingTop: 5,
-      flexDirection: "row",
-      flexWrap: "wrap",
+      flexDirection: "column",
       width: "100%",
-  
-      alignItems: "center",
+      
     },
   });

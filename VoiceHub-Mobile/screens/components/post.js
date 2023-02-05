@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, Text, View } from "react-native";
+import { TouchableOpacity, View } from "react-native";
 import { Icon, Slider } from "react-native-elements";
 import postStyle from "../../assets/styles/post.style";
 
