@@ -104,13 +104,16 @@ const userPostData = [
 const uploadFunction = () => {
   alert("Go to Upload Screen !");
 };
+const messageFunction = () => {
+  alert("Go to Message Screen !");
+}
 
 export default function HomeScreen() {
 
   // Rendering Post with arrays
   const RenderPost = ({ PostData }) => {
     return PostData.map((item) => (
-      
+
       <PostView
         key={item.id}
         userPostPic={item.userPic}
@@ -130,12 +133,18 @@ export default function HomeScreen() {
       <View style={homeStyles.head}>
         <Text style={homeStyles.headText}>Voice Hub</Text>
 
-        <TouchableOpacity style={homeStyles.pactions} onPress={uploadFunction}>
-          <Icon type="feather" size={28} name={"plus"} />
-        </TouchableOpacity>
+        <View style={homeStyles.rightTop}>
+          <TouchableOpacity style={homeStyles.pactions} onPress={messageFunction}>
+            <Icon type="feather" size={28} name={"mail"} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={homeStyles.pactions} onPress={uploadFunction}>
+            <Icon type="feather" size={28} name={"plus"} />
+          </TouchableOpacity>
+        </View>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>        
+      <ScrollView showsVerticalScrollIndicator={false}>
         {/* User Posts */}
         <RenderPost PostData={userPostData} />
       </ScrollView>
