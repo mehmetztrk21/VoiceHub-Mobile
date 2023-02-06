@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   ScrollView,
   Image,
   TouchableOpacity,
   Text,
   View,
+  Modal,
 } from "react-native";
 import { Icon } from "react-native-elements";
 
@@ -12,7 +13,6 @@ import mypost2 from "../assets/images/mypost2.jpg";
 import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
 
-import PostUserInfo from "../screens/components/postUserInfo";
 import Post from "../screens/components/post";
 
 import profileStyles from '../assets/styles/profile.style';
@@ -34,25 +34,21 @@ const PostData = [
   { id: "14", PostPic: mypost2 },
 ];
 
-const uploadFunction = () => {
-  alert("Go to Upload Screen !");
-};
-const SavedFunction = () => {
-  alert("Go to Saved Screen !");
-}
-
 export default function ProfileScreen() {
   // Rendering Post with arrays
   const RenderPost = ({ PostData }) => {
     return PostData.map((item) => (
       <TouchableOpacity style={{ paddingBottom: 15 }}>
-        <Post key={item.id}/>
+        <Post key={item.id} />
       </TouchableOpacity>
     ));
   };
-
+  const [uploadVisible,setUploadVisible] = useState(false);
   return (
     <View style={profileStyles.container}>
+      <Modal visible={uploadVisible}>
+        <Text>Kaan</Text>
+      </Modal>
       <View style={profileStyles.aHeadView}>
         <View style={profileStyles.leftTop}>
           <Text style={profileStyles.head}>k.kayserili</Text>
@@ -60,12 +56,8 @@ export default function ProfileScreen() {
         </View>
 
         <View style={profileStyles.rightTop}>
-          <TouchableOpacity style={profileStyles.pactions} onPress={SavedFunction}>
+          <TouchableOpacity style={profileStyles.pactions} onPress={()=>{setUploadVisible(true);}}>
             <Icon type="feather" size={28} name={"save"} />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={profileStyles.pactions} onPress={uploadFunction}>
-            <Icon type="feather" size={28} name={"plus"} />
           </TouchableOpacity>
         </View>
       </View>
@@ -100,7 +92,7 @@ export default function ProfileScreen() {
         {/* Bio */}
         <View style={profileStyles.bioCont}>
           <Text style={profileStyles.name}>Kaan Kayserili | Software Developer</Text>
-          <Post/>{/*User Bio*/}
+          <Post />{/*User Bio*/}
         </View>
 
         {/* Follow n Buttons */}

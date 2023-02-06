@@ -1,10 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import { Icon } from "react-native-elements";
 import {
   ScrollView,
   Text,
   View,
   TouchableOpacity,
+  SafeAreaView,
+  Modal,
 } from "react-native";
 
 import PostView from "../screens/components/postView";
@@ -91,15 +93,8 @@ const userPostData = [
   },
 ];
 
-
-const uploadFunction = () => {
-  alert("Go to Upload Screen !");
-};
-const messageFunction = () => {
-  alert("Go to Message Screen !");
-}
-
 export default function HomeScreen() {
+  
 
   // Rendering Post with arrays
   const RenderPost = ({ PostData }) => {
@@ -118,18 +113,26 @@ export default function HomeScreen() {
     ));
   };
 
+  const [uploadVisible,setUploadVisible] = useState(false);
+  const [messageVisible,setMessageVisible] = useState(false);
   return (
-    <View style={homeStyles.container}>
 
+    <SafeAreaView style={homeStyles.container}>
+      <Modal visible={uploadVisible}>
+        <Text>Upload</Text>
+      </Modal>
+      <Modal visible={messageVisible}>
+        <Text>Message</Text>
+      </Modal>
       <View style={homeStyles.head}>
         <Text style={homeStyles.headText}>Voice Hub</Text>
 
         <View style={homeStyles.rightTop}>
-          <TouchableOpacity style={homeStyles.pactions} onPress={messageFunction}>
+          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(true) }}>
             <Icon type="feather" size={28} name={"mail"} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={homeStyles.pactions} onPress={uploadFunction}>
+          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setUploadVisible(true); }}>
             <Icon type="feather" size={28} name={"plus"} />
           </TouchableOpacity>
         </View>
@@ -139,6 +142,6 @@ export default function HomeScreen() {
         {/* User Posts */}
         <RenderPost PostData={userPostData} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
