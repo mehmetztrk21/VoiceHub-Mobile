@@ -22,7 +22,7 @@ export default function PostView(
     <View style={postViewStyle.postContainer}>
 
       {/* Users Info (pp and username) */}
-      <PostUserInfo/>
+      <PostUserInfo postImg={userPostPic}/>
 
       {/* Voices are here */}{/* Don't value in nowless. */}
       <Post/>

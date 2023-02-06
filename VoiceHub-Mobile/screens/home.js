@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from "react-native";
-  
+
 import PostView from "../screens/components/postView";
 
 // Importing User Images
@@ -119,7 +119,7 @@ export default function HomeScreen() {
   const [messageVisible, setMessageVisible] = useState(false);
   return (
 
-    <SafeAreaView>
+    <View>
 
       {messageVisible ? (
         <Message />
@@ -148,6 +148,6 @@ export default function HomeScreen() {
         </View>
       }
 
-    </SafeAreaView>
+    </View>
   );
 }

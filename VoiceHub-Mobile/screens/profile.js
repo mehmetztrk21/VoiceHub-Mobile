@@ -16,6 +16,7 @@ import Post from "../screens/components/post";
 import Upload from "../screens/upload";
 import Saved from "../screens/saved";
 import ProfileEdit from "../screens/editProfile";
+import Login from "../screens/login";
 
 import profileStyles from '../assets/styles/profile.style';
 
@@ -48,6 +49,7 @@ export default function ProfileScreen() {
   const [uploadVisible, setUploadVisible] = useState(false);
   const [saveVisible, setSaveVisible] = useState(false);
   const [editVisible, setEditVisible] = useState(false);
+  const [logoutVisible, setLogOutVisible] = useState(false);
 
   return (
     <View>
@@ -58,6 +60,8 @@ export default function ProfileScreen() {
         <Saved/>
        ) : editVisible ?(
         <ProfileEdit/>
+       ): logoutVisible ?(
+        <Login/>
        ):
         <View style={profileStyles.container}>
           <View style={profileStyles.aHeadView}>
@@ -113,10 +117,14 @@ export default function ProfileScreen() {
               <Post />{/*User Bio*/}
             </View>
 
-            {/* Follow n Buttons */}
+            {/* Edit Profile Buttons */}
             <View style={profileStyles.btnHolder}>
-              <TouchableOpacity style={profileStyles.follow} onPress={()=>{setEditVisible(true);}}>
+              <TouchableOpacity style={profileStyles.editProfile} onPress={()=>{setEditVisible(true);}}>
                 <Text style={profileStyles.btnTextF}>Edit Profile</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={profileStyles.logOut} onPress={()=>{setLogOutVisible(true);}}>
+                <Text style={profileStyles.btnTextF}>Log Out</Text>
               </TouchableOpacity>
             </View>
 

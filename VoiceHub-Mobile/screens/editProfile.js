@@ -1,14 +1,19 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import editProfileStyle from "../assets/styles/editProfile.style"
+import { Icon } from "react-native-elements";
 
 /* HALF SCREEN, CONTINUE THIS PAGE */
 export default class EditProfileScreen extends React.Component {  
   render() {  
     return (  
-        <View style={editProfileStyle.container}>  
-          <Text>Edit Profile Screen</Text> 
-        </View>  
+      <View style={editProfileStyle.container}>
+      <View style={editProfileStyle.top}>
+        <TouchableOpacity style={editProfileStyle.back}>
+          <Icon type="feather" size={28} name={"x"} />
+        </TouchableOpacity>
+      </View>
+    </View> 
     );  
   }  
 } 
