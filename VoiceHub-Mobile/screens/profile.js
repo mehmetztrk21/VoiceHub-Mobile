@@ -12,6 +12,7 @@ import mypost2 from "../assets/images/mypost2.jpg";
 import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
 
+import PostUserInfo from "../screens/components/postUserInfo";
 import Post from "../screens/components/post";
 
 import profileStyles from '../assets/styles/profile.style';
@@ -45,7 +46,7 @@ export default function ProfileScreen() {
   const RenderPost = ({ PostData }) => {
     return PostData.map((item) => (
       <TouchableOpacity style={{ paddingBottom: 15 }}>
-        <Post key={item.id} postImg={item.PostPic} />
+        <Post key={item.id}/>
       </TouchableOpacity>
     ));
   };

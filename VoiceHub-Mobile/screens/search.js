@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollView, Text, TouchableOpacity, View} from "react-native";
+import React, { useState } from "react";
+import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { Searchbar } from "react-native-paper";
 
 import searchStyles from '../assets/styles/search.style';
@@ -46,16 +46,18 @@ const recUser = [
 ];
 
 export default function SearchScreen() {
-  {/*Coming Soon --->*/}
-    const [searchQuery, setSearchQuery] = React.useState("");
-    const onChangeSearch = (query) => setSearchQuery(query);
-  {/*<--- Coming Soon */}
+  const [focused, setFocused] = useState(true);
+
+  {/*Coming Soon --->*/ }
+  const [searchQuery, setSearchQuery] = React.useState("");
+  const onChangeSearch = (query) => setSearchQuery(query);
+  {/*<--- Coming Soon */ }
 
 
   const RenderUser = ({ RecData }) => {
     return RecData.map((item) => (
       <TouchableOpacity style={{ paddingBottom: 20 }}>
-        <Post/>
+        <Post />
       </TouchableOpacity>
     ));
   };
@@ -68,6 +70,8 @@ export default function SearchScreen() {
           style={searchStyles.sbar}
           onChangeText={onChangeSearch}
           value={searchQuery}
+          onFocus={() => setFocused(false)}
+          onBlur={() => setFocused(true)}
         />
       </View>
 
@@ -75,10 +79,18 @@ export default function SearchScreen() {
         showsVerticalScrollIndicator={false}
         style={searchStyles.sContainer}
       >
-        <View style={searchStyles.userHodler}>
-          {/* Get Users Infos */}
-          <RenderUser RecData={recUser} />
-        </View>
+        {focused &&
+          <View style={searchStyles.userHodler}>
+            {/* Get Users Infos */}
+            <RenderUser RecData={recUser} />
+          </View>
+        }
+
+        {!focused && 
+          <View>
+            {/* Buraya Son Arananlar Gelecek */}
+          </View>
+        }
       </ScrollView>
     </View>
   );
