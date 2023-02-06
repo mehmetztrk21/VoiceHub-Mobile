@@ -19,6 +19,10 @@ export default StyleSheet.create({
         fontWeight: 'bold',
     },
     pactions:{
-        
-    }
+        paddingRight:15,
+    },
+    rightTop:{
+        flexDirection:"row",
+        justifyContent:"flex-end",
+    },
 });
