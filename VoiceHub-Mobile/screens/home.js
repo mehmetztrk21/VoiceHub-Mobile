@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Icon } from "react-native-elements";
 import {
   ScrollView,
@@ -6,9 +6,8 @@ import {
   View,
   TouchableOpacity,
   SafeAreaView,
-  Modal,
 } from "react-native";
-
+  
 import PostView from "../screens/components/postView";
 
 // Importing User Images
@@ -17,6 +16,9 @@ import admin from "../assets/userImages/admin.jpg";
 
 //importing styles
 import homeStyles from '../assets/styles/home.style';
+
+import Upload from "../screens/upload";
+import Message from "../screens/message";
 
 const userPostData = [
   {
@@ -94,7 +96,7 @@ const userPostData = [
 ];
 
 export default function HomeScreen() {
-  
+
 
   // Rendering Post with arrays
   const RenderPost = ({ PostData }) => {
@@ -113,35 +115,39 @@ export default function HomeScreen() {
     ));
   };
 
-  const [uploadVisible,setUploadVisible] = useState(false);
-  const [messageVisible,setMessageVisible] = useState(false);
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [messageVisible, setMessageVisible] = useState(false);
   return (
 
-    <SafeAreaView style={homeStyles.container}>
-      <Modal visible={uploadVisible}>
-        <Text>Upload</Text>
-      </Modal>
-      <Modal visible={messageVisible}>
-        <Text>Message</Text>
-      </Modal>
-      <View style={homeStyles.head}>
-        <Text style={homeStyles.headText}>Voice Hub</Text>
+    <SafeAreaView>
 
-        <View style={homeStyles.rightTop}>
-          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(true) }}>
-            <Icon type="feather" size={28} name={"mail"} />
-          </TouchableOpacity>
+      {messageVisible ? (
+        <Message />
+      ) : uploadVisible ? (
+        <Upload />
+      ) :
+        <View style={homeStyles.container}>
+          <View style={homeStyles.head}>
+            <Text style={homeStyles.headText}>Voice Hub</Text>
 
-          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setUploadVisible(true); }}>
-            <Icon type="feather" size={28} name={"plus"} />
-          </TouchableOpacity>
+            <View style={homeStyles.rightTop}>
+              <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(true) }}>
+                <Icon type="feather" size={28} name={"mail"} />
+              </TouchableOpacity>
+
+              <TouchableOpacity style={homeStyles.pactions} onPress={() => { setUploadVisible(true); }}>
+                <Icon type="feather" size={28} name={"plus"} />
+              </TouchableOpacity>
+            </View>
+          </View>
+
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {/* User Posts */}
+            <RenderPost PostData={userPostData} />
+          </ScrollView>
         </View>
-      </View>
+      }
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {/* User Posts */}
-        <RenderPost PostData={userPostData} />
-      </ScrollView>
     </SafeAreaView>
   );
 }

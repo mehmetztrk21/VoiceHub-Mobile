@@ -1,23 +1,13 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { Text, View } from 'react-native';
+import uploadStyle from "../assets/styles/upload.style"
 /* HALF SCREEN, CONTINUE THIS PAGE */
 export default class UploadScreen extends React.Component {  
   render() {  
     return (  
-        <View style={styles.container}>  
+        <View style={uploadStyle.container}>  
           <Text>Upload Screen</Text> 
         </View>  
     );  
   }  
 } 
-
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });

@@ -1,23 +1,15 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import messageStyle from "../assets/styles/message.style"
+
 /* HALF SCREEN, CONTINUE THIS PAGE */
 export default class MessageScreen extends React.Component {  
   render() {  
     return (  
-        <View style={styles.container}>  
-          <Text>Upload Screen</Text> 
+        <View style={messageStyle.container}>  
+          <Text>Message Screen</Text> 
         </View>  
     );  
   }  
 } 
-
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });

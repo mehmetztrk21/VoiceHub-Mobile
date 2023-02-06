@@ -1,11 +1,10 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   Image,
   TouchableOpacity,
   Text,
   View,
-  Modal,
 } from "react-native";
 import { Icon } from "react-native-elements";
 
@@ -14,6 +13,9 @@ import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
 
 import Post from "../screens/components/post";
+import Upload from "../screens/upload";
+import Saved from "../screens/saved";
+import ProfileEdit from "../screens/editProfile";
 
 import profileStyles from '../assets/styles/profile.style';
 
@@ -43,82 +45,89 @@ export default function ProfileScreen() {
       </TouchableOpacity>
     ));
   };
-  const [uploadVisible,setUploadVisible] = useState(false);
-  const [saveVisible,setSaveVisible] = useState(false);
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [saveVisible, setSaveVisible] = useState(false);
+  const [editVisible, setEditVisible] = useState(false);
+
   return (
-    <View style={profileStyles.container}>
+    <View>
 
-      <Modal visible={uploadVisible}>
-        <Text>Upload</Text>
-      </Modal>
-
-      <Modal visible={saveVisible}>
-        <Text>Save</Text>
-      </Modal>
-
-      <View style={profileStyles.aHeadView}>
-        <View style={profileStyles.leftTop}>
-          <Text style={profileStyles.head}>k.kayserili</Text>
-          <Image source={verfy} style={profileStyles.ver} />
-        </View>
-
-        <View style={profileStyles.rightTop}>
-          <TouchableOpacity style={profileStyles.pactions} onPress={()=>{setSaveVisible(true);}}>
-            <Icon type="feather" size={28} name={"save"} />
-          </TouchableOpacity>
-
-          <TouchableOpacity style={profileStyles.pactions} onPress={()=>{setUploadVisible(true);}}>
-            <Icon type="feather" size={28} name={"plus"} />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={profileStyles.profileScroll}
-      >
-        {/* Profile heads */}
-        <View style={profileStyles.actView}>
-          <Image source={admin} style={profileStyles.userPic} />
-          <View style={profileStyles.followContents}>
-
-            <View style={profileStyles.postCount}>
-              <Text style={profileStyles.fNumber}>47</Text>
-              <Text style={profileStyles.fText}>Post</Text>
+      {uploadVisible ? (
+        <Upload/>
+      ) : saveVisible ?(
+        <Saved/>
+       ) : editVisible ?(
+        <ProfileEdit/>
+       ):
+        <View style={profileStyles.container}>
+          <View style={profileStyles.aHeadView}>
+            <View style={profileStyles.leftTop}>
+              <Text style={profileStyles.head}>k.kayserili</Text>
+              <Image source={verfy} style={profileStyles.ver} />
             </View>
 
-            <View style={profileStyles.followerCount}>
-              <Text style={profileStyles.fNumber}>1M</Text>
-              <Text style={profileStyles.fText}>Followers</Text>
-            </View>
+            <View style={profileStyles.rightTop}>
+              <TouchableOpacity style={profileStyles.pactions} onPress={() => { setSaveVisible(true); }}>
+                <Icon type="feather" size={28} name={"save"} />
+              </TouchableOpacity>
 
-            <View style={profileStyles.followCount}>
-              <Text style={profileStyles.fNumber}>150</Text>
-              <Text style={profileStyles.fText}>Following</Text>
+              <TouchableOpacity style={profileStyles.pactions} onPress={() => { setUploadVisible(true); }}>
+                <Icon type="feather" size={28} name={"plus"} />
+              </TouchableOpacity>
             </View>
-
           </View>
-        </View>
 
-        {/* Bio */}
-        <View style={profileStyles.bioCont}>
-          <Text style={profileStyles.name}>Kaan Kayserili | Software Developer</Text>
-          <Post />{/*User Bio*/}
-        </View>
 
-        {/* Follow n Buttons */}
-        <View style={profileStyles.btnHolder}>
-          <TouchableOpacity style={profileStyles.follow}>
-            <Text style={profileStyles.btnTextF}>Follow</Text>
-          </TouchableOpacity>
-        </View>
 
-        {/* Posts */}
 
-        <View style={profileStyles.postView}>
-          <RenderPost PostData={PostData} />
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={profileStyles.profileScroll}
+          >
+            {/* Profile heads */}
+            <View style={profileStyles.actView}>
+              <Image source={admin} style={profileStyles.userPic} />
+              <View style={profileStyles.followContents}>
+
+                <View style={profileStyles.postCount}>
+                  <Text style={profileStyles.fNumber}>47</Text>
+                  <Text style={profileStyles.fText}>Post</Text>
+                </View>
+
+                <View style={profileStyles.followerCount}>
+                  <Text style={profileStyles.fNumber}>1M</Text>
+                  <Text style={profileStyles.fText}>Followers</Text>
+                </View>
+
+                <View style={profileStyles.followCount}>
+                  <Text style={profileStyles.fNumber}>150</Text>
+                  <Text style={profileStyles.fText}>Following</Text>
+                </View>
+
+              </View>
+            </View>
+
+            {/* Bio */}
+            <View style={profileStyles.bioCont}>
+              <Text style={profileStyles.name}>Kaan Kayserili | Software Developer</Text>
+              <Post />{/*User Bio*/}
+            </View>
+
+            {/* Follow n Buttons */}
+            <View style={profileStyles.btnHolder}>
+              <TouchableOpacity style={profileStyles.follow} onPress={()=>{setEditVisible(true);}}>
+                <Text style={profileStyles.btnTextF}>Edit Profile</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Posts */}
+
+            <View style={profileStyles.postView}>
+              <RenderPost PostData={PostData} />
+            </View>
+          </ScrollView>
         </View>
-      </ScrollView>
+        }
     </View>
   );
 }
