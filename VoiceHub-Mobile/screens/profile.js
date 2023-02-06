@@ -8,13 +8,7 @@ import {
 } from "react-native";
 import { Icon } from "react-native-elements";
 
-import mypost from "../assets/images/mypost.jpg";
 import mypost2 from "../assets/images/mypost2.jpg";
-import mypost3 from "../assets/images/mypost3.jpg";
-import mypost4 from "../assets/images/mypost4.jpg";
-import mypost5 from "../assets/images/mypost5.jpg";
-import mypost6 from "../assets/images/mypost6.jpg";
-import mypost7 from "../assets/images/mypost7.jpg";
 import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
 
@@ -23,20 +17,20 @@ import Post from "../screens/components/post";
 import profileStyles from '../assets/styles/profile.style';
 
 const PostData = [
-  { id: "1", PostPic: mypost },
+  { id: "1", PostPic: mypost2 },
   { id: "2", PostPic: mypost2 },
-  { id: "3", PostPic: mypost3 },
-  { id: "4", PostPic: mypost4 },
-  { id: "5", PostPic: mypost5 },
-  { id: "6", PostPic: mypost6 },
-  { id: "7", PostPic: mypost7 },
-  { id: "8", PostPic: mypost },
+  { id: "3", PostPic: mypost2 },
+  { id: "4", PostPic: mypost2 },
+  { id: "5", PostPic: mypost2 },
+  { id: "6", PostPic: mypost2 },
+  { id: "7", PostPic: mypost2 },
+  { id: "8", PostPic: mypost2 },
   { id: "9", PostPic: mypost2 },
-  { id: "10", PostPic: mypost3 },
-  { id: "11", PostPic: mypost4 },
-  { id: "12", PostPic: mypost5 },
-  { id: "13", PostPic: mypost6 },
-  { id: "14", PostPic: mypost7 },
+  { id: "10", PostPic: mypost2 },
+  { id: "11", PostPic: mypost2 },
+  { id: "12", PostPic: mypost2 },
+  { id: "13", PostPic: mypost2 },
+  { id: "14", PostPic: mypost2 },
 ];
 
 const uploadFunction = () => {
