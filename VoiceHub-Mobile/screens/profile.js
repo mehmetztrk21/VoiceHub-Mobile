@@ -44,11 +44,18 @@ export default function ProfileScreen() {
     ));
   };
   const [uploadVisible,setUploadVisible] = useState(false);
+  const [saveVisible,setSaveVisible] = useState(false);
   return (
     <View style={profileStyles.container}>
+
       <Modal visible={uploadVisible}>
-        <Text>Kaan</Text>
+        <Text>Upload</Text>
       </Modal>
+
+      <Modal visible={saveVisible}>
+        <Text>Save</Text>
+      </Modal>
+
       <View style={profileStyles.aHeadView}>
         <View style={profileStyles.leftTop}>
           <Text style={profileStyles.head}>k.kayserili</Text>
@@ -56,8 +63,12 @@ export default function ProfileScreen() {
         </View>
 
         <View style={profileStyles.rightTop}>
-          <TouchableOpacity style={profileStyles.pactions} onPress={()=>{setUploadVisible(true);}}>
+          <TouchableOpacity style={profileStyles.pactions} onPress={()=>{setSaveVisible(true);}}>
             <Icon type="feather" size={28} name={"save"} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={profileStyles.pactions} onPress={()=>{setUploadVisible(true);}}>
+            <Icon type="feather" size={28} name={"plus"} />
           </TouchableOpacity>
         </View>
       </View>
