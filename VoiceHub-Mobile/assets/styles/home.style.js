@@ -13,11 +13,14 @@ export default StyleSheet.create({
         paddingRight:20,
         flexDirection: "row",
         justifyContent:"space-between",
+        borderBottomWidth:0.5,
+        borderBottomColor:"#DADADA",
     },
     headText: {
         fontSize: 25,
         fontWeight: 'bold',
     },
+    
     pactions:{
         paddingRight:15,
     },

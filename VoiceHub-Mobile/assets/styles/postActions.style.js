@@ -7,6 +7,8 @@ export default StyleSheet.create({
     margin: 10,
     marginTop: 0,
     marginBottom: -30,
+    borderTopColor:'#DADADA',
+    borderTopWidth:0.5,
   },
   pactions: {
     marginTop: 10,

@@ -14,6 +14,7 @@ import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
 
 import Post from "../screens/components/post";
+
 import Upload from "../screens/upload";
 import Saved from "../screens/saved";
 import ProfileEdit from "../screens/editProfile";

@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { Icon } from "react-native-elements";
+import { Icon, Slider } from "react-native-elements";
 import {
   ScrollView,
   Text,
   View,
   TouchableOpacity,
   Modal,
+  Image,
 } from "react-native";
 
-import PostTexts from "../screens/components/postTexts";
-import PostActions from "../screens/components/postActions";
-import PostUserInfo from "../screens/components/postUserInfo";
-import Post from "../screens/components/post";
 
 import Upload from "../screens/upload";
 import Message from "../screens/message";
+
+import postUserInfoStyle from "../assets/styles/postUserInfo.style";
+import postTextsStyles from "../assets/styles/postTexts.style";
+import postActionsStyle from "../assets/styles/postActions.style";
+import postStyle from "../assets/styles/post.style";
 
 // Importing User Images
 import user1 from "../assets/userImages/user1.jpg";
@@ -97,15 +99,83 @@ const userPostData = [
   },
 ];
 
+const Play = () => {
+  alert("Played Voice !");
+}
+
+const postLiked = () => {
+  alert("You Liked this Voice !");
+};
+
+const postComment = () => {
+  alert("You Commented on this Voice !");
+};
+
+const postSave = () => {
+  alert("You Saved this Voice !");
+};
+
 export default function HomeScreen() {
   // Rendering Post with arrays
   const RenderPost = ({ userPostData }) => {
     return userPostData.map((item) => (
       <View>
-        <PostUserInfo postImg={item.userPic} uName={item.userName} />
-        <Post/>
-        <PostActions />
-        <PostTexts Count={item.likesCount} uName={item.userName} cap={item.caption}/>
+        <View style={postUserInfoStyle.postUser}>
+          <TouchableOpacity style={postUserInfoStyle.userpic}>
+            <Image style={postUserInfoStyle.userpostImg} source={item.userPic} />
+          </TouchableOpacity>
+          <Text style={postUserInfoStyle.userName}>{item.userName}</Text>
+        </View>
+
+        <View style={postStyle.post}>
+          <TouchableOpacity style={postStyle.playButton} onPress={Play}>
+            <Icon type="feather" size={"175%"} name={"play"} />
+          </TouchableOpacity>
+
+          <Slider
+            style={postStyle.slider}
+            minimumValue={0}
+            maximumValue={1}
+            minimumTrackTintColor="#0095f6"
+            maximumTrackTintColor="#777777"
+            thumbTintColor="#0095f6"
+          />
+        </View>
+
+        <View style={postActionsStyle.postActions}>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
+            <Icon type="feather" size={"175%"} name={"heart"} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postComment}>
+            <Icon type="fontisto" size={"175%"} name={"comments"} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
+            <Icon type="feather" size={"175%"} name={"save"} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={postTextsStyles.textCounter}>
+          <Text style={postTextsStyles.likesText}>{item.likesCount} likes</Text>
+
+          <View style={postTextsStyles.textHolder}>
+            <Text style={postTextsStyles.userCap}>{item.userName}</Text>
+            <Text style={postTextsStyles.captext}>{item.caption}</Text>
+          </View>
+
+          <View style={postTextsStyles.commentUser}>
+            <Image style={postTextsStyles.userPostCommentImg} source={item.userPic}/>
+            <TouchableOpacity>
+              <Icon type="feather" size={28} name={"mic"} />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={postTextsStyles.timeAgo}>29 minutes ago</Text>
+        </View>
+
+
       </View>
     ));
   };
