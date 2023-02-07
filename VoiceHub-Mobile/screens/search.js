@@ -46,20 +46,24 @@ export default function SearchScreen() {
 
   const RenderUser = ({ RecData }) => {
     return RecData.map((item) => (
-      <TouchableOpacity style={{ paddingBottom: 20 }}>
-        <Image source={item.userPic} style={{width:50,height:50}}/>
-        <Post/>
+      <TouchableOpacity style={{ paddingBottom: 20, flexDirection:"row" }}>
+        <Image source={item.userPic} style={{ width: 50, height: 50,borderRadius:25, }} />
+        <Post />
       </TouchableOpacity>
     ));
   };
 
   const LastSerachedUser = ({ RecData }) => {
     return RecData.map((item) => (
-      <TouchableOpacity style={{ paddingBottom: 20 }}>
-        <Image source={item.userPic} style={{width:50,height:50}}/>
-        <Text>{item.userName}</Text>
-        <Text>k.kayserili ve 5 diğer kişi daha takip ediyor</Text>
-      </TouchableOpacity>
+      <View style={searchStyles.last}>
+        <TouchableOpacity style={{flexDirection:"row"}}>
+          <Image source={item.userPic} style={searchStyles.lastSearchImage}/>
+          <View style={{flexDirection:"column"}}>
+            <Text>{item.userName}</Text>
+            <Text>k.kayserili ve 5 diğer kişi daha takip ediyor</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     ));
   };
 
@@ -80,14 +84,14 @@ export default function SearchScreen() {
         showsVerticalScrollIndicator={false}
         style={searchStyles.sContainer}
       >
-        {focused ?(
+        {focused ? (
           <View style={searchStyles.userHodler}>
             {/* Get Users Infos */}
             <RenderUser RecData={recUser} />
           </View>
-        ):
+        ) :
           <View style={searchStyles.userHodler}>
-            <LastSerachedUser RecData={recUser}/>
+            <LastSerachedUser RecData={recUser} />
           </View>
         }
       </ScrollView>

@@ -29,7 +29,6 @@ const userPostData = [
     id: "1",
     userName: "Alex",
     userPic: user1,
-    userPost: user1,
     likesCount: "1451",
     caption: "Coffee is the most imp part of my life !",
   },
@@ -37,7 +36,6 @@ const userPostData = [
     id: "2",
     userName: "Martha",
     userPic: user1,
-    userPost: user1,
     likesCount: "155",
     caption: "Nothings is better than reading book !",
   },
@@ -45,7 +43,6 @@ const userPostData = [
     id: "3",
     userName: "Aditi",
     userPic: user1,
-    userPost: user1,
     likesCount: "77",
     caption: "Waiting for someone to come back !",
   },
@@ -53,7 +50,6 @@ const userPostData = [
     id: "4",
     userName: "Alex",
     userPic: user1,
-    userPost: user1,
     likesCount: "7555",
     caption: "Coffee is the most imp part of my life !",
   },
@@ -61,7 +57,6 @@ const userPostData = [
     id: "5",
     userName: "Rohit",
     userPic: user1,
-    userPost: user1,
     likesCount: "93578",
     caption: "car",
   },
@@ -69,7 +64,6 @@ const userPostData = [
     id: "6",
     userName: "Rohit",
     userPic: user1,
-    userPost: user1,
     likesCount: "5265",
     caption: "rose",
   },
@@ -77,7 +71,6 @@ const userPostData = [
     id: "7",
     userName: "Rohit",
     userPic: user1,
-    userPost: user1,
     likesCount: "4858",
     caption: "Flowers",
   },
@@ -85,7 +78,6 @@ const userPostData = [
     id: "8",
     userName: "Rohit",
     userPic: user1,
-    userPost: user1,
     likesCount: "2723",
     caption: "kaan",
   },
@@ -93,7 +85,6 @@ const userPostData = [
     id: "9",
     userName: "Suyash",
     userPic: user1,
-    userPost: user1,
     likesCount: "66855",
     caption: "This app is made by Suyash.",
   },
@@ -116,10 +107,15 @@ const postSave = () => {
 };
 
 export default function HomeScreen() {
+
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [messageVisible, setMessageVisible] = useState(false);
+  const [showOtherComments, setShowOtherComments] = useState(false);
+
   // Rendering Post with arrays
   const RenderPost = ({ userPostData }) => {
     return userPostData.map((item) => (
-      <View>
+      <View style={homeStyles.post}>
         <View style={postUserInfoStyle.postUser}>
           <TouchableOpacity style={postUserInfoStyle.userpic}>
             <Image style={postUserInfoStyle.userpostImg} source={item.userPic} />
@@ -161,12 +157,34 @@ export default function HomeScreen() {
           <Text style={postTextsStyles.likesText}>{item.likesCount} likes</Text>
 
           <View style={postTextsStyles.textHolder}>
-            <Text style={postTextsStyles.userCap}>{item.userName}</Text>
-            <Text style={postTextsStyles.captext}>{item.caption}</Text>
+            <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+            <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
           </View>
 
-          <View style={postTextsStyles.commentUser}>
-            <Image style={postTextsStyles.userPostCommentImg} source={item.userPic}/>
+          {showOtherComments ? (
+            <View>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              {/* Post */}
+            </View>
+          ) :
+            <View style={postTextsStyles.UserComments}>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              {/* Post */}
+            </View>
+          }
+
+          <View style={postTextsStyles.otherComments}>
+            <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
+              <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={postTextsStyles.addCommentUser}>
+            
+            <Image style={postTextsStyles.userPostCommentImg} source={item.userPic} />
             <TouchableOpacity>
               <Icon type="feather" size={28} name={"mic"} />
             </TouchableOpacity>
@@ -179,9 +197,6 @@ export default function HomeScreen() {
       </View>
     ));
   };
-
-  const [uploadVisible, setUploadVisible] = useState(false);
-  const [messageVisible, setMessageVisible] = useState(false);
   return (
 
     <View style={homeStyles.container}>

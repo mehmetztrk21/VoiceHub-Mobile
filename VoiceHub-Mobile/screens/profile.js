@@ -7,9 +7,8 @@ import {
   View,
   Modal,
 } from "react-native";
-import { Icon } from "react-native-elements";
+import { Icon, Slider } from "react-native-elements";
 
-import mypost2 from "../assets/images/mypost2.jpg";
 import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
 
@@ -21,32 +20,182 @@ import ProfileEdit from "../screens/editProfile";
 import Login from "../screens/login";
 
 import profileStyles from '../assets/styles/profile.style';
+import postUserInfoStyle from "../assets/styles/postUserInfo.style";
+import postTextsStyles from "../assets/styles/postTexts.style";
+import postActionsStyle from "../assets/styles/postActions.style";
+import postStyle from "../assets/styles/post.style";
+import homeStyles from "../assets/styles/home.style";
 
-const PostData = [
-  { id: "1", PostPic: mypost2 },
-  { id: "2", PostPic: mypost2 },
-  { id: "3", PostPic: mypost2 },
-  { id: "4", PostPic: mypost2 },
-  { id: "5", PostPic: mypost2 },
-  { id: "6", PostPic: mypost2 },
-  { id: "7", PostPic: mypost2 },
-  { id: "8", PostPic: mypost2 },
-  { id: "9", PostPic: mypost2 },
-  { id: "10", PostPic: mypost2 },
-  { id: "11", PostPic: mypost2 },
-  { id: "12", PostPic: mypost2 },
-  { id: "13", PostPic: mypost2 },
-  { id: "14", PostPic: mypost2 },
+const userPostData = [
+  {
+    id: "1",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "1451",
+    caption: "Coffee is the most imp part of my life !",
+  },
+  {
+    id: "2",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "155",
+    caption: "Nothings is better than reading book !",
+  },
+  {
+    id: "3",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "77",
+    caption: "Waiting for someone to come back !",
+  },
+  {
+    id: "4",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "7555",
+    caption: "Coffee is the most imp part of my life !",
+  },
+  {
+    id: "5",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "93578",
+    caption: "car",
+  },
+  {
+    id: "6",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "5265",
+    caption: "rose",
+  },
+  {
+    id: "7",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "4858",
+    caption: "Flowers",
+  },
+  {
+    id: "8",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "2723",
+    caption: "kaan",
+  },
+  {
+    id: "9",
+    userName: "k.kayserili",
+    userPic: admin,
+    likesCount: "66855",
+    caption: "This app is made by Suyash.",
+  },
 ];
 const isVerified=true;
+
+const Play = () => {
+  alert("Played Voice !");
+}
+
+const postLiked = () => {
+  alert("You Liked this Voice !");
+};
+
+const postComment = () => {
+  alert("You Commented on this Voice !");
+};
+
+const postSave = () => {
+  alert("You Saved this Voice !");
+};
+
 export default function ProfileScreen() {
+
+  const [showOtherComments, setShowOtherComments] = useState(false);
+
   // Rendering Post with arrays
-  const RenderPost = ({ PostData }) => {
-    return PostData.map((item) => (
-      <TouchableOpacity style={{ paddingBottom: 15 }}>
-        <Image source={item.PostPic} style={{width:50, height:50,}}/>
-        <Post/>
-      </TouchableOpacity>
+  const RenderPost = ({ userPostData }) => {
+    return userPostData.map((item) => (
+      <View style={homeStyles.post}>
+        <View style={postUserInfoStyle.postUser}>
+          <TouchableOpacity style={postUserInfoStyle.userpic}>
+            <Image style={postUserInfoStyle.userpostImg} source={item.userPic} />
+          </TouchableOpacity>
+          <Text style={postUserInfoStyle.userName}>{item.userName}</Text>
+        </View>
+
+        <View style={postStyle.post}>
+          <TouchableOpacity style={postStyle.playButton} onPress={Play}>
+            <Icon type="feather" size={"175%"} name={"play"} />
+          </TouchableOpacity>
+
+          <Slider
+            style={postStyle.slider}
+            minimumValue={0}
+            maximumValue={1}
+            minimumTrackTintColor="#0095f6"
+            maximumTrackTintColor="#777777"
+            thumbTintColor="#0095f6"
+          />
+        </View>
+
+        <View style={postActionsStyle.postActions}>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
+            <Icon type="feather" size={"175%"} name={"heart"} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postComment}>
+            <Icon type="fontisto" size={"175%"} name={"comments"} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
+            <Icon type="feather" size={"175%"} name={"save"} />
+          </TouchableOpacity>
+        </View>
+
+        <View style={postTextsStyles.textCounter}>
+          <Text style={postTextsStyles.likesText}>{item.likesCount} likes</Text>
+
+          <View style={postTextsStyles.textHolder}>
+            <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+            <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
+          </View>
+
+          {showOtherComments ? (
+            <View>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              {/* Post */}
+            </View>
+          ) :
+            <View style={postTextsStyles.UserComments}>
+              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+              {/* Post */}
+            </View>
+          }
+
+          <View style={postTextsStyles.otherComments}>
+            <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
+              <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={postTextsStyles.addCommentUser}>
+            
+            <Image style={postTextsStyles.userPostCommentImg} source={item.userPic} />
+            <TouchableOpacity>
+              <Icon type="feather" size={28} name={"mic"} />
+            </TouchableOpacity>
+          </View>
+
+          <Text style={postTextsStyles.timeAgo}>29 minutes ago</Text>
+        </View>
+
+
+      </View>
     ));
   };
   const [uploadVisible, setUploadVisible] = useState(false);
@@ -140,7 +289,7 @@ export default function ProfileScreen() {
             {/* Posts */}
 
             <View style={profileStyles.postView}>
-              <RenderPost PostData={PostData}/>
+              <RenderPost userPostData={userPostData}/>
             </View>
           </ScrollView>
         </View>

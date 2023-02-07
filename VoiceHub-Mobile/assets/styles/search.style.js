@@ -34,7 +34,16 @@ export default StyleSheet.create({
     fontWeight: "bold",
     padding: 5,
   },
+  last:{
+    paddingBottom: 20,
 
+  },
+  lastSearchImage:{
+    width: 50, 
+    height: 50, 
+    borderRadius:25, 
+    marginRight:"1%",
+  },
   userHodler: {
     flex: 1,
     flexDirection: "column",
