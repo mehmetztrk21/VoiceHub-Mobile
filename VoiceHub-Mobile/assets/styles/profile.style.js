@@ -106,32 +106,35 @@ export default StyleSheet.create({
   btnHolder: {
     marginBottom: "2%",
     marginTop: "1%",
+    paddingBottom:"2%",
+    flexDirection:"row",
   },
 
 
-  follow: {
+  editProfile: {
     backgroundColor: "#0095f6",
     borderRadius: 5,
-    width: "85%",
-    marginLeft: "7.5%",
-    paddingTop: "2%",
-    paddingBottom: "2%",
+    width: "52.5%",
+    marginLeft: "10%",
+    marginTop: "2%",
+    marginBottom: "2%",
+    marginBottom: "2%",
+    paddingVertical:"1%",
 
   },
-  msg: {
-    backgroundColor: "white",
-    paddingLeft: 30,
-    paddingVertical: 7,
-
+  logOut:{
+    backgroundColor: "#0095f6",
     borderRadius: 5,
-    marginHorizontal: 4,
-    borderWidth: 1,
-    borderColor: "black",
+    width: "20%",
+    marginLeft: "7.5%",
+    marginTop: "2%",
+    marginBottom: "2%",
+    paddingVertical:"1%",
   },
   btnTextF: {
     fontSize: 16,
     color: "white",
-    paddingLeft: "42.5%",
+    alignSelf:"center"
   },
 
   btnTextM: {

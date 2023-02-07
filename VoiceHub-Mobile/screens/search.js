@@ -1,5 +1,5 @@
-import React from "react";
-import { ScrollView, Text, TouchableOpacity, View} from "react-native";
+import React, { useState } from "react";
+import { ScrollView, TouchableOpacity, View, Text, Image } from "react-native";
 import { Searchbar } from "react-native-paper";
 
 import searchStyles from '../assets/styles/search.style';
@@ -7,16 +7,6 @@ import searchStyles from '../assets/styles/search.style';
 import Post from "../screens/components/post";
 
 import user1 from "../assets/userImages/user1.jpg";
-
-const adminuser = "Suyash";
-const username1 = "Alex";
-const username2 = "Synthia";
-const username3 = "Martha";
-const username4 = "Rohit";
-const username5 = "Aditi";
-const username6 = "Arun";
-const username7 = "Nikita";
-const username8 = "Praveen";
 
 const recUser = [
   { id: "1", userName: "Alex", userPic: user1 },
@@ -46,16 +36,29 @@ const recUser = [
 ];
 
 export default function SearchScreen() {
-  {/*Coming Soon --->*/}
-    const [searchQuery, setSearchQuery] = React.useState("");
-    const onChangeSearch = (query) => setSearchQuery(query);
-  {/*<--- Coming Soon */}
+  const [focused, setFocused] = useState(true);
+
+  {/*Coming Soon --->*/ }
+  const [searchQuery, setSearchQuery] = useState("");
+  const onChangeSearch = (query) => setSearchQuery(query);
+  {/*<--- Coming Soon */ }
 
 
   const RenderUser = ({ RecData }) => {
     return RecData.map((item) => (
       <TouchableOpacity style={{ paddingBottom: 20 }}>
+        <Image source={item.userPic} style={{width:50,height:50}}/>
         <Post/>
+      </TouchableOpacity>
+    ));
+  };
+
+  const LastSerachedUser = ({ RecData }) => {
+    return RecData.map((item) => (
+      <TouchableOpacity style={{ paddingBottom: 20 }}>
+        <Image source={item.userPic} style={{width:50,height:50}}/>
+        <Text>{item.userName}</Text>
+        <Text>k.kayserili ve 5 diğer kişi daha takip ediyor</Text>
       </TouchableOpacity>
     ));
   };
@@ -68,6 +71,8 @@ export default function SearchScreen() {
           style={searchStyles.sbar}
           onChangeText={onChangeSearch}
           value={searchQuery}
+          onFocus={() => setFocused(false)}
+          onBlur={() => setFocused(true)}
         />
       </View>
 
@@ -75,10 +80,16 @@ export default function SearchScreen() {
         showsVerticalScrollIndicator={false}
         style={searchStyles.sContainer}
       >
-        <View style={searchStyles.userHodler}>
-          {/* Get Users Infos */}
-          <RenderUser RecData={recUser} />
-        </View>
+        {focused ?(
+          <View style={searchStyles.userHodler}>
+            {/* Get Users Infos */}
+            <RenderUser RecData={recUser} />
+          </View>
+        ):
+          <View style={searchStyles.userHodler}>
+            <LastSerachedUser RecData={recUser}/>
+          </View>
+        }
       </ScrollView>
     </View>
   );

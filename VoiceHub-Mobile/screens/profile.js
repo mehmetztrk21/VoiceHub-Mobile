@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ScrollView,
   Image,
   TouchableOpacity,
   Text,
   View,
+  Modal,
 } from "react-native";
 import { Icon } from "react-native-elements";
 
@@ -13,6 +14,11 @@ import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
 
 import Post from "../screens/components/post";
+
+import Upload from "../screens/upload";
+import Saved from "../screens/saved";
+import ProfileEdit from "../screens/editProfile";
+import Login from "../screens/login";
 
 import profileStyles from '../assets/styles/profile.style';
 
@@ -32,90 +38,112 @@ const PostData = [
   { id: "13", PostPic: mypost2 },
   { id: "14", PostPic: mypost2 },
 ];
-
-const uploadFunction = () => {
-  alert("Go to Upload Screen !");
-};
-const SavedFunction = () => {
-  alert("Go to Saved Screen !");
-}
-
+const isVerified=true;
 export default function ProfileScreen() {
   // Rendering Post with arrays
   const RenderPost = ({ PostData }) => {
     return PostData.map((item) => (
       <TouchableOpacity style={{ paddingBottom: 15 }}>
-        <Post key={item.id} postImg={item.PostPic} />
+        <Image source={item.PostPic} style={{width:50, height:50,}}/>
+        <Post/>
       </TouchableOpacity>
     ));
   };
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [saveVisible, setSaveVisible] = useState(false);
+  const [editVisible, setEditVisible] = useState(false);
+  const [logoutVisible, setLogOutVisible] = useState(false);
 
   return (
-    <View style={profileStyles.container}>
-      <View style={profileStyles.aHeadView}>
-        <View style={profileStyles.leftTop}>
-          <Text style={profileStyles.head}>k.kayserili</Text>
-          <Image source={verfy} style={profileStyles.ver} />
-        </View>
+        <View style={profileStyles.container}>
+          <Modal visible={uploadVisible} onRequestClose={()=>{setUploadVisible(!uploadVisible)}}>
+            <Upload/>
+          </Modal>
 
-        <View style={profileStyles.rightTop}>
-          <TouchableOpacity style={profileStyles.pactions} onPress={SavedFunction}>
-            <Icon type="feather" size={28} name={"save"} />
-          </TouchableOpacity>
+          <Modal visible={saveVisible} onRequestClose={()=>{setSaveVisible(!saveVisible)}}>
+            <Saved/>
+          </Modal>
 
-          <TouchableOpacity style={profileStyles.pactions} onPress={uploadFunction}>
-            <Icon type="feather" size={28} name={"plus"} />
-          </TouchableOpacity>
-        </View>
-      </View>
+          <Modal visible={editVisible} onRequestClose={()=>{setEditVisible(!editVisible)}}>
+            <ProfileEdit/>
+          </Modal>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={profileStyles.profileScroll}
-      >
-        {/* Profile heads */}
-        <View style={profileStyles.actView}>
-          <Image source={admin} style={profileStyles.userPic} />
-          <View style={profileStyles.followContents}>
+          <Modal visible={logoutVisible} onRequestClose={()=>{setLogOutVisible(!logoutVisible)}}>
+            <Login/>
+          </Modal>
 
-            <View style={profileStyles.postCount}>
-              <Text style={profileStyles.fNumber}>47</Text>
-              <Text style={profileStyles.fText}>Post</Text>
+          <View style={profileStyles.aHeadView}>
+
+            <View style={profileStyles.leftTop}>
+              <Text style={profileStyles.head}>k.kayserili</Text>
+              {isVerified?(
+                <Image source={verfy} style={profileStyles.ver}/>
+              ):null}
             </View>
 
-            <View style={profileStyles.followerCount}>
-              <Text style={profileStyles.fNumber}>1M</Text>
-              <Text style={profileStyles.fText}>Followers</Text>
-            </View>
+            <View style={profileStyles.rightTop}>
+              <TouchableOpacity style={profileStyles.pactions} onPress={() => { setSaveVisible(true); }}>
+                <Icon type="feather" size={28} name={"save"} />
+              </TouchableOpacity>
 
-            <View style={profileStyles.followCount}>
-              <Text style={profileStyles.fNumber}>150</Text>
-              <Text style={profileStyles.fText}>Following</Text>
+              <TouchableOpacity style={profileStyles.pactions} onPress={() => { setUploadVisible(true); }}>
+                <Icon type="feather" size={28} name={"plus"} />
+              </TouchableOpacity>
             </View>
 
           </View>
-        </View>
+          
+          <ScrollView
+            showsVerticalScrollIndicator={false}
+            style={profileStyles.profileScroll}
+          >
+            {/* Profile heads */}
+            <View style={profileStyles.actView}>
+              <Image source={admin} style={profileStyles.userPic} />
+              <View style={profileStyles.followContents}>
 
-        {/* Bio */}
-        <View style={profileStyles.bioCont}>
-          <Text style={profileStyles.name}>Kaan Kayserili | Software Developer</Text>
-          <Post/>{/*User Bio*/}
-        </View>
+                <View style={profileStyles.postCount}>
+                  <Text style={profileStyles.fNumber}>47</Text>
+                  <Text style={profileStyles.fText}>Post</Text>
+                </View>
 
-        {/* Follow n Buttons */}
-        <View style={profileStyles.btnHolder}>
-          <TouchableOpacity style={profileStyles.follow}>
-            <Text style={profileStyles.btnTextF}>Follow</Text>
-          </TouchableOpacity>
-        </View>
+                <View style={profileStyles.followerCount}>
+                  <Text style={profileStyles.fNumber}>1M</Text>
+                  <Text style={profileStyles.fText}>Followers</Text>
+                </View>
 
-        {/* Posts */}
+                <View style={profileStyles.followCount}>
+                  <Text style={profileStyles.fNumber}>150</Text>
+                  <Text style={profileStyles.fText}>Following</Text>
+                </View>
 
-        <View style={profileStyles.postView}>
-          <RenderPost PostData={PostData} />
+              </View>
+            </View>
+
+            {/* Bio */}
+            <View style={profileStyles.bioCont}>
+              <Text style={profileStyles.name}>Kaan Kayserili | Software Developer</Text>
+              <Post />{/*User Bio*/}
+            </View>
+
+            {/* Edit Profile Buttons */}
+            <View style={profileStyles.btnHolder}>
+              <TouchableOpacity style={profileStyles.editProfile} onPress={()=>{setEditVisible(true);}}>
+                <Text style={profileStyles.btnTextF}>Edit Profile</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={profileStyles.logOut} onPress={()=>{setLogOutVisible(true);}}>
+                <Text style={profileStyles.btnTextF}>Log Out</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Posts */}
+
+            <View style={profileStyles.postView}>
+              <RenderPost PostData={PostData}/>
+            </View>
+          </ScrollView>
         </View>
-      </ScrollView>
-    </View>
   );
 }
 
