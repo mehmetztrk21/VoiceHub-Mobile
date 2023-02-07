@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Text,
   View,
+  Modal,
 } from "react-native";
 import { Icon } from "react-native-elements";
 
@@ -36,7 +37,7 @@ const PostData = [
   { id: "13", PostPic: mypost2 },
   { id: "14", PostPic: mypost2 },
 ];
-
+const isVerified=true;
 export default function ProfileScreen() {
   // Rendering Post with arrays
   const RenderPost = ({ PostData }) => {
@@ -52,22 +53,30 @@ export default function ProfileScreen() {
   const [logoutVisible, setLogOutVisible] = useState(false);
 
   return (
-    <View>
-
-      {uploadVisible ? (
-        <Upload/>
-      ) : saveVisible ?(
-        <Saved/>
-       ) : editVisible ?(
-        <ProfileEdit/>
-       ): logoutVisible ?(
-        <Login/>
-       ):
         <View style={profileStyles.container}>
+          <Modal visible={uploadVisible} onRequestClose={()=>{setUploadVisible(!uploadVisible)}}>
+            <Upload/>
+          </Modal>
+
+          <Modal visible={saveVisible} onRequestClose={()=>{setSaveVisible(!saveVisible)}}>
+            <Saved/>
+          </Modal>
+
+          <Modal visible={editVisible} onRequestClose={()=>{setEditVisible(!editVisible)}}>
+            <ProfileEdit/>
+          </Modal>
+
+          <Modal visible={logoutVisible} onRequestClose={()=>{setLogOutVisible(!logoutVisible)}}>
+            <Login/>
+          </Modal>
+
           <View style={profileStyles.aHeadView}>
+
             <View style={profileStyles.leftTop}>
               <Text style={profileStyles.head}>k.kayserili</Text>
-              <Image source={verfy} style={profileStyles.ver} />
+              {isVerified?(
+                <Image source={verfy} style={profileStyles.ver}/>
+              ):null}
             </View>
 
             <View style={profileStyles.rightTop}>
@@ -79,11 +88,9 @@ export default function ProfileScreen() {
                 <Icon type="feather" size={28} name={"plus"} />
               </TouchableOpacity>
             </View>
+
           </View>
-
-
-
-
+          
           <ScrollView
             showsVerticalScrollIndicator={false}
             style={profileStyles.profileScroll}
@@ -135,8 +142,6 @@ export default function ProfileScreen() {
             </View>
           </ScrollView>
         </View>
-        }
-    </View>
   );
 }
 

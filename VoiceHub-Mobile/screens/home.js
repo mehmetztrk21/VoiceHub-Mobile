@@ -5,7 +5,7 @@ import {
   Text,
   View,
   TouchableOpacity,
-  SafeAreaView,
+  Modal,
 } from "react-native";
 
 import PostView from "../screens/components/postView";
@@ -119,19 +119,20 @@ export default function HomeScreen() {
   const [messageVisible, setMessageVisible] = useState(false);
   return (
 
-    <View>
-
-      {messageVisible ? (
-        <Message />
-      ) : uploadVisible ? (
-        <Upload />
-      ) :
         <View style={homeStyles.container}>
+          <Modal visible={uploadVisible} onRequestClose={()=>{setUploadVisible(!uploadVisible)}}>
+            <Upload/>
+          </Modal>
+
+          <Modal visible={messageVisible} onRequestClose={()=>{setMessageVisible(!uploadVisible)}}>
+            <Message/>
+          </Modal>
+          
           <View style={homeStyles.head}>
             <Text style={homeStyles.headText}>Voice Hub</Text>
 
             <View style={homeStyles.rightTop}>
-              <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(true) }}>
+              <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(true); }}>
                 <Icon type="feather" size={28} name={"mail"} />
               </TouchableOpacity>
 
@@ -146,8 +147,5 @@ export default function HomeScreen() {
             <RenderPost PostData={userPostData} />
           </ScrollView>
         </View>
-      }
-
-    </View>
   );
 }
