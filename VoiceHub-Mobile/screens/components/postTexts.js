@@ -2,17 +2,17 @@ import React from "react";
 import { Image, Text, View } from "react-native";
 
 import postTextsStyles from "../../assets/styles/postTexts.style";
-
-export default function postTexts(){
+//
+export default function postTexts(Count,uName,cap){
     return(
 <View style={postTextsStyles.textCounter}>
         {/*Posts Like Count*/}
-        <Text style={postTextsStyles.likesText}>55 likes</Text>
+        <Text style={postTextsStyles.likesText}>{Count} likes</Text>
 
         {/*User Name and User Caption*/}
         <View style={postTextsStyles.textHolder}>
-          <Text style={postTextsStyles.userCap}></Text>
-          <Text style={postTextsStyles.captext}> k.kayserili</Text>
+          <Text style={postTextsStyles.userCap}>{uName}</Text>
+          <Text style={postTextsStyles.captext}>{cap}</Text>
         </View>
 
         {/*User Add Comment View*/}

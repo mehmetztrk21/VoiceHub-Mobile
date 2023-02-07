@@ -17,21 +17,10 @@ export default function PostView(
   userid,
   useradmin,
   caption) {
-
   return (
     <View style={postViewStyle.postContainer}>
 
-      {/* Users Info (pp and username) */}
-      <PostUserInfo postImg={userPostPic}/>
-
-      {/* Voices are here */}{/* Don't value in nowless. */}
-      <Post/>
-
-      {/* Post's like, comment and save buttons are here*/}
-      <PostActions />
-
-      {/* Post Text Info */}
-      <PostTexts/>
+      
     </View>
   )
 };

@@ -1,24 +1,33 @@
 import React from "react";
-import { TouchableOpacity, View, TextInput, Text, Image } from "react-native";
+import { TouchableOpacity, View, Text, Image } from "react-native";
 import loginStyle from "../assets/styles/login.style";
+import { Searchbar } from "react-native-paper";
 
 export default function Login() {
     return (
         <View style={loginStyle.container}>
-            <Image source={{require:("../assets/images/mypost.jpg")}}/>
+            <Image source={{ require: ("../assets/images/mypost.jpg") }} />
 
-            <Text>User Name</Text>
-            <TextInput />
+            <Searchbar
+                placeholder="User Name"
+                style={loginStyle.sbar}
+            />
 
-            <Text>Password</Text>
-            <TextInput />
+            <Searchbar
+                placeholder="Password"
+                style={loginStyle.sbar}
+            />
 
-            <TouchableOpacity>
-                <Text>Login</Text>
+            <TouchableOpacity >
+                <Text style={loginStyle.sbar}>Login</Text>
             </TouchableOpacity>
 
             <TouchableOpacity>
-                <Text>Forgot Password</Text>
+                <Text style={loginStyle.sbar}>Forgot Password</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity>
+                <Text style={loginStyle.sbar}>Do you have not account?</Text>
             </TouchableOpacity>
         </View>
     );

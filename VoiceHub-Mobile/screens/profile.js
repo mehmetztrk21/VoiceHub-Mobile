@@ -43,7 +43,8 @@ export default function ProfileScreen() {
   const RenderPost = ({ PostData }) => {
     return PostData.map((item) => (
       <TouchableOpacity style={{ paddingBottom: 15 }}>
-        <Post key={item.id} />
+        <Image source={item.PostPic} style={{width:50, height:50,}}/>
+        <Post/>
       </TouchableOpacity>
     ));
   };
@@ -138,7 +139,7 @@ export default function ProfileScreen() {
             {/* Posts */}
 
             <View style={profileStyles.postView}>
-              <RenderPost PostData={PostData} />
+              <RenderPost PostData={PostData}/>
             </View>
           </ScrollView>
         </View>

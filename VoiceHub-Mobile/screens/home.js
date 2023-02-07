@@ -8,17 +8,19 @@ import {
   Modal,
 } from "react-native";
 
-import PostView from "../screens/components/postView";
-
-// Importing User Images
-import user1 from "../assets/userImages/user1.jpg";
-import admin from "../assets/userImages/admin.jpg";
-
-//importing styles
-import homeStyles from '../assets/styles/home.style';
+import PostTexts from "../screens/components/postTexts";
+import PostActions from "../screens/components/postActions";
+import PostUserInfo from "../screens/components/postUserInfo";
+import Post from "../screens/components/post";
 
 import Upload from "../screens/upload";
 import Message from "../screens/message";
+
+// Importing User Images
+import user1 from "../assets/userImages/user1.jpg";
+
+//importing styles
+import homeStyles from '../assets/styles/home.style';
 
 const userPostData = [
   {
@@ -34,7 +36,7 @@ const userPostData = [
     userName: "Martha",
     userPic: user1,
     userPost: user1,
-    likesCount: "1451",
+    likesCount: "155",
     caption: "Nothings is better than reading book !",
   },
   {
@@ -42,7 +44,7 @@ const userPostData = [
     userName: "Aditi",
     userPic: user1,
     userPost: user1,
-    likesCount: "1451",
+    likesCount: "77",
     caption: "Waiting for someone to come back !",
   },
   {
@@ -50,7 +52,7 @@ const userPostData = [
     userName: "Alex",
     userPic: user1,
     userPost: user1,
-    likesCount: "1451",
+    likesCount: "7555",
     caption: "Coffee is the most imp part of my life !",
   },
   {
@@ -58,23 +60,23 @@ const userPostData = [
     userName: "Rohit",
     userPic: user1,
     userPost: user1,
-    likesCount: "1451",
-    caption: "Flowers",
+    likesCount: "93578",
+    caption: "car",
   },
   {
     id: "6",
     userName: "Rohit",
     userPic: user1,
     userPost: user1,
-    likesCount: "1451",
-    caption: "Flowers",
+    likesCount: "5265",
+    caption: "rose",
   },
   {
     id: "7",
     userName: "Rohit",
     userPic: user1,
     userPost: user1,
-    likesCount: "1451",
+    likesCount: "4858",
     caption: "Flowers",
   },
   {
@@ -82,36 +84,29 @@ const userPostData = [
     userName: "Rohit",
     userPic: user1,
     userPost: user1,
-    likesCount: "1451",
-    caption: "Flowers",
+    likesCount: "2723",
+    caption: "kaan",
   },
   {
     id: "9",
     userName: "Suyash",
     userPic: user1,
     userPost: user1,
-    likesCount: "1451",
+    likesCount: "66855",
     caption: "This app is made by Suyash.",
   },
 ];
 
 export default function HomeScreen() {
-
-
   // Rendering Post with arrays
-  const RenderPost = ({ PostData }) => {
-    return PostData.map((item) => (
-
-      <PostView
-        key={item.id}
-        userPostPic={item.userPic}
-        userPostName={item.userName}
-        userPostPost={item.userPost}
-        likesCount={item.likesCount}
-        userid={item.userName.toLowerCase()}
-        useradmin={admin}
-        caption={item.caption}
-      />
+  const RenderPost = ({ userPostData }) => {
+    return userPostData.map((item) => (
+      <View>
+        <PostUserInfo postImg={item.userPic} uName={item.userName} />
+        <Post/>
+        <PostActions />
+        <PostTexts Count={item.likesCount} uName={item.userName} cap={item.caption}/>
+      </View>
     ));
   };
 
@@ -119,33 +114,33 @@ export default function HomeScreen() {
   const [messageVisible, setMessageVisible] = useState(false);
   return (
 
-        <View style={homeStyles.container}>
-          <Modal visible={uploadVisible} onRequestClose={()=>{setUploadVisible(!uploadVisible)}}>
-            <Upload/>
-          </Modal>
+    <View style={homeStyles.container}>
+      <Modal visible={uploadVisible} onRequestClose={() => { setUploadVisible(!uploadVisible) }}>
+        <Upload />
+      </Modal>
 
-          <Modal visible={messageVisible} onRequestClose={()=>{setMessageVisible(!uploadVisible)}}>
-            <Message/>
-          </Modal>
-          
-          <View style={homeStyles.head}>
-            <Text style={homeStyles.headText}>Voice Hub</Text>
+      <Modal visible={messageVisible} onRequestClose={() => { setMessageVisible(!uploadVisible) }}>
+        <Message />
+      </Modal>
 
-            <View style={homeStyles.rightTop}>
-              <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(true); }}>
-                <Icon type="feather" size={28} name={"mail"} />
-              </TouchableOpacity>
+      <View style={homeStyles.head}>
+        <Text style={homeStyles.headText}>Voice Hub</Text>
 
-              <TouchableOpacity style={homeStyles.pactions} onPress={() => { setUploadVisible(true); }}>
-                <Icon type="feather" size={28} name={"plus"} />
-              </TouchableOpacity>
-            </View>
-          </View>
+        <View style={homeStyles.rightTop}>
+          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(true); }}>
+            <Icon type="feather" size={28} name={"mail"} />
+          </TouchableOpacity>
 
-          <ScrollView showsVerticalScrollIndicator={false}>
-            {/* User Posts */}
-            <RenderPost PostData={userPostData} />
-          </ScrollView>
+          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setUploadVisible(true); }}>
+            <Icon type="feather" size={28} name={"plus"} />
+          </TouchableOpacity>
         </View>
+      </View>
+
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {/* User Posts */}
+        <RenderPost userPostData={userPostData} />
+      </ScrollView>
+    </View>
   );
 }

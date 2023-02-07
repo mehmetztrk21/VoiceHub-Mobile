@@ -1,31 +1,48 @@
 import React from "react";
 import { TouchableOpacity, View, TextInput, Text } from "react-native";
 import registerStyle from "../../assets/styles/register.style";
+import { Searchbar } from "react-native-paper";
 
 export default function Register() {
     return (
         <View style={registerStyle.container}>
 
-            <Text>Name</Text>
-            <TextInput />
+            <Searchbar
+                placeholder="Name"
+                style={registerStyle.sbar}
+            />
 
-            <Text>Last Name</Text>
-            <TextInput />
+            <Searchbar
+                placeholder="Last Name"
+                style={registerStyle.sbar}
+            />
 
-            <Text>E-Mail</Text>
-            <TextInput keyboardType="email-address"/>
+            <Searchbar
+                placeholder="E-Mail"
+                style={registerStyle.sbar}
+            />
 
-            <Text>User Name</Text>
-            <TextInput />
+            <Searchbar
+                placeholder="User Name"
+                style={registerStyle.sbar}
+            />
 
-            <Text>Password</Text>
-            <TextInput keyboardType="visible-password"/>
+            <Searchbar
+                placeholder="Password"
+                style={registerStyle.sbar}
+            />
 
-            <Text>Password Repeat</Text>
-            <TextInput keyboardType="visible-password"/>
+            <Searchbar
+                placeholder="Password Repeat"
+                style={registerStyle.sbar}
+            />
+
+            <TouchableOpacity >
+                <Text style={registerStyle.sbar}>Register</Text>
+            </TouchableOpacity>
 
             <TouchableOpacity>
-                <Text>Register</Text>
+                <Text style={registerStyle.sbar}>Do you have accont? Go Log in</Text>
             </TouchableOpacity>
         </View>
     );
