@@ -132,9 +132,9 @@ export default function HomeScreen() {
             style={postStyle.slider}
             minimumValue={0}
             maximumValue={1}
-            minimumTrackTintColor="#0095f6"
+            minimumTrackTintColor="#1DB954"
             maximumTrackTintColor="#777777"
-            thumbTintColor="#0095f6"
+            thumbTintColor="#1DB954"
           />
         </View>
 

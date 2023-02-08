@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { ScrollView, TouchableOpacity, View, Text, Image } from "react-native";
+import { ScrollView, TouchableOpacity, View, Text, Image, Modal } from "react-native";
 import { Searchbar } from "react-native-paper";
+import { Slider } from "react-native-elements";
 
 import searchStyles from '../assets/styles/search.style';
-
-import Post from "../screens/components/post";
 
 import user1 from "../assets/userImages/user1.jpg";
 
@@ -37,6 +36,7 @@ const recUser = [
 
 export default function SearchScreen() {
   const [focused, setFocused] = useState(true);
+  const [seePost, setSeePost] = useState(false);
 
   {/*Coming Soon --->*/ }
   const [searchQuery, setSearchQuery] = useState("");
@@ -46,9 +46,15 @@ export default function SearchScreen() {
 
   const RenderUser = ({ RecData }) => {
     return RecData.map((item) => (
-      <TouchableOpacity style={{ paddingBottom: 20, flexDirection:"row" }}>
-        <Image source={item.userPic} style={{ width: 50, height: 50,borderRadius:25, }} />
-        <Post />
+      <TouchableOpacity style={{ paddingBottom: 20, flexDirection:"row" }} onPress={()=>{setSeePost(!seePost)}}>
+        <Image source={item.userPic} style={searchStyles.searchImg} />
+        <Slider style={searchStyles.slider}
+        minimumValue={0}
+        maximumValue={1}
+        minimumTrackTintColor="#1DB954"
+        maximumTrackTintColor="#777777"
+        thumbTintColor="#1DB954"
+        />
       </TouchableOpacity>
     ));
   };
@@ -69,6 +75,9 @@ export default function SearchScreen() {
 
   return (
     <View style={searchStyles.container}>
+      <Modal visible={seePost}>
+        <Text>SeePost Screen</Text>
+      </Modal>
       <View style={searchStyles.sbarHolder}>
         <Searchbar
           placeholder="Search"

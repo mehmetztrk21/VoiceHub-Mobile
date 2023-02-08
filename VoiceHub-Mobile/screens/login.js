@@ -6,28 +6,28 @@ import { Searchbar } from "react-native-paper";
 export default function Login() {
     return (
         <View style={loginStyle.container}>
-            <Image source={{ require: ("../assets/images/mypost.jpg") }} />
+            <Image source={ require("../assets/images/VoiceHub-1.png")} style={loginStyle.logo}/>
 
+            <Text style={loginStyle.label}>User Name</Text>
             <Searchbar
-                placeholder="User Name"
                 style={loginStyle.sbar}
             />
 
+            <Text style={loginStyle.label}>Password</Text>
             <Searchbar
-                placeholder="Password"
                 style={loginStyle.sbar}
             />
 
-            <TouchableOpacity >
-                <Text style={loginStyle.sbar}>Login</Text>
+            <TouchableOpacity  style={loginStyle.touch}>
+                <Text style={loginStyle.loginButton}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-                <Text style={loginStyle.sbar}>Forgot Password</Text>
+            <TouchableOpacity  style={loginStyle.touch}>
+                <Text style={loginStyle.textButton}>Forgot Password</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-                <Text style={loginStyle.sbar}>Do you have not account?</Text>
+            <TouchableOpacity  style={loginStyle.touch}>
+                <Text style={loginStyle.textButton}>Do you have not account?</Text>
             </TouchableOpacity>
         </View>
     );

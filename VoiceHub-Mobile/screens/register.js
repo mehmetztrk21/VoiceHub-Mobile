@@ -1,48 +1,48 @@
 import React from "react";
-import { TouchableOpacity, View, TextInput, Text } from "react-native";
-import registerStyle from "../../assets/styles/register.style";
+import { TouchableOpacity, View, Text } from "react-native";
+import registerStyle from "../assets/styles/register.style";
 import { Searchbar } from "react-native-paper";
 
 export default function Register() {
     return (
         <View style={registerStyle.container}>
 
+            <Text style={registerStyle.label}>Name</Text>
             <Searchbar
-                placeholder="Name"
                 style={registerStyle.sbar}
             />
 
+            <Text style={registerStyle.label}>Last Name</Text>
             <Searchbar
-                placeholder="Last Name"
                 style={registerStyle.sbar}
             />
 
+            <Text style={registerStyle.label}>User Name</Text>
             <Searchbar
-                placeholder="E-Mail"
                 style={registerStyle.sbar}
             />
 
+            <Text style={registerStyle.label}>Email</Text>
             <Searchbar
-                placeholder="User Name"
                 style={registerStyle.sbar}
             />
 
+            <Text style={registerStyle.label}>Password</Text>
             <Searchbar
-                placeholder="Password"
                 style={registerStyle.sbar}
             />
 
+            <Text style={registerStyle.label}>Password Repeat</Text>
             <Searchbar
-                placeholder="Password Repeat"
                 style={registerStyle.sbar}
             />
 
-            <TouchableOpacity >
-                <Text style={registerStyle.sbar}>Register</Text>
+            <TouchableOpacity  style={registerStyle.touch}>
+                <Text style={registerStyle.registerButton}>Register</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity>
-                <Text style={registerStyle.sbar}>Do you have accont? Go Log in</Text>
+            <TouchableOpacity  style={registerStyle.touch}>
+                <Text style={registerStyle.textButton}>Do you have accont? Go Log in</Text>
             </TouchableOpacity>
         </View>
     );

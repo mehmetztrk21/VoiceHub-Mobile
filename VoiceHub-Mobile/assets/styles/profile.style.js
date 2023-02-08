@@ -112,7 +112,7 @@ export default StyleSheet.create({
 
 
   editProfile: {
-    backgroundColor: "#0095f6",
+    backgroundColor: "#1DB954",
     borderRadius: 5,
     width: "52.5%",
     marginLeft: "10%",
@@ -123,7 +123,7 @@ export default StyleSheet.create({
 
   },
   logOut:{
-    backgroundColor: "#0095f6",
+    backgroundColor: "#1DB954",
     borderRadius: 5,
     width: "20%",
     marginLeft: "7.5%",

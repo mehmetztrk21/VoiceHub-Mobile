@@ -18,6 +18,7 @@ import Upload from "../screens/upload";
 import Saved from "../screens/saved";
 import ProfileEdit from "../screens/editProfile";
 import Login from "../screens/login";
+import Register from "../screens/register";
 
 import profileStyles from '../assets/styles/profile.style';
 import postUserInfoStyle from "../assets/styles/postUserInfo.style";
@@ -133,9 +134,9 @@ export default function ProfileScreen() {
             style={postStyle.slider}
             minimumValue={0}
             maximumValue={1}
-            minimumTrackTintColor="#0095f6"
+            minimumTrackTintColor="#1DB954"
             maximumTrackTintColor="#777777"
-            thumbTintColor="#0095f6"
+            thumbTintColor="#1DB954"
           />
         </View>
 
@@ -219,6 +220,10 @@ export default function ProfileScreen() {
 
           <Modal visible={logoutVisible} onRequestClose={()=>{setLogOutVisible(!logoutVisible)}}>
             <Login/>
+          </Modal>
+
+          <Modal visible={logoutVisible} onRequestClose={()=>{setLogOutVisible(!logoutVisible)}}>
+            <Register/>
           </Modal>
 
           <View style={profileStyles.aHeadView}>

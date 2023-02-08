@@ -49,4 +49,14 @@ export default StyleSheet.create({
     flexDirection: "column",
     width: "100%",
   },
+  searchImg:{
+    width: 50, 
+    height: 50,
+    borderRadius:25, 
+    marginLeft:"10%", 
+    marginRight:"5%",
+  },
+  slider:{
+    width:"60%",
+  },
 });
