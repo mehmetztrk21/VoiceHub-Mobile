@@ -10,8 +10,8 @@ import {
 } from "react-native";
 
 
-import Upload from "../screens/upload";
-import Message from "../screens/message";
+import Upload from "./modals/upload";
+import Message from "./modals/message";
 
 import postUserInfoStyle from "../assets/styles/postUserInfo.style";
 import postTextsStyles from "../assets/styles/postTexts.style";
@@ -105,9 +105,8 @@ const postComment = () => {
 const postSave = () => {
   alert("You Saved this Voice !");
 };
-
+const commentCount = 3;
 export default function HomeScreen() {
-
   const [uploadVisible, setUploadVisible] = useState(false);
   const [messageVisible, setMessageVisible] = useState(false);
   const [showOtherComments, setShowOtherComments] = useState(false);
@@ -116,6 +115,7 @@ export default function HomeScreen() {
   const RenderPost = ({ userPostData }) => {
     return userPostData.map((item) => (
       <View style={homeStyles.post}>
+
         <View style={postUserInfoStyle.postUser}>
           <TouchableOpacity style={postUserInfoStyle.userpic}>
             <Image style={postUserInfoStyle.userpostImg} source={item.userPic} />
@@ -161,29 +161,63 @@ export default function HomeScreen() {
             <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
           </View>
 
-          {showOtherComments ? (
+
+          {showOtherComments && commentCount > 2 ? (
             <View>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              {/* Post */}
+              <View style={postTextsStyles.otherComments}>
+                <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
+                  <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : commentCount > 2 ? (
+            <View>
+              <View>
+                <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+                <Slider
+                  style={postStyle.slider}
+                  minimumValue={0}
+                  maximumValue={1}
+                  minimumTrackTintColor="#1DB954"
+                  maximumTrackTintColor="#777777"
+                  thumbTintColor="#1DB954"
+                />
+              </View>
+              <View>
+                <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+                <Slider
+                  style={postStyle.slider}
+                  minimumValue={0}
+                  maximumValue={1}
+                  minimumTrackTintColor="#1DB954"
+                  maximumTrackTintColor="#777777"
+                  thumbTintColor="#1DB954"
+                />
+              </View>
+
+              <View style={postTextsStyles.otherComments}>
+                <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
+                  <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           ) :
-            <View style={postTextsStyles.UserComments}>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              {/* Post */}
+            <View>
+              <View>
+                <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+                <Slider />
+              </View>
+              <View>
+                <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+                <Slider />
+              </View>
             </View>
           }
 
-          <View style={postTextsStyles.otherComments}>
-            <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
-              <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
-            </TouchableOpacity>
-          </View>
+
 
           <View style={postTextsStyles.addCommentUser}>
-            
+
             <Image style={postTextsStyles.userPostCommentImg} source={item.userPic} />
             <TouchableOpacity>
               <Icon type="feather" size={28} name={"mic"} />
@@ -192,7 +226,6 @@ export default function HomeScreen() {
 
           <Text style={postTextsStyles.timeAgo}>29 minutes ago</Text>
         </View>
-
 
       </View>
     ));
@@ -206,6 +239,10 @@ export default function HomeScreen() {
 
       <Modal visible={messageVisible} onRequestClose={() => { setMessageVisible(!uploadVisible) }}>
         <Message />
+      </Modal>
+
+      <Modal visible={showOtherComments}>
+        <Text>Other Comments</Text>
       </Modal>
 
       <View style={homeStyles.head}>

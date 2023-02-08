@@ -1,6 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
-import registerStyle from "../assets/styles/register.style";
+import registerStyle from "../../assets/styles/register.style";
 import { Searchbar } from "react-native-paper";
 
 export default function Register() {

@@ -14,11 +14,11 @@ import admin from "../assets/userImages/admin.jpg";
 
 import Post from "../screens/components/post";
 
-import Upload from "../screens/upload";
-import Saved from "../screens/saved";
-import ProfileEdit from "../screens/editProfile";
-import Login from "../screens/login";
-import Register from "../screens/register";
+import Upload from "./modals/upload";
+import Saved from "./modals/saved";
+import ProfileEdit from "./modals/editProfile";
+import Login from "./modals/login";
+import Register from "./modals/register";
 
 import profileStyles from '../assets/styles/profile.style';
 import postUserInfoStyle from "../assets/styles/postUserInfo.style";
