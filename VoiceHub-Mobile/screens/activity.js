@@ -3,7 +3,8 @@ import {
   Text,
   View,
   FlatList,
-  SafeAreaView
+  SafeAreaView,
+  ScrollView
 } from "react-native";
 
 import activityStyles from "../assets/styles/activity.style";
@@ -35,17 +36,19 @@ const ActivityScreen = () => {
 
   return (
     <SafeAreaView style={activityStyles.container}>
+      <ScrollView style={activityStyles.sContainer}>
       <View style={activityStyles.aHeadView}>
         <Text style={activityStyles.head}>Activity</Text>
       </View>
-
-      <FlatList
-        data={activityData}
-        renderItem={RenderActivity}
-        keyExtractor={(item) => item.id}
-        showsHorizontalScrollIndicator={false}
-        style={activityStyles.flatList}
-      />
+      
+        <FlatList
+          data={activityData}
+          renderItem={RenderActivity}
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          style={activityStyles.flatList}
+        />
+      </ScrollView>
     </SafeAreaView>
   );
 };

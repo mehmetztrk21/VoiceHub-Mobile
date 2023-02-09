@@ -26,7 +26,6 @@ export default StyleSheet.create({
   
     sContainer: {
       backgroundColor: "white",
-  
       width: "95%",
     },
   

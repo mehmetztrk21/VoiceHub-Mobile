@@ -1,19 +1,28 @@
 import React from 'react';
-import { View,TouchableOpacity } from 'react-native';
-import { Icon } from "react-native-elements";
-import messageStyle from "../../assets/styles/message.style"
+import { View, TouchableOpacity, Text, TextInput, ScrollView } from 'react-native';
 
-/* HALF SCREEN, CONTINUE THIS PAGE */
-export default class MessageScreen extends React.Component {  
-  render() { 
-    return ( 
+import messageStyle from "../../assets/styles/message.style";
+
+import MessageItem from "../components/messageItem";
+
+export default class MessageScreen extends React.Component {
+  render() {
+
+    return (
       <View style={messageStyle.container}>
-      <View style={messageStyle.top}>
-        <TouchableOpacity style={messageStyle.back}>
-          <Icon type="feather" size={28} name={"x"} />
-        </TouchableOpacity>
+        <Text style={messageStyle.header}>Messages</Text>
+        <View style={messageStyle.searchView}>
+          <TextInput style={messageStyle.SearchBar} placeholder="Search"/>
+        </View>
+        <ScrollView style={messageStyle.Items}>
+          <TouchableOpacity>
+            <MessageItem/>
+            <MessageItem/>
+            <MessageItem/>
+            <MessageItem/>
+          </TouchableOpacity>
+        </ScrollView>
       </View>
-    </View> 
-    );  
-  }  
+    );
+  }
 } 
