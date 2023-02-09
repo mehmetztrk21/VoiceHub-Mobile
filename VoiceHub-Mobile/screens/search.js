@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { ScrollView, TouchableOpacity, View, Text, Image, Modal } from "react-native";
-import { Searchbar } from "react-native-paper";
+import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, Modal,SafeAreaView } from "react-native";
 import { Slider } from "react-native-elements";
 
 import searchStyles from '../assets/styles/search.style';
@@ -74,12 +73,12 @@ export default function SearchScreen() {
   };
 
   return (
-    <View style={searchStyles.container}>
+    <SafeAreaView style={searchStyles.container}>
       <Modal visible={seePost}>
         <Text>SeePost Screen</Text>
       </Modal>
       <View style={searchStyles.sbarHolder}>
-        <Searchbar
+        <TextInput
           placeholder="Search"
           style={searchStyles.sbar}
           onChangeText={onChangeSearch}
@@ -104,7 +103,7 @@ export default function SearchScreen() {
           </View>
         }
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -7,11 +7,13 @@ import {
   TouchableOpacity,
   Modal,
   Image,
+  SafeAreaView
 } from "react-native";
 
 
 import Upload from "./modals/upload";
 import Message from "./modals/message";
+import OtherComments from "./modals/otherComments";
 
 import postUserInfoStyle from "../assets/styles/postUserInfo.style";
 import postTextsStyles from "../assets/styles/postTexts.style";
@@ -156,63 +158,21 @@ export default function HomeScreen() {
         <View style={postTextsStyles.textCounter}>
           <Text style={postTextsStyles.likesText}>{item.likesCount} likes</Text>
 
+          {/* User Post Description */}
           <View style={postTextsStyles.textHolder}>
             <Text style={postTextsStyles.userCap}>k.kayserili</Text>
             <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
           </View>
 
+          {(commentCount>0) ?(
+            <View style={postTextsStyles.otherComments}>
+            <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
+              <Text style={postTextsStyles.showOtherComments}>Show Comments</Text>
+            </TouchableOpacity>
+          </View>
+          ): null }
 
-          {showOtherComments && commentCount > 2 ? (
-            <View>
-              <View style={postTextsStyles.otherComments}>
-                <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
-                  <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ) : commentCount > 2 ? (
-            <View>
-              <View>
-                <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-                <Slider
-                  style={postStyle.slider}
-                  minimumValue={0}
-                  maximumValue={1}
-                  minimumTrackTintColor="#1DB954"
-                  maximumTrackTintColor="#777777"
-                  thumbTintColor="#1DB954"
-                />
-              </View>
-              <View>
-                <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-                <Slider
-                  style={postStyle.slider}
-                  minimumValue={0}
-                  maximumValue={1}
-                  minimumTrackTintColor="#1DB954"
-                  maximumTrackTintColor="#777777"
-                  thumbTintColor="#1DB954"
-                />
-              </View>
 
-              <View style={postTextsStyles.otherComments}>
-                <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
-                  <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ) :
-            <View>
-              <View>
-                <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-                <Slider />
-              </View>
-              <View>
-                <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-                <Slider />
-              </View>
-            </View>
-          }
 
 
 
@@ -232,7 +192,7 @@ export default function HomeScreen() {
   };
   return (
 
-    <View style={homeStyles.container}>
+    <SafeAreaView style={homeStyles.container}>
       <Modal visible={uploadVisible} onRequestClose={() => { setUploadVisible(!uploadVisible) }}>
         <Upload />
       </Modal>
@@ -242,7 +202,7 @@ export default function HomeScreen() {
       </Modal>
 
       <Modal visible={showOtherComments}>
-        <Text>Other Comments</Text>
+        <OtherComments/>
       </Modal>
 
       <View style={homeStyles.head}>
@@ -263,6 +223,6 @@ export default function HomeScreen() {
         {/* User Posts */}
         <RenderPost userPostData={userPostData} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

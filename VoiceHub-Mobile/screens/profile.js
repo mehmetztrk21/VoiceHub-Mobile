@@ -111,7 +111,10 @@ const postSave = () => {
 };
 
 export default function ProfileScreen() {
-
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [saveVisible, setSaveVisible] = useState(false);
+  const [editVisible, setEditVisible] = useState(false);
+  const [logoutVisible, setLogOutVisible] = useState(false);
   const [showOtherComments, setShowOtherComments] = useState(false);
 
   // Rendering Post with arrays
@@ -199,10 +202,7 @@ export default function ProfileScreen() {
       </View>
     ));
   };
-  const [uploadVisible, setUploadVisible] = useState(false);
-  const [saveVisible, setSaveVisible] = useState(false);
-  const [editVisible, setEditVisible] = useState(false);
-  const [logoutVisible, setLogOutVisible] = useState(false);
+  
 
   return (
         <View style={profileStyles.container}>
@@ -222,10 +222,6 @@ export default function ProfileScreen() {
             <Login/>
           </Modal>
 
-          <Modal visible={logoutVisible} onRequestClose={()=>{setLogOutVisible(!logoutVisible)}}>
-            <Register/>
-          </Modal>
-
           <View style={profileStyles.aHeadView}>
 
             <View style={profileStyles.leftTop}>
@@ -236,11 +232,11 @@ export default function ProfileScreen() {
             </View>
 
             <View style={profileStyles.rightTop}>
-              <TouchableOpacity style={profileStyles.pactions} onPress={() => { setSaveVisible(true); }}>
+              <TouchableOpacity style={profileStyles.pactions} onPress={() => { setSaveVisible(!saveVisible); }}>
                 <Icon type="feather" size={28} name={"save"} />
               </TouchableOpacity>
 
-              <TouchableOpacity style={profileStyles.pactions} onPress={() => { setUploadVisible(true); }}>
+              <TouchableOpacity style={profileStyles.pactions} onPress={() => { setUploadVisible(!uploadVisible); }}>
                 <Icon type="feather" size={28} name={"plus"} />
               </TouchableOpacity>
             </View>
@@ -282,11 +278,11 @@ export default function ProfileScreen() {
 
             {/* Edit Profile Buttons */}
             <View style={profileStyles.btnHolder}>
-              <TouchableOpacity style={profileStyles.editProfile} onPress={()=>{setEditVisible(true);}}>
+              <TouchableOpacity style={profileStyles.editProfile} onPress={()=>{setEditVisible(!editVisible);}}>
                 <Text style={profileStyles.btnTextF}>Edit Profile</Text>
               </TouchableOpacity>
 
-              <TouchableOpacity style={profileStyles.logOut} onPress={()=>{setLogOutVisible(true);}}>
+              <TouchableOpacity style={profileStyles.logOut} onPress={()=>{setLogOutVisible(!logoutVisible);}}>
                 <Text style={profileStyles.btnTextF}>Log Out</Text>
               </TouchableOpacity>
             </View>

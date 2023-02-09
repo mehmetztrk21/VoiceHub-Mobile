@@ -21,6 +21,8 @@ export default StyleSheet.create({
   sbar: {
     backgroundColor: "whitesmoke",
     borderRadius: 15,
+    paddingVertical:10,
+    paddingHorizontal:12.5,
     width: "90%",
   },
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { TouchableOpacity, View, SafeAreaView } from "react-native";
 import { Icon, Slider } from "react-native-elements";
 import postStyle from "../../assets/styles/post.style";
 
@@ -9,7 +9,7 @@ const Play = () => {
 
 export default function Post() {
   return (
-    <View style={postStyle.post}>
+    <SafeAreaView style={postStyle.post}>
       <TouchableOpacity style={postStyle.playButton} onPress={Play}>
         <Icon type="feather" size={"175%"} name={"play"} />
       </TouchableOpacity>
@@ -22,6 +22,6 @@ export default function Post() {
         maximumTrackTintColor="#777777"
         thumbTintColor="#1DB954"
       />
-    </View>
+    </SafeAreaView>
   );
 }
