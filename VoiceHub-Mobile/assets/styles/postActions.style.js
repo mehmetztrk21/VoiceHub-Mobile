@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     margin: 10,
     marginTop: 0,
-    marginBottom: -30,
+    marginBottom: -10,
     borderTopColor:'#DADADA',
     borderTopWidth:0.5,
   },

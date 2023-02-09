@@ -7,11 +7,12 @@ import {
   TouchableOpacity,
   Modal,
   Image,
+  SafeAreaView
 } from "react-native";
 
-
-import Upload from "../screens/upload";
-import Message from "../screens/message";
+import Upload from "./modals/upload";
+import Message from "./modals/message";
+import OtherComments from "./modals/otherComments";
 
 import postUserInfoStyle from "../assets/styles/postUserInfo.style";
 import postTextsStyles from "../assets/styles/postTexts.style";
@@ -29,7 +30,6 @@ const userPostData = [
     id: "1",
     userName: "Alex",
     userPic: user1,
-    userPost: user1,
     likesCount: "1451",
     caption: "Coffee is the most imp part of my life !",
   },
@@ -37,7 +37,6 @@ const userPostData = [
     id: "2",
     userName: "Martha",
     userPic: user1,
-    userPost: user1,
     likesCount: "155",
     caption: "Nothings is better than reading book !",
   },
@@ -45,7 +44,6 @@ const userPostData = [
     id: "3",
     userName: "Aditi",
     userPic: user1,
-    userPost: user1,
     likesCount: "77",
     caption: "Waiting for someone to come back !",
   },
@@ -53,7 +51,6 @@ const userPostData = [
     id: "4",
     userName: "Alex",
     userPic: user1,
-    userPost: user1,
     likesCount: "7555",
     caption: "Coffee is the most imp part of my life !",
   },
@@ -61,7 +58,6 @@ const userPostData = [
     id: "5",
     userName: "Rohit",
     userPic: user1,
-    userPost: user1,
     likesCount: "93578",
     caption: "car",
   },
@@ -69,7 +65,6 @@ const userPostData = [
     id: "6",
     userName: "Rohit",
     userPic: user1,
-    userPost: user1,
     likesCount: "5265",
     caption: "rose",
   },
@@ -77,7 +72,6 @@ const userPostData = [
     id: "7",
     userName: "Rohit",
     userPic: user1,
-    userPost: user1,
     likesCount: "4858",
     caption: "Flowers",
   },
@@ -85,7 +79,6 @@ const userPostData = [
     id: "8",
     userName: "Rohit",
     userPic: user1,
-    userPost: user1,
     likesCount: "2723",
     caption: "kaan",
   },
@@ -93,7 +86,6 @@ const userPostData = [
     id: "9",
     userName: "Suyash",
     userPic: user1,
-    userPost: user1,
     likesCount: "66855",
     caption: "This app is made by Suyash.",
   },
@@ -114,12 +106,17 @@ const postComment = () => {
 const postSave = () => {
   alert("You Saved this Voice !");
 };
-
+const commentCount = 3;
 export default function HomeScreen() {
+  const [uploadVisible, setUploadVisible] = useState(false);
+  const [messageVisible, setMessageVisible] = useState(false);
+  const [showOtherComments, setShowOtherComments] = useState(false);
+
   // Rendering Post with arrays
   const RenderPost = ({ userPostData }) => {
     return userPostData.map((item) => (
-      <View>
+      <View style={homeStyles.post}>
+
         <View style={postUserInfoStyle.postUser}>
           <TouchableOpacity style={postUserInfoStyle.userpic}>
             <Image style={postUserInfoStyle.userpostImg} source={item.userPic} />
@@ -136,9 +133,9 @@ export default function HomeScreen() {
             style={postStyle.slider}
             minimumValue={0}
             maximumValue={1}
-            minimumTrackTintColor="#0095f6"
+            minimumTrackTintColor="#1DB954"
             maximumTrackTintColor="#777777"
-            thumbTintColor="#0095f6"
+            thumbTintColor="#1DB954"
           />
         </View>
 
@@ -160,13 +157,44 @@ export default function HomeScreen() {
         <View style={postTextsStyles.textCounter}>
           <Text style={postTextsStyles.likesText}>{item.likesCount} likes</Text>
 
+          {/* User Post Description */}
           <View style={postTextsStyles.textHolder}>
-            <Text style={postTextsStyles.userCap}>{item.userName}</Text>
-            <Text style={postTextsStyles.captext}>{item.caption}</Text>
+            <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+            <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
           </View>
 
-          <View style={postTextsStyles.commentUser}>
-            <Image style={postTextsStyles.userPostCommentImg} source={item.userPic}/>
+          {(commentCount > 0) ? (
+            <View>
+              <View style={postTextsStyles.UserComments}>
+                <View>
+                  {/* Map kullanacagim */}
+                  <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+                  <Slider
+                    style={postStyle.slider}
+                    minimumValue={0}
+                    maximumValue={1}
+                    minimumTrackTintColor="#1DB954"
+                    maximumTrackTintColor="#777777"
+                    thumbTintColor="#1DB954"
+                  />
+                </View>
+              </View>
+
+              <View style={postTextsStyles.otherComments}>
+                <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
+                  <Text style={postTextsStyles.showOtherComments}>Show Comments</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : null}
+
+
+
+
+
+          <View style={postTextsStyles.addCommentUser}>
+
+            <Image style={postTextsStyles.userPostCommentImg} source={item.userPic} />
             <TouchableOpacity>
               <Icon type="feather" size={28} name={"mic"} />
             </TouchableOpacity>
@@ -175,22 +203,22 @@ export default function HomeScreen() {
           <Text style={postTextsStyles.timeAgo}>29 minutes ago</Text>
         </View>
 
-
       </View>
     ));
   };
-
-  const [uploadVisible, setUploadVisible] = useState(false);
-  const [messageVisible, setMessageVisible] = useState(false);
   return (
 
-    <View style={homeStyles.container}>
+    <SafeAreaView style={homeStyles.container}>
       <Modal visible={uploadVisible} onRequestClose={() => { setUploadVisible(!uploadVisible) }}>
         <Upload />
       </Modal>
 
       <Modal visible={messageVisible} onRequestClose={() => { setMessageVisible(!uploadVisible) }}>
         <Message />
+      </Modal>
+
+      <Modal visible={showOtherComments}>
+        <OtherComments />
       </Modal>
 
       <View style={homeStyles.head}>
@@ -211,6 +239,6 @@ export default function HomeScreen() {
         {/* User Posts */}
         <RenderPost userPostData={userPostData} />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -1,9 +1,9 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
 import {
   Text,
   View,
   FlatList,
+  SafeAreaView
 } from "react-native";
 
 import activityStyles from "../assets/styles/activity.style";
@@ -34,7 +34,7 @@ const ActivityScreen = () => {
   );
 
   return (
-    <View style={activityStyles.container}>
+    <SafeAreaView style={activityStyles.container}>
       <View style={activityStyles.aHeadView}>
         <Text style={activityStyles.head}>Activity</Text>
       </View>
@@ -46,7 +46,7 @@ const ActivityScreen = () => {
         showsHorizontalScrollIndicator={false}
         style={activityStyles.flatList}
       />
-    </View>
+    </SafeAreaView>
   );
 };
 

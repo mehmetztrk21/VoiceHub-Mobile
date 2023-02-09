@@ -21,6 +21,8 @@ export default StyleSheet.create({
   sbar: {
     backgroundColor: "whitesmoke",
     borderRadius: 15,
+    paddingVertical:10,
+    paddingHorizontal:12.5,
     width: "90%",
   },
 
@@ -34,10 +36,29 @@ export default StyleSheet.create({
     fontWeight: "bold",
     padding: 5,
   },
+  last:{
+    paddingBottom: 20,
 
+  },
+  lastSearchImage:{
+    width: 50, 
+    height: 50, 
+    borderRadius:25, 
+    marginRight:"1%",
+  },
   userHodler: {
     flex: 1,
     flexDirection: "column",
     width: "100%",
+  },
+  searchImg:{
+    width: 50, 
+    height: 50,
+    borderRadius:25, 
+    marginLeft:"10%", 
+    marginRight:"5%",
+  },
+  slider:{
+    width:"60%",
   },
 });

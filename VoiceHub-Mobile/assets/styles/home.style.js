@@ -28,4 +28,7 @@ export default StyleSheet.create({
         flexDirection:"row",
         justifyContent:"flex-end",
     },
+    post:{
+        marginLeft:"1.5%",
+    }
 });

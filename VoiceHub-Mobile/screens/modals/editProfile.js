@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import editProfileStyle from "../assets/styles/editProfile.style"
+import editProfileStyle from "../../assets/styles/editProfile.style"
 import { Icon } from "react-native-elements";
 
 /* HALF SCREEN, CONTINUE THIS PAGE */

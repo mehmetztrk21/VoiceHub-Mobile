@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity } from 'react-native';
-import uploadStyle from "../assets/styles/upload.style"
+import uploadStyle from "../../assets/styles/upload.style"
 import { Icon } from "react-native-elements";
 /* HALF SCREEN, CONTINUE THIS PAGE */
 export default class UploadScreen extends React.Component {
