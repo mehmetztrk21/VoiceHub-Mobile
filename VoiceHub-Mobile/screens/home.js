@@ -10,7 +10,6 @@ import {
   SafeAreaView
 } from "react-native";
 
-
 import Upload from "./modals/upload";
 import Message from "./modals/message";
 import OtherComments from "./modals/otherComments";
@@ -164,13 +163,30 @@ export default function HomeScreen() {
             <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
           </View>
 
-          {(commentCount>0) ?(
-            <View style={postTextsStyles.otherComments}>
-            <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
-              <Text style={postTextsStyles.showOtherComments}>Show Comments</Text>
-            </TouchableOpacity>
-          </View>
-          ): null }
+          {(commentCount > 0) ? (
+            <View>
+              <View style={postTextsStyles.UserComments}>
+                <View>
+                  {/* Map kullanacagim */}
+                  <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+                  <Slider
+                    style={postStyle.slider}
+                    minimumValue={0}
+                    maximumValue={1}
+                    minimumTrackTintColor="#1DB954"
+                    maximumTrackTintColor="#777777"
+                    thumbTintColor="#1DB954"
+                  />
+                </View>
+              </View>
+
+              <View style={postTextsStyles.otherComments}>
+                <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
+                  <Text style={postTextsStyles.showOtherComments}>Show Comments</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : null}
 
 
 
@@ -202,7 +218,7 @@ export default function HomeScreen() {
       </Modal>
 
       <Modal visible={showOtherComments}>
-        <OtherComments/>
+        <OtherComments />
       </Modal>
 
       <View style={homeStyles.head}>

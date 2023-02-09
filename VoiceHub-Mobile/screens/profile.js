@@ -14,11 +14,11 @@ import admin from "../assets/userImages/admin.jpg";
 
 import Post from "../screens/components/post";
 
+import OtherComments from "./modals/otherComments";
 import Upload from "./modals/upload";
 import Saved from "./modals/saved";
 import ProfileEdit from "./modals/editProfile";
 import Login from "./modals/login";
-import Register from "./modals/register";
 
 import profileStyles from '../assets/styles/profile.style';
 import postUserInfoStyle from "../assets/styles/postUserInfo.style";
@@ -110,6 +110,7 @@ const postSave = () => {
   alert("You Saved this Voice !");
 };
 
+const commentCount = 3;
 export default function ProfileScreen() {
   const [uploadVisible, setUploadVisible] = useState(false);
   const [saveVisible, setSaveVisible] = useState(false);
@@ -166,26 +167,30 @@ export default function ProfileScreen() {
             <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
           </View>
 
-          {showOtherComments ? (
+          {(commentCount > 0) ? (
             <View>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              {/* Post */}
-            </View>
-          ) :
-            <View style={postTextsStyles.UserComments}>
-              <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              {/* Post */}
-            </View>
-          }
+              <View style={postTextsStyles.UserComments}>
+                <View>
+                  {/* Map kullanacagim */}
+                  <Text style={postTextsStyles.userCap}>k.kayserili</Text>
+                  <Slider
+                    style={postStyle.slider}
+                    minimumValue={0}
+                    maximumValue={1}
+                    minimumTrackTintColor="#1DB954"
+                    maximumTrackTintColor="#777777"
+                    thumbTintColor="#1DB954"
+                  />
+                </View>
+              </View>
 
-          <View style={postTextsStyles.otherComments}>
-            <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
-              <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
-            </TouchableOpacity>
-          </View>
+              <View style={postTextsStyles.otherComments}>
+                <TouchableOpacity onPress={() => { setShowOtherComments(!showOtherComments) }}>
+                  <Text style={postTextsStyles.showOtherComments}>Show Comments</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          ) : null}
 
           <View style={postTextsStyles.addCommentUser}>
             
@@ -220,6 +225,10 @@ export default function ProfileScreen() {
 
           <Modal visible={logoutVisible} onRequestClose={()=>{setLogOutVisible(!logoutVisible)}}>
             <Login/>
+          </Modal>
+
+          <Modal visible={showOtherComments} onRequestClose={()=>{setShowOtherComments(!showOtherComments)}}>
+            <OtherComments/>
           </Modal>
 
           <View style={profileStyles.aHeadView}>

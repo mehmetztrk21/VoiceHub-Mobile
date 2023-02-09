@@ -59,7 +59,7 @@ export default StyleSheet.create({
   userPic: {
     width: 90,
     height: 90,
-    borderRadius: 50,
+    borderRadius: 45,
     margin: 10,
     marginLeft: "1%",
     marginVertical: -12,

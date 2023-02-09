@@ -43,7 +43,7 @@ const screenOptions = {
   tabBarShowLabel: false,
   tabBarStyle: {
     position: 'absolute',
-    height: "7.5%",
+    height: "6.5%",
   }
 };
 

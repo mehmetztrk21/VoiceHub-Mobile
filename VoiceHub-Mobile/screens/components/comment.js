@@ -1,12 +1,16 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Image } from "react-native";
 
-import CommentStyle from "../../assets/styles/comment.style";
+import Post from "../components/post";
+
+import user1 from "../../assets/userImages/user1.jpg";
+import commentStyle from "../../assets/styles/comment.style";
 
 export default function OtherComments() {
     return (
-        <View style={CommentStyle.container}>
-            
+        <View style={commentStyle.container}>
+            <Image source={user1} style={commentStyle.ProfilePhoto}/>
+            <Post/>
         </View>
     );
 }

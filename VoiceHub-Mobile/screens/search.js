@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, Modal,SafeAreaView } from "react-native";
 import { Slider } from "react-native-elements";
 
+import SeePost from "./modals/seePost";
+
 import searchStyles from '../assets/styles/search.style';
 
 import user1 from "../assets/userImages/user1.jpg";
@@ -74,8 +76,8 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={searchStyles.container}>
-      <Modal visible={seePost}>
-        <Text>SeePost Screen</Text>
+      <Modal visible={seePost} onRequestClose={()=>{setSeePost(!seePost)}}>
+        <SeePost/>
       </Modal>
       <View style={searchStyles.sbarHolder}>
         <TextInput
