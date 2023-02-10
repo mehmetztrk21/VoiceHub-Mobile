@@ -29,7 +29,8 @@ const activityData = [
   { id: "13", userName: "Minato", userPic: user1 },
 ];
 
-const ActivityScreen = () => {
+export default function ActivityScreen() {
+  
   const RenderActivity = ({ item }) => (
     <ActivityBar userPic={item.userPic} userName={item.userName} />
   );
@@ -52,7 +53,5 @@ const ActivityScreen = () => {
     </SafeAreaView>
   );
 };
-
-export default ActivityScreen;
 
 

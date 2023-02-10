@@ -1,18 +1,13 @@
 import React from 'react';
-import { View, TouchableOpacity } from 'react-native';
-import uploadStyle from "../../assets/styles/upload.style"
-import { Icon } from "react-native-elements";
+import { View, Text } from 'react-native';
+import uploadStyle from "../../assets/styles/upload.style";
 /* HALF SCREEN, CONTINUE THIS PAGE */
-export default class UploadScreen extends React.Component {
-  render(goBack) {
+export default function Upload() {
     return (
       <View style={uploadStyle.container}>
         <View style={uploadStyle.top}>
-          <TouchableOpacity style={uploadStyle.back}>
-            <Icon type="feather" size={28} name={"x"} />
-          </TouchableOpacity>
+          <Text>Upload</Text>
         </View>
       </View>
     );
   }
-} 

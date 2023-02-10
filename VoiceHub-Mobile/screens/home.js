@@ -107,7 +107,9 @@ const postSave = () => {
   alert("You Saved this Voice !");
 };
 const commentCount = 3;
+
 export default function HomeScreen() {
+
   const [uploadVisible, setUploadVisible] = useState(false);
   const [messageVisible, setMessageVisible] = useState(false);
   const [showOtherComments, setShowOtherComments] = useState(false);

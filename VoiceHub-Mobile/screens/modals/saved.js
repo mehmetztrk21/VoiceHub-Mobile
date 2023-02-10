@@ -11,9 +11,7 @@ import user1 from "../../assets/userImages/user1.jpg";
 
 //const [seeSavedPost, setSeeSavedPost] = useState(false);
 // visible={seeSavedPost} onRequestClose={() => { setSeeSavedPost(!seeSavedPost) }}
-export default class SavedScreen extends React.Component {
-  render() {
-    
+export default function Saved() {
     return (
 
       <View style={savedStyle.container}>
@@ -45,4 +43,3 @@ export default class SavedScreen extends React.Component {
       </View>
     );
   }
-} 
