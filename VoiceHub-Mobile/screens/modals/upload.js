@@ -9,7 +9,7 @@ export default function Upload() {
   return (
     <View style={uploadStyle.container}>
       <View style={uploadStyle.topView}>
-        <Text>Upload</Text>
+        <Text style={uploadStyle.header}>Upload</Text>
       </View>
 
       <View style={uploadStyle.bottomView}>
