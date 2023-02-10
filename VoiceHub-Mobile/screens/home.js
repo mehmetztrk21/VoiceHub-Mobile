@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Icon, Slider } from "react-native-elements";
+import { Icon } from "react-native-elements";
+import Slider from "./components/slider";
 import {
   ScrollView,
   Text,
@@ -131,14 +132,7 @@ export default function HomeScreen() {
             <Icon type="feather" size={"175%"} name={"play"} />
           </TouchableOpacity>
 
-          <Slider
-            style={postStyle.slider}
-            minimumValue={0}
-            maximumValue={1}
-            minimumTrackTintColor="#1DB954"
-            maximumTrackTintColor="#777777"
-            thumbTintColor="#1DB954"
-          />
+          <Slider/>
         </View>
 
         <View style={postActionsStyle.postActions}>
@@ -171,14 +165,7 @@ export default function HomeScreen() {
                 <View>
                   {/* Map kullanacagim */}
                   <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-                  <Slider
-                    style={postStyle.slider}
-                    minimumValue={0}
-                    maximumValue={1}
-                    minimumTrackTintColor="#1DB954"
-                    maximumTrackTintColor="#777777"
-                    thumbTintColor="#1DB954"
-                  />
+                  <Slider/>
                 </View>
               </View>
 

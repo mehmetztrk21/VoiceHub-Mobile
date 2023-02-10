@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, Text, Modal, Image } from 'react-native';
 
-import { Slider, Icon } from "react-native-elements";
+import { Icon } from "react-native-elements";
+
+import Slider from "../../screens/components/slider"
 
 import savedStyle from "../../assets/styles/saved.style";
 
@@ -29,14 +31,7 @@ export default function Saved() {
           <TouchableOpacity>
             <Image source={user1} style={savedStyle.profilePhoto} />
             <Icon type="feather" size={28} name={"play"} />
-            <Slider
-              style={savedStyle.slider}
-              minimumValue={0}
-              maximumValue={1}
-              minimumTrackTintColor="#1DB954"
-              maximumTrackTintColor="#777777"
-              thumbTintColor="#1DB954"
-            />
+            <Slider/>
           </TouchableOpacity>
         </View>
 

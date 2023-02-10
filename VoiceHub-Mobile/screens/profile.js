@@ -7,7 +7,9 @@ import {
   View,
   Modal,
 } from "react-native";
-import { Icon, Slider } from "react-native-elements";
+import {Icon} from "react-native-elements";
+
+import Slider from "./components/slider"
 
 import verfy from "../assets/ver.png";
 import admin from "../assets/userImages/admin.jpg";
@@ -134,14 +136,7 @@ export default function ProfileScreen() {
             <Icon type="feather" size={"175%"} name={"play"} />
           </TouchableOpacity>
 
-          <Slider
-            style={postStyle.slider}
-            minimumValue={0}
-            maximumValue={1}
-            minimumTrackTintColor="#1DB954"
-            maximumTrackTintColor="#777777"
-            thumbTintColor="#1DB954"
-          />
+          <Slider/>
         </View>
 
         <View style={postActionsStyle.postActions}>
@@ -173,14 +168,7 @@ export default function ProfileScreen() {
                 <View>
                   {/* Map kullanacagim */}
                   <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-                  <Slider
-                    style={postStyle.slider}
-                    minimumValue={0}
-                    maximumValue={1}
-                    minimumTrackTintColor="#1DB954"
-                    maximumTrackTintColor="#777777"
-                    thumbTintColor="#1DB954"
-                  />
+                  <Slider/>
                 </View>
               </View>
 

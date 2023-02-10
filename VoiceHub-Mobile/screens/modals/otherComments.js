@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Image } from "react-native";
-import { Icon, Slider } from "react-native-elements";
+import { Icon } from "react-native-elements";
 import Comment from "../components/comment";
 
 import user1 from "../../assets/userImages/user1.jpg";

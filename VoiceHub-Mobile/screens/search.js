@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, Modal,SafeAreaView } from "react-native";
-import { Slider } from "react-native-elements";
+import Slider from "./components/slider"
 
 import SeePost from "./modals/seePost";
 
@@ -49,13 +49,7 @@ export default function SearchScreen() {
     return RecData.map((item) => (
       <TouchableOpacity style={{ paddingBottom: 20, flexDirection:"row" }} onPress={()=>{setSeePost(!seePost)}}>
         <Image source={item.userPic} style={searchStyles.searchImg} />
-        <Slider style={searchStyles.slider}
-        minimumValue={0}
-        maximumValue={1}
-        minimumTrackTintColor="#1DB954"
-        maximumTrackTintColor="#777777"
-        thumbTintColor="#1DB954"
-        />
+        <Slider/>
       </TouchableOpacity>
     ));
   };
