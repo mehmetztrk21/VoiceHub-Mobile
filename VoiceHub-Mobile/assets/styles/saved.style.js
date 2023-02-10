@@ -11,4 +11,15 @@ export default StyleSheet.create({
   header:{
     fontWeight:"bold",
   },
+  savedPosts:{
+    //empty
+  },
+  slider:{
+    width:"40%",
+  },
+  profilePhoto:{
+    width: 50,
+    height:50,
+    borderRadius:25,
+  },
 });

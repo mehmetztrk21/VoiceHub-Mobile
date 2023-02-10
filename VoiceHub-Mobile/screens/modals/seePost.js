@@ -9,8 +9,7 @@ import PostActions from "../components/postActions";
 //import PostTexts from "../components/postTexts";
 
 /* HALF SCREEN, CONTINUE THIS PAGE */
-export default class seePostScreen extends React.Component {
-    render() {
+export default function SeePost() {
         return (
             <View style={seePostStyle.container}>
                 {/*<PostUserInfo/>*/}
@@ -20,4 +19,3 @@ export default class seePostScreen extends React.Component {
             </View>
         );
     }
-} 

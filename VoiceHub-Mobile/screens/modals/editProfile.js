@@ -4,8 +4,7 @@ import editProfileStyle from "../../assets/styles/editProfile.style"
 import { Icon } from "react-native-elements";
 
 /* HALF SCREEN, CONTINUE THIS PAGE */
-export default class EditProfileScreen extends React.Component {  
-  render() {  
+export default function EditProfile() {
     return (  
       <View style={editProfileStyle.container}>
       <View style={editProfileStyle.top}>
@@ -15,5 +14,4 @@ export default class EditProfileScreen extends React.Component {
       </View>
     </View> 
     );  
-  }  
-} 
+  }   

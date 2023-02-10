@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, Modal,SafeAreaView } from "react-native";
-import { Slider } from "react-native-elements";
+import Slider from "./components/slider"
 
 import SeePost from "./modals/seePost";
-
+import SeeProfile from "./modals/seeProfile"
 import searchStyles from '../assets/styles/search.style';
 
 import user1 from "../assets/userImages/user1.jpg";
@@ -38,6 +38,7 @@ const recUser = [
 export default function SearchScreen() {
   const [focused, setFocused] = useState(true);
   const [seePost, setSeePost] = useState(false);
+  const [seeProfile, setSeeProfile] = useState(false);
 
   {/*Coming Soon --->*/ }
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,13 +50,7 @@ export default function SearchScreen() {
     return RecData.map((item) => (
       <TouchableOpacity style={{ paddingBottom: 20, flexDirection:"row" }} onPress={()=>{setSeePost(!seePost)}}>
         <Image source={item.userPic} style={searchStyles.searchImg} />
-        <Slider style={searchStyles.slider}
-        minimumValue={0}
-        maximumValue={1}
-        minimumTrackTintColor="#1DB954"
-        maximumTrackTintColor="#777777"
-        thumbTintColor="#1DB954"
-        />
+        <Slider/>
       </TouchableOpacity>
     ));
   };
@@ -78,6 +73,10 @@ export default function SearchScreen() {
     <SafeAreaView style={searchStyles.container}>
       <Modal visible={seePost} onRequestClose={()=>{setSeePost(!seePost)}}>
         <SeePost/>
+      </Modal>
+
+      <Modal visible={seeProfile} onRequestClose={()=>{setSeeProfile(!seeProfile)}}>
+        <SeeProfile/>
       </Modal>
       <View style={searchStyles.sbarHolder}>
         <TextInput
