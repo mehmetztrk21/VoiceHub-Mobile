@@ -7,4 +7,15 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
       },
+      top:{
+
+      },
+      header:{
+       fontWeight:"bold",
+      },
+      profilePhoto:{
+        width:70,
+        height:70,
+        borderRadius:35
+      },
 });
