@@ -22,6 +22,7 @@ import postStyle from "../assets/styles/post.style";
 
 // Importing User Images
 import user1 from "../assets/userImages/user1.jpg";
+import logo from "../assets/images/VoiceHub-1.png"
 
 //importing styles
 import homeStyles from '../assets/styles/home.style';
@@ -203,7 +204,7 @@ export default function HomeScreen() {
         <Message messageVisible={messageVisible} />
 
       <View style={homeStyles.head}>
-        <Text style={homeStyles.headText}>Voice Hub</Text>
+        <Image source={logo} style={{width: "40%", height:"122.5%" }}/>
 
         <View style={homeStyles.rightTop}>
           <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(!messageVisible);}}>
