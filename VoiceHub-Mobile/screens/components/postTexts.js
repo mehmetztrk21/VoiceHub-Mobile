@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-
+import {Icon} from "react-native-elements"
 import postTextsStyles from "../../assets/styles/postTexts.style";
 
-export default function postTexts() {
+export default function postTexts(likesCount, userPic) {
   const [showOtherComments, setShowOtherComments] = useState(false);
   return (
     <View style={postTextsStyles.textCounter}>
-          <Text style={postTextsStyles.likesText}>{item.likesCount} likes</Text>
+          <Text style={postTextsStyles.likesText}>{likesCount.likesCount} likes</Text>
 
           <View style={postTextsStyles.textHolder}>
             <Text style={postTextsStyles.userCap}>k.kayserili</Text>
@@ -25,7 +25,6 @@ export default function postTexts() {
           ) :
             <View style={postTextsStyles.UserComments}>
               <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-              {/* Post */}
             </View>
           }
 
@@ -37,7 +36,7 @@ export default function postTexts() {
 
           <View style={postTextsStyles.addCommentUser}>
             
-            <Image style={postTextsStyles.userPostCommentImg} source={item.userPic} />
+            <Image style={postTextsStyles.userPostCommentImg} source={userPic.userPic} />
             <TouchableOpacity>
               <Icon type="feather" size={28} name={"mic"} />
             </TouchableOpacity>

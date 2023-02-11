@@ -13,7 +13,7 @@ export default function UserMessageItem() {
           minimumTrackTintColor= {colors.green}
           maximumTrackTintColor={colors.gray}
           thumbTintColor={colors.green}
-          thumbStyle={{ height: 25, width: 25 }}
+          thumbStyle={{ height: 25, width: 25, }}
         />
       );
     }

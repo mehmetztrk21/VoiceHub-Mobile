@@ -30,5 +30,5 @@ export default StyleSheet.create({
     },
     post:{
         marginLeft:"1.5%",
-    }
+    },
 });
