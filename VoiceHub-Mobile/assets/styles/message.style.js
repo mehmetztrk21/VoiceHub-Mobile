@@ -4,6 +4,7 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    width:"100%"
   },
   header: {
     fontWeight: "bold",

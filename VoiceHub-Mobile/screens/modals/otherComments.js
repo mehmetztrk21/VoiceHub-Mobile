@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, Modal } from "react-native";
 import { Icon } from "react-native-elements";
 import Comment from "../components/comment";
 
@@ -7,8 +7,11 @@ import user1 from "../../assets/userImages/user1.jpg";
 
 import otherCommentsStyle from "../../assets/styles/otherComments.style";
 
-export default function OtherComments() {
+export default function OtherComments(showOtherComments) {
     return (
+        <Modal style={{width:"100%"}} onRequestClose={()=>{!showOtherComments}}>
+    <View>
+    {showOtherComments.showOtherComments?(
         <View style={otherCommentsStyle.container}>
             <View style={otherCommentsStyle.comments}>
                 {/*map kullanacagim*/}
@@ -20,5 +23,8 @@ export default function OtherComments() {
             </View>
 
         </View>
+    ):null}
+    </View>
+    </Modal>
     );
 }

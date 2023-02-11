@@ -13,6 +13,7 @@ export default function UserMessageItem() {
           minimumTrackTintColor= {colors.green}
           maximumTrackTintColor={colors.gray}
           thumbTintColor={colors.green}
+          thumbTouchSize={8}
         />
       );
     }
