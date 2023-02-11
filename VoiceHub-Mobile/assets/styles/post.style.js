@@ -10,8 +10,4 @@ export default StyleSheet.create({
         paddingRight:"2.5%",
         paddingTop:5,
       },
-      slider:{
-        tintColor:"#212121",
-        width: "60%",
-      },
 });

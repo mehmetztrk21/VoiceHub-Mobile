@@ -1,5 +1,5 @@
 import React from 'react';
-import postStyle from "../../assets/styles/post.style"
+import sliderStyle from "../../assets/styles/slider.style"
 import { Slider } from "react-native-elements";
 import colors  from '../../assets/colors';
 
@@ -7,13 +7,13 @@ export default function UserMessageItem() {
         
       return (
         <Slider
-          style={postStyle.slider}
+          style={sliderStyle.slider}
           minimumValue={0}
           maximumValue={1}
           minimumTrackTintColor= {colors.green}
           maximumTrackTintColor={colors.gray}
           thumbTintColor={colors.green}
-          thumbTouchSize={8}
+          thumbStyle={{ height: 25, width: 25 }}
         />
       );
     }
