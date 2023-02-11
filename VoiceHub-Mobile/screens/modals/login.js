@@ -1,9 +1,12 @@
 import React from "react";
-import { TouchableOpacity, View, Text, Image, TextInput } from "react-native";
+import { TouchableOpacity, View, Text, Image, TextInput, Modal } from "react-native";
 import loginStyle from "../../assets/styles/login.style";
 
-export default function Login() {
+export default function Login(logoutVisible) {
     return (
+        <Modal style={{width:"100%"}} onRequestClose={()=>{!editVisible}}>
+    <View>
+    {logoutVisible.logoutVisible ?  (
         <View style={loginStyle.container}>
             <Image source={ require("../../assets/images/VoiceHub-1.png")} style={loginStyle.logo}/>
 
@@ -29,5 +32,8 @@ export default function Login() {
                 <Text style={loginStyle.textButton}>Do you have not account?</Text>
             </TouchableOpacity>
         </View>
+    ):null}
+    </View>
+    </Modal>
     );
 }

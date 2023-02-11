@@ -71,21 +71,18 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={searchStyles.container}>
-      <Modal visible={seePost} onRequestClose={()=>{setSeePost(!seePost)}}>
-        <SeePost/>
-      </Modal>
+      
+        <SeePost seePost={seePost} onRequestClose={()=>{setSeePost(!seePost)}}/>
 
-      <Modal visible={seeProfile} onRequestClose={()=>{setSeeProfile(!seeProfile)}}>
-        <SeeProfile/>
-      </Modal>
+        <SeeProfile seeProfile={seeProfile} onRequestClose={()=>{setSeePost(!seeProfile)}}/>
+
       <View style={searchStyles.sbarHolder}>
         <TextInput
           placeholder="Search"
           style={searchStyles.sbar}
           onChangeText={onChangeSearch}
           value={searchQuery}
-          onFocus={() => setFocused(false)}
-          onBlur={() => setFocused(true)}
+          onFocus={() => setFocused(!focused)}
         />
       </View>
 

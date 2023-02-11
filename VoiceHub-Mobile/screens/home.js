@@ -6,9 +6,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Modal,
   Image,
-  SafeAreaView
+  SafeAreaView,
+  Modal
 } from "react-native";
 
 import Upload from "./modals/upload";
@@ -198,27 +198,19 @@ export default function HomeScreen() {
   return (
 
     <SafeAreaView style={homeStyles.container}>
-      <Modal visible={uploadVisible} onRequestClose={() => { setUploadVisible(!uploadVisible) }}>
-        <Upload />
-      </Modal>
-
-      <Modal visible={messageVisible} onRequestClose={() => { setMessageVisible(!uploadVisible) }}>
-        <Message />
-      </Modal>
-
-      <Modal visible={showOtherComments}>
-        <OtherComments />
-      </Modal>
+        <Upload uploadVisible={uploadVisible}/>
+        <OtherComments showOtherComments={showOtherComments}/>
+        <Message messageVisible={messageVisible} />
 
       <View style={homeStyles.head}>
         <Text style={homeStyles.headText}>Voice Hub</Text>
 
         <View style={homeStyles.rightTop}>
-          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(true); }}>
+          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setMessageVisible(!messageVisible);}}>
             <Icon type="feather" size={28} name={"mail"} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setUploadVisible(true); }}>
+          <TouchableOpacity style={homeStyles.pactions} onPress={() => { setUploadVisible(!uploadVisible); }}>
             <Icon type="feather" size={28} name={"plus"} />
           </TouchableOpacity>
         </View>

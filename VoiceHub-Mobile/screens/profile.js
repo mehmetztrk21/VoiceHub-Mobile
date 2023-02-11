@@ -198,26 +198,14 @@ export default function ProfileScreen() {
   
 
   return (
+    
         <View style={profileStyles.container}>
-          <Modal visible={uploadVisible} onRequestClose={()=>{setUploadVisible(!uploadVisible)}}>
-            <Upload/>
-          </Modal>
-
-          <Modal visible={saveVisible} onRequestClose={()=>{setSaveVisible(!saveVisible)}}>
-            <Saved/>
-          </Modal>
-
-          <Modal visible={editVisible} onRequestClose={()=>{setEditVisible(!editVisible)}}>
-            <ProfileEdit/>
-          </Modal>
-
-          <Modal visible={logoutVisible} onRequestClose={()=>{setLogOutVisible(!logoutVisible)}}>
-            <Login/>
-          </Modal>
-
-          <Modal visible={showOtherComments} onRequestClose={()=>{setShowOtherComments(!showOtherComments)}}>
-            <OtherComments/>
-          </Modal>
+          
+            <Upload uploadVisible={uploadVisible}/>
+            <Saved saveVisible={saveVisible}/>
+            <ProfileEdit editVisible={editVisible}/>
+            <Login logoutVisible={logoutVisible}/>
+            <OtherComments showOtherComments={showOtherComments}/>
 
           <View style={profileStyles.aHeadView}>
 
