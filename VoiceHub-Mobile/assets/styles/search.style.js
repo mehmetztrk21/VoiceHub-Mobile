@@ -8,7 +8,7 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
 
-  sbarHolder: {
+  searchBarHolder: {
     top: 0,
     left: 0,
     width: "100%",
@@ -18,7 +18,7 @@ export default StyleSheet.create({
     marginTop: 20,
   },
 
-  sbar: {
+  searchBar: {
     backgroundColor: "whitesmoke",
     borderRadius: 15,
     paddingVertical:10,
@@ -26,30 +26,18 @@ export default StyleSheet.create({
     width: "90%",
   },
 
-  sContainer: {
+  scrollContainer: {
     backgroundColor: "white",
     width: "92%",
   },
-
-  Shead: {
-    fontSize: 20,
-    fontWeight: "bold",
-    padding: 5,
-  },
   last:{
     paddingBottom: 20,
-
   },
   lastSearchImage:{
     width: 50, 
     height: 50, 
     borderRadius:25, 
     marginRight:"1%",
-  },
-  userHodler: {
-    flex: 1,
-    flexDirection: "column",
-    width: "100%",
   },
   searchImg:{
     width: 50, 

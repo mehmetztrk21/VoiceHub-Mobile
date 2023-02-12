@@ -13,6 +13,13 @@ export default StyleSheet.create({
       header:{
        fontWeight:"bold",
       },
+      searchBar: {
+        backgroundColor: "whitesmoke",
+        borderRadius: 15,
+        paddingVertical:10,
+        paddingHorizontal:12.5,
+        width: "90%",
+      },
       profilePhoto:{
         width:70,
         height:70,

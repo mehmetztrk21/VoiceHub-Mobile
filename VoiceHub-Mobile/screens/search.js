@@ -1,39 +1,16 @@
 import React, { useState } from "react";
-import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, Modal,SafeAreaView } from "react-native";
-import Slider from "./components/slider"
+import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
 
 import SeePost from "./modals/seePost";
 import SeeProfile from "./modals/seeProfile"
+import Post from "./components/post";
+import PostUserInfo from "./components/postUserInfo";
+import PostActions from "./components/postActions";
+import PostTexts from "./components/postTexts"
+
 import searchStyles from '../assets/styles/search.style';
 
-import user1 from "../assets/userImages/user1.jpg";
-
-const recUser = [
-  { id: "1", userName: "Alex", userPic: user1 },
-  { id: "2", userName: "Synthia", userPic: user1 },
-  { id: "3", userName: "Martha", userPic: user1 },
-  { id: "4", userName: "Rohit", userPic: user1 },
-  { id: "5", userName: "Aditi", userPic: user1 },
-  { id: "6", userName: "Praveen", userPic: user1 },
-  { id: "7", userName: "Hemant", userPic: user1 },
-  { id: "8", userName: "Kakashi", userPic: user1 },
-  { id: "1", userName: "Alex", userPic: user1 },
-  { id: "2", userName: "Synthia", userPic: user1 },
-  { id: "3", userName: "Martha", userPic: user1 },
-  { id: "4", userName: "Rohit", userPic: user1 },
-  { id: "5", userName: "Aditi", userPic: user1 },
-  { id: "6", userName: "Praveen", userPic: user1 },
-  { id: "7", userName: "Hemant", userPic: user1 },
-  { id: "8", userName: "Kakashi", userPic: user1 },
-  { id: "1", userName: "Alex", userPic: user1 },
-  { id: "2", userName: "Synthia", userPic: user1 },
-  { id: "3", userName: "Martha", userPic: user1 },
-  { id: "4", userName: "Rohit", userPic: user1 },
-  { id: "5", userName: "Aditi", userPic: user1 },
-  { id: "6", userName: "Praveen", userPic: user1 },
-  { id: "7", userName: "Hemant", userPic: user1 },
-  { id: "8", userName: "Kakashi", userPic: user1 },
-];
+import userPostData from "./components/userPostData"
 
 export default function SearchScreen() {
   const [focused, setFocused] = useState(true);
@@ -46,17 +23,19 @@ export default function SearchScreen() {
   {/*<--- Coming Soon */ }
 
 
-  const RenderUser = ({ RecData }) => {
-    return RecData.map((item) => (
-      <TouchableOpacity style={{ paddingBottom: 20, flexDirection:"row" }} onPress={()=>{setSeePost(!seePost)}}>
-        <Image source={item.userPic} style={searchStyles.searchImg} />
-        <Slider/>
-      </TouchableOpacity>
+  const RenderUser = ({ userPostData }) => {
+    return userPostData.map((item) => (
+      <View>
+        <PostUserInfo userPic={item.userPic} userName={item.userName} />
+        <Post/>
+        <PostActions/>
+        <PostTexts likesCount={item.likesCount} userPic={item.userPic}/>
+      </View>
     ));
   };
 
-  const LastSerachedUser = ({ RecData }) => {
-    return RecData.map((item) => (
+  const LastSerachedUser = ({ userPostData }) => {
+    return userPostData.map((item) => (
       <View style={searchStyles.last}>
         <TouchableOpacity style={{flexDirection:"row"}}>
           <Image source={item.userPic} style={searchStyles.lastSearchImage}/>
@@ -76,10 +55,10 @@ export default function SearchScreen() {
 
         <SeeProfile seeProfile={seeProfile} onRequestClose={()=>{setSeePost(!seeProfile)}}/>
 
-      <View style={searchStyles.sbarHolder}>
+      <View style={searchStyles.searchBarHolder}>
         <TextInput
           placeholder="Search"
-          style={searchStyles.sbar}
+          style={searchStyles.searchBar}
           onChangeText={onChangeSearch}
           value={searchQuery}
           onFocus={() => setFocused(!focused)}
@@ -88,16 +67,16 @@ export default function SearchScreen() {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={searchStyles.sContainer}
+        style={searchStyles.scrollContainer}
       >
         {focused ? (
           <View style={searchStyles.userHodler}>
             {/* Get Users Infos */}
-            <RenderUser RecData={recUser} />
+            <RenderUser userPostData={userPostData} />
           </View>
         ) :
           <View style={searchStyles.userHodler}>
-            <LastSerachedUser RecData={recUser} />
+            <LastSerachedUser userPostData={userPostData} />
           </View>
         }
       </ScrollView>
