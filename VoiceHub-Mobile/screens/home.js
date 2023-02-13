@@ -10,9 +10,9 @@ import {
   SafeAreaView,
 } from "react-native";
 
-import Upload from "./modals/upload";
-import Message from "./modals/message";
-import OtherComments from "./modals/otherComments";
+import Upload from "./otherScreens/upload";
+import Message from "./otherScreens/message";
+import OtherComments from "./otherScreens/otherComments";
 
 import postUserInfoStyle from "../assets/styles/postUserInfo.style";
 import postTextsStyles from "../assets/styles/postTexts.style";

@@ -5,7 +5,7 @@ import userMessageStyle from "../../assets/styles/userMessage.style";
 
 import user1 from "../../assets/userImages/user1.jpg";
 
-import UserMessageItem from "../../screens/components/userMessageItem";
+import UserMessageItem from "../components/userMessageItem";
 
 export default function UserMessage() {
   //const [userMessagePage,setUserMessagePage]=useState(false);

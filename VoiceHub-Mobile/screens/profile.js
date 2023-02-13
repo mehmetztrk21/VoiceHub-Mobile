@@ -16,11 +16,11 @@ import admin from "../assets/userImages/admin.jpg";
 
 import Post from "../screens/components/post";
 
-import OtherComments from "./modals/otherComments";
-import Upload from "./modals/upload";
-import Saved from "./modals/saved";
-import ProfileEdit from "./modals/editProfile";
-import Login from "./modals/login";
+import OtherComments from "./otherScreens/otherComments";
+import Upload from "./otherScreens/upload";
+import Saved from "./otherScreens/saved";
+import ProfileEdit from "./otherScreens/editProfile";
+import Login from "./otherScreens/login";
 
 import profileStyles from '../assets/styles/profile.style';
 import postUserInfoStyle from "../assets/styles/postUserInfo.style";

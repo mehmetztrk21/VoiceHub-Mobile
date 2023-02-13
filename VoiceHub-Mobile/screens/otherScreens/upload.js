@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, Modal } from 'react-native';
 
 import { Icon } from "react-native-elements";
-import Slider from "../../screens/components/slider"
+import Slider from "../components/slider"
 import uploadStyle from "../../assets/styles/upload.style";
 
 export default function Upload(uploadVisible) {
