@@ -1,15 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import { Icon } from "react-native-elements";
-import Slider from "../components/slider"
+
+import Slider from "../components/slider";
+
 import uploadStyle from "../../assets/styles/upload.style";
 
-export default function Upload(uploadVisible) {
+export default function Upload() {
   return (
-    <Modal style={{width:"100%"}} onRequestClose={()=>{!uploadVisible}}>
-    <View>
-    {uploadVisible.uploadVisible?(
     <View style={uploadStyle.container}>
       <View style={uploadStyle.topView}>
         <Text style={uploadStyle.header}>Upload</Text>
@@ -24,9 +23,6 @@ export default function Upload(uploadVisible) {
         <Text style={uploadStyle.time}>0.15</Text>
 
       </View>
-    </View>):null
-}
-</View>
-</Modal>
+    </View>
   );
 }

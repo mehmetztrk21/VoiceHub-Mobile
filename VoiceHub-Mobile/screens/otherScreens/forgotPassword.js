@@ -1,6 +1,6 @@
 import React from "react";
 import { View } from "react-native";
-import forgotPasswordStyle from "../assets/styles/forgotPassword.style";
+import forgotPasswordStyle from "../../assets/styles/forgotPassword.style"
 
 export default function ForgotPassword() {
         return (

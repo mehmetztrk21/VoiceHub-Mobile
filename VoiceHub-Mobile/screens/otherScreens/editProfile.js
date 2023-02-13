@@ -1,16 +1,13 @@
 import React from 'react';
-import { View, Text, Image, Modal, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import { Icon } from "react-native-elements"
 import editProfileStyle from "../../assets/styles/editProfile.style"
 import Slider from "../components/slider";
 import user1 from "../../assets/userImages/user1.jpg";
 
-export default function EditProfile(editVisible) {
+export default function EditProfile() {
   const hasBio = false;
   return (
-    <Modal style={{ width: "100%" }} onRequestClose={() => { !editVisible }}>
-      <View>
-        {editVisible.editVisible ? (
           <View style={editProfileStyle.container}>
             <View style={editProfileStyle.top}>
               <Text style={editProfileStyle.header}>Edit Profile</Text>
@@ -52,7 +49,5 @@ export default function EditProfile(editVisible) {
             </View>
 
           </View>
-        ) : null}
-      </View></Modal>
   );
 }   

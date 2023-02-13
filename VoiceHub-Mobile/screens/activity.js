@@ -32,7 +32,7 @@ const activityData = [
 export default function ActivityScreen() {
   
   const RenderActivity = ({ item }) => (
-    <ActivityBar userPic={item.userPic} userName={item.userName} />
+    <ActivityBar userPic={item.userPic} userName={item.userName}/>
   );
 
   return (

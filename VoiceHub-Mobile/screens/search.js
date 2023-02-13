@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
 
 import SeePost from "./otherScreens/seePost";
-import SeeProfile from "./otherScreens/seeProfile"
+import SeeProfile from "./otherScreens/seeProfile";
+
 import Post from "./components/post";
 import PostUserInfo from "./components/postUserInfo";
 import PostActions from "./components/postActions";

@@ -15,7 +15,7 @@ export default function UserMessage() {
       <Text style={userMessageStyle.uName}>user name</Text>
       <ScrollView style={userMessageStyle.scroll}>
         {/* map kullanacagim */}
-        <UserMessageItem />
+        <UserMessageItem/>
       </ScrollView>
     </View>
   );

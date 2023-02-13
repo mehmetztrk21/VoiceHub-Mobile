@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { View, TouchableOpacity, Text, Modal, Image } from 'react-native';
+import { View, TouchableOpacity, Text,  Image } from 'react-native';
 
 import { Icon } from "react-native-elements";
 
@@ -14,15 +14,10 @@ import user1 from "../../assets/userImages/user1.jpg";
 
 //const [seeSavedPost, setSeeSavedPost] = useState(false);
 // visible={seeSavedPost} onRequestClose={() => { setSeeSavedPost(!seeSavedPost) }}
-export default function Saved(saveVisible) {
+export default function Saved() {
     return (
-<Modal style={{width:"100%"}} onRequestClose={()=>{!saveVisible}}>
-    <View>
-    {saveVisible.saveVisible ?  (
       <View style={savedStyle.container}>
-        <Modal>
           <SeePost/>
-        </Modal>
 
         <View style={savedStyle.top}>
           <Text style={savedStyle.header}>Saved</Text>
@@ -39,11 +34,5 @@ export default function Saved(saveVisible) {
         </View>
 
       </View>
-      ) : (
-        <View></View>
-      )
-    }
- </View>
- </Modal>
     );
   }

@@ -7,11 +7,8 @@ import user1 from "../../assets/userImages/user1.jpg";
 
 import otherCommentsStyle from "../../assets/styles/otherComments.style";
 
-export default function OtherComments(showOtherComments) {
+export default function OtherComments() {
     return (
-        <Modal style={{width:"100%"}} onRequestClose={()=>{!showOtherComments}}>
-    <View>
-    {showOtherComments.showOtherComments?(
         <View style={otherCommentsStyle.container}>
             <View style={otherCommentsStyle.comments}>
                 {/*map kullanacagim*/}
@@ -23,8 +20,5 @@ export default function OtherComments(showOtherComments) {
             </View>
 
         </View>
-    ):null}
-    </View>
-    </Modal>
     );
 }
