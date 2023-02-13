@@ -1,46 +1,30 @@
-import React from 'react'
+import {TouchableOpacity, SafeAreaView } from 'react-native'
+import React, { useState } from 'react'
+import { Divider, Icon } from 'react-native-elements'
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Icon from 'react-native-vector-icons/Ionicons';
 
-import HomeScreen from '../home';
-import SearchScreen from '../search';
-import ActivityScreen from '../activity';
-import ProfileScreen from '../profile';
-
-const BottomTabs = (navigation) => {
-    const { Screen, Navigator } = createBottomTabNavigator();
+const BottomTabs = () => {
+  const [activeTab, setActiveTab] = useState('HomeScreen')
   return (
-    <NavigationContainer>
-      <Navigator screenOptions={screenOptions}>
-        <Screen name='Home' component={HomeScreen} options={{
-          tabBarIcon: ({ tintColor }) =>
-            <Icon style={[{ color: tintColor, }]} size={25} name={'home'} />
-        }} />
-        <Screen name='Search' component={SearchScreen} options={{
-          tabBarIcon: ({ tintColor }) =>
-            <Icon style={[{ color: tintColor }]} size={25} name={'search'} />
-        }} />
-        <Screen name='Activity' component={ActivityScreen} options={{
-          tabBarIcon: ({ tintColor }) =>
-            <Icon style={[{ color: tintColor }]} size={25} name={'heart'} />
-        }} />
-        <Screen name='Profile' component={ProfileScreen} options={{
-          tabBarIcon: ({ tintColor }) =>
-            <Icon style={[{ color: tintColor }]} size={25} name={'ios-person'} />
-        }} />
-      </Navigator>
-    </NavigationContainer>
-  );
+    <SafeAreaView>
+      <TouchableOpacity onPress={() => setActiveTab('HomeScreen')}>
+        <Icon size={25} type="feather" name={'home'} />
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => setActiveTab('SearchScreen')}>
+        <Icon size={25} type="feather" name={'search'} />
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => setActiveTab('ActivityScreen')}>
+        <Icon size={25} type="feather" name={'heart'}/>
+      </TouchableOpacity>
+
+      <TouchableOpacity onPress={() => setActiveTab('ProfileScreen')}>
+        <Icon size={25} type="feather" name={'person'}/>
+      </TouchableOpacity>
+    </SafeAreaView>
+  )
 }
-const screenOptions = {
-    headerShown: false,
-    tabBarShowLabel: false,
-    tabBarStyle: {
-      position: 'absolute',
-      height: "6.5%",
-    }
-}
-export default BottomTabs;
+
+export default BottomTabs
