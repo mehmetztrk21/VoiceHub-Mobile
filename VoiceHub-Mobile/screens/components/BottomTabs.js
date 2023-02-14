@@ -1,29 +1,33 @@
-import {TouchableOpacity, SafeAreaView } from 'react-native'
+import { TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
-import { Divider, Icon } from 'react-native-elements'
-
+import { Icon, Divider } from 'react-native-elements'
+import bottomTabsStyle from '../../assets/styles/bottomTabs.style'
 
 
 const BottomTabs = () => {
   const [activeTab, setActiveTab] = useState('HomeScreen')
   return (
-    <SafeAreaView>
-      <TouchableOpacity onPress={() => setActiveTab('HomeScreen')}>
-        <Icon size={25} type="feather" name={'home'} />
-      </TouchableOpacity>
+    <View style={bottomTabsStyle.wrapper}>
+      <Divider width={1} orientation='vertical'>
+        <View style={bottomTabsStyle.container}>
+          <TouchableOpacity onPress={() => setActiveTab('HomeScreen')}>
+            <Icon size={25} type="feather" name={'home'} />
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => setActiveTab('SearchScreen')}>
-        <Icon size={25} type="feather" name={'search'} />
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => setActiveTab('SearchScreen')}>
+            <Icon size={25} type="feather" name={'search'} />
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => setActiveTab('ActivityScreen')}>
-        <Icon size={25} type="feather" name={'heart'}/>
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => setActiveTab('ActivityScreen')}>
+            <Icon size={25} type="feather" name={'heart'} />
+          </TouchableOpacity>
 
-      <TouchableOpacity onPress={() => setActiveTab('ProfileScreen')}>
-        <Icon size={25} type="feather" name={'person'}/>
-      </TouchableOpacity>
-    </SafeAreaView>
+          <TouchableOpacity onPress={() => setActiveTab('ProfileScreen')}>
+            <Icon size={25} name={'person'} />
+          </TouchableOpacity>
+        </View>
+      </Divider>
+    </View>
   )
 }
 

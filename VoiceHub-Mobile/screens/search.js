@@ -1,9 +1,6 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
 
-import SeePost from "./otherScreens/seePost";
-import SeeProfile from "./otherScreens/seeProfile";
-
 import Post from "./components/post";
 import PostUserInfo from "./components/postUserInfo";
 import PostActions from "./components/postActions";
@@ -13,10 +10,8 @@ import searchStyles from '../assets/styles/search.style';
 
 import userPostData from "./components/userPostData"
 
-export default function SearchScreen() {
+export default function SearchScreen({navigation}) {
   const [focused, setFocused] = useState(true);
-  const [seePost, setSeePost] = useState(false);
-  const [seeProfile, setSeeProfile] = useState(false);
 
   {/*Coming Soon --->*/ }
   const [searchQuery, setSearchQuery] = useState("");
@@ -27,10 +22,10 @@ export default function SearchScreen() {
   const RenderUser = ({ userPostData }) => {
     return userPostData.map((item) => (
       <View>
-        <PostUserInfo userPic={item.userPic} userName={item.userName} />
+        <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
         <Post/>
         <PostActions/>
-        <PostTexts likesCount={item.likesCount} userPic={item.userPic}/>
+        <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic}/>
       </View>
     ));
   };
@@ -38,7 +33,7 @@ export default function SearchScreen() {
   const LastSerachedUser = ({ userPostData }) => {
     return userPostData.map((item) => (
       <View style={searchStyles.last}>
-        <TouchableOpacity style={{flexDirection:"row"}}>
+        <TouchableOpacity style={{flexDirection:"row"}} onPress={()=>navigation.push('SeeProfile')}>
           <Image source={item.userPic} style={searchStyles.lastSearchImage}/>
           <View style={{flexDirection:"column"}}>
             <Text>{item.userName}</Text>
@@ -51,10 +46,6 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={searchStyles.container}>
-      
-        <SeePost seePost={seePost} onRequestClose={()=>{setSeePost(!seePost)}}/>
-
-        <SeeProfile seeProfile={seeProfile} onRequestClose={()=>{setSeePost(!seeProfile)}}/>
 
       <View style={searchStyles.searchBarHolder}>
         <TextInput

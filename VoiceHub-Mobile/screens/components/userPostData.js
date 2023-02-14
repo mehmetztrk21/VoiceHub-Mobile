@@ -1,4 +1,4 @@
-import user1 from "../../assets/userImages/user1.jpg";
+import user1 from "../../assets/userImages/user1.jpg"
 
 const userPostData = [
     {

@@ -16,7 +16,6 @@ const postSave = () => {
   alert("You Saved this Voice !");
 };
 
-
 export default function postActions() {
   return (
     <View style={postActionsStyle.postActions}>
