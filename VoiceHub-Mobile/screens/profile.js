@@ -27,8 +27,8 @@ export default function ProfileScreen({ navigation }) {
       <View>
         <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
         <Post />
-        <PostActions />
-        <PostTexts likesCount={item.likesCount} navigation={navigation} />
+        <PostActions navigation={navigation}/>
+        <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic} />
       </View>
     ));
   };

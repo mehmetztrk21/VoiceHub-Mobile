@@ -3,10 +3,10 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements"
 import postTextsStyles from "../../assets/styles/postTexts.style";
 
-export default function postTexts({navigation}, likesCount) {
+export default function postTexts({ navigation, likesCount, userPic }) {
   return (
     <View style={postTextsStyles.textCounter}>
-      <Text style={postTextsStyles.likesText}>{likesCount.likesCount} likes</Text>
+      <Text style={postTextsStyles.likesText}>{likesCount} likes</Text>
 
       <View style={postTextsStyles.textHolder}>
         <Text style={postTextsStyles.userCap}>k.kayserili</Text>
@@ -21,7 +21,7 @@ export default function postTexts({navigation}, likesCount) {
 
       <View style={postTextsStyles.addCommentUser}>
 
-        <Image style={postTextsStyles.userPostCommentImg}/>
+        <Image style={postTextsStyles.userPostCommentImg} source={userPic} />
         <TouchableOpacity>
           <Icon type="feather" size={28} name={"mic"} />
         </TouchableOpacity>

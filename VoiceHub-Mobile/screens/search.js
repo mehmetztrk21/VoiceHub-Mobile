@@ -25,7 +25,7 @@ export default function SearchScreen({ navigation }) {
       <View>
         <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
         <Post />
-        <PostActions />
+        <PostActions navigation={navigation}/>
         <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic} />
       </View>
     ));

@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { createStackNavigator } from '@react-navigation/stack';
-import {NavigationContainer} from "@react-navigation/native";
+import { NavigationContainer } from "@react-navigation/native";
 
 import HomeScreen from './screens/home';
 import ProfileScreen from './screens/profile';
@@ -30,25 +30,25 @@ const screenOptions = {
 const SignedInStack = () => (
   <NavigationContainer>
     <Stack.Navigator
-    initialRouteName='HomeScreen'
-    screenOptions={screenOptions}
+      initialRouteName='HomeScreen'
+      screenOptions={screenOptions}
     >
-      <Stack.Screen name='HomeScreen' component={HomeScreen}/>
-      <Stack.Screen name='ProfileScreen' component={ProfileScreen}/>
-      <Stack.Screen name='ActivityScreen' component={ActivityScreen}/>
-      <Stack.Screen name='SearchScreen' component={SearchScreen}/>
+      <Stack.Screen name='HomeScreen' component={HomeScreen} />
+      <Stack.Screen name='ProfileScreen' component={ProfileScreen} />
+      <Stack.Screen name='ActivityScreen' component={ActivityScreen} />
+      <Stack.Screen name='SearchScreen' component={SearchScreen} />
 
-      <Stack.Screen name='EditProfile' component={EditProfile}/>
-      <Stack.Screen name='ForgotPassword' component={ForgotPassword}/>
-      <Stack.Screen name='Login' component={Login}/>
-      <Stack.Screen name='Message' component={Message}/>
-      <Stack.Screen name='OtherComments' component={OtherComments}/>
-      <Stack.Screen name='Register' component={Register}/>
-      <Stack.Screen name='Saved' component={Saved}/>
-      <Stack.Screen name='SeePost' component={SeePost}/>
-      <Stack.Screen name='SeeProfile' component={SeeProfile}/>
-      <Stack.Screen name='Upload' component={Upload}/>
-      <Stack.Screen name='UserMessage' component={UserMessage}/>
+      <Stack.Screen name='EditProfile' component={EditProfile} />
+      <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
+      <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='Message' component={Message} />
+      <Stack.Screen name='OtherComments' component={OtherComments} />
+      <Stack.Screen name='Register' component={Register} />
+      <Stack.Screen name='Saved' component={Saved} />
+      <Stack.Screen name='SeePost' component={SeePost} />
+      <Stack.Screen name='SeeProfile' component={SeeProfile} />
+      <Stack.Screen name='Upload' component={Upload} />
+      <Stack.Screen name='UserMessage' component={UserMessage} />
     </Stack.Navigator>
   </NavigationContainer>
 )

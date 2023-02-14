@@ -9,9 +9,10 @@ import {
 
 import activityStyles from "../assets/styles/activity.style";
 
-import ActivityBar from "./components/userActivity";
+import UserActivity from "./components/userActivity";
 import BottomTabs from "./components/BottomTabs";
 import user1 from "../assets/userImages/user1.jpg";
+import { TouchableOpacity } from "react-native";
 
 const activityData = [
   { id: "1", userName: "Alex", userPic: user1 },
@@ -29,19 +30,21 @@ const activityData = [
   { id: "13", userName: "Minato", userPic: user1 },
 ];
 
-export default function ActivityScreen({navigation}) {
-  
+export default function ActivityScreen({ navigation }) {
+
   const RenderActivity = ({ item }) => (
-    <ActivityBar userPic={item.userPic} userName={item.userName}/>
+    <TouchableOpacity onPress={()=>navigation.push('SeePost')}>
+      <UserActivity userPic={item.userPic} userName={item.userName} navigation={navigation}/>
+    </TouchableOpacity>
   );
 
   return (
     <SafeAreaView style={activityStyles.container}>
       <ScrollView style={activityStyles.sContainer}>
-      <View style={activityStyles.aHeadView}>
-        <Text style={activityStyles.head}>Activity</Text>
-      </View>
-      
+        <View style={activityStyles.aHeadView}>
+          <Text style={activityStyles.head}>Activity</Text>
+        </View>
+
         <FlatList
           data={activityData}
           renderItem={RenderActivity}
@@ -50,7 +53,7 @@ export default function ActivityScreen({navigation}) {
           style={activityStyles.flatList}
         />
       </ScrollView>
-      <BottomTabs navigation={navigation}/>
+      <BottomTabs navigation={navigation} />
     </SafeAreaView>
   )
 }
