@@ -1,13 +1,19 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-    container:{
-        flex:1,
-        marginLeft:"10%"
+    container: {
+        paddingVertical: "1%",
     },
-    ProfilePhoto:{
-        width:50,
-        heigth:50,
-        borderRadius:25,
+    ProfilePhoto: {
+        width: 70,
+        heigth: 70,
+        borderRadius: 35,
     },
+    userName:{
+        fontSize:14.5,
+    },
+    date:{
+        textAlign:'right',
+        paddingRight:'2%'
+    }
 });

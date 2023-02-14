@@ -6,8 +6,6 @@ export default StyleSheet.create({
         marginVertical:"2%"
       },
       playButton:{
-        paddingLeft:"10%",
-        paddingRight:"2.5%",
         paddingTop:5,
       },
 });
