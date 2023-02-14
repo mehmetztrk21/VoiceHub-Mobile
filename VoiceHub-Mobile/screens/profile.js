@@ -26,8 +26,10 @@ export default function ProfileScreen({ navigation }) {
     return userPostData.map((item) => (
       <View>
         <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
-        <Post />
-        <PostActions navigation={navigation}/>
+        <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
+          <Post />
+        </View>
+        <PostActions navigation={navigation} />
         <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic} />
       </View>
     ));
@@ -69,7 +71,9 @@ export default function ProfileScreen({ navigation }) {
         {/* Bio */}
         <View style={profileStyles.bioCont}>
           <Text style={profileStyles.name}>Kaan Kayserili</Text>
-          <Post />{/*User Bio*/}
+          <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
+            <Post />
+          </View>{/*User Bio*/}
         </View>
 
         {/* Edit Profile Buttons */}

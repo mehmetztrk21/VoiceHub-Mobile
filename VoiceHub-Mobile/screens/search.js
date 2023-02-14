@@ -24,8 +24,10 @@ export default function SearchScreen({ navigation }) {
     return userPostData.map((item) => (
       <View>
         <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
-        <Post />
-        <PostActions navigation={navigation}/>
+        <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
+          <Post />
+        </View>
+        <PostActions navigation={navigation} />
         <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic} />
       </View>
     ));
@@ -73,7 +75,7 @@ export default function SearchScreen({ navigation }) {
           </View>
         }
       </ScrollView>
-      <BottomTabs navigation={navigation}/>
+      <BottomTabs navigation={navigation} />
     </SafeAreaView>
   );
 }

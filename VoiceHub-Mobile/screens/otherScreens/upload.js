@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 import { Icon } from "react-native-elements";
 
-import Slider from "../components/slider";
+import Post from "../components/post";
 
 import uploadStyle from "../../assets/styles/upload.style";
 
@@ -19,8 +19,9 @@ export default function Upload({ navigation }) {
       </View>
 
       <View style={uploadStyle.bottomView}>
-        <Slider />
-        <Icon type="feather" size={28} name={"mic"} />
+        <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
+          <Post />
+        </View>
 
         <Text style={uploadStyle.time}>0.15</Text>
 

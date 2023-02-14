@@ -25,7 +25,9 @@ export default function HomeScreen({ navigation }) {
     return userPostData.map((item) => (
       <View>
         <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
-        <Post />
+        <View style={{paddingLeft:'10%', paddingRight:'2.5%'}}>
+          <Post/>
+        </View>
         <PostActions navigation={navigation}/>
         <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic} />
       </View>

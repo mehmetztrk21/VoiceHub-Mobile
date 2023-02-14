@@ -24,7 +24,9 @@ export default function Saved({ navigation }) {
               <Image source={item.userPic} style={savedStyle.profilePhoto} />
             </TouchableOpacity>
 
-            <Post />
+            <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
+              <Post />
+            </View>
           </View>
         ))}
       </View>
