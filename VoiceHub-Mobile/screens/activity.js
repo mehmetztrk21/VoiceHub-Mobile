@@ -33,8 +33,8 @@ const activityData = [
 export default function ActivityScreen({ navigation }) {
 
   const RenderActivity = ({ item }) => (
-    <TouchableOpacity onPress={()=>navigation.push('SeePost')}>
-      <UserActivity userPic={item.userPic} userName={item.userName} navigation={navigation}/>
+    <TouchableOpacity onPress={() => navigation.push('SeePost')}>
+      <UserActivity userPic={item.userPic} userName={item.userName} navigation={navigation} />
     </TouchableOpacity>
   );
 
