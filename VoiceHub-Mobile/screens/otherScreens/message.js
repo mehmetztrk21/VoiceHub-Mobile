@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Text, TextInput, ScrollView } from 'react-native';
+import { Icon } from 'react-native-elements';
 
 import messageStyle from "../../assets/styles/message.style";
 
 import MessageItem from "../components/messageItem";
-//import UserMessagePage from "../modals/userMessage"; sonra ekleyecegim
 
-export default function Message() {
-  //const [userMessagePage,setUserMessagePage]=useState(false);
+export default function Message({ navigation }) {
   return (
-        <View style={messageStyle.container}>
-        <Text style={messageStyle.header}>Messages</Text>
-        <View style={messageStyle.searchView}>
-          <TextInput style={messageStyle.SearchBar} placeholder="Search" />
-        </View>
-        <ScrollView style={messageStyle.Items}>
-          {/* map kullanacagim */}
-          <TouchableOpacity>
-            <MessageItem />
-            <MessageItem />
-            <MessageItem />
-            <MessageItem />
-          </TouchableOpacity>
-        </ScrollView>
+    <View style={messageStyle.container}>
+      <View style={messageStyle.header}>
+        <TouchableOpacity onPress={()=>navigation.goBack('HomeScreen')}>
+          <Icon type="ionicon" size={28} name={"arrow-back-outline"} />
+        </TouchableOpacity>
+        <Text style={messageStyle.headerName}>Messages</Text>
       </View>
+      <View style={messageStyle.searchView}>
+        <TextInput style={messageStyle.SearchBar} placeholder="Search" />
+      </View>
+      <ScrollView style={messageStyle.Items}>
+        {/* map kullanacagim */}
+        <TouchableOpacity onPress={()=>navigation.push('UserMessage')}>
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+          <MessageItem />
+        </TouchableOpacity>
+      </ScrollView>
+    </View>
   );
 }

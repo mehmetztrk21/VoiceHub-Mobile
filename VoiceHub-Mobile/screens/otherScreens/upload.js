@@ -7,11 +7,14 @@ import Slider from "../components/slider";
 
 import uploadStyle from "../../assets/styles/upload.style";
 
-export default function Upload() {
+export default function Upload({navigation}) {
   return (
     <View style={uploadStyle.container}>
-      <View style={uploadStyle.topView}>
-        <Text style={uploadStyle.header}>Upload</Text>
+      <View style={uploadStyle.header}>
+      <TouchableOpacity onPress={()=>navigation.goBack('HomeScreen')}>
+          <Icon type="ionicon" size={28} name={"arrow-back-outline"} />
+        </TouchableOpacity>
+        <Text style={uploadStyle.headerName}>Upload</Text>
       </View>
 
       <View style={uploadStyle.bottomView}>

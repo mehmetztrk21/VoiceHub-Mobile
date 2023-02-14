@@ -6,7 +6,10 @@ export default StyleSheet.create({
         flexDirection: "column",
         justifyContent: "center",
     },
-    
+    scroll:{
+        marginTop:60,
+        marginBottom:50,
+    },
     headText: {
         fontSize: 25,
         fontWeight: 'bold',

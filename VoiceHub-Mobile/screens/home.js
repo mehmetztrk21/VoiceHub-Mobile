@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ScrollView,
   View,
-  SafeAreaView,
 } from "react-native";
 
+//importing components
 import PostUserInfo from './components/postUserInfo';
 import Post from './components/post';
 import PostActions from './components/postActions';
 import PostTexts from './components/postTexts';
-
-//importing styles
-import homeStyles from '../assets/styles/home.style';
-
 import userPostData from "./components/userPostData";
 import BottomTabs from "./components/BottomTabs";
 import HomeHeader from "./components/HomeHeader";
+
+//importing styles
+import homeStyles from '../assets/styles/home.style';
 
 const commentCount = 3;
 
@@ -33,14 +32,13 @@ export default function HomeScreen({ navigation }) {
     ));
   };
   return (
-
-    <SafeAreaView style={homeStyles.container}>
+    <View style={homeStyles.container}>
       <HomeHeader navigation={navigation} />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView showsVerticalScrollIndicator={false} style={homeStyles.scroll}>
         {/* User Posts */}
         <RenderPost userPostData={userPostData} />
       </ScrollView>
-      <BottomTabs />
-    </SafeAreaView>
+      <BottomTabs navigation={navigation} />
+    </View>
   );
 }

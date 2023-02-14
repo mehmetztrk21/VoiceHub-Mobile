@@ -1,38 +1,33 @@
-import React, { useState } from 'react';
-
-import { View, TouchableOpacity, Text,  Image } from 'react-native';
-
+import React from 'react';
+import { View, TouchableOpacity, Text, Image } from 'react-native';
 import { Icon } from "react-native-elements";
 
-import Slider from "../../screens/components/slider"
-
+import Post from "../components/post";
+import userPostData from '../components/userPostData';
 import savedStyle from "../../assets/styles/saved.style";
 
-import SeePost from "./seePost";
+export default function Saved({ navigation }) {
+  return (
+    <View style={savedStyle.container}>
 
-import user1 from "../../assets/userImages/user1.jpg";
-
-//const [seeSavedPost, setSeeSavedPost] = useState(false);
-// visible={seeSavedPost} onRequestClose={() => { setSeeSavedPost(!seeSavedPost) }}
-export default function Saved() {
-    return (
-      <View style={savedStyle.container}>
-          <SeePost/>
-
-        <View style={savedStyle.top}>
-          <Text style={savedStyle.header}>Saved</Text>
-        </View>
-
-
-        <View style={savedStyle.savedPosts}>
-          {/* map kullanacagim */ /* onPress={() => { setSeeSavedPost(!seeSavedPost) }}*/}
-          <TouchableOpacity>
-            <Image source={user1} style={savedStyle.profilePhoto} />
-            <Icon type="feather" size={28} name={"play"} />
-            <Slider/>
-          </TouchableOpacity>
-        </View>
-
+      <View style={savedStyle.header}>
+        <TouchableOpacity onPress={() => navigation.goBack('ProfileScreen')}>
+          <Icon type="ionicon" size={28} name={"arrow-back-outline"} />
+        </TouchableOpacity>
+        <Text style={savedStyle.headerName}>Saved</Text>
       </View>
-    );
-  }
+
+      <View style={savedStyle.savedPostContainer}>
+        {userPostData.map((item) => (
+          <View style={savedStyle.savedPosts}>
+            <TouchableOpacity onPress={() => navigation.push('SeeProfile')}>
+              <Image source={item.userPic} style={savedStyle.profilePhoto} />
+            </TouchableOpacity>
+
+            <Post />
+          </View>
+        ))}
+      </View>
+    </View>
+  );
+}

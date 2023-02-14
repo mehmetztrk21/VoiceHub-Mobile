@@ -6,9 +6,14 @@ export default StyleSheet.create({
     backgroundColor: '#fff',
     width:"100%"
   },
-  header: {
+  header:{
+    flexDirection:"row",
+    paddingLeft:10,
+  },
+  headerName: {
     fontWeight: "bold",
-    fontSize: 18,
+    fontSize: 22,
+    paddingLeft:10,
   },
   searchView: {
     marginLeft: "10%",

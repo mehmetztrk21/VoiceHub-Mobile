@@ -2,9 +2,9 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     wrapper:{
-        position:"absolute",
+        position:"fixed",
         width:'100%',
-        bottom:'3%',
+        bottom:0,
         zIndex:999,
         backgroundColor:'#FFF'
     },

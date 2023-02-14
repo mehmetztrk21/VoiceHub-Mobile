@@ -9,8 +9,8 @@ import {
 
 import activityStyles from "../assets/styles/activity.style";
 
-import ActivityBar from "../screens/components/userActivity";
-
+import ActivityBar from "./components/userActivity";
+import BottomTabs from "./components/BottomTabs";
 import user1 from "../assets/userImages/user1.jpg";
 
 const activityData = [
@@ -29,7 +29,7 @@ const activityData = [
   { id: "13", userName: "Minato", userPic: user1 },
 ];
 
-export default function ActivityScreen() {
+export default function ActivityScreen({navigation}) {
   
   const RenderActivity = ({ item }) => (
     <ActivityBar userPic={item.userPic} userName={item.userName}/>
@@ -46,12 +46,13 @@ export default function ActivityScreen() {
           data={activityData}
           renderItem={RenderActivity}
           keyExtractor={(item) => item.id}
-          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
           style={activityStyles.flatList}
         />
       </ScrollView>
+      <BottomTabs navigation={navigation}/>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 
