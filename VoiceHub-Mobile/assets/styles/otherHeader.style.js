@@ -18,12 +18,13 @@ export default StyleSheet.create({
     },
     BackButton: {
         paddingTop: 15,
+        marginLeft: 8,
     },
     headerName: {
         fontSize: 30,
         paddingTop: 10,
         paddingBottom: 10,
-        paddingLeft: 8,
+        marginLeft: 8,
         fontWeight: "bold",
     },
 })
