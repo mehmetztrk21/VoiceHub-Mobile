@@ -4,22 +4,24 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    width:"100%"
+    width:"100%",
   },
   searchView: {
-    marginLeft: "10%",
-    marginVertical: "2%",
+    width: "85%",
+    marginLeft: "7.5%",
+    marginTop: 70,
+    marginBottom:'2%',
   },
   SearchBar: {
-
     paddingVertical: 10,
     paddingHorizontal: 12.5,
-    width: "80%",
     backgroundColor: "#AAADAA",
     borderRadius: 15,
   },
   Items: {
-    flexDirection: "row",
+    flexDirection: "column",
+    marginLeft:"7.5%",
+    marginRight:"7.5%",
+    width:"100%"
   },
-
 });

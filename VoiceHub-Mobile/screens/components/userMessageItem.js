@@ -6,11 +6,11 @@ import userMessageItemStyle from "../../assets/styles/userMessageItem.style";
 import PostUserInfo from "../../screens/components/postUserInfo";
 import Post from "../../screens/components/post";
 
-export default function UserMessageItem() {
+export default function UserMessageItem({navigation, userName, userPic}) {
 
   return (
     <View style={userMessageItemStyle.container}>
-      <PostUserInfo />
+      <PostUserInfo navigation={navigation} userName={userName} userPic={userPic}/>
       <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
         <Post />
       </View>

@@ -10,16 +10,16 @@ import postStyle from "../../assets/styles/post.style";
 export default function Post() {
 
   // const [music,setMusic]=useState(null);
+
   const Play = () => {
     // let voice = new Sound('iyiBilirim.mp3',Sound.MAIN_BUNDLE,(err)=>{
     //   if(err){
     //     console.log('hata',err)
     //     return
     //   }
-    //     voice.Play((success)=>{
+    //     voice.play((success)=>{
     //       console.log('end', success);
     //     })
-      
     // })
     // setMusic(voice)
   } 

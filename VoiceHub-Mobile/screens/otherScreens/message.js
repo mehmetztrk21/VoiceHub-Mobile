@@ -14,7 +14,7 @@ export default function Message({ navigation }) {
       <OtherHeader HeaderTitle='Messages' navigation={navigation} />
 
       <View style={messageStyle.searchView}>
-        <TextInput style={messageStyle.SearchBar} placeholder="Search" />
+        <TextInput style={messageStyle.SearchBar} placeholder="Search"/>
       </View>
 
       <ScrollView style={messageStyle.Items}>

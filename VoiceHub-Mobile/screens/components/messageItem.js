@@ -6,20 +6,20 @@ import user1 from "../../assets/userImages/user1.jpg";
 
 export default function MessageItemScreen({ navigation, userName }) {
     return (
-        <View style={messageItemStyle.container}>
-            <TouchableOpacity style={{ flexDirection: 'row' }} onPress={() => navigation.push('UserMessage')}>
+        <View>
+            <TouchableOpacity style={messageItemStyle.container} onPress={() => navigation.push('UserMessage')}>
                 <Image source={user1} style={messageItemStyle.profilePhoto} />
 
-                <View style={messageItemStyle.messageTexts}>
+                <View style={{ flexDirection: "column", width: "62.5%" }}>
                     <Text style={messageItemStyle.userName}>{userName}</Text>
-
-                    <View style={messageItemStyle.messageContents}>
+                    <View style={messageItemStyle.messageText}>
                         <Text style={messageItemStyle.voiceLenght}>1:28</Text>
                         <Text style={messageItemStyle.time}>13:55</Text>
                     </View>
-
                 </View>
-                
+
+
+
             </TouchableOpacity>
         </View>
     );
