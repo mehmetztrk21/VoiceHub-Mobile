@@ -7,7 +7,7 @@ export default StyleSheet.create({
         justifyContent: "center",
     },
     scroll:{
-        marginTop:60,
+        marginTop:69.8,
         marginBottom:50,
     },
     headText: {

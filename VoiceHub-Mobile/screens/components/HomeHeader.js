@@ -9,14 +9,14 @@ const HomeHeader = ({ navigation }) => {
     <View style={homeHeaderStyles.wrapper}>
       <Divider width={1} orientation='vertical' />
       <View style={homeHeaderStyles.head}>
-        <Image source={logo} style={{ width: "40%", height: "122.5%" }} />
+        <Image source={logo} style={{ width: 115.2, height: 64.8 }} />
         <View style={homeHeaderStyles.rightTop}>
           <TouchableOpacity style={homeHeaderStyles.headerPactions} onPress={() => navigation.push('Message')}>
-            <Icon type="feather" size={28} name={"mail"} />
+            <Icon type="feather" size={30} name={"mail"} />
           </TouchableOpacity>
 
           <TouchableOpacity style={homeHeaderStyles.headerPactions} onPress={() => navigation.push('Upload')}>
-            <Icon type="feather" size={28} name={"plus"} />
+            <Icon type="feather" size={30} name={"plus"} />
           </TouchableOpacity>
         </View>
       </View>

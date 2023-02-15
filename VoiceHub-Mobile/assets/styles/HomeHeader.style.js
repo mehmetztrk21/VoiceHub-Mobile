@@ -9,11 +9,11 @@ export default StyleSheet.create({
         backgroundColor:'#FFF'
     },
     head: {
-        paddingTop: 10,
-        paddingBottom: 10,
+        paddingTop: 0,
+        paddingBottom: 5,
         paddingLeft:10,
         paddingRight:20,
-        height:60,
+        height:64.8,
         flexDirection: "row",
         justifyContent:"space-between",
         borderBottomWidth:0.5,
@@ -22,6 +22,7 @@ export default StyleSheet.create({
     rightTop:{
         flexDirection:"row",
         justifyContent:"flex-end",
+        paddingTop:15
     },
     headerPactions:{
         paddingRight:15,
