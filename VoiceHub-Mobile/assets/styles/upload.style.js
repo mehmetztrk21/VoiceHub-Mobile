@@ -5,20 +5,27 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     width: "100%",
-    paddingLeft: "5%",
   },
-  header: {
-    flexDirection: "row",
-    paddingLeft:10,
-  },
-  headerName: {
-    fontWeight: "bold",
-    fontSize: 22,
+  contents: {
+    flex: 1,
+    flexDirection: "column",
+    paddingHorizontal: "5%",
     paddingLeft: 10,
+    paddingTop: 65,
+    justifyContent: "space-between",
+  },
+  content: {
+    justifyContent: "center", 
+    flexDirection: "row", 
+    paddingLeft: '10%', 
+    paddingRight: '2.5%', 
+    width: "100%", 
+    alignItems: "center",
   },
   time: {
-    fontSize:15,
-    fontWeight:"700"
-  }
+    fontSize: 15,
+    marginRight: 10,
+    fontWeight: "700",
+  },
 
 });
