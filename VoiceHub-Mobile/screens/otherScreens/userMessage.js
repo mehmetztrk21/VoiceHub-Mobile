@@ -5,13 +5,12 @@ import userMessageStyle from "../../assets/styles/userMessage.style";
 import userPostData from '../components/userPostData'
 import user1 from "../../assets/userImages/user1.jpg";
 import OtherHeader from '../components/otherHeader'
-import UserMessageItem from "../components/userMessageItem";
+import Comment from "../components/comment";
 
 export default function UserMessage({navigation, userName}) {
-  //const [userMessagePage,setUserMessagePage]=useState(false);
   return (
     <View style={userMessageStyle.container}>
-      <OtherHeader navigation={navigation}/>
+      <OtherHeader navigation={navigation} HeaderTitle={userName}/>
 
       <Image source={user1} style={userMessageStyle.ProfilePhoto} />
       <Text style={userMessageStyle.uName}>{userName}</Text>
@@ -20,7 +19,7 @@ export default function UserMessage({navigation, userName}) {
         {
           userPostData.map((item)=>{
             return(
-              <UserMessageItem navigation={navigation} userName={item.userName} userPic={item.userPic}/>
+              <Comment navigation={navigation} userName={item.userName} userPic={item.userPic}/>
             )
           })
         }
