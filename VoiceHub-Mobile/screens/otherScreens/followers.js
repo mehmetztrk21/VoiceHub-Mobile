@@ -1,8 +1,11 @@
 import { View, Text,TouchableOpacity,Image,ScrollView, SafeAreaView } from 'react-native'
 import React from 'react'
+
 import OtherHeader from '../components/otherHeader'
 import userPostData from '../components/userPostData'
+
 import searchStyles from '../../assets/styles/search.style';
+
 const Followers = ({navigation}) => {
     return (
 

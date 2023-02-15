@@ -28,6 +28,8 @@
     "react-native-reanimated": "^2.14.4",
     "react-native-safe-area-context": "3.2.0",
     "react-native-screens": "~3.0.0",
+    "react-native-sound": "^0.11.2",
+    "react-native-sound-player": "^0.13.2",
     "react-native-unimodules": "~0.13.3",
     "react-native-web": "~0.13.12",
     "react-navigation": "^4.4.4"

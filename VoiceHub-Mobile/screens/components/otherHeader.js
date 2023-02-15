@@ -10,7 +10,7 @@ const otherHeader = ({ navigation, HeaderTitle }) => {
             <Divider width={1} orientation='vertical' />
             <View style={otherHeaderStyle.aHeadView}>
                 <TouchableOpacity onPress={() => navigation.goBack('HomeScreen')}>
-                    <Icon type="ionicon" size={28} name={"arrow-back-outline"} />
+                    <Icon type="ionicon" size={30} name={"arrow-back-outline"} style={otherHeaderStyle.BackButton}/>
                 </TouchableOpacity>
                 <Text style={otherHeaderStyle.headerName}>{HeaderTitle}</Text>
             </View>

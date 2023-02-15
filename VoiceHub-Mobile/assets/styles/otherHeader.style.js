@@ -12,16 +12,18 @@ export default StyleSheet.create({
         left: 0,
         height: 60,
         width: "100%",
-        marginTop: 20,
         flexDirection: "row",
-        justifyContent: "space-between",
         borderBottomColor: '#DADADA',
         borderBottomWidth: 1,
     },
+    BackButton: {
+        paddingTop: 15,
+    },
     headerName: {
-        fontSize: 22,
-        padding: 20,
-        paddingRight: 8,
+        fontSize: 30,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 8,
         fontWeight: "bold",
     },
 })
