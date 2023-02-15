@@ -3,6 +3,7 @@ import { View, Image, TouchableOpacity, Text, ScrollView } from "react-native";
 import { Icon } from "react-native-elements";
 
 import Comment from "../components/comment";
+import OtherHeader from "../components/otherHeader";
 import userPostData from "../components/userPostData";
 
 import user1 from "../../assets/userImages/user1.jpg";
@@ -19,12 +20,7 @@ export default function OtherComments({ navigation }) {
 
     return (
         <View style={otherCommentsStyle.container}>
-            <View style={otherCommentsStyle.header}>
-                <TouchableOpacity onPress={() => navigation.goBack('HomeScreen')}>
-                    <Icon type="ionicon" size={28} name={"arrow-back-outline"} />
-                </TouchableOpacity>
-                <Text style={otherCommentsStyle.headerName}>Comments</Text>
-            </View>
+            <OtherHeader HeaderTitle={'Comments'} navigation={navigation}/>
 
             <ScrollView showsVerticalScrollIndicator={false} style={otherCommentsStyle.comments}>
                 <RenderComments userPostData={userPostData} />

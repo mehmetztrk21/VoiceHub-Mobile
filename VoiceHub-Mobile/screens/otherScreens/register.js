@@ -2,7 +2,7 @@ import React from "react";
 import { TouchableOpacity, TextInput, View, Text } from "react-native";
 import registerStyle from "../../assets/styles/register.style";
 
-export default function Register() {
+export default function Register({navigation}) {
         return (
             <View style={registerStyle.container}>
 
@@ -36,11 +36,11 @@ export default function Register() {
                     style={registerStyle.sbar}
                 />
 
-                <TouchableOpacity style={registerStyle.touch}>
+                <TouchableOpacity style={registerStyle.touch} onPress={()=>navigation.push('HomeScreen')}>
                     <Text style={registerStyle.registerButton}>Register</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={registerStyle.touch}>
+                <TouchableOpacity style={registerStyle.touch} onPress={()=>navigation.goBack('Login')}>
                     <Text style={registerStyle.textButton}>Do you have accont? Go Log in</Text>
                 </TouchableOpacity>
             </View>

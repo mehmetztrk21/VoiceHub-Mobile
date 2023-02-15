@@ -31,6 +31,7 @@ export default StyleSheet.create({
   header: {
     flexDirection: "row",
     paddingLeft:10,
+    
   },
 
   headerName: {
@@ -43,10 +44,7 @@ export default StyleSheet.create({
   sContainer: {
     backgroundColor: "white",
     width: "95%",
-  },
-
-  flatList: {
-    width: "100%",
-    height: "90%",
+    paddingTop:60,
+    paddingBottom:60,
   },
 });

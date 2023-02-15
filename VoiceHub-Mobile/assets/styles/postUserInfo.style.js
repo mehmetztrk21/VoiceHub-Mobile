@@ -7,6 +7,9 @@ export default StyleSheet.create({
         flexDirection:"row",
         paddingVertical:"1%",
     },
+    clickUserPic:{
+        flexDirection:'row'
+    },
     userpostImg:{
         width:30,
         height:30,

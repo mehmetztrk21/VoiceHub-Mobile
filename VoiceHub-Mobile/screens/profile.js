@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   ScrollView,
   Image,
@@ -55,15 +55,15 @@ export default function ProfileScreen({ navigation }) {
               <Text style={profileStyles.fText}>Post</Text>
             </View>
 
-            <View style={profileStyles.followerCount}>
+            <TouchableOpacity style={profileStyles.followerCount} onPress={()=>navigation.push('Followers')}>
               <Text style={profileStyles.fNumber}>1M</Text>
               <Text style={profileStyles.fText}>Followers</Text>
-            </View>
+            </TouchableOpacity>
 
-            <View style={profileStyles.followCount}>
+            <TouchableOpacity style={profileStyles.followCount} onPress={()=>navigation.push('Follows')}>
               <Text style={profileStyles.fNumber}>150</Text>
               <Text style={profileStyles.fText}>Following</Text>
-            </View>
+            </TouchableOpacity>
 
           </View>
         </View>

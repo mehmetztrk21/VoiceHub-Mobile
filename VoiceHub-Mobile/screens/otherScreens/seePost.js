@@ -1,5 +1,5 @@
 import React from 'react';
-import { View,TouchableOpacity,Text } from 'react-native';
+import { View } from 'react-native';
 
 import seePostStyle from "../../assets/styles/seePost.style";
 
@@ -7,19 +7,14 @@ import PostUserInfo from "../components/postUserInfo";
 import Post from "../components/post";
 import PostActions from "../components/postActions";
 import PostTexts from "../components/postTexts";
-import { Icon } from 'react-native-elements';
+import OtherHeader from "../components/otherHeader"
 
 /* HALF SCREEN, CONTINUE THIS PAGE */
-export default function SeePost({ navigation, userName }) {
+export default function SeePost({ navigation }) {
     return (
         <View style={seePostStyle.container}>
 
-            <View style={seePostStyle.header}>
-                <TouchableOpacity onPress={() => navigation.goBack('ActivityScreen')}>
-                    <Icon type="ionicon" size={28} name={"arrow-back-outline"} />
-                </TouchableOpacity>
-                <Text style={seePostStyle.headerName}>{userName} Post</Text>
-            </View>
+            <OtherHeader HeaderTitle={"Post"} navigation={navigation}/>
 
             <View>
                 <PostUserInfo navigation={navigation} />

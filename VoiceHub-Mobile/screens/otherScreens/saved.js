@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Image } from 'react-native';
-import { Icon } from "react-native-elements";
+import OtherHeader from '../components/otherHeader';
 
 import Post from "../components/post";
 import userPostData from '../components/userPostData';
@@ -10,12 +10,7 @@ export default function Saved({ navigation }) {
   return (
     <View style={savedStyle.container}>
 
-      <View style={savedStyle.header}>
-        <TouchableOpacity onPress={() => navigation.goBack('ProfileScreen')}>
-          <Icon type="ionicon" size={28} name={"arrow-back-outline"} />
-        </TouchableOpacity>
-        <Text style={savedStyle.headerName}>Saved</Text>
-      </View>
+      <OtherHeader HeaderTitle='Saved Posts' navigation={navigation}/>
 
       <View style={savedStyle.savedPostContainer}>
         {userPostData.map((item) => (
