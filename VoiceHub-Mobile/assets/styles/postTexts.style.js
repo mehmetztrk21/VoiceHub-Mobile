@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     textCounter:{
         padding:5,
+        marginHorizontal: "3%",
     },
     textHolder:{
         flexDirection:"row",
@@ -12,7 +13,7 @@ export default StyleSheet.create({
         marginRight:"1.5%",
     },
     otherComments:{
-        marginLeft:"2%",
+        marginLeft:"1%",
     },
     UserComments:{
         flexDirection:"row",
@@ -28,7 +29,7 @@ export default StyleSheet.create({
         width:30,
         height:30,
         borderRadius:15,
-        marginHorizontal:"2%",
+        marginRight:"2%",
     },
 
 });
