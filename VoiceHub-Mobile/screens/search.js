@@ -56,7 +56,7 @@ export default function SearchScreen({ navigation }) {
           style={searchStyles.searchBar}
           onChangeText={onChangeSearch}
           value={searchQuery}
-          onFocus={() => setFocused(!focused)}
+          onFocus={() => setFocused(!focused)}          
         />
       </View>
 

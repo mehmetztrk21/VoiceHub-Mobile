@@ -18,6 +18,7 @@ export default StyleSheet.create({
   },
   savedPostContainer:{
     marginBottom:10,
+    marginTop:65,
   },
   savedPosts:{
     flexDirection:"row",
