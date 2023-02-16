@@ -7,43 +7,13 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-
-  aHeadView: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: 90,
-    width: "90%",
-    marginTop: 22,
-    flexDirection: "row",
-    justifyContent:"space-between",
-    alignItems: "center",//yatay
-  },
-  leftTop:{
-    flexDirection:"row",
-    alignItems: "center",//yatay
-  },
-  rightTop:{
-    flexDirection:"row",
-    alignItems: "center",//yatay
-  },
-  head: {
-    fontSize: 22,
-    padding: 20,
-    paddingRight: 8,
-    fontWeight: "bold",
-  },
-
-  ver: {
-    height: 22,
-    width: 22,
-  },
+  
   pactions: {
     paddingRight: 15,
   },
   profileScroll: {
-    marginTop: 100,
+    marginTop: 80,
+    marginBottom: 50,
     width: "100%",
   },
 

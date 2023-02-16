@@ -8,16 +8,11 @@ const postLiked = () => {
   alert("You Liked this Voice !");
 };
 
-const postComment = () => {
-  alert("You Commented on this Voice !");
-};
-
 const postSave = () => {
   alert("You Saved this Voice !");
 };
 
-
-export default function postActions() {
+export default function postActions({navigation}) {
   return (
     <View style={postActionsStyle.postActions}>
 
@@ -25,7 +20,7 @@ export default function postActions() {
         <Icon type="feather" size={"175%"} name={"heart"} />
       </TouchableOpacity>
 
-      <TouchableOpacity style={postActionsStyle.pactions} onPress={postComment}>
+      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push('OtherComments')}>
         <Icon type="fontisto" size={"175%"} name={"comments"} />
       </TouchableOpacity>
 

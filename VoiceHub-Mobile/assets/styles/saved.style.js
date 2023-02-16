@@ -2,20 +2,26 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container:{
-    flex:1
-  },
-  top:{
-    flexDirection:"row",
-    paddingLeft:10,
+    flex: 1,
+    backgroundColor: '#fff',
+    width: "100%",
+    paddingLeft: "5%",
   },
   header:{
-    fontWeight:"bold",
+    flexDirection: "row",
+    paddingLeft:10,
+  },
+  headerName:{
+    fontWeight: "bold",
+    fontSize: 22,
+    paddingLeft: 10,
+  },
+  savedPostContainer:{
+    marginBottom:10,
+    marginTop:65,
   },
   savedPosts:{
-    //empty
-  },
-  slider:{
-    width:"40%",
+    flexDirection:"row",
   },
   profilePhoto:{
     width: 50,

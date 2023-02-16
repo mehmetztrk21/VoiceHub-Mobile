@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
 
-import SeePost from "./modals/seePost";
-import SeeProfile from "./modals/seeProfile"
 import Post from "./components/post";
 import PostUserInfo from "./components/postUserInfo";
 import PostActions from "./components/postActions";
 import PostTexts from "./components/postTexts"
+import BottomTabs from "./components/BottomTabs";
 
 import searchStyles from '../assets/styles/search.style';
 
 import userPostData from "./components/userPostData"
 
-export default function SearchScreen() {
+export default function SearchScreen({ navigation }) {
   const [focused, setFocused] = useState(true);
-  const [seePost, setSeePost] = useState(false);
-  const [seeProfile, setSeeProfile] = useState(false);
 
   {/*Coming Soon --->*/ }
   const [searchQuery, setSearchQuery] = useState("");
@@ -26,10 +23,12 @@ export default function SearchScreen() {
   const RenderUser = ({ userPostData }) => {
     return userPostData.map((item) => (
       <View>
-        <PostUserInfo userPic={item.userPic} userName={item.userName} />
-        <Post/>
-        <PostActions/>
-        <PostTexts likesCount={item.likesCount} userPic={item.userPic}/>
+        <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
+        <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
+          <Post />
+        </View>
+        <PostActions navigation={navigation} />
+        <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic} />
       </View>
     ));
   };
@@ -37,9 +36,9 @@ export default function SearchScreen() {
   const LastSerachedUser = ({ userPostData }) => {
     return userPostData.map((item) => (
       <View style={searchStyles.last}>
-        <TouchableOpacity style={{flexDirection:"row"}}>
-          <Image source={item.userPic} style={searchStyles.lastSearchImage}/>
-          <View style={{flexDirection:"column"}}>
+        <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => navigation.push('SeeProfile')}>
+          <Image source={item.userPic} style={searchStyles.lastSearchImage} />
+          <View style={{ flexDirection: "column" }}>
             <Text>{item.userName}</Text>
             <Text>k.kayserili ve 5 diğer kişi daha takip ediyor</Text>
           </View>
@@ -50,10 +49,6 @@ export default function SearchScreen() {
 
   return (
     <SafeAreaView style={searchStyles.container}>
-      
-        <SeePost seePost={seePost} onRequestClose={()=>{setSeePost(!seePost)}}/>
-
-        <SeeProfile seeProfile={seeProfile} onRequestClose={()=>{setSeePost(!seeProfile)}}/>
 
       <View style={searchStyles.searchBarHolder}>
         <TextInput
@@ -61,7 +56,7 @@ export default function SearchScreen() {
           style={searchStyles.searchBar}
           onChangeText={onChangeSearch}
           value={searchQuery}
-          onFocus={() => setFocused(!focused)}
+          onFocus={() => setFocused(!focused)}          
         />
       </View>
 
@@ -80,6 +75,7 @@ export default function SearchScreen() {
           </View>
         }
       </ScrollView>
+      <BottomTabs navigation={navigation} />
     </SafeAreaView>
   );
 }
