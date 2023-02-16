@@ -15,11 +15,10 @@ export default StyleSheet.create({
     height: 80,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 20,
   },
 
   searchBar: {
-    backgroundColor: "whitesmoke",
+    backgroundColor: "lightgray",
     borderRadius: 15,
     paddingVertical:10,
     paddingHorizontal:12.5,

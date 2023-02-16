@@ -5,7 +5,9 @@ import loginStyle from "../../assets/styles/login.style";
 export default function Login({navigation}) {
     return (
         <View style={loginStyle.container}>
-            <Image source={ require("../../assets/images/VoiceHub-1.png")} style={loginStyle.logo}/>
+            <View style={loginStyle.logoView}>
+                <Image source={ require("../../assets/images/VoiceHub-1.png")} style={loginStyle.logo}/>
+            </View>
 
             <Text style={loginStyle.label}>User Name</Text>
             <TextInput
