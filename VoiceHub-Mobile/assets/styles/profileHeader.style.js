@@ -23,6 +23,9 @@ export default StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",//yatay
   },
+  BackButton:{
+    paddingLeft: 10,
+  },
   rightTop: {
     flexDirection: "row",
     alignItems: "center",//yatay

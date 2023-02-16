@@ -17,10 +17,9 @@ import ProfileHeader from "./components/profileHeader";
 import userPostData from "./components/userPostData"
 import profileStyles from '../assets/styles/profile.style';
 
-const userRealName="Kaan Kayserili";
-const uName="k.kayserili"
-export default function ProfileScreen({ navigation }) {
-
+const userRealName = "Kaan Kayserili";
+export default function ProfileScreen({ navigation, route }) {
+  const { uName, isYourProfile } = route.params;
   // Rendering Post with arrays
   const RenderPost = ({ userPostData }) => {
     return userPostData.map((item) => (
@@ -38,7 +37,7 @@ export default function ProfileScreen({ navigation }) {
   return (
     <View style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} uName={uName} isVerified={true}/>
+      <ProfileHeader navigation={navigation} uName={uName} isVerified={true} isYourProfile={isYourProfile} />
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -54,14 +53,14 @@ export default function ProfileScreen({ navigation }) {
               <Text style={profileStyles.fText}>Post</Text>
             </View>
 
-            <TouchableOpacity style={profileStyles.followerCount} 
-            onPress={()=>{navigation.navigate("FollowFollower",{ title:'Followers' });}}>
+            <TouchableOpacity style={profileStyles.followerCount}
+              onPress={() => { navigation.navigate("FollowFollower", { title: 'Followers' }); }}>
               <Text style={profileStyles.fNumber}>1M</Text>
               <Text style={profileStyles.fText}>Followers</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={profileStyles.followCount} 
-            onPress={()=>{navigation.navigate("FollowFollower",{ title:'Following' });}}>
+            <TouchableOpacity style={profileStyles.followCount}
+              onPress={() => { navigation.navigate("FollowFollower", { title: 'Following' }); }}>
               <Text style={profileStyles.fNumber}>150</Text>
               <Text style={profileStyles.fText}>Following</Text>
             </TouchableOpacity>
@@ -78,16 +77,17 @@ export default function ProfileScreen({ navigation }) {
         </View>
 
         {/* Edit Profile Buttons */}
-        <View style={profileStyles.btnHolder}>
-          <TouchableOpacity style={profileStyles.editProfile} 
-          onPress={() => navigation.navigate('EditProfile',{RealName:userRealName,uName:uName,pic:admin})}>
-            <Text style={profileStyles.btnTextF}>Edit Profile</Text>
-          </TouchableOpacity>
+        {isYourProfile ? (
+          <View style={profileStyles.btnHolder}>
+            <TouchableOpacity style={profileStyles.editProfile}
+              onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
+              <Text style={profileStyles.btnTextF}>Edit Profile</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={profileStyles.logOut} onPress={() => navigation.push('Login')}>
-            <Text style={profileStyles.btnTextF}>Log Out</Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity style={profileStyles.logOut} onPress={() => navigation.push('Login')}>
+              <Text style={profileStyles.btnTextF}>Log Out</Text>
+            </TouchableOpacity>
+          </View>) : null}
 
         {/* Posts */}
 

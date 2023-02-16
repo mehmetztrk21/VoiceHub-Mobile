@@ -21,7 +21,7 @@ const BottomTabs = ({ navigation }) => {
           <Icon size={25} type="feather" name={'heart'} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.push('ProfileScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen',{uName:'k.kayserili', isYourProfile:true})}>
           <Icon size={25} name={'person'} />
         </TouchableOpacity>
       </View>
