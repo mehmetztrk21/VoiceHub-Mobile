@@ -1,12 +1,10 @@
 import React from "react";
-import { View, Image, TouchableOpacity, Text, ScrollView } from "react-native";
-import { Icon } from "react-native-elements";
+import { View, ScrollView } from "react-native";
 
 import Comment from "../components/comment";
+import AddVoice from "../components/addVoice";
 import OtherHeader from "../components/otherHeader";
 import userPostData from "../components/userPostData";
-
-import user1 from "../../assets/userImages/user1.jpg";
 
 import otherCommentsStyle from "../../assets/styles/otherComments.style";
 
@@ -25,10 +23,7 @@ export default function OtherComments({ navigation }) {
                 }
             </ScrollView>
 
-            <View style={otherCommentsStyle.userVoiceRecord}>
-                <Image style={otherCommentsStyle.userPic} source={user1} />
-                <Icon type="feather" size={28} name={"mic"} />
-            </View>
+            <AddVoice navigation={navigation}/>
 
         </View>
     );

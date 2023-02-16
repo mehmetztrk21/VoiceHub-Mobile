@@ -3,7 +3,7 @@ import sliderStyle from "../../assets/styles/slider.style"
 import { Slider } from "react-native-elements";
 import colors  from '../../assets/colors';
 
-export default function UserMessageItem() {
+export default function SliderComponent() {
         
       return (
         <Slider

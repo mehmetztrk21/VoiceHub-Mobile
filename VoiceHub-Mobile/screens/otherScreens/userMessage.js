@@ -2,9 +2,12 @@ import React from 'react';
 import { View, Text, ScrollView, Image } from 'react-native';
 
 import userMessageStyle from "../../assets/styles/userMessage.style";
-import userPostData from '../components/userPostData'
+
 import user1 from "../../assets/userImages/user1.jpg";
+
 import OtherHeader from '../components/otherHeader'
+import AddVoice from "../components/addVoice";
+import userPostData from '../components/userPostData'
 import Comment from "../components/comment";
 
 export default function UserMessage({navigation, route}) {
@@ -26,6 +29,9 @@ export default function UserMessage({navigation, route}) {
         }
         
       </ScrollView>
+
+      <AddVoice navigation={navigation}/>
+
     </View>
   );
 }

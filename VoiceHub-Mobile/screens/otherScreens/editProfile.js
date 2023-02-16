@@ -3,6 +3,7 @@ import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import editProfileStyle from "../../assets/styles/editProfile.style"
 import Post from "../components/post";
 import OtherHeader from '../components/otherHeader';
+import AddVoice from '../components/addVoice';
 
 export default function EditProfile({ navigation, route }) {
   const { RealName, uName, pic } = route.params;
@@ -39,10 +40,10 @@ export default function EditProfile({ navigation, route }) {
         {hasBio ? (
           <Slider />
         ) :
-          <Text>You Don't have a biography</Text>
+            <Text>You Don't have a biography</Text>
         }
       </View>
-
+      <AddVoice navigation={navigation}/>
     </View>
   );
 }   

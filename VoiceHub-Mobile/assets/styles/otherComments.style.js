@@ -20,7 +20,7 @@ export default StyleSheet.create({
     },
     comments: {
         paddingTop:65,
-        paddingBottom:66,
+        paddingBottom:85,
         width:'100%',
         paddingLeft:'2%'
     },

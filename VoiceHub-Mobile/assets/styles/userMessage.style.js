@@ -7,5 +7,6 @@ export default StyleSheet.create({
     },
     scroll:{
         marginTop:65,
+        marginBottom:85,
     }
 });
