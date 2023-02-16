@@ -6,16 +6,14 @@ import profileHeaderStyle from "../../assets/styles/profileHeader.style"
 
 import verfy from "../../assets/ver.png";
 
-const isVerified = true;
-
-const profileHeader = ({navigation}) => {
+const profileHeader = ({navigation, uName, isVerified}) => {
   return (
     <View style={profileHeaderStyle.wrapper}>
       <Divider width={1} orientation='vertical'/>
     <View style={profileHeaderStyle.aHeadView}>
 
         <View style={profileHeaderStyle.leftTop}>
-          <Text style={profileHeaderStyle.head}>k.kayserili</Text>
+          <Text style={profileHeaderStyle.head}>{uName}</Text>
           {isVerified ? (
             <Image source={verfy} style={profileHeaderStyle.ver} />
           ) : null}

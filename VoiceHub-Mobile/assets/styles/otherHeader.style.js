@@ -21,10 +21,10 @@ export default StyleSheet.create({
         marginLeft: 8,
     },
     headerName: {
-        fontSize: 30,
-        paddingTop: 10,
-        paddingBottom: 10,
+        fontSize: 24,
+        paddingTop: 13,
+        paddingBottom: 13,
         marginLeft: 8,
-        fontWeight: "bold",
+        fontWeight: "600",
     },
 })

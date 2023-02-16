@@ -1,49 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import editProfileStyle from "../../assets/styles/editProfile.style"
 import Post from "../components/post";
-import user1 from "../../assets/userImages/user1.jpg";
 import OtherHeader from '../components/otherHeader';
 
-export default function EditProfile({navigation}) {
+export default function EditProfile({ navigation, route }) {
+  const { RealName, uName, pic } = route.params;
   const hasBio = false;
   return (
     <View style={editProfileStyle.container}>
-      <OtherHeader HeaderTitle='Edit Profile' navigation={navigation}/>
+      <OtherHeader HeaderTitle='Edit Profile' navigation={navigation} />
 
       <View>
-        <TouchableOpacity>
-          <Image source={user1} style={editProfileStyle.profilePhoto} />
+        <TouchableOpacity style={editProfileStyle.ppView}>
+          <Image source={pic} style={editProfileStyle.profilePhoto} />
+          <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
         </TouchableOpacity>
       </View>
 
-      <View>
-        <Text>User Name</Text>
-        <TextInput
-          placeholder="Search"
-          style={editProfileStyle.searchBar}
-        />
-      </View>
-      <View>
-        <Text>Name LastName</Text>
-        <TextInput
-          placeholder="Search"
-          style={editProfileStyle.searchBar}
-        />
+      <View style={editProfileStyle.TextView}>
+        <View>
+          <Text>User Name</Text>
+          <TextInput
+            placeholder={uName}
+            style={editProfileStyle.searchBar}
+          />
+        </View>
+        <View>
+          <Text>Name</Text>
+          <TextInput
+            placeholder={RealName}
+            style={editProfileStyle.searchBar}
+          />
+        </View>
       </View>
 
-      <View>
+      <View style={{alignItems:"center"}}>
         {hasBio ? (
           <Slider />
         ) :
-          <View>
-            <Text>You Don't have a biography</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
-                <Post />
-              </View>
-            </View>
-          </View>
+          <Text>You Don't have a biography</Text>
         }
       </View>
 

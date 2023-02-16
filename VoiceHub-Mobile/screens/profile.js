@@ -17,8 +17,8 @@ import ProfileHeader from "./components/profileHeader";
 import userPostData from "./components/userPostData"
 import profileStyles from '../assets/styles/profile.style';
 
-
-const commentCount = 3;
+const userRealName="Kaan Kayserili";
+const uName="k.kayserili"
 export default function ProfileScreen({ navigation }) {
 
   // Rendering Post with arrays
@@ -35,11 +35,10 @@ export default function ProfileScreen({ navigation }) {
     ));
   };
 
-
   return (
     <View style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} />
+      <ProfileHeader navigation={navigation} uName={uName} isVerified={true}/>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -72,7 +71,7 @@ export default function ProfileScreen({ navigation }) {
 
         {/* Bio */}
         <View style={profileStyles.bioCont}>
-          <Text style={profileStyles.name}>Kaan Kayserili</Text>
+          <Text style={profileStyles.name}>{userRealName}</Text>
           <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
             <Post />
           </View>{/*User Bio*/}
@@ -80,7 +79,8 @@ export default function ProfileScreen({ navigation }) {
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
-          <TouchableOpacity style={profileStyles.editProfile} onPress={() => navigation.push('EditProfile')}>
+          <TouchableOpacity style={profileStyles.editProfile} 
+          onPress={() => navigation.navigate('EditProfile',{RealName:userRealName,uName:uName,pic:admin})}>
             <Text style={profileStyles.btnTextF}>Edit Profile</Text>
           </TouchableOpacity>
 
