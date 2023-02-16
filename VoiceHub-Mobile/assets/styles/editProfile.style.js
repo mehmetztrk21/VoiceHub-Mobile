@@ -6,18 +6,13 @@ export default StyleSheet.create({
         width:"100%",
         backgroundColor: '#fff',
       },
-      top:{
-
-      },
-      header:{
-       fontWeight:"bold",
-      },
       searchBar: {
         backgroundColor: "whitesmoke",
         borderRadius: 15,
-        paddingVertical:"5%",
-        paddingHorizontal:"5%",
-        width: "90%",
+        paddingVertical:"2.5%",
+        paddingHorizontal:"2.5%",
+        width: "80%",
+        marginHorizontal:"10%"
       },
       ppView:{
         flexDirection:"column",
@@ -39,7 +34,9 @@ export default StyleSheet.create({
         fontWeight:"700"
       },
       TextView:{
-        alignItems:"center",
         marginTop:"2%"
+      },
+      label:{
+        marginHorizontal:"10%",
       }
 });

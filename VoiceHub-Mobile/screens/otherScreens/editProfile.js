@@ -19,15 +19,15 @@ export default function EditProfile({ navigation, route }) {
       </View>
 
       <View style={editProfileStyle.TextView}>
-        <View>
-          <Text>User Name</Text>
+        <View style={{marginBottom:"1%"}}>
+          <Text style={editProfileStyle.label}>User Name</Text>
           <TextInput
             placeholder={uName}
             style={editProfileStyle.searchBar}
           />
         </View>
         <View>
-          <Text>Name</Text>
+          <Text style={editProfileStyle.label}>Name</Text>
           <TextInput
             placeholder={RealName}
             style={editProfileStyle.searchBar}
@@ -35,7 +35,7 @@ export default function EditProfile({ navigation, route }) {
         </View>
       </View>
 
-      <View style={{alignItems:"center"}}>
+      <View style={{alignItems:"center", marginTop:"2.5%"}}>
         {hasBio ? (
           <Slider />
         ) :
