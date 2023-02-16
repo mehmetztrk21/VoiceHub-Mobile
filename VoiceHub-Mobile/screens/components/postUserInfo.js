@@ -5,7 +5,8 @@ import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 export default function PostUserInfo({ navigation, userPic, userName }) {
     return (
         <View style={postUserInfoStyle.postUser}>
-            <TouchableOpacity style={postUserInfoStyle.clickUserPic} onPress={() => navigation.push('SeeProfile')}>
+            <TouchableOpacity style={postUserInfoStyle.clickUserPic} 
+            onPress={() => navigation.navigate('ProfileScreen', {uName:userName, isYourProfile:false})}>
                 <Image style={postUserInfoStyle.userpostImg} source={userPic} />
                 <Text style={postUserInfoStyle.userName}>{userName}</Text>
             </TouchableOpacity>
