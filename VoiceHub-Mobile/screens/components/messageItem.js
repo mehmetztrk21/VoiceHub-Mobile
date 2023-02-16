@@ -7,7 +7,8 @@ import user1 from "../../assets/userImages/user1.jpg";
 export default function MessageItemScreen({ navigation, userName }) {
     return (
         <View>
-            <TouchableOpacity style={messageItemStyle.container} onPress={() => navigation.push('UserMessage')}>
+            <TouchableOpacity style={messageItemStyle.container} 
+            onPress={() => navigation.navigate('UserMessage',{uName:userName})}>
                 <Image source={user1} style={messageItemStyle.profilePhoto} />
 
                 <View style={{ flexDirection: "column", width: "62.5%" }}>

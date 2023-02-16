@@ -19,7 +19,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
     },
     comments: {
-        paddingTop:56,
+        paddingTop:65,
         paddingBottom:66,
         width:'100%',
         paddingLeft:'2%'

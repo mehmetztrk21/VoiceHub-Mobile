@@ -11,19 +11,18 @@ import user1 from "../../assets/userImages/user1.jpg";
 import otherCommentsStyle from "../../assets/styles/otherComments.style";
 
 export default function OtherComments({ navigation }) {
-
-    const RenderComments = ({ userPostData }) => {
-        return userPostData.map((item) => (
-            <Comment navigation={navigation} userPic={item.userPic} userName={item.userName} />
-        ))
-    }
-
     return (
         <View style={otherCommentsStyle.container}>
-            <OtherHeader HeaderTitle={'Comments'} navigation={navigation}/>
+            <OtherHeader HeaderTitle={'Comments'} navigation={navigation} />
 
             <ScrollView showsVerticalScrollIndicator={false} style={otherCommentsStyle.comments}>
-                <RenderComments userPostData={userPostData} />
+                {
+                    userPostData.map((item) => {
+                        return (
+                            <Comment navigation={navigation} userPic={item.userPic} userName={item.userName} />
+                        )
+                    })
+                }
             </ScrollView>
 
             <View style={otherCommentsStyle.userVoiceRecord}>
