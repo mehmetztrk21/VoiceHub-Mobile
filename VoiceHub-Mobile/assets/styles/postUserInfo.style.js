@@ -9,7 +9,8 @@ export default StyleSheet.create({
         marginHorizontal: "3%",
     },
     clickUserPic:{
-        flexDirection:'row'
+        flexDirection:'row',
+        alignItems:"center"
     },
     userpostImg:{
         width:30,
