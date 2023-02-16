@@ -55,12 +55,14 @@ export default function ProfileScreen({ navigation }) {
               <Text style={profileStyles.fText}>Post</Text>
             </View>
 
-            <TouchableOpacity style={profileStyles.followerCount} onPress={()=>navigation.push('Followers')}>
+            <TouchableOpacity style={profileStyles.followerCount} 
+            onPress={()=>{navigation.navigate("FollowFollower",{ title:'Followers' });}}>
               <Text style={profileStyles.fNumber}>1M</Text>
               <Text style={profileStyles.fText}>Followers</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={profileStyles.followCount} onPress={()=>navigation.push('Follows')}>
+            <TouchableOpacity style={profileStyles.followCount} 
+            onPress={()=>{navigation.navigate("FollowFollower",{ title:'Following' });}}>
               <Text style={profileStyles.fNumber}>150</Text>
               <Text style={profileStyles.fText}>Following</Text>
             </TouchableOpacity>
