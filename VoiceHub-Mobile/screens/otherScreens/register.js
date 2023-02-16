@@ -9,31 +9,38 @@ export default function Register({navigation}) {
                 <Text style={registerStyle.label}>Name</Text>
                 <TextInput
                     style={registerStyle.sbar}
+                    maxLength={24}
                 />
 
                 <Text style={registerStyle.label}>Last Name</Text>
                 <TextInput
                     style={registerStyle.sbar}
+                    maxLength={18}
                 />
 
                 <Text style={registerStyle.label}>User Name</Text>
                 <TextInput
                     style={registerStyle.sbar}
+                    maxLength={18}
+                    
                 />
 
                 <Text style={registerStyle.label}>Email</Text>
                 <TextInput
                     style={registerStyle.sbar}
+                    maxLength={36}
                 />
 
                 <Text style={registerStyle.label}>Password</Text>
                 <TextInput
                     style={registerStyle.sbar}
+                    maxLength={18}
                 />
 
                 <Text style={registerStyle.label}>Password Repeat</Text>
                 <TextInput
                     style={registerStyle.sbar}
+                    maxLength={18}
                 />
 
                 <TouchableOpacity style={registerStyle.touch} onPress={()=>navigation.push('HomeScreen')}>
