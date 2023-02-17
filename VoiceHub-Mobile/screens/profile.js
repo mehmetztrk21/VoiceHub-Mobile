@@ -24,12 +24,12 @@ export default function ProfileScreen({ navigation, route }) {
   const RenderPost = ({ userPostData }) => {
     return userPostData.map((item) => (
       <View>
-        <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
+        <PostUserInfo navigation={navigation} userPic={item.userPic} userName={uName} />
         <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
           <Post />
         </View>
         <PostActions navigation={navigation} />
-        <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic} />
+        <PostTexts navigation={navigation} uName={uName} likesCount={item.likesCount} userPic={item.userPic} />
       </View>
     ));
   };

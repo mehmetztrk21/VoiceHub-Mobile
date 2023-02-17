@@ -6,7 +6,7 @@ export default StyleSheet.create({
         justifyContent:"center",
     },
     logoView:{
-        alignItems:"center"
+        alignItems:"center",
     },
     logo: {
         width: 192,

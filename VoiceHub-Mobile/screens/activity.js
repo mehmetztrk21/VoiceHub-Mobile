@@ -15,8 +15,8 @@ import BottomTabs from "./components/BottomTabs";
 
 import userPostData from "./components/userPostData";
 
-export default function ActivityScreen({ navigation }) {
-
+export default function ActivityScreen({ navigation, route }) {
+const {userName} = route.params;
   return (
     <SafeAreaView style={activityStyles.container}>
       <ActivityHeader />
