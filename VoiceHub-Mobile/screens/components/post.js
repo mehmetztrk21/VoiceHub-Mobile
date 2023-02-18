@@ -21,19 +21,11 @@ const Post = () => {
     }
   }, [sound]);
 
-  setInterval(()=>{
-    console.log(duration)   
-    console.log(position)   
-  },1000)
-
   const loadSound = async () => {
     const { sound } = await Audio.Sound.createAsync(require('./a.mp3'));
     setSound(sound);
     const {playbackStatus} = await sound.getStatusAsync();
-    setPosition(playbackStatus.positionMillis);
-    console.log(playbackStatus)
-    console.log(playbackStatus.positionMillis)
-    console.log(duration)    
+    setPosition(playbackStatus.positionMillis);   
   };
 
   const playSound = async () => {
@@ -51,7 +43,6 @@ const Post = () => {
   };
 
   const onSliderValueChange = async value => {
-    console.log(position)
     if (sound) {
       await sound.setPositionAsync(value * duration);
       setPosition(value);

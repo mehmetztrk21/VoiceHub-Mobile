@@ -6,6 +6,13 @@ export default StyleSheet.create({
         width:"100%",
         justifyContent:"center"
     },
+    logoView:{
+        alignItems:"center",
+    },
+    logo: {
+        width: 192,
+        height:108,
+    },
     label: {
         marginBottom: "0.5%",
         marginLeft:"8%",

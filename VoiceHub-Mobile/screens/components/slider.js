@@ -9,9 +9,7 @@ export default function SliderComponent() {
         <Slider
           style={sliderStyle.slider}
           minimumValue={0}
-          maximumValue={duration}
-          value={position}
-          onValueChange={onValueChange}
+          maximumValue={1}
           minimumTrackTintColor= {colors.green}
           maximumTrackTintColor={colors.gray}
           thumbTintColor={colors.green}
