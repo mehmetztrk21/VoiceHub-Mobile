@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TouchableOpacity, TextInput, View, Text, Alert, Image } from "react-native";
 import registerStyle from "../../assets/styles/register.style";
+import { registerCondition } from "../components/registerCondition";
 
 export default function Register({ navigation }) {
     const [firstName, setName] = useState("");
@@ -9,28 +10,12 @@ export default function Register({ navigation }) {
     const [email, setEmail] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
+    let isGoHomePage=false
 
     const isRegister = () => {
-        if ((firstName, lastName, userName, email, password1, password2) !== "") {
-            if (password1 == password2) {
-                if (userName.length >= 3) {
-                    if (password1.length >= 8) {
-                        navigation.navigate('HomeScreen', { userName })
-                    }
-                    else {
-                        Alert.alert("Password length may be 8 chart");
-                    }
-                }
-                else {
-                    Alert.alert("User Name length may be 8 chart");
-                }
-            }
-            else {
-                Alert.alert("Passwords don't equal");
-            }
-        }
-        else {
-            Alert.alert("don't boş bırakma");
+        isGoHomePage=registerCondition(firstName, lastName, userName, email, password1, password2);
+        if(isGoHomePage){
+            navigation.navigate('HomeScreen',{userName})
         }
     }
 

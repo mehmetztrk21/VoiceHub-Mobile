@@ -13,10 +13,10 @@ const Post = () => {
   const [position, setPosition] = useState(0);
 
   useEffect(() => {
-    if(sound){
+    if (sound) {
 
     }
-    else{
+    else {
       loadSound();
     }
   }, [sound]);
@@ -24,8 +24,8 @@ const Post = () => {
   const loadSound = async () => {
     const { sound } = await Audio.Sound.createAsync(require('./a.mp3'));
     setSound(sound);
-    const {playbackStatus} = await sound.getStatusAsync();
-    setPosition(playbackStatus.positionMillis);   
+    // const {playbackStatus} = await sound.getStatusAsync();
+    // setPosition(playbackStatus.positionMillis);   
   };
 
   const playSound = async () => {
@@ -44,8 +44,8 @@ const Post = () => {
 
   const onSliderValueChange = async value => {
     if (sound) {
-      await sound.setPositionAsync(value * duration);
-      setPosition(value);
+      // await sound.setPositionAsync(value * duration);
+      // setPosition(value);
     }
   };
 
@@ -64,13 +64,11 @@ const Post = () => {
       <Slider
         style={sliderStyle.slider}
         minimumValue={0}
-        maximumValue={duration}
-        minimumTrackTintColor= {colors.green}
-          maximumTrackTintColor={colors.gray}
-          thumbTintColor={colors.green}
+        maximumValue={1}
+        minimumTrackTintColor={colors.green}
+        maximumTrackTintColor={colors.gray}
+        thumbTintColor={colors.green}
         thumbStyle={{ height: 25, width: 25, }}
-        value={duration*position}
-        onValueChange={onSliderValueChange}
       />
     </View>
   );
