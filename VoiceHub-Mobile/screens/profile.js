@@ -69,9 +69,9 @@ export default function ProfileScreen({ navigation, route }) {
         </View>
 
         {/* Bio */}
-        <View style={profileStyles.bioCont}>
+        <View style={profileStyles.bioContents}>
           <Text style={profileStyles.name}>{userRealName}</Text>
-          <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
+          <View style={{ marginLeft: '20%' }}>
             <Post />
           </View>{/*User Bio*/}
         </View>
@@ -82,10 +82,6 @@ export default function ProfileScreen({ navigation, route }) {
             <TouchableOpacity style={profileStyles.editProfile}
               onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
               <Text style={profileStyles.btnTextF}>Edit Profile</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={profileStyles.logOut} onPress={() => navigation.push('Login')}>
-              <Text style={profileStyles.btnTextF}>Log Out</Text>
             </TouchableOpacity>
           </View>) : null}
 
