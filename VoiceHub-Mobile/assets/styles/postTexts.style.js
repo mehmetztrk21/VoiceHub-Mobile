@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     textCounter:{
         marginHorizontal: "3%",
+        marginBottom:"6%"
     },
     textHolder:{
         flexDirection:"row",
