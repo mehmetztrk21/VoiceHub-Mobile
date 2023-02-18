@@ -20,5 +20,6 @@ export default StyleSheet.create({
     },
     userName:{
         fontSize:15,
+        fontWeight:"600"
     }
 });
