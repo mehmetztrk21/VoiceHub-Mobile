@@ -16,20 +16,20 @@ export default function ForgotPassword({ navigation }) {
                         navigation.navigate('HomeScreen', { userName })
                     }
                     else{
-                        console.log("kullanıcı adı en az 3 karakter olmalı");
+                        alert("kullanıcı adı en az 3 karakter olmalı");
                     }
                 }
                 else{
-                    console.log("şifreniz en az 8 karakter olmalı");
+                    alert("şifreniz en az 8 karakter olmalı");
                 }
             }
             else{
-                console.log("şifreler boş olmamalı");
+                alert("şifreler boş olmamalı");
                 
             }
         }
         else{
-            console.log("şifreler birbirine eşit değil");
+            alert("şifreler birbirine eşit değil");
         }
     }
 

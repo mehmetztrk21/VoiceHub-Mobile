@@ -22,7 +22,7 @@ export default StyleSheet.create({
         marginBottom:20,
       },
       ButtonText:{
-        borderRadius: 10,
+        borderRadius: 15,
         backgroundColor: colors.green,
         color: colors.white,
         textAlign: "center",

@@ -18,9 +18,6 @@ export default function MessageItemScreen({ navigation, userName }) {
                         <Text style={messageItemStyle.time}>13:55</Text>
                     </View>
                 </View>
-
-
-
             </TouchableOpacity>
         </View>
     );

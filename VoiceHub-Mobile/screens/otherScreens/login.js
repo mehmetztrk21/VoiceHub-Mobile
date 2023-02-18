@@ -10,6 +10,9 @@ export default function Login({ navigation }) {
         if (userName !== "" && password !== "") {
             navigation.navigate('HomeScreen', { userName })
         }
+        else{
+            alert("don't empty inputs")
+        }
     }
 
     return (
