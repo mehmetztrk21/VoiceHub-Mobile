@@ -5,6 +5,9 @@ export default StyleSheet.create({
         marginHorizontal: "3%",
         marginBottom:"6%"
     },
+    likesText:{
+        fontWeight:"600"
+    },
     textHolder:{
         flexDirection:"row",
     },

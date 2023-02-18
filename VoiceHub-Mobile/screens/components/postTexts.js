@@ -8,11 +8,6 @@ export default function postTexts({ navigation, likesCount, userPic, uName }) {
     <View style={postTextsStyles.textCounter}>
       <Text style={postTextsStyles.likesText}>{likesCount} likes</Text>
 
-      <View style={postTextsStyles.textHolder}>
-        <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-        <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
-      </View>
-
       <View style={postTextsStyles.otherComments}>
         <TouchableOpacity onPress={() => { navigation.push('OtherComments') }}>
           <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
