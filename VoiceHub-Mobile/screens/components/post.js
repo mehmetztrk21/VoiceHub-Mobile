@@ -1,35 +1,88 @@
-import React, { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
-import Slider from "../../screens/components/slider"
+import React, { useState, useEffect } from 'react';
+import { View, TouchableOpacity } from 'react-native';
+import { Audio } from 'expo-av';
+import { Slider, Icon } from 'react-native-elements';
 import postStyle from "../../assets/styles/post.style";
-// import Sound from 'react-native-sound'
+import sliderStyle from "../../assets/styles/slider.style";
+import colors from '../../assets/colors';
 
+const Post = () => {
+  const [sound, setSound] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [position, setPosition] = useState(0);
 
+  useEffect(() => {
+    if(sound){
 
-export default function Post() {
+    }
+    else{
+      loadSound();
+    }
+  }, [sound]);
 
-  // const [music,setMusic]=useState(null);
+  setInterval(()=>{
+    console.log(duration)   
+    console.log(position)   
+  },1000)
 
-  const Play = () => {
-    // let voice = new Sound('iyiBilirim.mp3',Sound.MAIN_BUNDLE,(err)=>{
-    //   if(err){
-    //     console.log('hata',err)
-    //     return
-    //   }
-    //     voice.play((success)=>{
-    //       console.log('end', success);
-    //     })
-    // })
-    // setMusic(voice)
-  } 
+  const loadSound = async () => {
+    const { sound } = await Audio.Sound.createAsync(require('./a.mp3'));
+    setSound(sound);
+    const {playbackStatus} = await sound.getStatusAsync();
+    setPosition(playbackStatus.positionMillis);
+    console.log(playbackStatus)
+    console.log(playbackStatus.positionMillis)
+    console.log(duration)    
+  };
+
+  const playSound = async () => {
+    if (sound) {
+      await sound.playAsync();
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const pauseSound = async () => {
+    if (sound) {
+      await sound.pauseAsync();
+      setIsPlaying(!isPlaying);
+    }
+  };
+
+  const onSliderValueChange = async value => {
+    console.log(position)
+    if (sound) {
+      await sound.setPositionAsync(value * duration);
+      setPosition(value);
+    }
+  };
+
   return (
     <View style={postStyle.post}>
-      <TouchableOpacity style={postStyle.playButton} onPress={()=>Play()}>
-        <Icon type="feather" size={"175%"} name={"play"} />
+
+      <TouchableOpacity style={postStyle.playButton} onPress={isPlaying ? pauseSound : playSound}>
+        {
+          isPlaying ? (
+            <Icon type="feather" size={"175%"} name={"pause"} />
+          ) :
+            <Icon type="feather" size={"175%"} name={"play"} />
+        }
       </TouchableOpacity>
 
-      <Slider />
+      <Slider
+        style={sliderStyle.slider}
+        minimumValue={0}
+        maximumValue={duration}
+        minimumTrackTintColor= {colors.green}
+          maximumTrackTintColor={colors.gray}
+          thumbTintColor={colors.green}
+        thumbStyle={{ height: 25, width: 25, }}
+        value={duration*position}
+        onValueChange={onSliderValueChange}
+      />
     </View>
   );
-}
+};
+
+export default Post;
