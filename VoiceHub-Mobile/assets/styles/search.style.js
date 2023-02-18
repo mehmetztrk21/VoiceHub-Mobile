@@ -27,7 +27,7 @@ export default StyleSheet.create({
 
   scrollContainer: {
     backgroundColor: "white",
-    width: "92%",
+    width: "100%",
   },
   last:{
     paddingBottom: 20,
