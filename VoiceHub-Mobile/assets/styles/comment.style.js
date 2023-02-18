@@ -7,7 +7,7 @@ export default StyleSheet.create({
     ProfilePhoto: {
         width: 70,
         heigth: 70,
-        borderRadius: 25,
+        borderRadius: 35,
     },
     userName:{
         fontSize:14.5,
