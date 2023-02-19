@@ -11,9 +11,9 @@ import searchStyles from '../assets/styles/search.style';
 
 import userPostData from "./components/userPostData"
 
-export default function SearchScreen({ navigation }) {
+export default function SearchScreen({ navigation, route }) {
+  const { userName } = route.params;
   const [focused, setFocused] = useState(true);
-
   {/*Coming Soon --->*/ }
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -36,7 +36,8 @@ export default function SearchScreen({ navigation }) {
   const LastSerachedUser = ({ userPostData }) => {
     return userPostData.map((item) => (
       <View style={searchStyles.last}>
-        <TouchableOpacity style={{ flexDirection: "row" }} onPress={() => navigation.push('SeeProfile')}>
+        <TouchableOpacity style={{ flexDirection: "row" }}
+          onPress={() => navigation.navigate('ProfileScreen', { uName: item.userName, isYourProfile: false })}>
           <Image source={item.userPic} style={searchStyles.lastSearchImage} />
           <View style={{ flexDirection: "column" }}>
             <Text>{item.userName}</Text>
@@ -56,7 +57,7 @@ export default function SearchScreen({ navigation }) {
           style={searchStyles.searchBar}
           onChangeText={onChangeSearch}
           value={searchQuery}
-          onFocus={() => setFocused(!focused)}          
+          onFocus={() => setFocused(!focused)}
         />
       </View>
 

@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
   container: {
@@ -8,9 +9,6 @@ export default StyleSheet.create({
     justifyContent: "center",
   },
   
-  pactions: {
-    paddingRight: 15,
-  },
   profileScroll: {
     marginTop: 80,
     marginBottom: 50,
@@ -25,7 +23,6 @@ export default StyleSheet.create({
     left: 5,
     width: "95%",
   },
-
   userPic: {
     width: 90,
     height: 90,
@@ -58,75 +55,39 @@ export default StyleSheet.create({
     fontWeight: "bold",
     fontSize: 18,
   },
-  bioCont: {
-    width: "90%",
+
+  bioContents: {
     padding: 10,
-    paddingLeft: "5%",
+    marginLeft: "5%",
     paddingTop: "3%",
   },
-
   name: {
     fontSize: 15,
     fontWeight: "700",
   },
 
-  catg: {
-    color: "grey",
-  },
   btnHolder: {
     marginBottom: "2%",
     marginTop: "1%",
     paddingBottom:"2%",
-    flexDirection:"row",
+    alignItems:"center",
   },
-
-
   editProfile: {
-    backgroundColor: "#1DB954",
+    backgroundColor: colors.green,
     borderRadius: 5,
-    width: "52.5%",
-    marginLeft: "10%",
-    marginTop: "2%",
-    marginBottom: "2%",
-    marginBottom: "2%",
-    paddingVertical:"1%",
-
-  },
-  logOut:{
-    backgroundColor: "#1DB954",
-    borderRadius: 5,
-    width: "20%",
-    marginLeft: "7.5%",
     marginTop: "2%",
     marginBottom: "2%",
     paddingVertical:"1%",
+    width:"80%"
   },
   btnTextF: {
     fontSize: 16,
-    color: "white",
+    color: colors.white,
     alignSelf:"center"
   },
 
-  btnTextM: {
-    fontSize: 15,
-  },
-
-  iconCont: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignContent: "center",
-    width: "100%",
-    backgroundColor: "whitesmoke",
-    marginTop: 30,
-    paddingVertical: 8,
-  },
-
-  icons: {
-    marginHorizontal: 50,
-  },
-
   postView: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     paddingTop: 5,
     flexDirection: "column",
     width: "100%",

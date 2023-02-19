@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { Image, Text, View } from "react-native";
 
 import Post from "../components/post";
 
@@ -8,13 +8,11 @@ import commentStyle from "../../assets/styles/comment.style";
 export default function Comment({ navigation, userPic, userName }) {
     return (
         <View style={commentStyle.container}>
-
-
-            <View style={commentStyle.mediumView}>
+            <View>
                 <View style={{ flexDirection: 'row' }}>
-                    <Image source={userPic} style={commentStyle.ProfilePhoto} onPress={() => navigation.push('SeeProfile')} />
+                    <Image source={userPic} style={commentStyle.ProfilePhoto} onPress={() => navigation.navigate('Profile',{uName:userName,isYourProfile:true})} />
                     <View style={{ flexDirection: 'column', width: '100%', paddingLeft:'2.5%'}}>
-                        <Text style={commentStyle.userName} onPress={() => navigation.push('SeeProfile')}>{userName}</Text>
+                        <Text style={commentStyle.userName} onPress={() => navigation.navigate('Profile',{uName:userName,isYourProfile:true})}>{userName}</Text>
                         <Post />
                     </View>
                 </View>

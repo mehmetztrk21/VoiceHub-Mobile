@@ -2,8 +2,11 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     textCounter:{
-        padding:5,
         marginHorizontal: "3%",
+        marginBottom:"6%"
+    },
+    likesText:{
+        fontWeight:"600"
     },
     textHolder:{
         flexDirection:"row",
@@ -11,9 +14,6 @@ export default StyleSheet.create({
     userCap:{
         fontWeight:"bold",
         marginRight:"1.5%",
-    },
-    otherComments:{
-        marginLeft:"1%",
     },
     UserComments:{
         flexDirection:"row",

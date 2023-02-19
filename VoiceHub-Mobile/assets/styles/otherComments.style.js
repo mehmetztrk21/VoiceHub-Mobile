@@ -19,8 +19,8 @@ export default StyleSheet.create({
         paddingLeft: 10,
     },
     comments: {
-        paddingTop:56,
-        paddingBottom:66,
+        paddingTop:65,
+        paddingBottom:85,
         width:'100%',
         paddingLeft:'2%'
     },

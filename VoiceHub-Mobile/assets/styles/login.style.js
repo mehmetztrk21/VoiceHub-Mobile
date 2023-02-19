@@ -1,38 +1,48 @@
 import { StyleSheet } from "react-native";
-
+import colors from "../colors"
 export default StyleSheet.create({
     container: {
         flex: 1,
-        marginLeft: "20%",
+        justifyContent:"center",
+    },
+    logoView:{
+        alignItems:"center",
     },
     logo: {
-        width: "60%",
-        height: "30%",
+        width: 192,
+        height:108,
     },
     label: {
-        marginBottom: "1%",
+        marginBottom: "0.5%",
+        marginLeft:"8%",
+        fontWeight:"500",
+        fontSize:16,
     },
     sbar: {
-        backgroundColor: "whitesmoke",
+        backgroundColor: "lightgray",
         borderRadius: 15,
         paddingVertical: 10,
-        paddingHorizontal: 12.5,
-        width: "90%",
+        paddingHorizontal: "2%",
+        width: "80%",
+        marginLeft:"8%"
     },
     touch: {
-        width: "60%",
+        width: "55%",
         marginBottom: "2.5%",
+        marginTop: "2.5%",
+        marginLeft:"22.5%"
     },
     loginButton: {
         borderRadius: 10,
-        backgroundColor: "#1DB954",
-        color: "#fff",
+        backgroundColor: colors.green,
+        color: colors.white,
         textAlign: "center",
         paddingVertical: "1.5%",
-        fontSize: 16,
+        fontWeight:"500",
+        fontSize:16,
     },
     textButton: {
-        color: "#1DB954",
+        color: colors.green,
         textAlign: "center",
     },
 });

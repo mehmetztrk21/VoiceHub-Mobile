@@ -16,10 +16,9 @@ import HomeHeader from "./components/HomeHeader";
 //importing styles
 import homeStyles from '../assets/styles/home.style';
 
-const commentCount = 3;
-
-export default function HomeScreen({ navigation }) {
-
+export default function HomeScreen({ navigation, route }) {
+  const {userName}=route.params;
+  console.log(userName)
   // Rendering Post with arrays
   const RenderPost = ({ userPostData }) => {
     return userPostData.map((item) => (
@@ -40,7 +39,7 @@ export default function HomeScreen({ navigation }) {
         {/* User Posts */}
         <RenderPost userPostData={userPostData} />
       </ScrollView>
-      <BottomTabs navigation={navigation} />
+      <BottomTabs navigation={navigation} userName={userName}/>
     </View>
   );
 }

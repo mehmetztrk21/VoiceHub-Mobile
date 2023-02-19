@@ -3,15 +3,10 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements"
 import postTextsStyles from "../../assets/styles/postTexts.style";
 
-export default function postTexts({ navigation, likesCount, userPic }) {
+export default function postTexts({ navigation, likesCount, userPic, uName }) {
   return (
     <View style={postTextsStyles.textCounter}>
       <Text style={postTextsStyles.likesText}>{likesCount} likes</Text>
-
-      <View style={postTextsStyles.textHolder}>
-        <Text style={postTextsStyles.userCap}>k.kayserili</Text>
-        <Text style={postTextsStyles.captext}>asdsadasfwa</Text>
-      </View>
 
       <View style={postTextsStyles.otherComments}>
         <TouchableOpacity onPress={() => { navigation.push('OtherComments') }}>

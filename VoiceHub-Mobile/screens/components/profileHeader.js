@@ -6,22 +6,26 @@ import profileHeaderStyle from "../../assets/styles/profileHeader.style"
 
 import verfy from "../../assets/ver.png";
 
-const isVerified = true;
-
-const profileHeader = ({navigation}) => {
+const profileHeader = ({navigation, uName, isVerified, isYourProfile}) => {
   return (
     <View style={profileHeaderStyle.wrapper}>
       <Divider width={1} orientation='vertical'/>
     <View style={profileHeaderStyle.aHeadView}>
 
         <View style={profileHeaderStyle.leftTop}>
-          <Text style={profileHeaderStyle.head}>k.kayserili</Text>
+        {!isYourProfile?(
+          <TouchableOpacity onPress={()=>navigation.goBack('SearchScreen')}>
+            <Icon style={profileHeaderStyle.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
+          </TouchableOpacity>
+        ):null}
+          <Text style={profileHeaderStyle.head}>{uName}</Text>
           {isVerified ? (
             <Image source={verfy} style={profileHeaderStyle.ver} />
           ) : null}
         </View>
 
-        <View style={profileHeaderStyle.rightTop}>
+        {isYourProfile?(
+          <View style={profileHeaderStyle.rightTop}>
           <TouchableOpacity style={profileHeaderStyle.pactions} onPress={()=>navigation.push('Saved')}>
             <Icon type="feather" size={28} name={"save"} />
           </TouchableOpacity>
@@ -30,6 +34,7 @@ const profileHeader = ({navigation}) => {
             <Icon type="feather" size={28} name={"plus"} />
           </TouchableOpacity>
         </View>
+        ):null}
       </View>
       </View>
   )
