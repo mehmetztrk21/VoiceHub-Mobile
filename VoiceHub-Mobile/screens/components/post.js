@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Audio } from 'expo-av';
 import { Slider, Icon } from 'react-native-elements';
 import postStyle from "../../assets/styles/post.style";
@@ -31,6 +31,8 @@ const Post = () => {
         //console.log('Ses dosyasının süresi:', playbackStatus.durationMillis, 'milisaniye');
         //console.log('Ses anlık süresi:', playbackStatus.positionMillis, 'milisaniye');
         setDuration(playbackStatus.durationMillis)
+        console.log(playbackStatus.durationMillis)
+        console.log(playbackStatus.positionMillis)
         setPosition(playbackStatus.positionMillis)
     });
   };

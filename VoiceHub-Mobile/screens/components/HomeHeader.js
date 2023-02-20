@@ -1,15 +1,19 @@
-import { View, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
+import React from 'react';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { Divider, Icon } from "react-native-elements";
-import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 import logo from "../../assets/images/VoiceHub-1.png";
+import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 
-const HomeHeader = ({ navigation }) => {
+const HomeHeader = ({ navigation, pressLogo }) => {
+
   return (
     <View style={homeHeaderStyles.wrapper}>
       <Divider width={1} orientation='vertical' />
       <View style={homeHeaderStyles.head}>
-        <Image source={logo} style={{ width: 115.2, height: 64.8 }} />
+        <TouchableOpacity onPress={pressLogo}>
+          <Image source={logo} style={{ width: 115.2, height: 64.8 }} />
+        </TouchableOpacity>
+        
         <View style={homeHeaderStyles.rightTop}>
           <TouchableOpacity style={homeHeaderStyles.headerPactions} onPress={() => navigation.push('Message')}>
             <Icon type="feather" size={30} name={"mail"} />
