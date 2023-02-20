@@ -22,10 +22,17 @@ const Post = () => {
   }, [sound]);
 
   const loadSound = async () => {
-    const { sound } = await Audio.Sound.createAsync(require('./a.mp3'));
+    const { sound } = await Audio.Sound.createAsync(require('../../assets/sounds/a.mp3'));
     setSound(sound);
-    // const {playbackStatus} = await sound.getStatusAsync();
-    // setPosition(playbackStatus.positionMillis);   
+    const playbackStatus = await sound.getStatusAsync();
+    // console.log(playbackStatus)  
+
+    sound.setOnPlaybackStatusUpdate((playbackStatus) => {
+        //console.log('Ses dosyasının süresi:', playbackStatus.durationMillis, 'milisaniye');
+        //console.log('Ses anlık süresi:', playbackStatus.positionMillis, 'milisaniye');
+        setDuration(playbackStatus.durationMillis)
+        setPosition(playbackStatus.positionMillis)
+    });
   };
 
   const playSound = async () => {
@@ -39,13 +46,6 @@ const Post = () => {
     if (sound) {
       await sound.pauseAsync();
       setIsPlaying(!isPlaying);
-    }
-  };
-
-  const onSliderValueChange = async value => {
-    if (sound) {
-      // await sound.setPositionAsync(value * duration);
-      // setPosition(value);
     }
   };
 
@@ -64,7 +64,8 @@ const Post = () => {
       <Slider
         style={sliderStyle.slider}
         minimumValue={0}
-        maximumValue={1}
+        maximumValue={duration}
+        value={position}
         minimumTrackTintColor={colors.green}
         maximumTrackTintColor={colors.gray}
         thumbTintColor={colors.green}
