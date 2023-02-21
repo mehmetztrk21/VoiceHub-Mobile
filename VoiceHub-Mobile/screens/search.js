@@ -1,15 +1,11 @@
 import React, { useRef, useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
 
-import Post from "./components/post";
-import PostUserInfo from "./components/postUserInfo";
-import PostActions from "./components/postActions";
-import PostTexts from "./components/postTexts"
+import RenderDiscover from "./components/RenderDiscover";
+import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import BottomTabs from "./components/BottomTabs";
 import SearchHeader from "./components/SearchHeader";
 import searchStyles from '../assets/styles/search.style';
-
-import userPostData from "./components/userPostData"
 
 export default function SearchScreen({ navigation, route }) {
   const { userName } = route.params;
@@ -24,34 +20,6 @@ export default function SearchScreen({ navigation, route }) {
   const handleScrollToTop = () => {
     console.log('yukarı kaydı')
     scrollViewRef.current.scrollTo({y:0})
-  };
-
-  const RenderUser = ({ userPostData }) => {
-    return userPostData.map((item) => (
-      <View>
-        <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
-        <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
-          <Post />
-        </View>
-        <PostActions navigation={navigation} />
-        <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic} />
-      </View>
-    ));
-  };
-
-  const LastSerachedUser = ({ userPostData }) => {
-    return userPostData.map((item) => (
-      <View style={searchStyles.last}>
-        <TouchableOpacity style={{ flexDirection: "row" }}
-          onPress={() => navigation.navigate('ProfileScreen', { uName: item.userName, isYourProfile: false })}>
-          <Image source={item.userPic} style={searchStyles.lastSearchImage} />
-          <View style={{ flexDirection: "column" }}>
-            <Text>{item.userName}</Text>
-            <Text>k.kayserili ve 5 diğer kişi daha takip ediyor</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    ));
   };
 
   return (
@@ -77,11 +45,11 @@ export default function SearchScreen({ navigation, route }) {
         {focused ? (
           <View style={searchStyles.userHodler}>
             {/* Get Users Infos */}
-            <RenderUser userPostData={userPostData} />
+            <RenderDiscover  navigation={navigation}/>
           </View>
         ) :
           <View style={searchStyles.userHodler}>
-            <LastSerachedUser userPostData={userPostData} />
+            <RenderLastSearchedUser navigation={navigation}/>
           </View>
         }
       </ScrollView>

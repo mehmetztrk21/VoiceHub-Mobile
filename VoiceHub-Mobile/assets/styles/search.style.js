@@ -29,15 +29,7 @@ export default StyleSheet.create({
     backgroundColor: "white",
     width: "95%",
   },
-  last:{
-    paddingBottom: 20,
-  },
-  lastSearchImage:{
-    width: 50, 
-    height: 50, 
-    borderRadius:25, 
-    marginRight:"1%",
-  },
+  
   searchImg:{
     width: 50, 
     height: 50,
