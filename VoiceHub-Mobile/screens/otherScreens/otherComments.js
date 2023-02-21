@@ -23,7 +23,7 @@ export default function OtherComments({ navigation }) {
                 }
             </ScrollView>
 
-            <AddVoice navigation={navigation}/>
+            <AddVoice/>
 
         </View>
     );

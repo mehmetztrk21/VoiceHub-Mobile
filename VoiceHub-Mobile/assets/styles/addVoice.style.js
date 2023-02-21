@@ -17,16 +17,17 @@ export default StyleSheet.create({
         zIndex:999,
         backgroundColor:'#FFF'
     },
-    click:{
-        width:50, 
-        height:50, 
-        borderRadius:25, 
-        borderColor:"#DADADA", 
-        borderWidth:2,
-        alignContent:"center",
-    },
-    time:{
-        fontSize:14,
-        fontWeight:"400"
-    }
+      content: {
+        justifyContent: "center", 
+        flexDirection: "row", 
+        paddingLeft: '10%', 
+        paddingRight: '2.5%', 
+        width: "100%", 
+        alignItems: "center",
+      },
+      time: {
+        fontSize: 15,
+        marginRight: 10,
+        fontWeight: "700",
+      },
 })
