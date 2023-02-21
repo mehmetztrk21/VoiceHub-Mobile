@@ -71,9 +71,7 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Bio */}
         <View style={profileStyles.bioContents}>
           <Text style={profileStyles.name}>{userRealName}</Text>
-          <View style={{ marginLeft: '20%' }}>
             <Post />
-          </View>{/*User Bio*/}
         </View>
 
         {/* Edit Profile Buttons */}

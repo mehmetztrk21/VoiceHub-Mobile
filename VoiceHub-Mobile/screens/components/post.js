@@ -71,7 +71,7 @@ const Post = () => {
         minimumTrackTintColor={colors.green}
         maximumTrackTintColor={colors.gray}
         thumbTintColor={colors.green}
-        thumbStyle={{ height: 25, width: 25, }}
+        thumbStyle={{ height: 22.5, width: 22.5, }}
       />
     </View>
   );

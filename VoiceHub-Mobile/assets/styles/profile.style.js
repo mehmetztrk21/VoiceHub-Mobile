@@ -21,7 +21,7 @@ export default StyleSheet.create({
     marginTop: 12,
     top: 0,
     left: 5,
-    width: "95%",
+    width: "96%",
   },
   userPic: {
     width: 90,
@@ -57,8 +57,7 @@ export default StyleSheet.create({
   },
 
   bioContents: {
-    padding: 10,
-    marginLeft: "5%",
+    marginLeft:"5%",
     paddingTop: "3%",
   },
   name: {
@@ -70,7 +69,7 @@ export default StyleSheet.create({
     marginBottom: "2%",
     marginTop: "1%",
     paddingBottom:"2%",
-    alignItems:"center",
+    marginLeft:"10%"
   },
   editProfileAndFollow: {
     backgroundColor: colors.green,
