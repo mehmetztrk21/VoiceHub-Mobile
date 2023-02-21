@@ -3,7 +3,7 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements"
 import postTextsStyles from "../../assets/styles/postTexts.style";
 
-export default function postTexts({ navigation, likesCount, userPic, uName }) {
+export default function postTexts({ navigation, likesCount, userPic }) {
   return (
     <View style={postTextsStyles.textCounter}>
       <Text style={postTextsStyles.likesText}>{likesCount} likes</Text>

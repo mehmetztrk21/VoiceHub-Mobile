@@ -8,31 +8,15 @@ import {
 } from "react-native";
 import admin from "../assets/userImages/admin.jpg";
 
-import PostUserInfo from "./components/postUserInfo";
+import RenderPost from "./components/RenderPost";
 import Post from "./components/post";
-import PostActions from "./components/postActions";
-import PostTexts from "./components/postTexts";
 import BottomTabs from "./components/BottomTabs";
 import ProfileHeader from "./components/profileHeader";
-import userPostData from "./components/userPostData"
 import profileStyles from '../assets/styles/profile.style';
 
 const userRealName = "Kaan Kayserili";
 export default function ProfileScreen({ navigation, route }) {
   const { uName, isYourProfile } = route.params;
-  // Rendering Post with arrays
-  const RenderPost = ({ userPostData }) => {
-    return userPostData.map((item) => (
-      <View>
-        <PostUserInfo navigation={navigation} userPic={item.userPic} userName={uName} />
-        <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
-          <Post />
-        </View>
-        <PostActions navigation={navigation} />
-        <PostTexts navigation={navigation} uName={uName} likesCount={item.likesCount} userPic={item.userPic} />
-      </View>
-    ));
-  };
 
   return (
     <View style={profileStyles.container}>
@@ -77,7 +61,6 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
         {isYourProfile ? (
-          
             <TouchableOpacity style={profileStyles.editProfileAndFollow}
               onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
               <Text style={profileStyles.btnTextF}>Edit Profile</Text>
@@ -91,7 +74,7 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Posts */}
 
         <View style={profileStyles.postView}>
-          <RenderPost userPostData={userPostData} />
+          <RenderPost navigation={navigation}/>
         </View>
       </ScrollView>
       <BottomTabs navigation={navigation} />
