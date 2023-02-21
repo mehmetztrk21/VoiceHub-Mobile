@@ -9,7 +9,7 @@ export default StyleSheet.create({
   },
 
   searchBarHolder: {
-    top: 0,
+    marginTop:60,
     left: 0,
     width: "100%",
     height: 80,

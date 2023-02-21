@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { ScrollView, TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
 
 import Post from "./components/post";
@@ -6,7 +6,7 @@ import PostUserInfo from "./components/postUserInfo";
 import PostActions from "./components/postActions";
 import PostTexts from "./components/postTexts"
 import BottomTabs from "./components/BottomTabs";
-
+import SearchHeader from "./components/SearchHeader";
 import searchStyles from '../assets/styles/search.style';
 
 import userPostData from "./components/userPostData"
@@ -19,6 +19,12 @@ export default function SearchScreen({ navigation, route }) {
   const onChangeSearch = (query) => setSearchQuery(query);
   {/*<--- Coming Soon */ }
 
+  const scrollViewRef = useRef();
+
+  const handleScrollToTop = () => {
+    console.log('yukarı kaydı')
+    scrollViewRef.current.scrollTo({y:0})
+  };
 
   const RenderUser = ({ userPostData }) => {
     return userPostData.map((item) => (
@@ -51,6 +57,8 @@ export default function SearchScreen({ navigation, route }) {
   return (
     <SafeAreaView style={searchStyles.container}>
 
+    <SearchHeader pressLogo={handleScrollToTop}/>
+
       <View style={searchStyles.searchBarHolder}>
         <TextInput
           placeholder="Search"
@@ -64,6 +72,7 @@ export default function SearchScreen({ navigation, route }) {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={searchStyles.scrollContainer}
+        ref={scrollViewRef}
       >
         {focused ? (
           <View style={searchStyles.userHodler}>
