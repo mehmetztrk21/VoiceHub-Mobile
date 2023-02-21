@@ -9,11 +9,9 @@ export default StyleSheet.create({
   },
 
   searchBarHolder: {
-    top: 0,
-    left: 0,
+    marginTop:60,
     width: "100%",
     height: 80,
-    alignItems: "center",
     justifyContent: "center",
   },
 
@@ -22,30 +20,17 @@ export default StyleSheet.create({
     borderRadius: 15,
     paddingVertical:10,
     paddingHorizontal:12.5,
-    width: "90%",
   },
-
+  widthChange2:{
+    width:"87.5%",
+    marginLeft:"6.25%"
+  },
+  widthChange1:{
+    width:"80%",
+    marginLeft:"6.25%"
+  },
   scrollContainer: {
     backgroundColor: "white",
     width: "95%",
-  },
-  last:{
-    paddingBottom: 20,
-  },
-  lastSearchImage:{
-    width: 50, 
-    height: 50, 
-    borderRadius:25, 
-    marginRight:"1%",
-  },
-  searchImg:{
-    width: 50, 
-    height: 50,
-    borderRadius:25, 
-    marginLeft:"10%", 
-    marginRight:"5%",
-  },
-  slider:{
-    width:"60%",
   },
 });
