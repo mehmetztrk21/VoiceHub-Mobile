@@ -1,33 +1,39 @@
 import { StyleSheet } from "react-native";
-
+import colors from "../colors"
 export default StyleSheet.create({
+  wrapper:{
+    position:"fixed",
+    width:'100%',
+    bottom:0,
+    zIndex:999,
+    backgroundColor:'#FFF'
+},
     container:{
         flex:1,
         width:'100%',
         flexDirection:"row",
         alignItems:"center",
-        justifyContent:"space-around",
+        justifyContent:"space-between",
         height:70,
         paddingVertical:10,
     },
-    wrapper:{
-        position:"fixed",
-        width:'100%',
-        bottom:0,
-        zIndex:999,
-        backgroundColor:'#FFF'
+    content:{
+      flexDirection:"row",
+      alignItems:"center",
+      paddingLeft:"5%",
     },
-      content: {
-        justifyContent: "center", 
-        flexDirection: "row", 
-        paddingLeft: '10%', 
-        paddingRight: '2.5%', 
-        width: "100%", 
-        alignItems: "center",
-      },
       time: {
         fontSize: 15,
-        marginRight: 10,
+        paddingLeft:"5%",
         fontWeight: "700",
       },
+      touch:{
+        marginRight:"5%",
+        padding:"1%",
+        borderRadius:"175%",
+        borderColor:"#212121",
+        borderWidth:2,
+        backgroundColor:colors.green,
+        color:colors.white,
+      }
 })
