@@ -34,9 +34,9 @@ export default function HomeScreen({ navigation, route }) {
         {/* User Posts */}
         <RenderPost navigation={navigation}/>
       </ScrollView>
-      {visibleUpload?
-        <AddVoice/>
-      :null}
+      {visibleUpload?(
+          <AddVoice bottomSize={50}/>
+      ):null}
       <BottomTabs navigation={navigation} userName={userName}/>
     </View>
   );

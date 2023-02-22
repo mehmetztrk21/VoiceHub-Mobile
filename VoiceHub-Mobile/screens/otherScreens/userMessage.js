@@ -30,7 +30,7 @@ export default function UserMessage({navigation, route}) {
         
       </ScrollView>
 
-      <AddVoice navigation={navigation}/>
+      <AddVoice bottomSize={0}/>
 
     </View>
   );
