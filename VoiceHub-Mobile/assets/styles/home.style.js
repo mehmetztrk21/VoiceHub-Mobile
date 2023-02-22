@@ -10,6 +10,9 @@ export default StyleSheet.create({
         marginTop:69.8,
         marginBottom:50,
     },
+    animScroll:{
+        marginBottom:120,
+    },
     headText: {
         fontSize: 25,
         fontWeight: 'bold',

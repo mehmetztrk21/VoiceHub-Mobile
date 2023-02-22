@@ -4,7 +4,7 @@ export default StyleSheet.create({
   wrapper:{
     position:"fixed",
     width:'100%',
-    bottom:0,
+    bottom:50,
     zIndex:999,
     backgroundColor:'#FFF'
 },

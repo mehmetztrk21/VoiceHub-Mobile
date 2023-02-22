@@ -4,8 +4,8 @@ import { Divider, Icon } from "react-native-elements";
 import logo from "../../assets/images/VoiceHub-1.png";
 import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 
-const HomeHeader = ({ navigation, pressLogo }) => {
-  const [visibleUpload, setVisibleUpload]=useState(false)
+const HomeHeader = ({ navigation, pressLogo, visibleUpload, setVisibleUpload }) => {
+
   return (
     <View style={homeHeaderStyles.wrapper}>
       <Divider width={1} orientation='vertical' />
@@ -19,7 +19,7 @@ const HomeHeader = ({ navigation, pressLogo }) => {
             <Icon type="feather" size={30} name={"mail"} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={homeHeaderStyles.headerPactions} onPress={() => setVisibleUpload(!visibleUpload)}>
+          <TouchableOpacity style={homeHeaderStyles.headerPactions} onPress={()=>{setVisibleUpload(!visibleUpload)}}>
             <Icon type="feather" size={30} name={"plus"} />
           </TouchableOpacity>
         </View>
