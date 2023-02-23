@@ -20,6 +20,7 @@ export default StyleSheet.create({
     },
     showOtherComments:{
         color:"#A7A7A7",
+        marginLeft:"3%"
     },
     addCommentUser:{
         flexDirection:"row",

@@ -10,17 +10,17 @@ export default function postTexts({ navigation, likesCount, userPic }) {
 
       <View style={postTextsStyles.otherComments}>
         <TouchableOpacity onPress={() => { navigation.push('OtherComments') }}>
-          <Text style={postTextsStyles.showOtherComments}>Show Other Comments</Text>
+          <Text style={postTextsStyles.showOtherComments}>6 people add comment</Text>
         </TouchableOpacity>
       </View>
-
+{/* 
       <View style={postTextsStyles.addCommentUser}>
 
         <Image style={postTextsStyles.userPostCommentImg} source={userPic} />
         <TouchableOpacity>
           <Icon type="feather" size={28} name={"mic"} />
         </TouchableOpacity>
-      </View>
+      </View> */}
 
       <Text style={postTextsStyles.timeAgo}>29 minutes ago</Text>
     </View>
