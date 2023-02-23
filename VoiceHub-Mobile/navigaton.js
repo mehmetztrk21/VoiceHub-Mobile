@@ -16,7 +16,6 @@ import OtherComments from './screens/otherScreens/otherComments';
 import Register from './screens/otherScreens/register';
 import Saved from './screens/otherScreens/saved';
 import SeePost from './screens/otherScreens/seePost';
-import Upload from './screens/otherScreens/upload';
 import UserMessage from './screens/otherScreens/userMessage';
 import FollowFollower from './screens/otherScreens/follow&follower';
 
@@ -46,7 +45,6 @@ const SignedInStack = () => (
       <Stack.Screen name='Register' component={Register} />
       <Stack.Screen name='Saved' component={Saved} />
       <Stack.Screen name='SeePost' component={SeePost} />
-      <Stack.Screen name='Upload' component={Upload} />
       <Stack.Screen name='UserMessage' component={UserMessage} />
       <Stack.Screen name='FollowFollower' component={FollowFollower} />
     </Stack.Navigator>

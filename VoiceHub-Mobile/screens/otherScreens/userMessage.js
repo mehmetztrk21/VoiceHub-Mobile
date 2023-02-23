@@ -16,9 +16,6 @@ export default function UserMessage({navigation, route}) {
     <View style={userMessageStyle.container}>
       <OtherHeader navigation={navigation} HeaderTitle={uName}/>
 
-      <Image source={user1} style={userMessageStyle.ProfilePhoto} />
-      <Text style={userMessageStyle.uName}>{uName}</Text>
-
       <ScrollView style={userMessageStyle.scroll}>  
         {
           userPostData.map((item)=>{
@@ -30,7 +27,7 @@ export default function UserMessage({navigation, route}) {
         
       </ScrollView>
 
-      <AddVoice navigation={navigation}/>
+      <AddVoice bottomSize={0}/>
 
     </View>
   );

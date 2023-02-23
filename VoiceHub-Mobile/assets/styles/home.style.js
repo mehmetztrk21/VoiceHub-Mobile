@@ -5,21 +5,13 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
+        width:"100%"
     },
     scroll:{
         marginTop:69.8,
         marginBottom:50,
     },
-    headText: {
-        fontSize: 25,
-        fontWeight: 'bold',
-    },
-    
-    pactions:{
-        paddingRight:15,
-    },
-    
-    post:{
-        marginLeft:"1.5%",
+    animScroll:{
+        marginBottom:120,
     },
 });

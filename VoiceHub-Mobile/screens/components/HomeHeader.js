@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
 import { Divider, Icon } from "react-native-elements";
 import logo from "../../assets/images/VoiceHub-1.png";
 import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 
-const HomeHeader = ({ navigation, pressLogo }) => {
+const HomeHeader = ({ navigation, pressLogo, visibleUpload, setVisibleUpload }) => {
 
   return (
     <View style={homeHeaderStyles.wrapper}>
@@ -19,7 +19,7 @@ const HomeHeader = ({ navigation, pressLogo }) => {
             <Icon type="feather" size={30} name={"mail"} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={homeHeaderStyles.headerPactions} onPress={() => navigation.push('Upload')}>
+          <TouchableOpacity style={homeHeaderStyles.headerPactions} onPress={()=>{setVisibleUpload(!visibleUpload)}}>
             <Icon type="feather" size={30} name={"plus"} />
           </TouchableOpacity>
         </View>
