@@ -5,6 +5,12 @@ import bottomTabsStyle from '../../assets/styles/bottomTabs.style'
 
 
 const BottomTabs = ({ navigation, userName }) => {
+
+  const visiblePopUp=()=>{
+    
+    navigation.navigate('ProfileScreen',{uName:userName, isYourProfile:true})
+  }
+
   return (
     <View style={bottomTabsStyle.wrapper}>
       <Divider width={1} orientation='vertical' />
@@ -21,7 +27,7 @@ const BottomTabs = ({ navigation, userName }) => {
           <Icon size={25} type="feather" name={'heart'} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => navigation.navigate('ProfileScreen',{uName:userName, isYourProfile:true})}>
+        <TouchableOpacity onPress={visiblePopUp}>
           <Icon size={25} name={'person'} />
         </TouchableOpacity>
       </View>

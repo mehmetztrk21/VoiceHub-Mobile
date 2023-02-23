@@ -6,7 +6,7 @@ import profileHeaderStyle from "../../assets/styles/profileHeader.style"
 
 import verfy from "../../assets/ver.png";
 
-const profileHeader = ({navigation, uName, isVerified, isYourProfile}) => {
+const profileHeader = ({navigation, uName, isVerified, isYourProfile, visibleUpload, setVisibleUpload}) => {
   return (
     <View style={profileHeaderStyle.wrapper}>
       <Divider width={1} orientation='vertical'/>
@@ -30,7 +30,7 @@ const profileHeader = ({navigation, uName, isVerified, isYourProfile}) => {
             <Icon type="feather" size={28} name={"save"} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={()=>navigation.push('Upload')}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={()=>{setVisibleUpload(!visibleUpload)}}>
             <Icon type="feather" size={28} name={"plus"} />
           </TouchableOpacity>
         </View>
