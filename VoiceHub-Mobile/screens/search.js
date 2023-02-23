@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { ScrollView, TouchableOpacity, View, TextInput, SafeAreaView } from "react-native";
-
+import colors from "../assets/colors"
 import RenderDiscover from "./components/RenderDiscover";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import BottomTabs from "./components/BottomTabs";
@@ -37,8 +37,8 @@ export default function SearchScreen({ navigation, route }) {
               onChangeText={onChangeSearch}
               value={searchQuery}
             />
-            <TouchableOpacity onPress={() => {setFocused(false); setSearchQuery("")}}>
-              <Icon type="font-awesome" size={"175%"} name={"times"} style={searchStyles.closeButton} />
+            <TouchableOpacity onPress={() => {setFocused(false); setSearchQuery("")}} style={searchStyles.closeButtonTouch}>
+              <Icon type="font-awesome" size={"175%"} name={"times"} style={searchStyles.closeButton} color={colors.green}/>
             </TouchableOpacity>
           </View>
 

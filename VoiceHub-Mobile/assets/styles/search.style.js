@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import colors from "../colors";
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
 
   searchBar: {
-    backgroundColor: "lightgray",
+    backgroundColor: colors.lightgray,
     borderRadius: 15,
     paddingVertical:10,
     paddingHorizontal:12.5,
@@ -30,7 +30,11 @@ export default StyleSheet.create({
     marginLeft:"6.25%"
   },
   scrollContainer: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     width: "95%",
+  },
+  closeButtonTouch:{
+    justifyContent:"center",
+    marginLeft:"1%"
   },
 });
