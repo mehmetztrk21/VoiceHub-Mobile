@@ -19,11 +19,17 @@ import profileStyles from '../assets/styles/profile.style';
 const userRealName = "Kaan Kayserili";
 export default function ProfileScreen({ navigation, route }) {
   const { uName, isYourProfile } = route.params;
+
   const [visibleUpload, setVisibleUpload] = useState(false)
+  const [visiblePopUp, setVisiblePopUp] = useState(false)
+
   return (
     <View style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} uName={uName} isVerified={true} isYourProfile={isYourProfile} visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload} />
+      <ProfileHeader navigation={navigation} uName={uName} 
+      isVerified={true} isYourProfile={isYourProfile} 
+      visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload} 
+      setVisiblePopUp={setVisiblePopUp}/>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -73,17 +79,24 @@ export default function ProfileScreen({ navigation, route }) {
             </TouchableOpacity>
           }
         </View>
-        {/* Posts */}
 
+        {/* Posts */}
         <View style={profileStyles.postView}>
           <RenderPost navigation={navigation} />
         </View>
       </ScrollView>
-      {/* <ProfilePopUp navigation={navigation} bottomSize={50}/> */}
-      {visibleUpload ? (
+
+      {visiblePopUp == true ? (
+        <ProfilePopUp navigation={navigation} bottomSize={50} />
+      ) : visibleUpload == true ? (
         <AddVoice bottomSize={50} />
       ) : null}
-      <BottomTabs navigation={navigation} />
+
+
+
+      <BottomTabs
+        navigation={navigation} userName={uName}
+        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
     </View>
   );
 }

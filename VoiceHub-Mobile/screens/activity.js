@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -16,7 +16,9 @@ import BottomTabs from "./components/BottomTabs";
 import userPostData from "./components/userPostData";
 
 export default function ActivityScreen({ navigation, route }) {
-const {userName} = route.params;
+const {uName, isYourProfile} = route.params;
+const [visiblePopUp, setVisiblePopUp]=useState(false)
+
   return (
     <SafeAreaView style={activityStyles.container}>
       <ActivityHeader />
@@ -37,7 +39,8 @@ const {userName} = route.params;
         }
       </ScrollView>
 
-      <BottomTabs navigation={navigation} />
+      <BottomTabs navigation={navigation} userName={uName} 
+      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
     </SafeAreaView>
   )
 }

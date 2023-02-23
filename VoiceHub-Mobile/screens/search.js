@@ -9,8 +9,10 @@ import searchStyles from '../assets/styles/search.style';
 import { Icon } from "react-native-elements";
 
 export default function SearchScreen({ navigation, route }) {
-  const { userName } = route.params;
+  const { uName, isYourProfile } = route.params;
   const [focused, setFocused] = useState(false);
+  const [visiblePopUp, setVisiblePopUp]=useState(false)
+
   {/*Coming Soon --->*/ }
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
@@ -37,8 +39,10 @@ export default function SearchScreen({ navigation, route }) {
               onChangeText={onChangeSearch}
               value={searchQuery}
             />
-            <TouchableOpacity onPress={() => {setFocused(false); setSearchQuery("")}} style={searchStyles.closeButtonTouch}>
-              <Icon type="font-awesome" size={"175%"} name={"times"} style={searchStyles.closeButton} color={colors.green}/>
+            <TouchableOpacity onPress={() => {setFocused(false); setSearchQuery("")}} 
+            style={searchStyles.closeButtonTouch}>
+              <Icon type="font-awesome" size={"175%"} name={"times"} 
+              style={searchStyles.closeButton} color={colors.green}/>
             </TouchableOpacity>
           </View>
 
@@ -69,7 +73,8 @@ export default function SearchScreen({ navigation, route }) {
           </View>
         }
       </ScrollView>
-      <BottomTabs navigation={navigation} />
+      <BottomTabs navigation={navigation} userName={uName} 
+      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
     </SafeAreaView>
   );
 }

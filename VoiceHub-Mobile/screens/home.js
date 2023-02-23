@@ -16,9 +16,10 @@ import AddVoice from './components/AddVoice';
 import homeStyles from '../assets/styles/home.style';
 
 export default function HomeScreen({ navigation, route }) {
-  const {userName}=route.params;
+  const {uName, isYourProfile}=route.params;
   const [visibleUpload, setVisibleUpload]=useState(false)
-  console.log(userName)
+  const [visiblePopUp, setVisiblePopUp]=useState(false)
+  console.log(uName)
   
   const scrollViewRef = useRef();
 
@@ -37,7 +38,8 @@ export default function HomeScreen({ navigation, route }) {
       {visibleUpload?(
           <AddVoice bottomSize={50}/>
       ):null}
-      <BottomTabs navigation={navigation} userName={userName}/>
+      <BottomTabs navigation={navigation} userName={uName} 
+      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
     </View>
   );
 }
