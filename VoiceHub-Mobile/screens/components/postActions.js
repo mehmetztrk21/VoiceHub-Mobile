@@ -1,23 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { TouchableOpacity, View, } from "react-native";
 import { Icon } from "react-native-elements";
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
-const postLiked = () => {
-  alert("You Liked this Voice !");
-};
-
-const postSave = () => {
-  alert("You Saved this Voice !");
-};
-
 export default function postActions({navigation}) {
+
+  const [liked,setLiked]=useState(false)
+  const [saved,setSaved]=useState(false)
+  
+  const postLiked = () => {
+    setLiked(prev=>{
+      if(!prev==true){
+        console.log("begenildi")
+      }
+    return !prev})
+  };
+  
+  const postSave = () => {
+    setSaved(prev=>{
+      if(!prev==true){
+        console.log("kaydedildi")
+      }
+    return !prev})
+  };
+  
   return (
     <View style={postActionsStyle.postActions}>
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
-        <Icon type="feather" size={"175%"} name={"heart"} />
+        {liked==true?(
+          <Icon type="font-awesome" size={"175%"} name={"heart"} color={"red"}/>
+        ):
+          <Icon type="feather" size={"175%"} name={"heart"} color={"black"}/>}
       </TouchableOpacity>
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push('OtherComments')}>
@@ -25,7 +40,10 @@ export default function postActions({navigation}) {
       </TouchableOpacity>
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
-        <Icon type="feather" size={"175%"} name={"save"} />
+      {saved==true?(
+          <Icon type="font-awesome" size={"175%"} name={"bookmark"} color={"black"}/>
+        ):
+          <Icon type="font-awesome" size={"175%"} name={"bookmark-o"} color={"black"}/>}
       </TouchableOpacity>
     </View>
   );
