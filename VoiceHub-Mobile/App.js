@@ -1,5 +1,5 @@
 import React from "react";
-import SignedInStack from './navigaton'
+import SignedInStack from './navigaton';
 
 const App = () => {
   return <SignedInStack/>

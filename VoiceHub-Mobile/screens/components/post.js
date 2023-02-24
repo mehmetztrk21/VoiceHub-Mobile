@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Audio } from 'expo-av';
 import { Slider, Icon } from 'react-native-elements';
 import postStyle from "../../assets/styles/post.style";

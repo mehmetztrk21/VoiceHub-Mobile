@@ -1,12 +1,11 @@
-import { View, Text, Button, Image, ScrollView, SafeAreaView, TextInput } from 'react-native'
 import React from 'react'
+import { Image, SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native'
 
 import OtherHeader from '../components/otherHeader'
 import userPostData from '../components/userPostData'
 
-import FollowFollowerStyles from "../../assets/styles/follow&follower.style"
-import followFollowerStyle from '../../assets/styles/follow&follower.style'
 import { TouchableOpacity } from 'react-native-web'
+import followFollowerStyle from "../../assets/styles/follow&follower.style"
 
 const FollowFollower = ({ navigation, route }) => {
     const { title } = route.params;
@@ -17,7 +16,7 @@ const FollowFollower = ({ navigation, route }) => {
             <View style={followFollowerStyle.searchBarHolder}>
                 <TextInput
                     placeholder="Search"
-                    style={FollowFollowerStyles.searchBar}
+                    style={followFollowerStyle.searchBar}
                 />
             </View>
 
@@ -25,13 +24,13 @@ const FollowFollower = ({ navigation, route }) => {
                 {
                     userPostData.map((item) => {
                         return (
-                            <View style={FollowFollowerStyles.item} onPress={() => navigation.push('SeeProfile')} >
+                            <View style={followFollowerStyle.item} onPress={() => navigation.push('SeeProfile')} >
                                 <TouchableOpacity style={followFollowerStyle.seeProfile}>
-                                    <Image source={item.userPic} style={FollowFollowerStyles.profileImage} />
+                                    <Image source={item.userPic} style={followFollowerStyle.profileImage} />
                                     <Text style={followFollowerStyle.userName}>{item.userName}</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={{width:"30%",alignItems:"center"}}>
-                                    <Text style={FollowFollowerStyles.FollowButton}>Takip Et</Text>
+                                    <Text style={followFollowerStyle.FollowButton}>Takip Et</Text>
                                 </TouchableOpacity>
                             </View>
                         )

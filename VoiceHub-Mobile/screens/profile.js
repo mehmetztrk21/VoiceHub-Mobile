@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Text,
   View,
+  SafeAreaView,
 } from "react-native";
 import admin from "../assets/userImages/admin.jpg";
 
@@ -18,18 +19,16 @@ import profileStyles from '../assets/styles/profile.style';
 
 const userRealName = "Kaan Kayserili";
 export default function ProfileScreen({ navigation, route }) {
-  const { uName, isYourProfile } = route.params;
+  const { uName, isYourProfile, visiblePopUp } = route.params;
 
   const [visibleUpload, setVisibleUpload] = useState(false)
-  const [visiblePopUp, setVisiblePopUp] = useState(false)
 
   return (
-    <View style={profileStyles.container}>
+    <SafeAreaView style={profileStyles.container}>
 
       <ProfileHeader navigation={navigation} uName={uName} 
       isVerified={true} isYourProfile={isYourProfile} 
-      visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload} 
-      setVisiblePopUp={setVisiblePopUp}/>
+      visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload}/>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -92,12 +91,8 @@ export default function ProfileScreen({ navigation, route }) {
         <AddVoice bottomSize={50} />
       ) : null}
 
-
-
-      <BottomTabs
-        navigation={navigation} userName={uName}
-        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
-    </View>
+      <BottomTabs navigation={navigation} userName={uName}/>
+    </SafeAreaView>
   );
 }
 

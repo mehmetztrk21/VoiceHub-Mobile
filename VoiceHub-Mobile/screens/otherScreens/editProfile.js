@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
-import editProfileStyle from "../../assets/styles/editProfile.style"
-import Post from "../components/post";
-import OtherHeader from '../components/otherHeader';
+import React from 'react';
+import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import editProfileStyle from "../../assets/styles/editProfile.style";
 import AddVoice from '../components/addVoice';
+import OtherHeader from '../components/otherHeader';
 
 export default function EditProfile({ navigation, route }) {
   const { RealName, uName, pic } = route.params;
   const hasBio = false;
   return (
-    <View style={editProfileStyle.container}>
+    <SafeAreaView style={editProfileStyle.container}>
       <OtherHeader HeaderTitle='Edit Profile' navigation={navigation} />
 
       <View>
@@ -44,6 +43,6 @@ export default function EditProfile({ navigation, route }) {
         }
       </View>
       <AddVoice navigation={navigation}/>
-    </View>
+    </SafeAreaView>
   );
 }   

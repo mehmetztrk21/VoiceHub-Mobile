@@ -3,7 +3,7 @@ import {
   ScrollView,
   Text,
   View,
-  Modal,
+  SafeAreaView,
 } from "react-native";
 
 //importing components
@@ -29,7 +29,7 @@ export default function HomeScreen({ navigation, route }) {
   };
 
   return (
-    <View style={homeStyles.container}>
+    <SafeAreaView style={homeStyles.container}>
       <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload}/>
       <ScrollView style={[homeStyles.scroll,visibleUpload?(homeStyles.animScroll):null]} ref={scrollViewRef}>
         {/* User Posts */}
@@ -40,6 +40,6 @@ export default function HomeScreen({ navigation, route }) {
       ):null}
       <BottomTabs navigation={navigation} userName={uName} 
       visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -1,11 +1,13 @@
 import { StyleSheet } from 'react-native';
+import colors from '../colors';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
-        width:"100%"
+        width:"100%",
+        backgroundColor: colors.white,
     },
     scroll:{
         marginTop:69.8,

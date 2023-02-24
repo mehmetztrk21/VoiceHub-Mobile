@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, TextInput, View, Text, Alert, Image } from "react-native";
+import { TouchableOpacity, TextInput, View, Text, SafeAreaView, Image } from "react-native";
 import registerStyle from "../../assets/styles/register.style";
 import { registerCondition } from "../components/registerCondition";
 
@@ -15,12 +15,12 @@ export default function Register({ navigation }) {
     const isRegister = () => {
         isGoHomePage=registerCondition(firstName, lastName, userName, email, password1, password2);
         if(isGoHomePage){
-            navigation.navigate('HomeScreen',{userName})
+            navigation.navigate('HomeScreen',{uName:userName, isYourProfile:true})
         }
     }
 
     return (
-        <View style={registerStyle.container}>
+        <SafeAreaView style={registerStyle.container}>
             <View style={registerStyle.logoView}>
                 <Image source={require("../../assets/images/VoiceHub-1.png")} style={registerStyle.logo} />
             </View>
@@ -80,6 +80,6 @@ export default function Register({ navigation }) {
             <TouchableOpacity style={registerStyle.touch} onPress={() => navigation.goBack('Login')}>
                 <Text style={registerStyle.textButton}>Do you have accont? Go Log in</Text>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }

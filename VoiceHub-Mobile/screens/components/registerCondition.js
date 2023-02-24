@@ -18,6 +18,6 @@ export const registerCondition = (firstName, lastName, userName, email, password
         }
     }
     else {
-        alert("don't boş bırakma");
+        alert("don't empty inputs");
     }
 }

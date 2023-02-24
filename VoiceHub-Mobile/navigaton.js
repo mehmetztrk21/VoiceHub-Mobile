@@ -1,14 +1,15 @@
-import React from 'react'
+import React from 'react';
 
-import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
 
+import ActivityScreen from './screens/activity';
 import HomeScreen from './screens/home';
 import ProfileScreen from './screens/profile';
-import ActivityScreen from './screens/activity';
 import SearchScreen from './screens/search';
 
 import EditProfile from './screens/otherScreens/editProfile';
+import FollowFollower from './screens/otherScreens/follow&follower';
 import ForgotPassword from './screens/otherScreens/forgotPassword';
 import Login from './screens/otherScreens/login';
 import Message from './screens/otherScreens/message';
@@ -17,8 +18,7 @@ import Register from './screens/otherScreens/register';
 import Saved from './screens/otherScreens/saved';
 import SeePost from './screens/otherScreens/seePost';
 import UserMessage from './screens/otherScreens/userMessage';
-import FollowFollower from './screens/otherScreens/follow&follower';
-
+import SeeLikes from "./screens/otherScreens/seeLikes"
 
 const Stack = createStackNavigator();
 
@@ -47,6 +47,7 @@ const SignedInStack = () => (
       <Stack.Screen name='SeePost' component={SeePost} />
       <Stack.Screen name='UserMessage' component={UserMessage} />
       <Stack.Screen name='FollowFollower' component={FollowFollower} />
+      <Stack.Screen name='SeeLikes' component={SeeLikes} />
     </Stack.Navigator>
   </NavigationContainer>
 )

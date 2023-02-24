@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, SafeAreaView } from 'react-native';
 
 import seePostStyle from "../../assets/styles/seePost.style";
 import user1 from "../../assets/userImages/user1.jpg"
@@ -12,7 +12,7 @@ import OtherHeader from "../components/otherHeader"
 /* HALF SCREEN, CONTINUE THIS PAGE */
 export default function SeePost({ navigation }) {
     return (
-        <View style={seePostStyle.container}>
+        <SafeAreaView style={seePostStyle.container}>
 
             <OtherHeader HeaderTitle={"Post"} navigation={navigation}/>
 
@@ -24,6 +24,6 @@ export default function SeePost({ navigation }) {
                 <PostActions navigation={navigation} />
                 <PostTexts navigation={navigation} likesCount={'1221'} userPic={user1}/>
             </View>
-        </View>
+        </SafeAreaView>
     );
 }
