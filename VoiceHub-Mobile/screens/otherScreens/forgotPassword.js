@@ -35,7 +35,7 @@ export default function ForgotPassword({ navigation }) {
 
     return (
         <SafeAreaView style={forgotPasswordStyle.container}>
-            <OtherHeader navigation={navigation} HeaderTitle={'Forgot Password'} />
+            <Text style={{fontSize:30, fontWeight:"500", marginBottom:"2.5%"}}>Forgot Password</Text>
 
             <View style={forgotPasswordStyle.inputs}>
                 <Text style={forgotPasswordStyle.label}>User Name</Text>
