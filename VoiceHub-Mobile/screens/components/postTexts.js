@@ -6,7 +6,9 @@ import postTextsStyles from "../../assets/styles/postTexts.style";
 export default function postTexts({ navigation, likesCount, userPic }) {
   return (
     <View style={postTextsStyles.textCounter}>
-      <Text style={postTextsStyles.likesText}>{likesCount} likes</Text>
+      <TouchableOpacity onPress={() => { navigation.navigate('SeeLikes', { title: 'Followers' }) }}>
+        <Text style={postTextsStyles.likesText}>{likesCount} likes</Text>
+      </TouchableOpacity>
 
       <View style={postTextsStyles.otherComments}>
         <TouchableOpacity onPress={() => { navigation.push('OtherComments') }}>

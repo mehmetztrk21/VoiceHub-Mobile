@@ -18,7 +18,7 @@ import Register from './screens/otherScreens/register';
 import Saved from './screens/otherScreens/saved';
 import SeePost from './screens/otherScreens/seePost';
 import UserMessage from './screens/otherScreens/userMessage';
-
+import SeeLikes from "./screens/otherScreens/seeLikes"
 
 const Stack = createStackNavigator();
 
@@ -47,6 +47,7 @@ const SignedInStack = () => (
       <Stack.Screen name='SeePost' component={SeePost} />
       <Stack.Screen name='UserMessage' component={UserMessage} />
       <Stack.Screen name='FollowFollower' component={FollowFollower} />
+      <Stack.Screen name='SeeLikes' component={SeeLikes} />
     </Stack.Navigator>
   </NavigationContainer>
 )
