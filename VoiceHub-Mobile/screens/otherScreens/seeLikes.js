@@ -29,6 +29,10 @@ const seeLikes = ({ navigation, route }) => {
                                     <Image source={item.userPic} style={seeLikesStyle.profileImage} />
                                     <Text style={seeLikesStyle.userName}>{item.userName}</Text>
                                 </TouchableOpacity>
+
+                                <TouchableOpacity style={{width:"30%",alignItems:"center"}}>
+                                    <Text style={followFollowerStyle.FollowButton}>Takip Et</Text>
+                                </TouchableOpacity>
                             </View>
                         )
                     })

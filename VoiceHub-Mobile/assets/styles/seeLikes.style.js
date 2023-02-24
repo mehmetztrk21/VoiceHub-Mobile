@@ -44,4 +44,15 @@ export default StyleSheet.create({
       userName:{
         marginLeft:"2%"
       },
+      FollowButton: {
+        backgroundColor: color.green,
+        borderRadius: 7.5,
+        color: color.white,
+        fontSize: 16,
+        fontWeight: "500",
+        paddingVertical: "3.3%",
+        paddingHorizontal: "10%",
+        textAlign:"center",
+        textAlignVertical:"center",
+      }
 })
