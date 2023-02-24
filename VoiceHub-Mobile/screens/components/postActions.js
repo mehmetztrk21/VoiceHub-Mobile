@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TouchableOpacity, View, } from "react-native";
 import { Icon } from "react-native-elements";
+import colors from "../../assets/colors";
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
@@ -30,20 +31,20 @@ export default function postActions({navigation}) {
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
         {liked==true?(
-          <Icon type="font-awesome" size={"175%"} name={"heart"} color={"red"}/>
+          <Icon type="font-awesome" size={28} name={"heart"} color={colors.green}/>
         ):
-          <Icon type="feather" size={"175%"} name={"heart"} color={"black"}/>}
+          <Icon type="font-awesome" size={28} name={"heart-o"} color={"black"}/>}
       </TouchableOpacity>
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push('OtherComments')}>
-        <Icon type="fontisto" size={"175%"} name={"comments"} />
+        <Icon type="font-awesome" size={28} name={"comment-o"}  color={"black"}/>
       </TouchableOpacity>
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
       {saved==true?(
-          <Icon type="font-awesome" size={"175%"} name={"bookmark"} color={"black"}/>
+          <Icon type="font-awesome" size={28} name={"bookmark"} color={colors.green}/>
         ):
-          <Icon type="font-awesome" size={"175%"} name={"bookmark-o"} color={"black"}/>}
+          <Icon type="font-awesome" size={28} name={"bookmark-o"} color={"black"}/>}
       </TouchableOpacity>
     </View>
   );
