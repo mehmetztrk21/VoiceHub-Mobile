@@ -15,7 +15,7 @@ export default function Register({ navigation }) {
     const isRegister = () => {
         isGoHomePage=registerCondition(firstName, lastName, userName, email, password1, password2);
         if(isGoHomePage){
-            navigation.navigate('HomeScreen',{userName})
+            navigation.navigate('HomeScreen',{uName:userName, isYourProfile:true})
         }
     }
 

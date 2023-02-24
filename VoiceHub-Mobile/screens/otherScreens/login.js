@@ -8,7 +8,7 @@ export default function Login({ navigation }) {
 
     const isLogin = () => {
         if (userName !== "" && password !== "") {
-            navigation.navigate('HomeScreen', { userName })
+            navigation.navigate('HomeScreen',{uName:userName, isYourProfile:true})
         }
         else{
             alert("don't empty inputs")
@@ -38,7 +38,7 @@ export default function Login({ navigation }) {
                 <Text style={loginStyle.loginButton}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.navigate('ForgotPassword',{userName})}>
+            <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.push('ForgotPassword')}>
                 <Text style={loginStyle.textButton}>Forgot Password</Text>
             </TouchableOpacity>
 

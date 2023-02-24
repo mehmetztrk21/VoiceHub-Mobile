@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, SafeAreaView } from "react-native";
+import { Icon } from "react-native-elements";
 import forgotPasswordStyle from "../../assets/styles/forgotPassword.style";
 import OtherHeader from "../components/otherHeader";
 export default function ForgotPassword({ navigation }) {
@@ -35,7 +36,12 @@ export default function ForgotPassword({ navigation }) {
 
     return (
         <SafeAreaView style={forgotPasswordStyle.container}>
-            <Text style={{fontSize:30, fontWeight:"500", marginBottom:"2.5%"}}>Forgot Password</Text>
+            <View style={{marginBottom:"2.5%", marginLeft:"2.5%", flexDirection:"row" }}>
+                <TouchableOpacity onPress={()=>navigation.goBack('Login')}>
+                    <Icon type="ionicon" size={30} name={"arrow-back-outline"} style={{marginRight:"1%", paddingTop: 7.5,}}/>
+                </TouchableOpacity>
+                <Text style={{fontSize:30, fontWeight:"500"}}>Forgot Password</Text>
+            </View>
 
             <View style={forgotPasswordStyle.inputs}>
                 <Text style={forgotPasswordStyle.label}>User Name</Text>
