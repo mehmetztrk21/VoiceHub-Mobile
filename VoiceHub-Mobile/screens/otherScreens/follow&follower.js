@@ -1,12 +1,11 @@
-import { View, Text, Button, Image, ScrollView, SafeAreaView, TextInput } from 'react-native'
 import React from 'react'
+import { Image, SafeAreaView, ScrollView, Text, TextInput, View } from 'react-native'
 
 import OtherHeader from '../components/otherHeader'
 import userPostData from '../components/userPostData'
 
-import FollowFollowerStyles from "../../assets/styles/follow&follower.style"
-import followFollowerStyle from '../../assets/styles/follow&follower.style'
 import { TouchableOpacity } from 'react-native-web'
+import { default as followFollowerStyle, default as FollowFollowerStyles } from "../../assets/styles/follow&follower.style"
 
 const FollowFollower = ({ navigation, route }) => {
     const { title } = route.params;

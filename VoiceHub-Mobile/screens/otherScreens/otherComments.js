@@ -1,8 +1,8 @@
 import React from "react";
-import { View, ScrollView } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
 
-import Comment from "../components/comment";
 import AddVoice from "../components/addVoice";
+import Comment from "../components/comment";
 import OtherHeader from "../components/otherHeader";
 import userPostData from "../components/userPostData";
 
@@ -10,7 +10,7 @@ import otherCommentsStyle from "../../assets/styles/otherComments.style";
 
 export default function OtherComments({ navigation }) {
     return (
-        <View style={otherCommentsStyle.container}>
+        <SafeAreaView style={otherCommentsStyle.container}>
             <OtherHeader HeaderTitle={'Comments'} navigation={navigation} />
 
             <ScrollView showsVerticalScrollIndicator={false} style={otherCommentsStyle.comments}>
@@ -25,6 +25,6 @@ export default function OtherComments({ navigation }) {
 
             <AddVoice/>
 
-        </View>
+        </SafeAreaView>
     );
 }

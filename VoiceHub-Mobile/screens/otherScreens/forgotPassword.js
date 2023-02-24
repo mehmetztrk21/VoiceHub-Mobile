@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Text, TextInput, TouchableOpacity, View, SafeAreaView } from "react-native";
 import forgotPasswordStyle from "../../assets/styles/forgotPassword.style";
 import OtherHeader from "../components/otherHeader";
 export default function ForgotPassword({ navigation }) {
@@ -34,7 +34,7 @@ export default function ForgotPassword({ navigation }) {
     }
 
     return (
-        <View style={forgotPasswordStyle.container}>
+        <SafeAreaView style={forgotPasswordStyle.container}>
             <OtherHeader navigation={navigation} HeaderTitle={'Forgot Password'} />
 
             <View style={forgotPasswordStyle.inputs}>
@@ -70,7 +70,6 @@ export default function ForgotPassword({ navigation }) {
                 onPress={Reset}>
                 <Text style={forgotPasswordStyle.ButtonText}>Reset Password</Text>
             </TouchableOpacity>
-
-        </View>
+        </SafeAreaView>
     );
 }

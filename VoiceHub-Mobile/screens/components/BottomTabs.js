@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Divider, Icon } from 'react-native-elements'
 import bottomTabsStyle from '../../assets/styles/bottomTabs.style'
 
 const BottomTabs = ({ navigation, userName }) => {
+
+  const [isSelected,setIsSelected]=useState("HomeScreen")
 
   return (
     <View style={bottomTabsStyle.wrapper}>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, Text, Image, TextInput } from "react-native";
+import { TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
 import loginStyle from "../../assets/styles/login.style";
 
 export default function Login({ navigation }) {
@@ -16,7 +16,7 @@ export default function Login({ navigation }) {
     }
 
     return (
-        <View style={loginStyle.container}>
+        <SafeAreaView style={loginStyle.container}>
             <View style={loginStyle.logoView}>
                 <Image source={require("../../assets/images/VoiceHub-1.png")} style={loginStyle.logo} />
             </View>
@@ -45,6 +45,6 @@ export default function Login({ navigation }) {
             <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.push('Register')}>
                 <Text style={loginStyle.textButton}>Do you have not account?</Text>
             </TouchableOpacity>
-        </View>
+        </SafeAreaView>
     );
 }

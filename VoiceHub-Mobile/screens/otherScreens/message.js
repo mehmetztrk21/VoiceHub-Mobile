@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TextInput, ScrollView } from 'react-native';
+import { View, TextInput, ScrollView, SafeAreaView } from 'react-native';
 
 import OtherHeader from '../components/otherHeader';
 import userPostData from '../components/userPostData'
@@ -9,7 +9,7 @@ import MessageItem from "../components/messageItem";
 
 export default function Message({ navigation }) {
   return (
-    <View style={messageStyle.container}>
+    <SafeAreaView style={messageStyle.container}>
 
       <OtherHeader HeaderTitle='Messages' navigation={navigation} />
 
@@ -26,6 +26,6 @@ export default function Message({ navigation }) {
           })
         }
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

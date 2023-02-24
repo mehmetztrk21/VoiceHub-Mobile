@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   Text,
   View,
+  SafeAreaView,
 } from "react-native";
 import admin from "../assets/userImages/admin.jpg";
 
@@ -24,7 +25,7 @@ export default function ProfileScreen({ navigation, route }) {
   const [visiblePopUp, setVisiblePopUp] = useState(false)
 
   return (
-    <View style={profileStyles.container}>
+    <SafeAreaView style={profileStyles.container}>
 
       <ProfileHeader navigation={navigation} uName={uName} 
       isVerified={true} isYourProfile={isYourProfile} 
@@ -97,7 +98,7 @@ export default function ProfileScreen({ navigation, route }) {
       <BottomTabs
         navigation={navigation} userName={uName}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
-    </View>
+    </SafeAreaView>
   );
 }
 

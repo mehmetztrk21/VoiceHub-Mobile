@@ -1,19 +1,17 @@
 import React from 'react';
-import { View, Text, ScrollView, Image } from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 
 import userMessageStyle from "../../assets/styles/userMessage.style";
 
-import user1 from "../../assets/userImages/user1.jpg";
-
-import OtherHeader from '../components/otherHeader'
 import AddVoice from "../components/addVoice";
-import userPostData from '../components/userPostData'
 import Comment from "../components/comment";
+import OtherHeader from '../components/otherHeader';
+import userPostData from '../components/userPostData';
 
 export default function UserMessage({navigation, route}) {
   const { uName } = route.params;
   return (
-    <View style={userMessageStyle.container}>
+    <SafeAreaView style={userMessageStyle.container}>
       <OtherHeader navigation={navigation} HeaderTitle={uName}/>
 
       <ScrollView style={userMessageStyle.scroll}>  
@@ -29,6 +27,6 @@ export default function UserMessage({navigation, route}) {
 
       <AddVoice bottomSize={0}/>
 
-    </View>
+    </SafeAreaView>
   );
 }
