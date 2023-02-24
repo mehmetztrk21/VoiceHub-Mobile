@@ -31,7 +31,7 @@ const seeLikes = ({ navigation, route }) => {
                                 </TouchableOpacity>
 
                                 <TouchableOpacity style={{width:"30%",alignItems:"center"}}>
-                                    <Text style={followFollowerStyle.FollowButton}>Takip Et</Text>
+                                    <Text style={seeLikesStyle.FollowButton}>Takip Et</Text>
                                 </TouchableOpacity>
                             </View>
                         )
