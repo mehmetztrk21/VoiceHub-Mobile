@@ -8,11 +8,17 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  
-  profileScroll: {
+
+  scroll: {
     marginTop: 80,
     marginBottom: 50,
     width: "100%",
+  },
+  uploadMargin: {
+    marginBottom: 120,
+  },
+  popUpMargin:{
+    marginBottom: 140,
   },
 
   actView: {
@@ -57,7 +63,7 @@ export default StyleSheet.create({
   },
 
   bioContents: {
-    marginLeft:"5%",
+    marginLeft: "5%",
     paddingTop: "3%",
   },
   name: {
@@ -68,21 +74,21 @@ export default StyleSheet.create({
   btnHolder: {
     marginBottom: "2%",
     marginTop: "1%",
-    paddingBottom:"2%",
-    marginLeft:"10%"
+    paddingBottom: "2%",
+    marginLeft: "10%"
   },
   editProfileAndFollow: {
     backgroundColor: colors.green,
     borderRadius: 5,
     marginTop: "2%",
     marginBottom: "2%",
-    paddingVertical:"1%",
-    width:"80%"
+    paddingVertical: "1%",
+    width: "80%"
   },
   btnTextF: {
     fontSize: 16,
     color: colors.white,
-    alignSelf:"center"
+    alignSelf: "center"
   },
 
   postView: {
@@ -91,5 +97,5 @@ export default StyleSheet.create({
     flexDirection: "column",
     width: "100%",
   },
-  
+
 });

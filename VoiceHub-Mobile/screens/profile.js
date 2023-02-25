@@ -34,7 +34,7 @@ export default function ProfileScreen({ navigation, route }) {
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={profileStyles.profileScroll}
+        style={[profileStyles.scroll, visibleUpload==true ? (profileStyles.uploadMargin): visiblePopUp==true? (profileStyles.popUpMargin) : null]}
       >
         {/* Profile heads */}
         <View style={profileStyles.actView}>
