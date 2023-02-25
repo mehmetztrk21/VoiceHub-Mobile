@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View, } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
-export default function postActions({navigation}) {
+export default function postActions({navigation, isSaved}) {
 
   const [liked,setLiked]=useState(false)
   const [saved,setSaved]=useState(false)
-  
+  useEffect(()=>{
+    setSaved(prev=>{
+      return isSaved
+    })
+  })
   const postLiked = () => {
     setLiked(prev=>{
       if(!prev==true){
