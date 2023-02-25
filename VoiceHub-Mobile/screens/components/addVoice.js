@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Divider, Icon } from 'react-native-elements';
-import gif from "../../assets/images/rec.gif";
+
+import recGif from "../../assets/images/rec.gif";
 import recImg from "../../assets/images/rec.png";
+import waweGif from "../../assets/images/record.gif";
+
 import addVoiceStyle from '../../assets/styles/addVoice.style';
 
 export default function AddVoice({ bottomSize }) {
@@ -38,14 +41,15 @@ export default function AddVoice({ bottomSize }) {
         <View style={addVoiceStyle.content}>
           {isRunning == true ? (
             <Image
-              source={gif}
+              source={recGif}
               style={{ width: 50, height: 50, borderRadius: 25 }} />
-          ) :
-            <Image
-              source={recImg}
-              style={{ width: 50, height: 50, borderRadius: 25 }} />
-          }
+          ) :null}
           <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60)) + ":" + (seconds % 60)}</Text>
+          {isRunning == true ? (
+            <Image
+              source={waweGif}
+              style={{ width: 50, height: 50, borderRadius: 25 }} />
+          ) :null}
         </View>
 
         <TouchableOpacity style={addVoiceStyle.touch}
