@@ -13,7 +13,7 @@ export default function Saved({ navigation }) {
       <OtherHeader HeaderTitle='Saved Posts' navigation={navigation}/>
 
       <View style={savedStyle.savedPostContainer}>
-        <RenderPost navigation={navigation} isSaved={true}/>
+        <RenderPost navigation={navigation}/>
       </View>
     </SafeAreaView>
   );
