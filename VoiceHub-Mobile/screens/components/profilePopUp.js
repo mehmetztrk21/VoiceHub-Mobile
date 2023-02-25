@@ -14,7 +14,7 @@ const profilePopUp = ({navigation, bottomSize}) => {
       </TouchableOpacity>
 
       <TouchableOpacity style={profilePopUpStyle.container}
-      onPress={()=>navigation.navigate('Login')}>
+      onPress={()=>navigation.push('Login')}>
         <Icon type="font-awesome" size={"175%"} name={"sign-out"} style={profilePopUpStyle.icon}/>
         <Text style={profilePopUpStyle.text}>Log out</Text>
       </TouchableOpacity>
