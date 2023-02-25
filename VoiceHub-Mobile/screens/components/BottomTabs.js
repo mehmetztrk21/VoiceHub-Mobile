@@ -20,6 +20,8 @@ const BottomTabs = ({ navigation, userName, visiblePopUp,setVisiblePopUp, visibl
       
     }
     else{
+      setVisiblePopUp(false)
+      setVisibleUpload(false)
       navigation.navigate(page, { uName: userName, isYourProfile: true })
     }
     
