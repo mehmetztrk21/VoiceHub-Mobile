@@ -19,20 +19,22 @@ import profileStyles from '../assets/styles/profile.style';
 
 const userRealName = "Kaan Kayserili";
 export default function ProfileScreen({ navigation, route }) {
-  const { uName, isYourProfile, visiblePopUp } = route.params;
+  const { uName, isYourProfile } = route.params;
 
+  const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [visibleUpload, setVisibleUpload] = useState(false)
 
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} uName={uName} 
-      isVerified={true} isYourProfile={isYourProfile} 
-      visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload}/>
+      <ProfileHeader navigation={navigation} uName={uName}
+        isVerified={true} isYourProfile={isYourProfile}
+        visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload} 
+        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={profileStyles.profileScroll}
+        style={[profileStyles.scroll, visibleUpload==true ? (profileStyles.uploadMargin): visiblePopUp==true? (profileStyles.popUpMargin) : null]}
       >
         {/* Profile heads */}
         <View style={profileStyles.actView}>
@@ -91,7 +93,10 @@ export default function ProfileScreen({ navigation, route }) {
         <AddVoice bottomSize={50} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName}/>
+      <BottomTabs navigation={navigation} userName={uName}
+      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
+      pageName={"ProfileScreen"} visibleUpload={visibleUpload} 
+      setVisibleUpload={setVisibleUpload}/>
     </SafeAreaView>
   );
 }

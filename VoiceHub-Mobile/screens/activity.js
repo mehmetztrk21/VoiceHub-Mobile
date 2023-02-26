@@ -16,8 +16,10 @@ import BottomTabs from "./components/BottomTabs";
 import userPostData from "./components/userPostData";
 
 export default function ActivityScreen({ navigation, route }) {
-const {uName, isYourProfile} = route.params;
-const [visiblePopUp, setVisiblePopUp]=useState(false)
+  const { uName, isYourProfile } = route.params;
+
+  const [visibleUpload, setVisibleUpload] = useState(false)
+  const [visiblePopUp, setVisiblePopUp] = useState(false)
 
   return (
     <SafeAreaView style={activityStyles.container}>
@@ -29,7 +31,7 @@ const [visiblePopUp, setVisiblePopUp]=useState(false)
               <View>
                 <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.push('SeePost')}>
                   <TouchableOpacity onPress={() => navigation.push('SeeProfile')}>
-                    <Image source={item.userPic} style={activityStyles.userPic}/>
+                    <Image source={item.userPic} style={activityStyles.userPic} />
                   </TouchableOpacity>
                   <Text style={activityStyles.actText}>{item.userName} liked your Post.</Text>
                 </TouchableOpacity>
@@ -39,8 +41,10 @@ const [visiblePopUp, setVisiblePopUp]=useState(false)
         }
       </ScrollView>
 
-      <BottomTabs navigation={navigation} userName={uName} 
-      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
+      <BottomTabs navigation={navigation} userName={uName}
+      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
+      pageName={"ActivityScreen"} visibleUpload={visibleUpload} 
+      setVisibleUpload={setVisibleUpload}/>
     </SafeAreaView>
   )
 }

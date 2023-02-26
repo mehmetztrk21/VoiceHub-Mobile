@@ -10,8 +10,11 @@ import { Icon } from "react-native-elements";
 
 export default function SearchScreen({ navigation, route }) {
   const { uName, isYourProfile } = route.params;
+
   const [focused, setFocused] = useState(false);
-  const [visiblePopUp, setVisiblePopUp]=useState(false)
+
+  const [visiblePopUp, setVisiblePopUp] = useState(false)
+  const [visibleUpload, setVisibleUpload] = useState(false)
 
   {/*Coming Soon --->*/ }
   const [searchQuery, setSearchQuery] = useState("");
@@ -31,25 +34,25 @@ export default function SearchScreen({ navigation, route }) {
       <SearchHeader pressLogo={handleScrollToTop} />
 
       <View style={searchStyles.searchBarHolder}>
-        {focused==true ? (
-          <View style={{flexDirection:"row"}}>
+        {focused == true ? (
+          <View style={{ flexDirection: "row" }}>
             <TextInput
               placeholder="Search"
-              style={[searchStyles.searchBar,searchStyles.widthChange1]}
+              style={[searchStyles.searchBar, searchStyles.widthChange1]}
               onChangeText={onChangeSearch}
               value={searchQuery}
             />
-            <TouchableOpacity onPress={() => {setFocused(false); setSearchQuery("")}} 
-            style={searchStyles.closeButtonTouch}>
-              <Icon type="font-awesome" size={"175%"} name={"times"} 
-              style={searchStyles.closeButton} color={colors.green}/>
+            <TouchableOpacity onPress={() => { setFocused(false); setSearchQuery("") }}
+              style={searchStyles.closeButtonTouch}>
+              <Icon type="font-awesome" size={"175%"} name={"times"}
+                style={searchStyles.closeButton} color={colors.green} />
             </TouchableOpacity>
           </View>
 
         ) :
           <TextInput
             placeholder="Search"
-            style={[searchStyles.searchBar,searchStyles.widthChange2]}
+            style={[searchStyles.searchBar, searchStyles.widthChange2]}
             onChangeText={onChangeSearch}
             value={searchQuery}
             onFocus={() => setFocused(true)}
@@ -62,7 +65,7 @@ export default function SearchScreen({ navigation, route }) {
         style={searchStyles.scrollContainer}
         ref={scrollViewRef}
       >
-        {focused==false ? (
+        {focused == false ? (
           <View style={searchStyles.userHodler}>
             {/* Get Users Infos */}
             <RenderDiscover navigation={navigation} />
@@ -73,8 +76,10 @@ export default function SearchScreen({ navigation, route }) {
           </View>
         }
       </ScrollView>
-      <BottomTabs navigation={navigation} userName={uName} 
-      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
+      <BottomTabs navigation={navigation} userName={uName}
+        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
+        pageName={"SearchScreen"} visibleUpload={visibleUpload} 
+        setVisibleUpload={setVisibleUpload}/>
     </SafeAreaView>
   );
 }

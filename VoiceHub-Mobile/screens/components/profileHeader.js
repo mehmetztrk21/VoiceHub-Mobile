@@ -6,7 +6,7 @@ import profileHeaderStyle from "../../assets/styles/profileHeader.style"
 
 import verfy from "../../assets/ver.png";
 
-const profileHeader = ({ navigation, uName, isVerified, isYourProfile, visibleUpload, setVisibleUpload }) => {
+const profileHeader = ({ navigation, uName, isVerified, isYourProfile, visibleUpload, setVisibleUpload, visiblePopUp, setVisiblePopUp }) => {
   return (
     <View style={profileHeaderStyle.wrapper}>
       <Divider width={1} orientation='vertical' />
@@ -30,7 +30,7 @@ const profileHeader = ({ navigation, uName, isVerified, isYourProfile, visibleUp
             <Icon type="font-awesome" size={28} name={"bookmark-o"} color={"black"}/>
             </TouchableOpacity>
 
-            <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => { setVisibleUpload(!visibleUpload);}}>
+            <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => { setVisibleUpload(!visibleUpload); setVisiblePopUp(false)}}>
               <Icon type="feather" size={28} name={"plus"} />
             </TouchableOpacity>
           </View>
