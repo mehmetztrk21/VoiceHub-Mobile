@@ -13,7 +13,7 @@ const home = ({navigation}) => {
       
       <HomeHeader navigation={navigation}/>
 
-      <ScrollView style={{marginTop:160, padding:"5%",}}>
+      <ScrollView style={{marginTop:170, paddingHorizontal:"5%", marginBottom:60}}>
         { UserPostData.map(()=>{
             return(
                 <Post navigation={navigation} />
