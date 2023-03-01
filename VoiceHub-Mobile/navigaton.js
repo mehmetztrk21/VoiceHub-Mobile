@@ -7,7 +7,7 @@ import Home from './screens/home';
 import Login from './screens/login';
 import Register from './screens/register';
 import ForgotPassword from './screens/forgotPassword';
-import SeePost from './screens/seePost';
+import Profile from './screens/profile';
 
 const Stack = createStackNavigator();
 
@@ -18,14 +18,14 @@ const screenOptions = {
 const SignedInStack = () => (
   <NavigationContainer>
     <Stack.Navigator
-      initialRouteName='Home'
+      initialRouteName='Profile'
       screenOptions={screenOptions}
     >
       <Stack.Screen name='Home' component={Home} />
       <Stack.Screen name='Login' component={Login} />
       <Stack.Screen name='Register' component={Register} />
       <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
-      <Stack.Screen name='SeePost' component={SeePost} />
+      <Stack.Screen name='Profile' component={Profile} />
     </Stack.Navigator>
   </NavigationContainer>
 )
