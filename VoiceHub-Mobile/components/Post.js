@@ -7,7 +7,7 @@ import PostActions from "../components/PostActions";
 
 const Post = ({navigation}) => {
   return (
-    <View>
+    <View style={{borderRadius:20, borderWidth:2, borderColor:'#DADADA', padding:"2%", marginBottom:'4%'}}>
         <PostUserInfo navigation={navigation}/>
         <PostMedia navigation={navigation}/>
         <PostActions navigation={navigation}/>

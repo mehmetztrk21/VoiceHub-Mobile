@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements'
 
 const PostActions = ({navigation}) => {
   return (
-    <View>
+    <View style={{flexDirection:"row", justifyContent:"space-around"}}>
       <TouchableOpacity>
         <Icon type='font-awesome' name='heart-o'/>
       </TouchableOpacity>
