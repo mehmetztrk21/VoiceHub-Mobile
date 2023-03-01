@@ -7,6 +7,7 @@ import Home from './screens/home';
 import Login from './screens/login';
 import Register from './screens/register';
 import ForgotPassword from './screens/forgotPassword';
+import SeePost from './screens/seePost';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const SignedInStack = () => (
       <Stack.Screen name='Login' component={Login} />
       <Stack.Screen name='Register' component={Register} />
       <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
+      <Stack.Screen name='SeePost' component={SeePost} />
     </Stack.Navigator>
   </NavigationContainer>
 )
