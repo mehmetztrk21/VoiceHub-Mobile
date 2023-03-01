@@ -11,15 +11,15 @@ const BottomTabs = ({ navigation }) => {
       <Divider width={1} orientation='vertical'/>
       <View style={bottomTabsStyle.container}>
         <TouchableOpacity>
-          <Icon size={25} type="font-awesome" name={'home'} color={'#FFF'}/>
+          <Icon size={25} type="font-awesome" name={'home'} color={colors.white}/>
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Icon size={25} type="font-awesome" name={'microphone'} color={'#FFF'}/>
+          <Icon size={25} type="font-awesome" name={'microphone'} color={colors.white}/>
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Icon size={25} type="font-awesome" name={'user'} color={'#FFF'}/>
+          <Icon size={25} type="font-awesome" name={'user'} color={colors.white}/>
         </TouchableOpacity>
       </View>
     </View>

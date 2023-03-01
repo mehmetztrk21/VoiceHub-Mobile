@@ -1,21 +1,20 @@
-import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native'
+import { SafeAreaView, ScrollView } from 'react-native'
 import React from 'react'
-
-import user1 from "../assets/images/userImages/user1.jpg"
 
 import BottomTabs from '../components/BottomTabs'
 import UserPostData from "../components/UserPostData"
 import Post from "../components/Post"
 import HomeHeader from '../components/HomeHeader'
+import colors from '../assets/colors'
 
 const home = ({navigation}) => {
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{backgroundColor:colors.white, }}>
       
       <HomeHeader navigation={navigation}/>
 
-      <ScrollView>
-        { UserPostData.map((item)=>{
+      <ScrollView style={{marginTop:160, padding:"5%",}}>
+        { UserPostData.map(()=>{
             return(
                 <Post navigation={navigation} />
             )
