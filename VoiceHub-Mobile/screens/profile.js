@@ -1,104 +1,61 @@
-import React, { useState } from "react";
-import {
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Text,
-  View,
-  SafeAreaView,
-} from "react-native";
-import admin from "../assets/userImages/admin.jpg";
+import React from 'react'
+import { Image, ScrollView, Text, View } from 'react-native'
+import { Divider, Icon } from 'react-native-elements'
 
-import RenderPost from "./components/RenderPost";
-import Post from "./components/post";
-import BottomTabs from "./components/BottomTabs";
-import ProfileHeader from "./components/profileHeader";
-import ProfilePopUp from "./components/profilePopUp";
-import AddVoice from "./components/addVoice";
-import profileStyles from '../assets/styles/profile.style';
+import colors from '../assets/colors'
+import user1 from "../assets/images/userImages/user1.jpg"
+import ver from "../assets/ver.png"
+import BottomTabs from '../components/BottomTabs'
+import Post from '../components/Post'
+import UserPostData from "../components/UserPostData"
 
-const userRealName = "Kaan Kayserili";
-export default function ProfileScreen({ navigation, route }) {
-  const { uName, isYourProfile } = route.params;
-
-  const [visiblePopUp, setVisiblePopUp] = useState(false)
-  const [visibleUpload, setVisibleUpload] = useState(false)
-
+const Profile = ({ navigation }) => {
   return (
-    <SafeAreaView style={profileStyles.container}>
+    <View style={{ flex: 1, width: "100%", backgroundColor: colors.green }}>
+      <View style={{
+        backgroundColor: colors.white, borderBottomEndRadius: 20, borderBottomStartRadius: 20, position: "fixed",
+        width: '100%',
+        top: 0,
+        zIndex: 999,
+      }}>
+        <Divider width={1} orientation='vertical' />
+        <View style={{ flexDirection: "row", justifyContent: 'space-between', marginHorizontal: "2%", marginVertical: "5%" }}>
+          <Icon type='font-awesome' name='angle-left' color={colors.black} />
 
-      <ProfileHeader navigation={navigation} uName={uName}
-        isVerified={true} isYourProfile={isYourProfile}
-        visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload} 
-        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Text>k.kayserili</Text>
+            <Image source={ver} style={{ width: 20, height: 20, marginLeft: "5%" }} />
+          </View>
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={[profileStyles.scroll, visibleUpload==true ? (profileStyles.uploadMargin): visiblePopUp==true? (profileStyles.popUpMargin) : null]}
-      >
-        {/* Profile heads */}
-        <View style={profileStyles.actView}>
-          <Image source={admin} style={profileStyles.userPic} />
-          <View style={profileStyles.followContents}>
+          <Icon type='font-awesome' name="ellipsis-v" color={colors.black} />
+        </View>
 
-            <View style={profileStyles.postCount}>
-              <Text style={profileStyles.fNumber}>47</Text>
-              <Text style={profileStyles.fText}>Post</Text>
-            </View>
+        <View style={{ alignItems: "center" }}>
+          <Image source={user1} style={{ width: 200, height: 200, borderRadius: 100 }} />
+        </View>
 
-            <TouchableOpacity style={profileStyles.followerCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: 'Followers' }); }}>
-              <Text style={profileStyles.fNumber}>1M</Text>
-              <Text style={profileStyles.fText}>Followers</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={profileStyles.followCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: 'Following' }); }}>
-              <Text style={profileStyles.fNumber}>150</Text>
-              <Text style={profileStyles.fText}>Following</Text>
-            </TouchableOpacity>
-
+        <View style={{ flexDirection: "column", paddingBottom: "5%" }}>
+          <Text>Kaan Kayserili</Text>
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <Icon type='font-awesome' name='play' color={colors.black} />
+            <Text>Slider Gelecek</Text>
           </View>
         </View>
+      </View>
 
-        {/* Bio */}
-        <View style={profileStyles.bioContents}>
-          <Text style={profileStyles.name}>{userRealName}</Text>
-          <Post />
-        </View>
+      <ScrollView style={{ paddingHorizontal: "2.5%", paddingTop: 340, paddingBottom: 60 }}>
+        {UserPostData.map(() => {
+          return (
+            <Post navigation={navigation} />
+          )
+        })
 
-        {/* Edit Profile Buttons */}
-        <View style={profileStyles.btnHolder}>
-          {isYourProfile ? (
-            <TouchableOpacity style={profileStyles.editProfileAndFollow}
-              onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
-              <Text style={profileStyles.btnTextF}>Edit Profile</Text>
-            </TouchableOpacity>
-          ) :
-            <TouchableOpacity style={profileStyles.editProfileAndFollow}>
-              <Text style={profileStyles.btnTextF}>Follow</Text>
-            </TouchableOpacity>
-          }
-        </View>
-
-        {/* Posts */}
-        <View style={profileStyles.postView}>
-          <RenderPost navigation={navigation} />
-        </View>
+        }
       </ScrollView>
 
-      {visiblePopUp == true ? (
-        <ProfilePopUp navigation={navigation} bottomSize={50} />
-      ) : visibleUpload == true ? (
-        <AddVoice bottomSize={50} />
-      ) : null}
-
-      <BottomTabs navigation={navigation} userName={uName}
-      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
-      pageName={"ProfileScreen"} visibleUpload={visibleUpload} 
-      setVisibleUpload={setVisibleUpload}/>
-    </SafeAreaView>
-  );
+      <BottomTabs navigation={navigation} pageName={'Profile'} />
+    </View>
+  )
 }
 
-
+export default Profile

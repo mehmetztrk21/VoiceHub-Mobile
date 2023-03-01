@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
     wrapper:{
@@ -6,12 +7,15 @@ export default StyleSheet.create({
         width:'100%',
         bottom:0,
         zIndex:999,
-        backgroundColor:'#FFF'
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
+        
     },
     container:{
         flexDirection:"row",
         justifyContent:"space-around",
-        height:50,
-        paddingTop:10,
+        height:60,
+        paddingTop:20,
+        
     }
 })

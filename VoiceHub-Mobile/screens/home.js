@@ -1,52 +1,29 @@
-import React, { useRef, useState } from "react";
-import {
-  ScrollView,
-  Text,
-  View,
-  SafeAreaView,
-} from "react-native";
+import { SafeAreaView, ScrollView } from 'react-native'
+import React from 'react'
 
-//importing components
-import BottomTabs from "./components/BottomTabs";
-import HomeHeader from "./components/HomeHeader";
-import RenderPost from './components/RenderPost';
-import AddVoice from './components/AddVoice';
+import BottomTabs from '../components/BottomTabs'
+import UserPostData from "../components/UserPostData"
+import Post from "../components/Post"
+import HomeHeader from '../components/HomeHeader'
+import colors from '../assets/colors'
 
-//importing styles
-import homeStyles from '../assets/styles/home.style';
-
-export default function HomeScreen({ navigation, route }) {
-  const { uName, isYourProfile } = route.params;
-
-  const [visibleUpload, setVisibleUpload] = useState(false)
-  const [visiblePopUp, setVisiblePopUp] = useState(false)
-
-  const scrollViewRef = useRef();
-
-  const handleScrollToTop = () => {
-    console.log('yukarı kaydı')
-    scrollViewRef.current.scrollTo({ y: 0 })
-  };
-
+const home = ({navigation}) => {
   return (
-    <SafeAreaView style={homeStyles.container}>
-      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload} />
+    <SafeAreaView style={{backgroundColor:colors.white, }}>
+      
+      <HomeHeader navigation={navigation}/>
 
-      <ScrollView style={[homeStyles.scroll, visibleUpload ? (homeStyles.animScroll) : null]} ref={scrollViewRef}>
-        {/* User Posts */}
-        <RenderPost navigation={navigation} />
+      <ScrollView style={{marginTop:170, paddingHorizontal:"5%", marginBottom:60}}>
+        { UserPostData.map(()=>{
+            return(
+                <Post navigation={navigation} />
+            )
+        })}
       </ScrollView>
 
-      {visibleUpload == true ? (
-        <AddVoice bottomSize={50} />
-      ) : null}
-
-
-
-      <BottomTabs navigation={navigation} userName={uName}
-      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
-      pageName={"HomeScreen"} visibleUpload={visibleUpload} 
-      setVisibleUpload={setVisibleUpload}/>
+      <BottomTabs navigation={navigation} pageName={"Home"}/>
     </SafeAreaView>
-  );
+  )
 }
+
+export default home
