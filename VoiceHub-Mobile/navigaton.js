@@ -8,6 +8,7 @@ import Login from './screens/login';
 import Register from './screens/register';
 import ForgotPassword from './screens/forgotPassword';
 import Profile from './screens/profile';
+import Upload from './screens/upload';
 
 const Stack = createStackNavigator();
 
@@ -18,7 +19,7 @@ const screenOptions = {
 const SignedInStack = () => (
   <NavigationContainer>
     <Stack.Navigator
-      initialRouteName='Profile'
+      initialRouteName='Login'
       screenOptions={screenOptions}
     >
       <Stack.Screen name='Home' component={Home} />
@@ -26,6 +27,7 @@ const SignedInStack = () => (
       <Stack.Screen name='Register' component={Register} />
       <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
       <Stack.Screen name='Profile' component={Profile} />
+      <Stack.Screen name='Upload' component={Upload} />
     </Stack.Navigator>
   </NavigationContainer>
 )
