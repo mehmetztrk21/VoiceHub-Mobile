@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
     wrapper:{
@@ -6,25 +7,28 @@ export default StyleSheet.create({
         width:'100%',
         top:0,
         zIndex:999,
-        backgroundColor:'#FFF'
+        backgroundColor:'#FFF',
     },
     head: {
-        paddingTop: 0,
-        paddingBottom: 5,
-        paddingLeft:10,
-        paddingRight:20,
-        height:64.8,
-        flexDirection: "row",
-        justifyContent:"space-between",
-        borderBottomWidth:0.5,
-        borderBottomColor:"#DADADA",
+        padding: "5%",
+        height:"20%",
+        flexDirection: "column",
     },
-    rightTop:{
+    FirstRow:{
         flexDirection:"row",
-        justifyContent:"flex-end",
-        paddingTop:15
+        justifyContent:"space-between",
+        alignItems:"center"
     },
-    headerPactions:{
-        paddingRight:15,
+    SecondRow:{
+        flexDirection:"row",
+        justifyContent:"space-around"
+    },
+    SecondText:{
+        color:colors.white, 
+        fontWeight:"500", 
+        paddingHorizontal:20, 
+        paddingVertical:10, 
+        borderRadius:20, 
+        fontSize:16,
     },
 })

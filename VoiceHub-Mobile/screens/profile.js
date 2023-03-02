@@ -20,7 +20,7 @@ import profileStyles from '../assets/styles/profile.style';
 const userRealName = "Kaan Kayserili";
 export default function ProfileScreen({ navigation, route }) {
   const { uName, isYourProfile } = route.params;
-  //use states
+
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [visibleUpload, setVisibleUpload] = useState(false)
 
@@ -100,5 +100,4 @@ export default function ProfileScreen({ navigation, route }) {
     </SafeAreaView>
   );
 }
-
 

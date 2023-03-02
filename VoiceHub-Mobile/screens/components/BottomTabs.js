@@ -4,22 +4,47 @@ import { Divider, Icon } from 'react-native-elements'
 import colors from '../../assets/colors'
 import bottomTabsStyle from '../../assets/styles/bottomTabs.style'
 
-const BottomTabs = ({ navigation, pageName }) => {
+const BottomTabs = ({ navigation, userName, visiblePopUp,setVisiblePopUp, visibleUpload,setVisibleUpload,pageName }) => {
+
+  const Select = (page) => {
+    if(pageName==="ProfileScreen" && page==="ProfileScreen"){
+      if(visiblePopUp==true){
+        setVisiblePopUp(false)
+      }
+      else{
+        setVisiblePopUp(true);
+        if(visibleUpload==true){
+          setVisibleUpload(false)
+        }
+      }
+      
+    }
+    else{
+      setVisiblePopUp(false)
+      setVisibleUpload(false)
+      navigation.navigate(page, { uName: userName, isYourProfile: true })
+    }
+    
+  }
 
   return (
-    <View style={[bottomTabsStyle.wrapper,{background: 'linear-gradient(to right, #1DB954, #006D5B)'}]}>
-      <Divider width={1} orientation='vertical'/>
+    <View style={[bottomTabsStyle.wrapper,{background:'linear-gradient(to right, '+colors.green+', #006D5B)'}]}>
+      <Divider width={1} orientation='vertical' />
       <View style={bottomTabsStyle.container}>
-        <TouchableOpacity onPress={()=>{navigation.push('Home')}}>
-          <Icon size={25} type="font-awesome" name={'home'} color={pageName=='Home'?(colors.white):colors.green}/>
+        <TouchableOpacity onPress={() => Select("HomeScreen")}>
+          <Icon size={25} type="font-awesome" name={'home'} color={pageName=="HomeScreen"?(colors.green):colors.white}/>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>{navigation.push('Upload')}}>
-          <Icon size={25} type="font-awesome" name={'microphone'} color={pageName=='Home'?(colors.white):colors.green}/>
+        <TouchableOpacity onPress={() => Select("SearchScreen")}>
+          <Icon size={25} type="font-awesome" name={'search'} color={pageName=="SearchScreen"?(colors.green):colors.white}/>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={()=>{navigation.push('Profile')}}>
-          <Icon size={25} type="font-awesome" name={'user'} color={pageName=='Home'?(colors.white):colors.green}/>
+        <TouchableOpacity onPress={() => Select("ActivityScreen")}>
+          <Icon size={25} type="font-awesome" name={'heart-o'} color={pageName=="ActivityScreen"?(colors.green):colors.white}/>
+        </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => Select("ProfileScreen")}>
+          <Icon size={25} type="font-awesome" name={'user'} color={pageName=="ProfileScreen"?(colors.green):colors.white}/>
         </TouchableOpacity>
       </View>
     </View>

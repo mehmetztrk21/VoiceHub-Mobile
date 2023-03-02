@@ -9,13 +9,12 @@ export default StyleSheet.create({
         zIndex:999,
         borderTopLeftRadius:20,
         borderTopRightRadius:20,
-        
     },
     container:{
         flexDirection:"row",
         justifyContent:"space-around",
         height:60,
         paddingTop:20,
-        
+        background:'linear-gradient(to right red, blue)'
     }
 })
