@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
     last:{
         paddingBottom: 20,
+        width:"90%",
+        marginHorizontal:"5%",
       },
       lastSearchImage:{
         width: 50, 

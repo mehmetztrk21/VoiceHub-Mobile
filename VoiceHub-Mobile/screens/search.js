@@ -66,12 +66,13 @@ export default function SearchScreen({ navigation, route }) {
         ref={scrollViewRef}
       >
         {focused == false ? (
-          <View style={searchStyles.userHodler}>
-            {/* Get Users Infos */}
+          <View>
+            {/* Get Users Posts */}
             <RenderPost navigation={navigation} />
           </View>
         ) :
-          <View style={searchStyles.userHodler}>
+          <View>
+            {/* Get Last Searched Users */}
             <RenderLastSearchedUser navigation={navigation} />
           </View>
         }

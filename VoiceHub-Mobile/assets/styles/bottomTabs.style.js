@@ -15,6 +15,5 @@ export default StyleSheet.create({
         justifyContent:"space-around",
         height:60,
         paddingTop:20,
-        background:'linear-gradient(to right red, blue)'
     }
 })
