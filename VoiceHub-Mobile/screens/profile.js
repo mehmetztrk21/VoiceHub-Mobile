@@ -11,7 +11,7 @@ import UserPostData from "../components/UserPostData"
 
 const Profile = ({ navigation }) => {
   return (
-    <View style={{ flex: 1, width: "100%", backgroundColor: colors.green }}>
+    <View style={{ flex: 1, width: "100%", background: 'linear-gradient(to right, #1DB954, #006D5B)' }}>
       <View style={{
         backgroundColor: colors.white, borderBottomEndRadius: 20, borderBottomStartRadius: 20, position: "fixed",
         width: '100%',

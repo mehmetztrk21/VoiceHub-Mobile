@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { Divider, Icon } from 'react-native-elements'
+
 import colors from '../assets/colors'
 import user1 from "../assets/images/userImages/user1.jpg"
 const HomeHeader = ({navigation}) => {
@@ -18,15 +19,15 @@ const HomeHeader = ({navigation}) => {
             </View>
 
             <View style={{flexDirection:"row", justifyContent:"space-around"}}>
-                <TouchableOpacity style={{paddingVertical:10, paddingHorizontal:20, borderRadius:20, backgroundColor:colors.green}}>
+                <TouchableOpacity style={{paddingVertical:10, paddingHorizontal:20, borderRadius:20, background: 'linear-gradient(to right, #1DB954, #006D5B)'}}>
                     <Text style={{fontSize:16, fontWeight:"700", color:colors.white}}>All</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{paddingVertical:10, paddingHorizontal:20, borderRadius:20, backgroundColor:colors.green}}>
+                <TouchableOpacity style={{paddingVertical:10, paddingHorizontal:20, borderRadius:20, background: 'linear-gradient(to right, #1DB954, #006D5B)'}}>
                     <Text style={{fontSize:16, fontWeight:"700", color:colors.white}}>Popular</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{paddingVertical:10, paddingHorizontal:20, borderRadius:20, backgroundColor:colors.green}}>
+                <TouchableOpacity style={{paddingVertical:10, paddingHorizontal:20, borderRadius:20, background: 'linear-gradient(to right, #1DB954, #006D5B)'}}>
                     <Text style={{fontSize:16, fontWeight:"700", color:colors.white}}>Friends</Text>
                 </TouchableOpacity>
             </View>

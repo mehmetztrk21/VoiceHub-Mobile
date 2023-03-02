@@ -8,7 +8,7 @@ import BottomTabs from '../components/BottomTabs'
 
 const upload = ({ navigation }) => {
     return (
-        <View style={{ flex: 1, width: "100%", backgroundColor: colors.green, }}>
+        <View style={{ flex: 1, width: "100%", background: 'linear-gradient(to right, #1DB954, #006D5B)' }}>
             <Image source={image} style={{ width: 300, height: 300, borderRadius: 150 }} />
             <Text style={{fontSize:32, fontWeight:"bold", color:colors.white}}>0:48:42</Text>
             <View style={{ backgroundColor: colors.white, padding: 10, borderRadius: 30, width: 60, height: 60, justifyContent:"center" }}>
