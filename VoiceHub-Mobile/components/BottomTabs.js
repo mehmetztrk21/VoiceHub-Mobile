@@ -7,7 +7,7 @@ import bottomTabsStyle from '../assets/styles/bottomTabs.style'
 const BottomTabs = ({ navigation, pageName }) => {
 
   return (
-    <View style={[bottomTabsStyle.wrapper,{backgroundColor:(pageName=='Home'?(colors.green):colors.white)}]}>
+    <View style={[bottomTabsStyle.wrapper,{background: 'linear-gradient(to right, '+colors.green+', blue)'}]}>
       <Divider width={1} orientation='vertical'/>
       <View style={bottomTabsStyle.container}>
         <TouchableOpacity onPress={()=>{navigation.push('Home')}}>
