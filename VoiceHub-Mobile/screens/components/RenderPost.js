@@ -16,7 +16,6 @@ const RenderPost = ({navigation, isSaved}) => {
             <Post />
           </View>
           <PostActions navigation={navigation} isSaved={isSaved}/>
-          <PostTexts navigation={navigation} likesCount={item.likesCount} userPic={item.userPic}/>
         </View>
       ));
 }
