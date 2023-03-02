@@ -10,7 +10,7 @@ export default StyleSheet.create({
         backgroundColor: colors.white,
     },
     scroll:{
-        marginTop:69.8,
+        marginTop:"40%",
         marginBottom:50,
     },
     animScroll:{
