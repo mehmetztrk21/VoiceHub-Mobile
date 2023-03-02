@@ -19,29 +19,35 @@ const HomeHeader = ({ navigation, pressLogo, visibleUpload, setVisibleUpload }) 
             <Image source={logo} style={{ width: 115.2, height: 64.8 }} />
           </TouchableOpacity>
 
+          <View style={{flexDirection:"row"}}>
             <TouchableOpacity onPress={() => navigation.push('Message')}>
-              <Icon type="feather" size={30} name={"mail"} />
+              <Icon type="font-awesome" size={30} name={"envelope-o"} />
             </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => navigation.push('ActivityScreen')} style={{marginLeft:10}}>
+              <Icon type="font-awesome" size={30}  name={'heart-o'}/>
+            </TouchableOpacity>
+          </View>
 
         </View>
 
         <View style={homeHeaderStyles.SecondRow}>
           <TouchableOpacity>
-            <Text style={[homeHeaderStyles.SecondText, 
-              {background:'linear-gradient(to right, '+colors.green+', '+colors.tealGreen+')'}]}
-              >All</Text>
+            <Text style={[homeHeaderStyles.SecondText,
+            { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}
+            >All</Text>
           </TouchableOpacity>
 
           <TouchableOpacity >
-            <Text style={[homeHeaderStyles.SecondText, 
-              {background:'linear-gradient(to right, '+colors.green+', '+colors.tealGreen+')'}]}
-              >Popular</Text>
+            <Text style={[homeHeaderStyles.SecondText,
+            { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}
+            >Popular</Text>
           </TouchableOpacity>
 
           <TouchableOpacity>
-            <Text style={[homeHeaderStyles.SecondText, 
-              {background:'linear-gradient(to right, '+colors.green+', '+colors.tealGreen+')'}]}
-              >Friends</Text>
+            <Text style={[homeHeaderStyles.SecondText,
+            { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}
+            >Friends</Text>
           </TouchableOpacity>
         </View>
 

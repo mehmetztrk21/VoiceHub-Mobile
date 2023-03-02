@@ -39,10 +39,6 @@ const BottomTabs = ({ navigation, userName, visiblePopUp,setVisiblePopUp, visibl
           <Icon size={25} type="font-awesome" name={'search'} color={pageName=="SearchScreen"?(colors.green):colors.white}/>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Select("ActivityScreen")}>
-          <Icon size={25} type="font-awesome" name={'heart-o'} color={pageName=="ActivityScreen"?(colors.green):colors.white}/>
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={() => Select("ProfileScreen")}>
           <Icon size={25} type="font-awesome" name={'user'} color={pageName=="ProfileScreen"?(colors.green):colors.white}/>
         </TouchableOpacity>
