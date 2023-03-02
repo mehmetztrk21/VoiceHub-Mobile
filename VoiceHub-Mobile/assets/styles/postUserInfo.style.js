@@ -2,8 +2,6 @@ import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
     postUser:{
-        borderBottomColor:'#DADADA',
-        borderBottomWidth:0.5,
         flexDirection:"row",
         paddingVertical:"1%",
         marginHorizontal: "3%",

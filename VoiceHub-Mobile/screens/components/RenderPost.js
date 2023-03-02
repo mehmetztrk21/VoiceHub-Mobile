@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import React from 'react'
 
 import userPostData from "./userPostData";
@@ -10,7 +10,7 @@ import PostTexts from "./postTexts";
 
 const RenderPost = ({navigation, isSaved}) => {
     return userPostData.map((item) => (
-        <View>
+        <View style={styles.container}>
           <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
           <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
             <Post />
@@ -19,5 +19,24 @@ const RenderPost = ({navigation, isSaved}) => {
         </View>
       ));
 }
+
+const styles = StyleSheet.create({
+  container:{
+    width:"90%",
+    marginHorizontal:"5%",
+    shadowColor: '#333333',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+      
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 5,
+    borderRadius:20,
+    marginVertical: 10,
+
+  },
+})
 
 export default RenderPost
