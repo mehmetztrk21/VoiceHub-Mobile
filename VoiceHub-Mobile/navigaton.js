@@ -4,11 +4,10 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './screens/home';
-import Login from './screens/login';
-import Register from './screens/register';
-import ForgotPassword from './screens/forgotPassword';
+import Login from './screens/otherScreens/login';
+import Register from './screens/otherScreens/register';
+import ForgotPassword from './screens/otherScreens/forgotPassword';
 import Profile from './screens/profile';
-import Upload from './screens/upload';
 
 const Stack = createStackNavigator();
 
@@ -27,7 +26,6 @@ const SignedInStack = () => (
       <Stack.Screen name='Register' component={Register} />
       <Stack.Screen name='ForgotPassword' component={ForgotPassword} />
       <Stack.Screen name='Profile' component={Profile} />
-      <Stack.Screen name='Upload' component={Upload} />
     </Stack.Navigator>
   </NavigationContainer>
 )

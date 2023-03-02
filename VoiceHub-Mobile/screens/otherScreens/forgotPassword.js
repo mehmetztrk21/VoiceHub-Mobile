@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Text, TextInput, TouchableOpacity, View, SafeAreaView } from "react-native";
 import { Icon } from "react-native-elements";
-import forgotPasswordStyle from "../assets/styles/forgotPassword.style";
+import forgotPasswordStyle from "../../assets/styles/forgotPassword.style";
+import OtherHeader from "../components/otherHeader";
 export default function ForgotPassword({ navigation }) {
 
     const [userName, setUserName] = useState("");

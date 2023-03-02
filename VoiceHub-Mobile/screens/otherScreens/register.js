@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TouchableOpacity, TextInput, View, Text, SafeAreaView, Image } from "react-native";
-import registerStyle from "../assets/styles/register.style";
+import registerStyle from "../../assets/styles/register.style";
+import { registerCondition } from "../components/registerCondition";
 
 export default function Register({ navigation }) {
     const [firstName, setName] = useState("");
@@ -11,10 +12,17 @@ export default function Register({ navigation }) {
     const [password2, setPassword2] = useState("");
     let isGoHomePage=false
 
+    const isRegister = () => {
+        isGoHomePage=registerCondition(firstName, lastName, userName, email, password1, password2);
+        if(isGoHomePage){
+            navigation.navigate('HomeScreen',{uName:userName, isYourProfile:true})
+        }
+    }
+
     return (
         <SafeAreaView style={registerStyle.container}>
             <View style={registerStyle.logoView}>
-                <Image source={require("../assets/images/VoiceHub-1.png")} style={registerStyle.logo} />
+                <Image source={require("../../assets/images/VoiceHub-1.png")} style={registerStyle.logo} />
             </View>
 
             <Text style={registerStyle.label}>Name</Text>

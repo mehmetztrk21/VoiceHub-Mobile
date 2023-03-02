@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import loginStyle from "../assets/styles/login.style";
+import { TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
+import loginStyle from "../../assets/styles/login.style";
 
 export default function Login({ navigation }) {
     const [userName, setUserName] = useState("");
@@ -8,9 +8,9 @@ export default function Login({ navigation }) {
 
     const isLogin = () => {
         if (userName !== "" && password !== "") {
-            navigation.push('Home')
+            navigation.navigate('HomeScreen',{uName:userName, isYourProfile:true})
         }
-        else {
+        else{
             alert("don't empty inputs")
         }
     }
@@ -18,7 +18,7 @@ export default function Login({ navigation }) {
     return (
         <SafeAreaView style={loginStyle.container}>
             <View style={loginStyle.logoView}>
-                <Image source={require("../assets/images/VoiceHub-1.png")} style={loginStyle.logo} />
+                <Image source={require("../../assets/images/VoiceHub-1.png")} style={loginStyle.logo} />
             </View>
 
             <Text style={loginStyle.label}>User Name</Text>

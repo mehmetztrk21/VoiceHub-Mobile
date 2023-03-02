@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { TouchableOpacity, View } from 'react-native'
 import { Divider, Icon } from 'react-native-elements'
-import colors from '../assets/colors'
-import bottomTabsStyle from '../assets/styles/bottomTabs.style'
+import colors from '../../assets/colors'
+import bottomTabsStyle from '../../assets/styles/bottomTabs.style'
 
 const BottomTabs = ({ navigation, pageName }) => {
 
