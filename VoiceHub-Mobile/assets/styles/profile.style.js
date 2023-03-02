@@ -4,29 +4,16 @@ import colors from "../colors";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+    width:"100%"
   },
 
-  scroll: {
-    marginTop: 80,
-    marginBottom: 50,
-    width: "100%",
-  },
-  uploadMargin: {
-    marginBottom: 120,
-  },
-  popUpMargin:{
-    marginBottom: 140,
-  },
 
   actView: {
     flexDirection: "row",
     padding: 10,
     marginTop: 12,
-    top: 0,
-    left: 5,
     width: "96%",
   },
   userPic: {
@@ -62,6 +49,7 @@ export default StyleSheet.create({
     fontSize: 18,
   },
 
+
   bioContents: {
     marginLeft: "5%",
     paddingTop: "3%",
@@ -71,11 +59,14 @@ export default StyleSheet.create({
     fontWeight: "700",
   },
 
+
   btnHolder: {
     marginBottom: "2%",
     marginTop: "1%",
     paddingBottom: "2%",
-    marginLeft: "10%"
+    marginLeft: "10%",
+    borderBottomEndRadius:20,
+    borderBottomStartRadius:20,
   },
   editProfileAndFollow: {
     backgroundColor: colors.green,
@@ -83,7 +74,7 @@ export default StyleSheet.create({
     marginTop: "2%",
     marginBottom: "2%",
     paddingVertical: "1%",
-    width: "80%"
+    width: "80%",
   },
   btnTextF: {
     fontSize: 16,
@@ -91,8 +82,18 @@ export default StyleSheet.create({
     alignSelf: "center"
   },
 
+
+  scroll: {
+    marginBottom: 60,
+    width: "100%",
+  },
+  uploadMargin: {
+    marginBottom: 120,
+  },
+  popUpMargin:{
+    marginBottom: 140,
+  },
   postView: {
-    backgroundColor: colors.white,
     paddingTop: 5,
     flexDirection: "column",
     width: "100%",

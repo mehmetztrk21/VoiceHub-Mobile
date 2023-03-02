@@ -30,7 +30,7 @@ export default function HomeScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={homeStyles.container}>
-      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload} />
+      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} uName={uName} isYourProfile={true} />
 
       <ScrollView style={[homeStyles.scroll, visibleUpload ? (homeStyles.animScroll) : null]} ref={scrollViewRef}>
         {/* User Posts */}

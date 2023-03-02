@@ -13,15 +13,13 @@ export default StyleSheet.create({
         height: 60,
         width: "100%",
         flexDirection: "row",
-        justifyContent: "space-between",
-        borderBottomColor:'#DADADA',
-        borderBottomWidth:1,
         alignItems: "center",//yatay
       },
       headerName: {
         fontSize: 22,
         padding: 20,
         paddingRight: 8,
+        paddingLeft: 10,
         fontWeight: "bold",
       },
 })

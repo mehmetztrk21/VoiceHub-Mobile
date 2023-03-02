@@ -23,7 +23,7 @@ export default function ActivityScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={activityStyles.container}>
-      <ActivityHeader />
+      <ActivityHeader navigation={navigation}/>
       <ScrollView style={activityStyles.sContainer}>
         {
           userPostData.map((item) => {

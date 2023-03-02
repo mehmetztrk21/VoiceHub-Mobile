@@ -6,7 +6,8 @@ export default StyleSheet.create({
     width: '100%',
     top: 0,
     zIndex: 999,
-    backgroundColor: '#FFF'
+    backgroundColor: '#FFF',
+    
   },
   aHeadView: {
     left: 0,
@@ -15,9 +16,8 @@ export default StyleSheet.create({
     marginTop: 20,
     flexDirection: "row",
     justifyContent: "space-between",
-    borderBottomColor:'#DADADA',
-    borderBottomWidth:1,
     alignItems: "center",//yatay
+    
   },
   leftTop: {
     flexDirection: "row",

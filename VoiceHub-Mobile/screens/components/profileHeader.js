@@ -1,17 +1,16 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-import React from 'react'
-import { Divider, Icon } from 'react-native-elements'
+import React from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Icon } from 'react-native-elements';
+import colors from '../../assets/colors';
 
-import profileHeaderStyle from "../../assets/styles/profileHeader.style"
+import profileHeaderStyle from "../../assets/styles/profileHeader.style";
 
 import verfy from "../../assets/ver.png";
 
-const profileHeader = ({ navigation, uName, isVerified, isYourProfile, visibleUpload, setVisibleUpload, visiblePopUp, setVisiblePopUp }) => {
+const profileHeader = ({ navigation, uName, isVerified, isYourProfile, visiblePopUp, setVisiblePopUp }) => {
   return (
     <View style={profileHeaderStyle.wrapper}>
-      <Divider width={1} orientation='vertical' />
       <View style={profileHeaderStyle.aHeadView}>
-
         <View style={profileHeaderStyle.leftTop}>
           {!isYourProfile ? (
             <TouchableOpacity onPress={() => navigation.goBack('SearchScreen')}>
@@ -27,11 +26,11 @@ const profileHeader = ({ navigation, uName, isVerified, isYourProfile, visibleUp
         {isYourProfile ? (
           <View style={profileHeaderStyle.rightTop}>
             <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.push('Saved')}>
-            <Icon type="font-awesome" size={28} name={"bookmark-o"} color={"black"}/>
+              <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
             </TouchableOpacity>
 
-            <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => { setVisibleUpload(!visibleUpload); setVisiblePopUp(false)}}>
-              <Icon type="feather" size={28} name={"plus"} />
+            <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate('ActivityScreen',{uName:uName, isYourProfile})}>
+              <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
             </TouchableOpacity>
           </View>
         ) : null}

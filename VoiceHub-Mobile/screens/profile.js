@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 import {
-  ScrollView,
-  Image,
-  TouchableOpacity,
-  Text,
-  View,
-  SafeAreaView,
+  Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from "react-native";
 import admin from "../assets/userImages/admin.jpg";
 
-import RenderPost from "./components/RenderPost";
-import Post from "./components/post";
+import colors from "../assets/colors";
+import profileStyles from '../assets/styles/profile.style';
+import AddVoice from "./components/addVoice";
 import BottomTabs from "./components/BottomTabs";
+import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import ProfilePopUp from "./components/profilePopUp";
-import AddVoice from "./components/addVoice";
-import profileStyles from '../assets/styles/profile.style';
+import RenderPost from "./components/RenderPost";
 
 const userRealName = "Kaan Kayserili";
 export default function ProfileScreen({ navigation, route }) {
@@ -25,18 +21,16 @@ export default function ProfileScreen({ navigation, route }) {
   const [visibleUpload, setVisibleUpload] = useState(false)
 
   return (
-    <SafeAreaView style={profileStyles.container}>
+    <SafeAreaView style={[profileStyles.container,{background:'linear-gradient(to right,'+colors.green+','+colors.tealGreen+')'}]}>
 
       <ProfileHeader navigation={navigation} uName={uName}
         isVerified={true} isYourProfile={isYourProfile}
-        visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload} 
-        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}/>
+        visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload}
+        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
 
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={[profileStyles.scroll, visibleUpload==true ? (profileStyles.uploadMargin): visiblePopUp==true? (profileStyles.popUpMargin) : null]}
-      >
-        {/* Profile heads */}
+      <View style={{width:"100%", borderBottomStartRadius:40, borderBottomEndRadius:40, backgroundColor:colors.white, marginTop:80}}>
+
+        {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
           <Image source={admin} style={profileStyles.userPic} />
           <View style={profileStyles.followContents}>
@@ -80,9 +74,14 @@ export default function ProfileScreen({ navigation, route }) {
             </TouchableOpacity>
           }
         </View>
+      </View>
 
-        {/* Posts */}
-        <View style={profileStyles.postView}>
+      {/* Posts */}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={[profileStyles.scroll, visibleUpload == true ? (profileStyles.uploadMargin) : visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
+      >
+        <View style={[profileStyles.postView, { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}>
           <RenderPost navigation={navigation} />
         </View>
       </ScrollView>
@@ -94,9 +93,9 @@ export default function ProfileScreen({ navigation, route }) {
       ) : null}
 
       <BottomTabs navigation={navigation} userName={uName}
-      visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
-      pageName={"ProfileScreen"} visibleUpload={visibleUpload} 
-      setVisibleUpload={setVisibleUpload}/>
+        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
+        pageName={"ProfileScreen"} visibleUpload={visibleUpload}
+        setVisibleUpload={setVisibleUpload} />
     </SafeAreaView>
   );
 }

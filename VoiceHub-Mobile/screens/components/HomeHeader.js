@@ -5,7 +5,7 @@ import colors from '../../assets/colors';
 import logo from "../../assets/images/VoiceHub-1.png";
 import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 
-const HomeHeader = ({ navigation, pressLogo, visibleUpload, setVisibleUpload }) => {
+const HomeHeader = ({ navigation, pressLogo, uName, isYourProfile }) => {
 
   return (
     <View style={homeHeaderStyles.wrapper}>
@@ -24,7 +24,7 @@ const HomeHeader = ({ navigation, pressLogo, visibleUpload, setVisibleUpload }) 
               <Icon type="font-awesome" size={30} name={"envelope-o"} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.push('ActivityScreen')} style={{marginLeft:10}}>
+            <TouchableOpacity onPress={() => navigation.navigate('ActivityScreen',{uName:uName, isYourProfile})} style={{marginLeft:10}}>
               <Icon type="font-awesome" size={30}  name={'heart-o'}/>
             </TouchableOpacity>
           </View>

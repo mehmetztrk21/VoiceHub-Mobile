@@ -28,7 +28,7 @@ const BottomTabs = ({ navigation, userName, visiblePopUp,setVisiblePopUp, visibl
   }
 
   return (
-    <View style={[bottomTabsStyle.wrapper,{background:'linear-gradient(to right, '+colors.green+', #006D5B)'}]}>
+    <View style={[bottomTabsStyle.wrapper,{background:'linear-gradient(to right, '+colors.green+', '+colors.tealGreen+')'}]}>
       <View style={bottomTabsStyle.container}>
         <TouchableOpacity onPress={() => Select("HomeScreen")}>
           <Icon size={25} type="font-awesome" name={'home'} color={pageName=="HomeScreen"?(colors.green):colors.white}/>

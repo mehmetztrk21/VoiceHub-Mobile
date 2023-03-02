@@ -7,6 +7,7 @@ import PostUserInfo from "./postUserInfo";
 import Post from "./post";
 import PostActions from "./postActions";
 import PostTexts from "./postTexts";
+import colors from '../../assets/colors';
 
 const RenderPost = ({navigation, isSaved}) => {
     return userPostData.map((item) => (
@@ -23,6 +24,7 @@ const RenderPost = ({navigation, isSaved}) => {
 const styles = StyleSheet.create({
   container:{
     width:"90%",
+    backgroundColor:colors.white,
     marginHorizontal:"5%",
     shadowColor: '#333333',
     shadowOffset: {
