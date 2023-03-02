@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { ScrollView, TouchableOpacity, View, TextInput, SafeAreaView } from "react-native";
 import colors from "../assets/colors"
-import RenderDiscover from "./components/RenderDiscover";
+import RenderPost from "./components/RenderPost";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import BottomTabs from "./components/BottomTabs";
 import SearchHeader from "./components/SearchHeader";
@@ -68,7 +68,7 @@ export default function SearchScreen({ navigation, route }) {
         {focused == false ? (
           <View style={searchStyles.userHodler}>
             {/* Get Users Infos */}
-            <RenderDiscover navigation={navigation} />
+            <RenderPost navigation={navigation} />
           </View>
         ) :
           <View style={searchStyles.userHodler}>
