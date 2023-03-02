@@ -32,6 +32,7 @@ export default StyleSheet.create({
   scrollContainer: {
     backgroundColor: colors.white,
     width: "95%",
+    marginBottom:60,
   },
   closeButtonTouch:{
     justifyContent:"center",
