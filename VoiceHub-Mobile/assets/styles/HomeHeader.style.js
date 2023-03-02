@@ -11,7 +11,6 @@ export default StyleSheet.create({
     },
     head: {
         padding: "5%",
-        height:"20%",
         flexDirection: "column",
     },
     FirstRow:{
@@ -26,8 +25,8 @@ export default StyleSheet.create({
     SecondText:{
         color:colors.white, 
         fontWeight:"500", 
-        paddingHorizontal:20, 
-        paddingVertical:"5%", 
+        paddingHorizontal:30, 
+        paddingVertical:10, 
         borderRadius:20, 
         fontSize:16,
     },
