@@ -5,11 +5,18 @@ import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 export default function PostUserInfo({ navigation, userPic, userName }) {
     return (
         <View style={postUserInfoStyle.postUser}>
+
             <TouchableOpacity style={postUserInfoStyle.clickUserPic} 
             onPress={() => navigation.navigate('ProfileScreen', {uName:userName, isYourProfile:false})}>
                 <Image style={postUserInfoStyle.userpostImg} source={userPic} />
-                <Text style={postUserInfoStyle.userName}>{userName}</Text>
+                
+                <View style={{flexDirection:"column"}}>
+                    <Text style={postUserInfoStyle.userName}>{userName}</Text>
+                    <Text style={postUserInfoStyle.timeAgo}>20 minutes ago</Text>
+                </View>
+                
             </TouchableOpacity>
+            
         </View>
     );
 }

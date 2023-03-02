@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-
+import colors from "../colors"
 export default StyleSheet.create({
     postUser:{
         flexDirection:"row",
@@ -8,7 +8,8 @@ export default StyleSheet.create({
     },
     clickUserPic:{
         flexDirection:'row',
-        alignItems:"center"
+        alignItems:"center",
+        paddingVertical:"2%"
     },
     userpostImg:{
         width:30,
@@ -17,7 +18,12 @@ export default StyleSheet.create({
         marginRight:7.5,
     },
     userName:{
-        fontSize:15,
-        fontWeight:"600"
+        fontSize:16,
+        fontWeight:"750"
+    },
+    timeAgo:{
+        fontSize:12.5,
+        fontWeight:"400",
+        color: colors.gray
     }
 });
