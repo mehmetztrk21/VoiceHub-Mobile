@@ -70,7 +70,7 @@ export default StyleSheet.create({
   },
   editProfileAndFollow: {
     backgroundColor: colors.green,
-    borderRadius: 5,
+    borderRadius: 25,
     marginTop: "2%",
     marginBottom: "2%",
     paddingVertical: "1%",
