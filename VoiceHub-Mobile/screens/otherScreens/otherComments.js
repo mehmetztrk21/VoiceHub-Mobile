@@ -1,7 +1,6 @@
 import React from "react";
 import { SafeAreaView, ScrollView } from "react-native";
 
-import AddVoice from "../components/addVoice";
 import Comment from "../components/comment";
 import OtherHeader from "../components/otherHeader";
 import userPostData from "../components/userPostData";

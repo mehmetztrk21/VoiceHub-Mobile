@@ -6,7 +6,6 @@ import admin from "../assets/userImages/admin.jpg";
 
 import colors from "../assets/colors";
 import profileStyles from '../assets/styles/profile.style';
-import AddVoice from "./components/addVoice";
 import BottomTabs from "./components/BottomTabs";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
@@ -21,14 +20,14 @@ export default function ProfileScreen({ navigation, route }) {
   const [visibleUpload, setVisibleUpload] = useState(false)
 
   return (
-    <SafeAreaView style={[profileStyles.container,{background:'linear-gradient(to right,'+colors.green+','+colors.tealGreen+')'}]}>
+    <SafeAreaView style={[profileStyles.container, { background: 'linear-gradient(to right,' + colors.green + ',' + colors.tealGreen + ')' }]}>
 
       <ProfileHeader navigation={navigation} uName={uName}
         isVerified={true} isYourProfile={isYourProfile}
         visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
 
-      <View style={{width:"100%", borderBottomStartRadius:40, borderBottomEndRadius:40, backgroundColor:colors.white, marginTop:80}}>
+      <View style={{ width: "100%", borderBottomStartRadius: 40, borderBottomEndRadius: 40, backgroundColor: colors.white, marginTop: 80 }}>
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
