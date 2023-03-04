@@ -1,29 +1,41 @@
 import React from 'react';
-import { View, SafeAreaView } from 'react-native';
+import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native';
 
 import seePostStyle from "../../assets/styles/seePost.style";
-import user1 from "../../assets/userImages/user1.jpg"
-import PostUserInfo from "../components/postUserInfo";
+import user1 from "../../assets/userImages/user1.jpg";
+import OtherHeader from "../components/otherHeader";
 import Post from "../components/post";
 import PostActions from "../components/postActions";
-import PostTexts from "../components/postTexts";
-import OtherHeader from "../components/otherHeader"
+import RenderPost from "../components/RenderPost";
+import AddVoice from "../components/addVoice";
+import colors from '../../assets/colors';
 
 /* HALF SCREEN, CONTINUE THIS PAGE */
-export default function SeePost({ navigation }) {
+export default function SeePost({ navigation, route }) {
+    const { uName, isYourProfile } = route.params;
+
     return (
         <SafeAreaView style={seePostStyle.container}>
 
-            <OtherHeader HeaderTitle={"Post"} navigation={navigation}/>
+            <OtherHeader HeaderTitle={"Post"} navigation={navigation} />
 
-            <View style={seePostStyle.PostView}>
-                <PostUserInfo navigation={navigation} userPic={user1} userName={'k.kayserili'}/>
-                <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
-                    <Post />
-                </View>
-                <PostActions navigation={navigation} />
-                <PostTexts navigation={navigation} likesCount={'1221'} userPic={user1}/>
+            <View>
+                <Image source={user1} style={{ width: 300, height: 300, borderRadius: 150, }} />
+                <Text>{uName}</Text>
+                <Post />
+                <PostActions />
             </View>
+
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                style={seePostStyle.scroll}
+            >
+                <View style={[seePostStyle.postView, { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}>
+                    <RenderPost navigation={navigation} />
+                </View>
+            </ScrollView>
+
+            <AddVoice bottomSize={0}/>
         </SafeAreaView>
     );
 }

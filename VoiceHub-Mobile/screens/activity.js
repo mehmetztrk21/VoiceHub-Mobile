@@ -29,7 +29,7 @@ export default function ActivityScreen({ navigation, route }) {
           userPostData.map((item) => {
             return (
               <View>
-                <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.push('SeePost')}>
+                <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.navigate('SeePost',{uName:uName, isYourProfile:true})}>
                   <TouchableOpacity onPress={() => navigation.push('SeeProfile')}>
                     <Image source={item.userPic} style={activityStyles.userPic} />
                   </TouchableOpacity>

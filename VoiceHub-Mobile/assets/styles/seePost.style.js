@@ -5,7 +5,13 @@ export default StyleSheet.create({
         flex: 1,
     },
 
-    PostView:{
-        top:70
-    }
+    postView: {
+        paddingTop: 5,
+        flexDirection: "column",
+        width: "100%",
+      },
+      scroll: {
+        marginBottom: 60,
+        width: "100%",
+      },
 });
