@@ -3,7 +3,6 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Divider, Icon } from 'react-native-elements';
 
 import recGif from "../../assets/images/rec.gif";
-import recImg from "../../assets/images/rec.png";
 import waweGif from "../../assets/images/record.gif";
 
 import addVoiceStyle from '../../assets/styles/addVoice.style';

@@ -16,13 +16,13 @@ export default StyleSheet.create({
     },
     input: {
         backgroundColor: "lightgray",
-        borderRadius: 15,
+        borderRadius: 25,
         paddingVertical:10,
         paddingHorizontal:10,
         marginBottom:20,
       },
       ButtonText:{
-        borderRadius: 15,
+        borderRadius: 25,
         backgroundColor: colors.green,
         color: colors.white,
         textAlign: "center",

@@ -46,7 +46,7 @@ export default StyleSheet.create({
       },
       FollowButton: {
         backgroundColor: color.green,
-        borderRadius: 7.5,
+        borderRadius: 25,
         color: color.white,
         fontSize: 16,
         fontWeight: "500",

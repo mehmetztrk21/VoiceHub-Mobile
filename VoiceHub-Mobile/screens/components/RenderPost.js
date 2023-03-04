@@ -24,7 +24,7 @@ const RenderPost = ({navigation, isSaved}) => {
 const styles = StyleSheet.create({
   container:{
     width:"90%",
-    backgroundColor:colors.white,
+    backgroundColor:'rgba(255,255,255,0.3)',
     marginHorizontal:"5%",
     shadowColor: '#333333',
     shadowOffset: {

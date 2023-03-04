@@ -1,7 +1,7 @@
 import React from 'react';
 import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import editProfileStyle from "../../assets/styles/editProfile.style";
-import AddVoice from '../components/addVoice';
+
 import OtherHeader from '../components/otherHeader';
 
 export default function EditProfile({ navigation, route }) {

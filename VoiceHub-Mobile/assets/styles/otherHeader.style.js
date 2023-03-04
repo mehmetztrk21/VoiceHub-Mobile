@@ -6,15 +6,15 @@ export default StyleSheet.create({
         width: '100%',
         top: 0,
         zIndex: 999,
-        backgroundColor: '#FFF'
+        backgroundColor: '#FFF',
     },
     aHeadView: {
         left: 0,
         height: 60,
         width: "100%",
         flexDirection: "row",
-        borderBottomColor: '#DADADA',
-        borderBottomWidth: 1,
+        borderBottomEndRadius:20,
+        borderbottomStartRadius:20,
     },
     BackButton: {
         paddingTop: 15,

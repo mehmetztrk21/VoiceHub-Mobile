@@ -17,7 +17,7 @@ export default StyleSheet.create({
 
   searchBar: {
     backgroundColor: colors.lightgray,
-    borderRadius: 15,
+    borderRadius: 22.5,
     paddingVertical:10,
     paddingHorizontal:12.5,
   },
