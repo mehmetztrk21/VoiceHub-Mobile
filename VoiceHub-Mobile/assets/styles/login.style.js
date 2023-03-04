@@ -20,7 +20,7 @@ export default StyleSheet.create({
     },
     sbar: {
         backgroundColor: "lightgray",
-        borderRadius: 15,
+        borderRadius: 25,
         paddingVertical: 10,
         paddingHorizontal: "2%",
         width: "80%",
@@ -33,7 +33,7 @@ export default StyleSheet.create({
         marginLeft:"22.5%"
     },
     loginButton: {
-        borderRadius: 10,
+        borderRadius: 25,
         backgroundColor: colors.green,
         color: colors.white,
         textAlign: "center",
