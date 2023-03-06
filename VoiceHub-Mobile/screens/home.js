@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation, route }) {
 
       <ScrollView style={homeStyles.scroll} ref={scrollViewRef}>
         {/* User Posts */}
-        <RenderPost navigation={navigation} />
+        <RenderPost navigation={navigation} pageName={'HomeScreen'}/>
       </ScrollView>
 
       <BottomTabs navigation={navigation} userName={uName}

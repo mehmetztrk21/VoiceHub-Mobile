@@ -6,7 +6,7 @@ import postStyle from "../../assets/styles/post.style";
 import sliderStyle from "../../assets/styles/slider.style";
 import colors from '../../assets/colors';
 
-const Post = () => {
+const Post = ({pageName}) => {
   const [sound, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
@@ -57,9 +57,13 @@ const Post = () => {
       <TouchableOpacity style={postStyle.playButton} onPress={isPlaying ? pauseSound : playSound}>
         {
           isPlaying ? (
-            <Icon type="feather" size={"175%"} name={"pause"} />
+            <Icon type="feather" size={"175%"} name={"pause"} 
+            color={pageName==='ProfileScreen'?(colors.white):
+            pageName==='HomeScreen'?(colors.black):(null)}/>
           ) :
-            <Icon type="feather" size={"175%"} name={"play"} />
+            <Icon type="feather" size={"175%"} name={"play"} 
+            color={pageName==='ProfileScreen'?(colors.white):
+            pageName==='HomeScreen'?(colors.black):(null)}/>
         }
       </TouchableOpacity>
 
@@ -69,7 +73,8 @@ const Post = () => {
         maximumValue={duration}
         value={position}
         minimumTrackTintColor={colors.green}
-        maximumTrackTintColor={colors.gray}
+        maximumTrackTintColor=
+        {pageName==='ProfileScreen'?(colors.white): pageName==='HomeScreen'?(colors.gray):(null)}
         thumbTintColor={colors.green}
         thumbStyle={{ height: 22.5, width: 22.5, }}
       />

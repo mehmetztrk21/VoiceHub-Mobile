@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, Text } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
-export default function postActions({ navigation }) {
+export default function postActions({ navigation, pageName }) {
 
   const [liked, setLiked] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -33,23 +33,34 @@ export default function postActions({ navigation }) {
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
         {liked == true ? (
-          <Icon type="font-awesome" size={20} name={"heart"} color={colors.green} />
+          <Icon type="font-awesome" size={20} name={"heart"} color={pageName === 'ProfileScreen' ? (colors.white) :
+            pageName === 'HomeScreen' ? (colors.black) : (null)} />
         ) :
-          <Icon type="font-awesome" size={20} name={"heart-o"} color={"black"} />}
+          <Icon type="font-awesome" size={20} name={"heart-o"} color={pageName === 'ProfileScreen' ? (colors.white) :
+            pageName === 'HomeScreen' ? (colors.black) : (null)} />}
 
-        <Text style={{ fontWeight:"700", marginLeft:5, fontSize:14}}>12087</Text>
+        <Text style={[{ fontWeight: "700", marginLeft: 5, fontSize: 14 }, {
+          color: (pageName === 'ProfileScreen' ? (colors.white) :
+            pageName === 'HomeScreen' ? (colors.black) : (null))
+        }]}>12087</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push('OtherComments')}>
-        <Icon type="font-awesome" size={20} name={"comment-o"} color={"black"} />
-        <Text style={{ fontWeight:"700", marginLeft:5, fontSize:14}}>258</Text>
+        <Icon type="font-awesome" size={20} name={"comment-o"} color={pageName === 'ProfileScreen' ? (colors.white) :
+          pageName === 'HomeScreen' ? (colors.black) : (null)} />
+        <Text style={[{ fontWeight: "700", marginLeft: 5, fontSize: 14 }, {
+          color: (pageName === 'ProfileScreen' ? (colors.white) :
+            pageName === 'HomeScreen' ? (colors.black) : (null))
+        }]}>258</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
         {saved == true ? (
-          <Icon type="font-awesome" size={20} name={"bookmark"} color={colors.green} />
+          <Icon type="font-awesome" size={20} name={"bookmark"} color={pageName === 'ProfileScreen' ? (colors.white) :
+            pageName === 'HomeScreen' ? (colors.black) : (null)} />
         ) :
-          <Icon type="font-awesome" size={20} name={"bookmark-o"} color={"black"} />}
+          <Icon type="font-awesome" size={20} name={"bookmark-o"} color={pageName === 'ProfileScreen' ? (colors.white) :
+            pageName === 'HomeScreen' ? (colors.black) : (null)} />}
       </TouchableOpacity>
     </View>
   );
