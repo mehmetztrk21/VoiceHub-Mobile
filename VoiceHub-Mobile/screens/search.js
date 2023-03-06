@@ -68,7 +68,7 @@ export default function SearchScreen({ navigation, route }) {
         {focused == false ? (
           <View>
             {/* Get Users Posts */}
-            <RenderPost navigation={navigation} />
+            <RenderPost navigation={navigation} pageName={'HomeScreen'}/>
           </View>
         ) :
           <View>

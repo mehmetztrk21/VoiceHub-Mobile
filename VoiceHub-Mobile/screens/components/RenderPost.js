@@ -9,14 +9,15 @@ import PostActions from "./postActions";
 import PostTexts from "./postTexts";
 import colors from '../../assets/colors';
 
-const RenderPost = ({navigation, isSaved}) => {
+const RenderPost = ({navigation, pageName, isSaved}) => {
+
     return userPostData.map((item) => (
-        <View style={styles.container}>
-          <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} />
+        <View style={[styles.container]}>
+          <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} pageName={pageName}/>
           <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
-            <Post />
+            <Post pageName={pageName}/>
           </View>
-          <PostActions navigation={navigation} isSaved={isSaved}/>
+          <PostActions navigation={navigation} pageName={pageName} isSaved={isSaved}/>
         </View>
       ));
 }
