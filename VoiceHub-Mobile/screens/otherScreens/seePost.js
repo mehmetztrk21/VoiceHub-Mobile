@@ -54,7 +54,7 @@ export default function SeePost({ navigation, route }) {
                         <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
                             <Post />
                         </View>
-                        <PostActions navigation={navigation} isSaved={false} />
+                        <PostActions navigation={navigation} />
                     </View>
                 </View>
             </ScrollView>

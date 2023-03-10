@@ -64,9 +64,9 @@ export default StyleSheet.create({
     marginBottom: "2%",
     marginTop: "1%",
     paddingBottom: "2%",
-    marginLeft: "10%",
     borderBottomEndRadius:20,
     borderBottomStartRadius:20,
+    alignItems:"center"
   },
   editProfileAndFollow: {
     backgroundColor: colors.green,

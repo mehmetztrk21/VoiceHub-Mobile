@@ -6,18 +6,17 @@ import userPostData from "./userPostData";
 import PostUserInfo from "./postUserInfo";
 import Post from "./post";
 import PostActions from "./postActions";
-import PostTexts from "./postTexts";
 import colors from '../../assets/colors';
 
-const RenderPost = ({navigation, pageName, isSaved}) => {
+const RenderPost = ({navigation}) => {
 
     return userPostData.map((item) => (
         <View style={[styles.container]}>
-          <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} pageName={pageName}/>
+          <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName}/>
           <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
-            <Post pageName={pageName}/>
+            <Post/>
           </View>
-          <PostActions navigation={navigation} pageName={pageName} isSaved={isSaved}/>
+          <PostActions navigation={navigation}/>
         </View>
       ));
 }
@@ -25,7 +24,7 @@ const RenderPost = ({navigation, pageName, isSaved}) => {
 const styles = StyleSheet.create({
   container:{
     width:"90%",
-    backgroundColor:'rgba(255,255,255,0.3)',
+    backgroundColor:colors.white,
     marginHorizontal:"5%",
     shadowColor: '#333333',
     shadowOffset: {
