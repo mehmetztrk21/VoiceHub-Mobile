@@ -63,12 +63,12 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
           {isYourProfile ? (
-            <TouchableOpacity style={profileStyles.editProfileAndFollow}
+            <TouchableOpacity style={[profileStyles.editProfileAndFollow,{background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')'}]}
               onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
               <Text style={profileStyles.btnTextF}>Edit Profile</Text>
             </TouchableOpacity>
           ) :
-            <TouchableOpacity style={profileStyles.editProfileAndFollow}>
+            <TouchableOpacity style={[profileStyles.editProfileAndFollow,{background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')'}]}>
               <Text style={profileStyles.btnTextF}>Follow</Text>
             </TouchableOpacity>
           }

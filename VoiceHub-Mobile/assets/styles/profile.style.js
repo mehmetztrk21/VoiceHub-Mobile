@@ -69,7 +69,6 @@ export default StyleSheet.create({
     alignItems:"center"
   },
   editProfileAndFollow: {
-    backgroundColor: colors.green,
     borderRadius: 25,
     marginTop: "2%",
     marginBottom: "2%",
