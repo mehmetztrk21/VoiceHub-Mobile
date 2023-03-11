@@ -31,21 +31,27 @@ export default function postActions({ navigation }) {
   return (
     <View style={postActionsStyle.postActions}>
 
-      <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
-        {liked == true ? (
-          <View style={{flexDirection:"row",}}>
+
+      {liked == true ? (
+        <View style={{ flexDirection: "row", }}>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
             <Icon type="font-awesome" size={20} name={"heart"} color={colors.green} />
+          </TouchableOpacity>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={()=>navigation.navigate('SeeLikes',{title:'Likes'})}>
             <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.green }}>12087</Text>
-          </View>
-        ) :
-          <View style={{flexDirection:"row",}}>
+          </TouchableOpacity>
+        </View>
+      ) :
+        <View style={{ flexDirection: "row", }}>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
             <Icon type="font-awesome" size={20} name={"heart-o"} color={colors.black} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={()=>navigation.navigate('SeeLikes',{title:'Likes'})}>
             <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>12087</Text>
-          </View>
-        }
-
-
-      </TouchableOpacity>
+          </TouchableOpacity>
+        </View>
+      }
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push('OtherComments')}>
         <Icon type="font-awesome" size={20} name={"comment-o"} color={colors.black} />

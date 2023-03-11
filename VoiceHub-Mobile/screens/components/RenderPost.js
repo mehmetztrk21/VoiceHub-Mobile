@@ -8,7 +8,7 @@ import Post from "./post";
 import PostActions from "./postActions";
 import colors from '../../assets/colors';
 
-const RenderPost = ({navigation}) => {
+const RenderPost = ({navigation, posts}) => {
 
     return userPostData.map((item) => (
         <View style={[styles.container]}>

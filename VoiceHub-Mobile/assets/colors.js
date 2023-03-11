@@ -4,7 +4,9 @@ const colors = {
     black:"#000",
     gray:"#777777",
     white: "#FFF",
-    lightgray: "lightgray"
+    lightgray: "lightgray",
+    grad: 'linear-gradient(to right, ' + "#1DB954" + ', ' + '#006D5B' + ')'
+
 }
 
 export default colors;

@@ -1,5 +1,5 @@
 import user1 from "../../assets/userImages/user1.jpg"
-
+//bunu kopyala başka bir component oluştur. type: sender ve receiver ekle
 const userPostData = [
     {
       id: "1",
