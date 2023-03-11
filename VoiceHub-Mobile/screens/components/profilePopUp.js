@@ -11,7 +11,8 @@ const profilePopUp = ({navigation, bottomSize}) => {
     background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}>
       <Divider width={1} orientation='vertical' />
 
-      <TouchableOpacity style={profilePopUpStyle.container}>
+      <TouchableOpacity style={profilePopUpStyle.container}
+      onPress={()=>navigation.push('Options')}>
         <Icon type="font-awesome" size={"175%"} name={"cog"} style={profilePopUpStyle.icon} color={colors.white}/>
         <Text style={profilePopUpStyle.text}>Options</Text>
       </TouchableOpacity>

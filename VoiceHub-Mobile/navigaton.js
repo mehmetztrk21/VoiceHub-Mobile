@@ -19,7 +19,8 @@ import Saved from './screens/otherScreens/saved';
 import SeePost from './screens/otherScreens/seePost';
 import UserMessage from './screens/otherScreens/userMessage';
 import Upload from './screens/otherScreens/upload';
-import SeeLikes from "./screens/otherScreens/seeLikes"
+import SeeLikes from "./screens/otherScreens/seeLikes";
+import Options from "./screens/otherScreens/options";
 
 const Stack = createStackNavigator();
 
@@ -50,6 +51,7 @@ const SignedInStack = () => (
       <Stack.Screen name='FollowFollower' component={FollowFollower} />
       <Stack.Screen name='SeeLikes' component={SeeLikes} />
       <Stack.Screen name='Upload' component={Upload} />
+      <Stack.Screen name='Options' component={Options} />
     </Stack.Navigator>
   </NavigationContainer>
 )
