@@ -11,14 +11,14 @@ import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import ProfilePopUp from "./components/profilePopUp";
 import RenderPost from "./components/RenderPost";
-
-const userRealName = "Kaan Kayserili";
+const user = JSON.parse(localStorage.getItem("user"));
+const userRealName = user.name+" "+user.surname;
 export default function ProfileScreen({ navigation, route }) {
   const { uName, isYourProfile } = route.params;
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [visibleUpload, setVisibleUpload] = useState(false)
-
+  
   return (
     <SafeAreaView style={[profileStyles.container, { background: 'linear-gradient(to right,' + colors.green + ',' + colors.tealGreen + ')' }]}>
 
@@ -63,12 +63,12 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
           {isYourProfile ? (
-            <TouchableOpacity style={profileStyles.editProfileAndFollow}
+            <TouchableOpacity style={[profileStyles.editProfileAndFollow,{background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')'}]}
               onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
               <Text style={profileStyles.btnTextF}>Edit Profile</Text>
             </TouchableOpacity>
           ) :
-            <TouchableOpacity style={profileStyles.editProfileAndFollow}>
+            <TouchableOpacity style={[profileStyles.editProfileAndFollow,{background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')'}]}>
               <Text style={profileStyles.btnTextF}>Follow</Text>
             </TouchableOpacity>
           }
@@ -81,7 +81,7 @@ export default function ProfileScreen({ navigation, route }) {
         style={[profileStyles.scroll, visibleUpload == true ? (profileStyles.uploadMargin) : visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
       >
         <View style={[profileStyles.postView, { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}>
-          <RenderPost navigation={navigation} pageName={'ProfileScreen'}/>
+          <RenderPost navigation={navigation}/>
         </View>
       </ScrollView>
 

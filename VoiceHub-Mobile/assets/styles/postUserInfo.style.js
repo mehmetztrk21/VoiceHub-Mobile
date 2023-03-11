@@ -20,7 +20,8 @@ export default StyleSheet.create({
     },
     userName:{
         fontSize:16,
-        fontWeight:"750"
+        fontWeight:"750",
+        color:colors.black,
     },
     timeAgo:{
         fontSize:12.5,

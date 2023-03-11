@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Image, SafeAreaView, Text, TouchableOpacity } from 'react-native'
 import { Icon } from 'react-native-elements'
 import colors from '../../assets/colors'
-import recGif from '../../assets/images/rec.gif'
+import holoGif from '../../assets/images/holo.gif'
 import UploadStyle from '../../assets/styles/upload.style'
 import BottomTabs from '../components/BottomTabs'
 
@@ -18,7 +18,7 @@ const upload = ({ navigation, route }) => {
     return (
         <SafeAreaView style={[UploadStyle.container, { background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')', }]}>
             {/* SES KAYDEDERKEN ANIMASYON OLACAK */}
-            <Image source={recGif} style={{ width: 300, height:300, borderRadius: 150,}} />
+            <Image source={holoGif} style={{ width: 300, height:300, borderRadius: 150,}} />
 
             <Text style={{ textAlign: 'center', fontSize: 32, fontWeight: "900", color: colors.white }}>00:48:52</Text>
 

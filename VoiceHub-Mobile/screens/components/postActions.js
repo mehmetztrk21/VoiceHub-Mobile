@@ -5,7 +5,7 @@ import colors from "../../assets/colors";
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
-export default function postActions({ navigation, pageName }) {
+export default function postActions({ navigation }) {
 
   const [liked, setLiked] = useState(false)
   const [saved, setSaved] = useState(false)
@@ -31,36 +31,38 @@ export default function postActions({ navigation, pageName }) {
   return (
     <View style={postActionsStyle.postActions}>
 
-      <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
-        {liked == true ? (
-          <Icon type="font-awesome" size={20} name={"heart"} color={pageName === 'ProfileScreen' ? (colors.white) :
-            pageName === 'HomeScreen' ? (colors.black) : (null)} />
-        ) :
-          <Icon type="font-awesome" size={20} name={"heart-o"} color={pageName === 'ProfileScreen' ? (colors.white) :
-            pageName === 'HomeScreen' ? (colors.black) : (null)} />}
 
-        <Text style={[{ fontWeight: "700", marginLeft: 5, fontSize: 14 }, {
-          color: (pageName === 'ProfileScreen' ? (colors.white) :
-            pageName === 'HomeScreen' ? (colors.black) : (null))
-        }]}>12087</Text>
-      </TouchableOpacity>
+      {liked == true ? (
+        <View style={{ flexDirection: "row", }}>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
+            <Icon type="font-awesome" size={20} name={"heart"} color={colors.green} />
+          </TouchableOpacity>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={()=>navigation.navigate('SeeLikes',{title:'Likes'})}>
+            <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.green }}>12087</Text>
+          </TouchableOpacity>
+        </View>
+      ) :
+        <View style={{ flexDirection: "row", }}>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
+            <Icon type="font-awesome" size={20} name={"heart-o"} color={colors.black} />
+          </TouchableOpacity>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={()=>navigation.navigate('SeeLikes',{title:'Likes'})}>
+            <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>12087</Text>
+          </TouchableOpacity>
+        </View>
+      }
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push('OtherComments')}>
-        <Icon type="font-awesome" size={20} name={"comment-o"} color={pageName === 'ProfileScreen' ? (colors.white) :
-          pageName === 'HomeScreen' ? (colors.black) : (null)} />
-        <Text style={[{ fontWeight: "700", marginLeft: 5, fontSize: 14 }, {
-          color: (pageName === 'ProfileScreen' ? (colors.white) :
-            pageName === 'HomeScreen' ? (colors.black) : (null))
-        }]}>258</Text>
+        <Icon type="font-awesome" size={20} name={"comment-o"} color={colors.black} />
+        <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>258</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
         {saved == true ? (
-          <Icon type="font-awesome" size={20} name={"bookmark"} color={pageName === 'ProfileScreen' ? (colors.white) :
-            pageName === 'HomeScreen' ? (colors.black) : (null)} />
+          <Icon type="font-awesome" size={20} name={"bookmark"} color={colors.green} />
         ) :
-          <Icon type="font-awesome" size={20} name={"bookmark-o"} color={pageName === 'ProfileScreen' ? (colors.white) :
-            pageName === 'HomeScreen' ? (colors.black) : (null)} />}
+          <Icon type="font-awesome" size={20} name={"bookmark-o"} color={colors.black} />}
       </TouchableOpacity>
     </View>
   );

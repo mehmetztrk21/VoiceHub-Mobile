@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
 import loginStyle from "../../assets/styles/login.style";
-
+import { Login as LoginService } from "../../services/authServices";
 export default function Login({ navigation }) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
 
-    const isLogin = () => {
+    const isLogin = async () => {
+
         if (userName !== "" && password !== "") {
-            navigation.navigate('HomeScreen',{uName:userName, isYourProfile:true})
+            const result = await LoginService(userName, password);
+            if (result) navigation.navigate('HomeScreen', { uName: JSON.parse(localStorage.getItem('user')).username, isYourProfile: true })
+            else alert("Username or Password is wrong");
         }
-        else{
+        else {
             alert("don't empty inputs")
         }
     }

@@ -64,12 +64,11 @@ export default StyleSheet.create({
     marginBottom: "2%",
     marginTop: "1%",
     paddingBottom: "2%",
-    marginLeft: "10%",
     borderBottomEndRadius:20,
     borderBottomStartRadius:20,
+    alignItems:"center"
   },
   editProfileAndFollow: {
-    backgroundColor: colors.green,
     borderRadius: 25,
     marginTop: "2%",
     marginBottom: "2%",
@@ -84,7 +83,7 @@ export default StyleSheet.create({
 
 
   scroll: {
-    marginBottom: 60,
+    marginBottom: 65,
     width: "100%",
   },
   uploadMargin: {

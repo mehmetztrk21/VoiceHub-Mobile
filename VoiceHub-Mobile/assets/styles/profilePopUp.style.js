@@ -6,8 +6,8 @@ export default StyleSheet.create({
         position:"fixed",
         width:'100%',
         zIndex:999,
-        backgroundColor:colors.white,
-        bottom:0,
+        bottom:-5,
+        paddingBottom:7.5,
     },
         container:{
             flex:1,
@@ -17,13 +17,13 @@ export default StyleSheet.create({
             paddingLeft:"2.5%",
             height:70,
             paddingVertical:10,
-            borderBottomWidth:1.5,
-            borderBottomColor:colors.lightgray,
+            
         },
         text:{
             fontSize:15,
             fontWeight:"500",
-            marginLeft:"2%"
+            marginLeft:"2%",
+            color:colors.white,
         },
 
 })
