@@ -9,7 +9,6 @@ export default StyleSheet.create({
   pactions: {
     marginTop: 10,
     marginBottom: 10,
-    marginRight: 10,
     flexDirection:"row",
     alignItems:"center"
   }
