@@ -1,12 +1,13 @@
 import React from 'react';
 import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import editProfileStyle from "../../assets/styles/editProfile.style";
-
+import AddVoice from "../components/addVoice";
+import Post from "../components/post";
 import OtherHeader from '../components/otherHeader';
 
 export default function EditProfile({ navigation, route }) {
   const { RealName, uName, pic } = route.params;
-  const hasBio = false;
+  const hasBio = true;
   return (
     <SafeAreaView style={editProfileStyle.container}>
       <OtherHeader HeaderTitle='Edit Profile' navigation={navigation} />
@@ -19,7 +20,7 @@ export default function EditProfile({ navigation, route }) {
       </View>
 
       <View style={editProfileStyle.TextView}>
-        <View style={{marginBottom:"1%"}}>
+        <View style={{ marginBottom: "1%" }}>
           <Text style={editProfileStyle.label}>User Name</Text>
           <TextInput
             placeholder={uName}
@@ -35,14 +36,14 @@ export default function EditProfile({ navigation, route }) {
         </View>
       </View>
 
-      <View style={{alignItems:"center", marginTop:"2.5%"}}>
+      <View style={{ marginTop: "2.5%", marginHorizontal:"10%" }}>
         {hasBio ? (
-          <Slider />
+          <Post />
         ) :
-            <Text>You Don't have a biography</Text>
+          <Text>You Don't have a biography</Text>
         }
       </View>
-      <AddVoice navigation={navigation}/>
+      <AddVoice navigation={navigation} />
     </SafeAreaView>
   );
 }   
