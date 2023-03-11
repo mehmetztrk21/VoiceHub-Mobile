@@ -11,7 +11,7 @@ export default StyleSheet.create({
     },
     scroll:{
         marginTop:"40%",
-        marginBottom:50,
+        marginBottom:65,
     },
     animScroll:{
         marginBottom:120,
