@@ -4,6 +4,7 @@ import editProfileStyle from "../../assets/styles/editProfile.style";
 import AddVoice from "../components/addVoice";
 import Post from "../components/post";
 import OtherHeader from '../components/otherHeader';
+import colors from '../../assets/colors';
 
 export default function EditProfile({ navigation, route }) {
   const { RealName, uName, pic } = route.params;
@@ -43,6 +44,11 @@ export default function EditProfile({ navigation, route }) {
           <Text>You Don't have a biography</Text>
         }
       </View>
+
+        <TouchableOpacity>
+          <Text style={[editProfileStyle.saveButtonText,{background:colors.grad, textAlign:"center"}]}>Save</Text>
+        </TouchableOpacity>
+
       <AddVoice navigation={navigation} />
     </SafeAreaView>
   );

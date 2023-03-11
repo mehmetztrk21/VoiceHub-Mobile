@@ -33,6 +33,16 @@ export default StyleSheet.create({
         fontSize:16,
         fontWeight:"700"
       },
+      saveButtonText:{
+        color:color.white,
+        fontSize:26,
+        fontWeight:"750",
+        width:"40%",
+        padding:5,
+        marginLeft:"30%",
+        borderRadius:26,
+        marginTop:"10%"
+      },
       TextView:{
         marginTop:"2%"
       },
