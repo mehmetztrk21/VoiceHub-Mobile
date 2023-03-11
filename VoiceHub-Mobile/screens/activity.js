@@ -33,7 +33,10 @@ export default function ActivityScreen({ navigation, route }) {
                   <TouchableOpacity onPress={() => navigation.push('SeeProfile')}>
                     <Image source={item.userPic} style={activityStyles.userPic} />
                   </TouchableOpacity>
-                  <Text style={activityStyles.actText}>{item.userName} liked your Post.</Text>
+                  <View style={{flexDirection:"row", alignItems:"center"}}>
+                    <Text style={activityStyles.actText}>{item.userName} liked your Post.</Text>
+                    <Text style={activityStyles.date}>2h</Text>
+                  </View>
                 </TouchableOpacity>
               </View>
             )

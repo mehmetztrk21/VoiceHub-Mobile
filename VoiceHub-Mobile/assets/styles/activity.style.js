@@ -1,9 +1,10 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: colors.white,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -27,6 +28,12 @@ export default StyleSheet.create({
 
   actText: {
     fontSize: 14,
+  },
+  date:{
+    fontSize:12,
+    color:colors.gray,
+    marginLeft:5,
+    textAlignVertical:"center"
   },
   header: {
     flexDirection: "row",
