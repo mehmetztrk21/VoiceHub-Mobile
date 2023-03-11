@@ -45,7 +45,7 @@ export default function EditProfile({ navigation, route }) {
         }
       </View>
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=>navigation.goBack('ProfileScreen')}>
           <Text style={[editProfileStyle.saveButtonText,{background:colors.grad, textAlign:"center"}]}>Save</Text>
         </TouchableOpacity>
 
