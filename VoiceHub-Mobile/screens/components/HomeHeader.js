@@ -31,26 +31,6 @@ const HomeHeader = ({ navigation, pressLogo, uName, isYourProfile }) => {
 
         </View>
 
-        <View style={homeHeaderStyles.SecondRow}>
-          <TouchableOpacity>
-            <Text style={[homeHeaderStyles.SecondText,
-            { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}
-            >All</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity >
-            <Text style={[homeHeaderStyles.SecondText,
-            { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}
-            >Popular</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity>
-            <Text style={[homeHeaderStyles.SecondText,
-            { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}
-            >Friends</Text>
-          </TouchableOpacity>
-        </View>
-
       </View>
     </View>
   )
