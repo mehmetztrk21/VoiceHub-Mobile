@@ -11,13 +11,16 @@ import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import ProfilePopUp from "./components/profilePopUp";
 import RenderPost from "./components/RenderPost";
+import AreYouSure from "./components/areYouSure";
 const user = JSON.parse(localStorage.getItem("user"));
 const userRealName = user.name+" "+user.surname;
 export default function ProfileScreen({ navigation, route }) {
   const { uName, isYourProfile } = route.params;
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
-  const [visibleUpload, setVisibleUpload] = useState(false)
+  const [visibleUpload, setVisibleUpload] = useState(false)  
+  const [openAreYouSure, setOpenAreYouSure] = useState(false)  
+
   
   return (
     <SafeAreaView style={[profileStyles.container, { background: 'linear-gradient(to right,' + colors.green + ',' + colors.tealGreen + ')' }]}>
@@ -86,10 +89,12 @@ export default function ProfileScreen({ navigation, route }) {
       </ScrollView>
 
       {visiblePopUp == true ? (
-        <ProfilePopUp navigation={navigation} bottomSize={50} />
+        <ProfilePopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp}/>
       ) : visibleUpload == true ? (
         <AddVoice bottomSize={50} />
-      ) : null}
+      ) : openAreYouSure==true?(
+        <AreYouSure process={'LogOut'} navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure}/>
+      ): null}
 
       <BottomTabs navigation={navigation} userName={uName}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
