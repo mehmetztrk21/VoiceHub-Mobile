@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
-import { ScrollView, TouchableOpacity, View, TextInput, SafeAreaView } from "react-native";
-import colors from "../assets/colors"
-import RenderPost from "./components/RenderPost";
-import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
-import BottomTabs from "./components/BottomTabs";
-import SearchHeader from "./components/SearchHeader";
-import searchStyles from '../assets/styles/search.style';
+import { SafeAreaView, ScrollView, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
+import colors from "../assets/colors";
+import searchStyles from '../assets/styles/search.style';
+import BottomTabs from "./components/BottomTabs";
+import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
+import RenderPost from "./components/RenderPost";
+import SearchCategories from "./components/searchCategories";
+import SearchHeader from "./components/SearchHeader";
 
 export default function SearchScreen({ navigation, route }) {
   const { uName, isYourProfile } = route.params;
@@ -33,6 +34,8 @@ export default function SearchScreen({ navigation, route }) {
 
       <SearchHeader pressLogo={handleScrollToTop} />
 
+
+
       <View style={searchStyles.searchBarHolder}>
         {focused == true ? (
           <View style={{ flexDirection: "row" }}>
@@ -50,13 +53,18 @@ export default function SearchScreen({ navigation, route }) {
           </View>
 
         ) :
-          <TextInput
-            placeholder="Search"
-            style={[searchStyles.searchBar, searchStyles.widthChange2]}
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-            onFocus={() => setFocused(true)}
-          />
+          <View>
+            <TextInput
+              placeholder="Search"
+              style={[searchStyles.searchBar, searchStyles.widthChange2]}
+              onChangeText={onChangeSearch}
+              value={searchQuery}
+              onFocus={() => setFocused(true)}
+            />
+            <ScrollView horizontal={true}>
+              <SearchCategories />
+            </ScrollView>
+          </View>
         }
       </View>
 
@@ -68,7 +76,7 @@ export default function SearchScreen({ navigation, route }) {
         {focused == false ? (
           <View>
             {/* Get Users Posts */}
-            <RenderPost navigation={navigation}/>
+            <RenderPost navigation={navigation} />
           </View>
         ) :
           <View>
@@ -79,8 +87,8 @@ export default function SearchScreen({ navigation, route }) {
       </ScrollView>
       <BottomTabs navigation={navigation} userName={uName}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
-        pageName={"SearchScreen"} visibleUpload={visibleUpload} 
-        setVisibleUpload={setVisibleUpload}/>
+        pageName={"SearchScreen"} visibleUpload={visibleUpload}
+        setVisibleUpload={setVisibleUpload} />
     </SafeAreaView>
   );
 }

@@ -8,11 +8,11 @@ import Post from "./post";
 import PostActions from "./postActions";
 import colors from '../../assets/colors';
 
-const RenderPost = ({navigation, posts}) => {
+const RenderPost = ({navigation, HeaderTitle}) => {
 
     return userPostData.map((item) => (
         <View style={[styles.container]}>
-          <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName}/>
+          <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} HeaderTitle={HeaderTitle}/>
           <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
             <Post/>
           </View>

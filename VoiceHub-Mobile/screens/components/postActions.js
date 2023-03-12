@@ -38,7 +38,7 @@ export default function postActions({ navigation }) {
             <Icon type="font-awesome" size={20} name={"heart"} color={colors.green} />
           </TouchableOpacity>
           <TouchableOpacity style={postActionsStyle.pactions} onPress={()=>navigation.navigate('SeeLikes',{title:'Likes'})}>
-            <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.green }}>12087</Text>
+            <Text style={{ fontWeight: "700", fontSize: 14, marginLeft:5, color: colors.green }}>12087</Text>
           </TouchableOpacity>
         </View>
       ) :
@@ -48,7 +48,7 @@ export default function postActions({ navigation }) {
           </TouchableOpacity>
 
           <TouchableOpacity style={postActionsStyle.pactions} onPress={()=>navigation.navigate('SeeLikes',{title:'Likes'})}>
-            <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>12087</Text>
+            <Text style={{ fontWeight: "700", fontSize: 14, marginLeft:5, color: colors.black }}>12087</Text>
           </TouchableOpacity>
         </View>
       }

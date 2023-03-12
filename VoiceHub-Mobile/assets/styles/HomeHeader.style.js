@@ -18,16 +18,4 @@ export default StyleSheet.create({
         justifyContent:"space-between",
         alignItems:"center"
     },
-    SecondRow:{
-        flexDirection:"row",
-        justifyContent:"space-around"
-    },
-    SecondText:{
-        color:colors.white, 
-        fontWeight:"500", 
-        paddingHorizontal:30, 
-        paddingVertical:10, 
-        borderRadius:20, 
-        fontSize:16,
-    },
 })

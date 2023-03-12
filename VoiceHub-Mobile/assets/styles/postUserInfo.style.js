@@ -6,6 +6,8 @@ export default StyleSheet.create({
         flexDirection:"row",
         paddingVertical:"1%",
         marginHorizontal: "3%",
+        justifyContent:"space-between",
+        alignItems:"center"
     },
     clickUserPic:{
         flexDirection:'row',

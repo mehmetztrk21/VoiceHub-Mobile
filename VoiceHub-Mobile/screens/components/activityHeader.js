@@ -13,7 +13,7 @@ const activityHeader = ({navigation}) => {
         <Icon style={activityHeaderStyle.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
       </TouchableOpacity>
 
-      <Text style={activityHeaderStyle.headerName}>Activity</Text>
+      <Text style={activityHeaderStyle.headerName}>Notifications</Text>
       </View>
     </View>
   )
