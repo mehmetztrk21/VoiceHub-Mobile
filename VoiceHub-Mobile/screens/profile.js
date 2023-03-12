@@ -84,7 +84,7 @@ export default function ProfileScreen({ navigation, route }) {
         style={[profileStyles.scroll, visibleUpload == true ? (profileStyles.uploadMargin) : visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
       >
         <View style={[profileStyles.postView, { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}>
-          <RenderPost navigation={navigation}/>
+          <RenderPost navigation={navigation} HeaderTitle={'ProfileScreen'}/>
         </View>
       </ScrollView>
 

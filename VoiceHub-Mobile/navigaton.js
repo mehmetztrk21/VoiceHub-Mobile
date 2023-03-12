@@ -15,7 +15,7 @@ import Login from './screens/otherScreens/login';
 import Message from './screens/otherScreens/message';
 import OtherComments from './screens/otherScreens/otherComments';
 import Register from './screens/otherScreens/register';
-import Saved from './screens/otherScreens/saved';
+import SavedArchived from './screens/otherScreens/saved&archieves';
 import SeePost from './screens/otherScreens/seePost';
 import UserMessage from './screens/otherScreens/userMessage';
 import Upload from './screens/otherScreens/upload';
@@ -45,7 +45,7 @@ const SignedInStack = () => (
       <Stack.Screen name='Message' component={Message} />
       <Stack.Screen name='OtherComments' component={OtherComments} />
       <Stack.Screen name='Register' component={Register} />
-      <Stack.Screen name='Saved' component={Saved} />
+      <Stack.Screen name='SavedArchived' component={SavedArchived} />
       <Stack.Screen name='SeePost' component={SeePost} />
       <Stack.Screen name='UserMessage' component={UserMessage} />
       <Stack.Screen name='FollowFollower' component={FollowFollower} />
