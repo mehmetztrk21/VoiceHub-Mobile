@@ -42,7 +42,16 @@ export default function AddVoice({ bottomSize }) {
               source={recGif}
               style={{ width: 50, height: 50, borderRadius: 25 }} />
           ) : null}
-          <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60)) + ":" + (seconds % 60)}</Text>
+
+          {(Math.floor(seconds / 60)<10 && (seconds % 60)<10)?(
+            <Text style={addVoiceStyle.time}>0{(Math.floor(seconds / 60))+':0'+(seconds % 60)}</Text>
+          ):(Math.floor(seconds / 60)<10 && (seconds % 60)>=10)?(
+            <Text style={addVoiceStyle.time}>0{(Math.floor(seconds / 60))+':'+(seconds % 60)}</Text>
+          ):(Math.floor(seconds / 60)>=10 && (seconds % 60)>=10)?(
+            <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60))+':'+(seconds % 60)}</Text>
+          ):(Math.floor(seconds / 60)>=10 && (seconds % 60)<10)?(
+            <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60))+':0'+(seconds % 60)}</Text>
+          ):null}
           {isRunning == true ? (
             <Image
               source={waweGif}
