@@ -1,20 +1,32 @@
 import React from 'react';
-import { View, Text, } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 
-import userMessageItemStyle from "../../assets/styles/userMessageItem.style";
-
-import PostUserInfo from "../../screens/components/postUserInfo";
+import { Dimensions } from "react-native";
+import colors from '../../assets/colors';
 import Post from "../../screens/components/post";
 
-export default function UserMessageItem({navigation, userName, userPic}) {
+const { width } = Dimensions.get('window');
+
+export default function UserMessageItem({ navigation, userName, userPic, who }) {
 
   return (
-    <View style={userMessageItemStyle.container}>
-      <PostUserInfo navigation={navigation} userName={userName} userPic={userPic}/>
-      <View style={{ paddingLeft: '10%', paddingRight: '2.5%' }}>
+    <View style={{ flexDirection: 'row' }}>
+
+      {who=='receiver'?(
+        <TouchableOpacity
+          onPress={() => navigation.navigate('SeeProfile', { uName: userName })}>
+          <Image source={userPic}
+            style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0675 }} />
+        </TouchableOpacity>
+      ):null}
+
+      <View style={[{
+        width: width * 0.5, paddingLeft: width * 0.03,
+        backgroundColor: colors.white, borderRadius: width * 0.0625, marginLeft: width * 0.03
+      },who=='sender'?{marginLeft:width*0.44}:null]}>
         <Post />
       </View>
-      <Text style={userMessageItemStyle.time}>19:05</Text>
+      
     </View>
   );
 }

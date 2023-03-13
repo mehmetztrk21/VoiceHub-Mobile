@@ -2,31 +2,36 @@ import React, { useState } from "react";
 import {
   Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from "react-native";
+
 import admin from "../assets/userImages/admin.jpg";
 
 import colors from "../assets/colors";
 import profileStyles from '../assets/styles/profile.style';
+
+import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
+import EditPostPopUp from "./components/editPostPopUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import ProfilePopUp from "./components/profilePopUp";
 import RenderPost from "./components/RenderPost";
-import AreYouSure from "./components/areYouSure";
+
 const user = JSON.parse(localStorage.getItem("user"));
-const userRealName = user.name+" "+user.surname;
+const userRealName = user.name + " " + user.surname;
+
 export default function ProfileScreen({ navigation, route }) {
-  const { uName, isYourProfile } = route.params;
+  const { uName, isVerified } = route.params;
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
-  const [visibleUpload, setVisibleUpload] = useState(false)  
-  const [openAreYouSure, setOpenAreYouSure] = useState(false)  
+  const [visibleUpload, setVisibleUpload] = useState(false)
+  const [openAreYouSure, setOpenAreYouSure] = useState(false)
+  const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false)
 
-  
   return (
     <SafeAreaView style={[profileStyles.container, { background: 'linear-gradient(to right,' + colors.green + ',' + colors.tealGreen + ')' }]}>
 
       <ProfileHeader navigation={navigation} uName={uName}
-        isVerified={true} isYourProfile={isYourProfile}
+        isVerified={true}
         visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
 
@@ -65,16 +70,11 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
-          {isYourProfile ? (
-            <TouchableOpacity style={[profileStyles.editProfileAndFollow,{background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')'}]}
-              onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
-              <Text style={profileStyles.btnTextF}>Edit Profile</Text>
-            </TouchableOpacity>
-          ) :
-            <TouchableOpacity style={[profileStyles.editProfileAndFollow,{background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')'}]}>
-              <Text style={profileStyles.btnTextF}>Follow</Text>
-            </TouchableOpacity>
-          }
+          <TouchableOpacity style={[profileStyles.editProfileAndFollow, { background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')' }]}
+            onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
+            <Text style={profileStyles.btnTextF}>Edit Profile</Text>
+          </TouchableOpacity>
+
         </View>
       </View>
 
@@ -84,22 +84,21 @@ export default function ProfileScreen({ navigation, route }) {
         style={[profileStyles.scroll, visibleUpload == true ? (profileStyles.uploadMargin) : visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
       >
         <View style={[profileStyles.postView, { background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')' }]}>
-          <RenderPost navigation={navigation} HeaderTitle={'ProfileScreen'}/>
+          <RenderPost navigation={navigation} HeaderTitle={'ProfileScreen'} setOpenEditPostPopUp={setOpenEditPostPopUp} />
         </View>
       </ScrollView>
 
       {visiblePopUp == true ? (
-        <ProfilePopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp}/>
+        <ProfilePopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
       ) : visibleUpload == true ? (
         <AddVoice bottomSize={50} />
-      ) : openAreYouSure==true?(
-        <AreYouSure process={'LogOut'} navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure}/>
-      ): null}
+      ) : openAreYouSure == true ? (
+        <AreYouSure process={'LogOut'} navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} />
+      ) : openEditPostPopUp == true ? (
+        <EditPostPopUp bottomSize={50} />
+      ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName}
-        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
-        pageName={"ProfileScreen"} visibleUpload={visibleUpload}
-        setVisibleUpload={setVisibleUpload} />
+      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} pageName={"ProfileScreen"}/>
     </SafeAreaView>
   );
 }

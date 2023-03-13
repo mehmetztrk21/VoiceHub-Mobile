@@ -11,7 +11,7 @@ import homeStyles from '../assets/styles/home.style';
 import { PostsList } from "../services/postServices";
 
 export default function HomeScreen({ navigation, route }) {
-  const { uName, isYourProfile } = route.params;
+  const { uName } = route.params;
   const [posts, setPosts] =useState([]);
   const [visiblePopUp, setVisiblePopUp] = useState(false)
 
@@ -36,7 +36,7 @@ export default function HomeScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={homeStyles.container}>
-      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} uName={uName} isYourProfile={true} />
+      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} uName={uName} />
 
       <ScrollView style={homeStyles.scroll} ref={scrollViewRef}>
         {/* User Posts */}

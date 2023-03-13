@@ -15,11 +15,12 @@ import Login from './screens/otherScreens/login';
 import Message from './screens/otherScreens/message';
 import OtherComments from './screens/otherScreens/otherComments';
 import Register from './screens/otherScreens/register';
-import SavedArchived from './screens/otherScreens/saved&archieves';
+import SavedArchived from './screens/otherScreens/saved&archives';
 import SeePost from './screens/otherScreens/seePost';
 import UserMessage from './screens/otherScreens/userMessage';
 import Upload from './screens/otherScreens/upload';
 import SeeLikes from "./screens/otherScreens/seeLikes";
+import SeeProfile from "./screens/otherScreens/seeProfile";
 import Options from "./screens/otherScreens/options";
 
 const Stack = createStackNavigator();
@@ -52,6 +53,7 @@ const SignedInStack = () => (
       <Stack.Screen name='SeeLikes' component={SeeLikes} />
       <Stack.Screen name='Upload' component={Upload} />
       <Stack.Screen name='Options' component={Options} />
+      <Stack.Screen name='SeeProfile' component={SeeProfile} />
     </Stack.Navigator>
   </NavigationContainer>
 )

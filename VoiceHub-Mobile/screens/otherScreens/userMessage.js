@@ -1,10 +1,10 @@
 import React from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { SafeAreaView, ScrollView, View } from 'react-native';
 
 import userMessageStyle from "../../assets/styles/userMessage.style";
 import AddVoice from '../components/addVoice';
 
-import Comment from "../components/comment";
+import UserMessageItem from "../components/userMessageItem";
 import OtherHeader from '../components/otherHeader';
 import userPostData from '../components/userPostData';
 
@@ -18,7 +18,9 @@ export default function UserMessage({navigation, route}) {
         {
           userPostData.map((item)=>{
             return(
-              <Comment navigation={navigation} userName={item.userName} userPic={item.userPic}/>
+              <View style={{marginBottom:20}}>
+                <UserMessageItem navigation={navigation} userName={item.userName} userPic={item.userPic} who={item.type}/>
+              </View>
             )
           })
         }

@@ -57,10 +57,10 @@ const Post = ({navigation}) => {
       <TouchableOpacity style={postStyle.playButton} onPress={isPlaying ? pauseSound : playSound}>
         {
           isPlaying ? (
-            <Icon type="feather" size={"175%"} name={"pause"} 
+            <Icon type="feather" size={28} name={"pause"} 
             color={colors.black}/>
           ) :
-            <Icon type="feather" size={"175%"} name={"play"} 
+            <Icon type="feather" size={28} name={"play"} 
             color={colors.black}/>
         }
       </TouchableOpacity>

@@ -9,10 +9,10 @@ export default StyleSheet.create({
   },
 
   searchBarHolder: {
-    marginTop:60,
+    marginTop:65,
     width: "100%",
-    height: 80,
     justifyContent: "center",
+    paddingVertical:20,
   },
 
   searchBar: {
@@ -38,4 +38,13 @@ export default StyleSheet.create({
     justifyContent:"center",
     marginLeft:"1%"
   },
+  SecondText:{
+    color:colors.white, 
+    fontWeight:"500", 
+    paddingVertical:10, 
+    borderRadius:20, 
+    fontSize:16,
+    textAlign:"center",
+    
+},
 });

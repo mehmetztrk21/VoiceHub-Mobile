@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { Divider, Icon } from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 
 import recGif from "../../assets/images/rec.gif";
 import waweGif from "../../assets/images/record.gif";
@@ -34,7 +34,6 @@ export default function AddVoice({ bottomSize }) {
 
   return (
     <View style={[addVoiceStyle.wrapper, { marginBottom: bottomSize }]}>
-      <Divider width={1} orientation='vertical' />
 
       <View style={addVoiceStyle.container}>
         <View style={addVoiceStyle.content}>
@@ -42,13 +41,22 @@ export default function AddVoice({ bottomSize }) {
             <Image
               source={recGif}
               style={{ width: 50, height: 50, borderRadius: 25 }} />
-          ) :null}
-          <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60)) + ":" + (seconds % 60)}</Text>
+          ) : null}
+
+          {(Math.floor(seconds / 60)<10 && (seconds % 60)<10)?(
+            <Text style={addVoiceStyle.time}>0{(Math.floor(seconds / 60))+':0'+(seconds % 60)}</Text>
+          ):(Math.floor(seconds / 60)<10 && (seconds % 60)>=10)?(
+            <Text style={addVoiceStyle.time}>0{(Math.floor(seconds / 60))+':'+(seconds % 60)}</Text>
+          ):(Math.floor(seconds / 60)>=10 && (seconds % 60)>=10)?(
+            <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60))+':'+(seconds % 60)}</Text>
+          ):(Math.floor(seconds / 60)>=10 && (seconds % 60)<10)?(
+            <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60))+':0'+(seconds % 60)}</Text>
+          ):null}
           {isRunning == true ? (
             <Image
               source={waweGif}
               style={{ width: 50, height: 50, borderRadius: 25 }} />
-          ) :null}
+          ) : null}
         </View>
 
         <TouchableOpacity style={addVoiceStyle.touch}
