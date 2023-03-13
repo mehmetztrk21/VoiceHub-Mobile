@@ -15,7 +15,7 @@ import Login from './screens/otherScreens/login';
 import Message from './screens/otherScreens/message';
 import OtherComments from './screens/otherScreens/otherComments';
 import Register from './screens/otherScreens/register';
-import SavedArchived from './screens/otherScreens/saved&archieves';
+import SavedArchived from './screens/otherScreens/saved&archives';
 import SeePost from './screens/otherScreens/seePost';
 import UserMessage from './screens/otherScreens/userMessage';
 import Upload from './screens/otherScreens/upload';

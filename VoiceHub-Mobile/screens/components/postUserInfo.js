@@ -3,7 +3,8 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 
-export default function PostUserInfo({ navigation, userPic, userName, HeaderTitle }) {
+export default function PostUserInfo(
+    { navigation, userPic, userName, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp }) {
     return (
         <View style={postUserInfoStyle.postUser}>
 
@@ -13,14 +14,18 @@ export default function PostUserInfo({ navigation, userPic, userName, HeaderTitl
 
                 <View style={{ flexDirection: "column" }}>
                     <Text style={postUserInfoStyle.userName}>{userName}</Text>
-                    <Text style={postUserInfoStyle.timeAgo}>20 minutes ago</Text>
+                    <Text style={postUserInfoStyle.timeAgo}>20min</Text>
                 </View>
 
             </TouchableOpacity>
 
-            <View style={{marginRight:16}}>
-                {HeaderTitle == 'ProfileScreen' || HeaderTitle == 'Saved' || HeaderTitle == 'Archived' ? (
-                    <TouchableOpacity onPress={() => console.log('popup açıldı')}>
+            <View style={{ marginRight: 16 }}>
+                {HeaderTitle == 'ProfileScreen' ? (
+                    <TouchableOpacity onPress={() => { setOpenEditPostPopUp(prev=>!prev) }}>
+                        <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
+                    </TouchableOpacity>
+                ) : HeaderTitle == 'Archived' ? (
+                    <TouchableOpacity onPress={() => { setOpenArchivePopUp(prev=>!prev) }}>
                         <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
                     </TouchableOpacity>
                 ) : null}

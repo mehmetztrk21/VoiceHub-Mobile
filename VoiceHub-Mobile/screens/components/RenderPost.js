@@ -8,15 +8,23 @@ import Post from "./post";
 import PostActions from "./postActions";
 import colors from '../../assets/colors';
 
-const RenderPost = ({navigation, HeaderTitle}) => {
+const RenderPost = ({navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp}) => {
 
     return userPostData.map((item) => (
         <View style={[styles.container]}>
-          <PostUserInfo navigation={navigation} userPic={item.userPic} userName={item.userName} HeaderTitle={HeaderTitle}/>
+
+          <PostUserInfo 
+          navigation={navigation} userPic={item.userPic} 
+          userName={item.userName} HeaderTitle={HeaderTitle}
+          setOpenArchivePopUp={setOpenArchivePopUp}
+          setOpenEditPostPopUp={setOpenEditPostPopUp}/>
+
           <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
             <Post/>
           </View>
+
           <PostActions navigation={navigation}/>
+
         </View>
       ));
 }

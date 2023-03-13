@@ -20,7 +20,7 @@ const areYouSure = ({ process, navigation, bottomSize, setOpenAreYouSure }) => {
     }
 
     return (
-        <View style={[areYouSureStyle.container,{marginBottom:bottomSize, background: 'linear-gradient(to right, ' + colors.green + ', ' + colors.tealGreen + ')',}]}>
+        <View style={[areYouSureStyle.container,{marginBottom:bottomSize, background: colors.grad}]}>
             <Text style={areYouSureStyle.title}>Are you sure?</Text>
 
             <TouchableOpacity onPress={() => Operation(true)}>
