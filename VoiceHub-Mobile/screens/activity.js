@@ -7,7 +7,7 @@ import {
 
 import activityStyles from "../assets/styles/activity.style";
 
-import ActivityHeader from "./components/activityHeader";
+import OtherHeader from "./components/otherHeader";
 
 import userPostData from "./components/userPostData";
 
@@ -16,7 +16,7 @@ export default function ActivityScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={activityStyles.container}>
-      <ActivityHeader navigation={navigation} />
+      <OtherHeader navigation={navigation} HeaderTitle={'Notifications'}/>
       <ScrollView style={activityStyles.sContainer}>
         {
           userPostData.map((item) => {
