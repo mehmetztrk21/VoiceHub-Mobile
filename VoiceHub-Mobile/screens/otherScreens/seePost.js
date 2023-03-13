@@ -29,6 +29,9 @@ export default function SeePost({ navigation, route }) {
                     <Post />
                 </View>
 
+                <Text style={{paddingVertical: '3.5%', fontSize:12, fontWeight:"500", color:colors.gray, textAlign:'center'}}
+                >#poem #sports #motivation</Text>
+
                 <PostActions navigation={navigation}/>
             </View>
 
