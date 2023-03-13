@@ -6,13 +6,19 @@ import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 const user = JSON.parse(localStorage.getItem("user"));
 
 export default function PostUserInfo(
-    { navigation, userPic, userName, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp }) {
+    { navigation, userPic, userName, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, visible }) {
     return (
         <View style={postUserInfoStyle.postUser}>
 
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
-                onPress={() => {if(userName==user.username){navigation.navigate('ProfileScreen',{uName:userName, isVerified:true});}
-                else{navigation.navigate('SeeProfile',{uName:userName, isVerified:true});}}}>
+                onPress={() => {
+                    if (userName == user.username) {
+                        navigation.navigate('ProfileScreen', { uName: userName, isVerified: true });
+                    }
+                    else {
+                        navigation.navigate('SeeProfile', { uName: userName, isVerified: true, visible: visible });
+                    }
+                }}>
                 <Image style={postUserInfoStyle.userpostImg} source={userPic} />
 
                 <View style={{ flexDirection: "column" }}>
@@ -24,11 +30,11 @@ export default function PostUserInfo(
 
             <View style={{ marginRight: 16 }}>
                 {HeaderTitle == 'ProfileScreen' ? (
-                    <TouchableOpacity onPress={() => { setOpenEditPostPopUp(prev=>!prev) }}>
+                    <TouchableOpacity onPress={() => { setOpenEditPostPopUp(prev => !prev) }}>
                         <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == 'Archived' ? (
-                    <TouchableOpacity onPress={() => { setOpenArchivePopUp(prev=>!prev) }}>
+                    <TouchableOpacity onPress={() => { setOpenArchivePopUp(prev => !prev) }}>
                         <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
                     </TouchableOpacity>
                 ) : null}

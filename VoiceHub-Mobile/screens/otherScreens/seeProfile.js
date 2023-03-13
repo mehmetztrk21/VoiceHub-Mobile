@@ -10,9 +10,8 @@ import seeProfileStyles from '../../assets/styles/seeProfile.style';
 
 import { Icon } from "react-native-elements";
 import AreYouSure from "../components/areYouSure";
-import EditPostPopUp from "../components/editPostPopUp";
+import DontShowPosts from "../components/DontShowPosts";
 import Post from "../components/post";
-import ProfilePopUp from "../components/profilePopUp";
 import RenderPost from "../components/RenderPost";
 
 import verfy from "../../assets/ver.png";
@@ -21,8 +20,8 @@ const user = JSON.parse(localStorage.getItem("user"));
 const userRealName = user.name + " " + user.surname;
 
 export default function seeProfile({ navigation, route }) {
-    const { uName, isVerified, isYourProfile } = route.params;
-    
+    const { uName, isVerified, visible } = route.params;
+
     const [openAreYouSure, setOpenAreYouSure] = useState(false)
 
     return (
@@ -40,7 +39,7 @@ export default function seeProfile({ navigation, route }) {
                 ) : null}
             </View>
 
-            <View style={{ width: "100%", borderBottomStartRadius: 40, borderBottomEndRadius: 40, backgroundColor: colors.white}}>
+            <View style={{ width: "100%", borderBottomStartRadius: 40, borderBottomEndRadius: 40, backgroundColor: colors.white }}>
 
                 {/* PP, Follow Count,  */}
                 <View style={seeProfileStyles.actView}>
@@ -87,7 +86,11 @@ export default function seeProfile({ navigation, route }) {
                 style={seeProfileStyles.scroll}
             >
                 <View style={[seeProfileStyles.postView, { background: colors.grad }]}>
-                    <RenderPost navigation={navigation} HeaderTitle={'OtherProfiles'} />
+                    {visible == true ? (
+                        <RenderPost navigation={navigation} HeaderTitle={'OtherProfiles'} />
+                    ) :
+                        <DontShowPosts />
+                    }
                 </View>
             </ScrollView>
 

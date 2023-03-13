@@ -17,7 +17,8 @@ const RenderPost = ({navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchi
           navigation={navigation} userPic={item.userPic} 
           userName={item.userName} HeaderTitle={HeaderTitle}
           setOpenArchivePopUp={setOpenArchivePopUp}
-          setOpenEditPostPopUp={setOpenEditPostPopUp}/>
+          setOpenEditPostPopUp={setOpenEditPostPopUp}
+          visible={item.visible}/>
 
           <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
             <Post/>
