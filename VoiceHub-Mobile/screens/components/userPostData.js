@@ -15,7 +15,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "155",
       caption: "Nothings is better than reading book !",
-      type:'reciever',
+      type:'receiver',
       visible:true
     },
     {
@@ -33,7 +33,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "7555",
       caption: "Coffee is the most imp part of my life !",
-      type:'reciever',
+      type:'receiver',
       visible:true
     },
     {
@@ -42,7 +42,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "93578",
       caption: "car",
-      type:'reciever',
+      type:'receiver',
       visible:true
     },
     {
@@ -69,7 +69,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "2723",
       caption: "kaan",
-      type:'reciever',
+      type:'receiver',
       visible:false
     },
     {
@@ -78,7 +78,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "66855",
       caption: "This app is made by Suyash.",
-      type:'reciever',
+      type:'receiver',
       visible:true
     },
     {
@@ -87,7 +87,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "1451",
       caption: "Coffee is the most imp part of my life !",
-      type:'reciever',
+      type:'receiver',
       visible:true
     },
     {
@@ -114,7 +114,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "7555",
       caption: "Coffee is the most imp part of my life !",
-      type:'reciever',
+      type:'receiver',
       visible:false
     },
     {
@@ -123,7 +123,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "93578",
       caption: "car",
-      type:'reciever',
+      type:'receiver',
       visible:false
     },
     {
@@ -141,7 +141,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "4858",
       caption: "Flowers",
-      type:'reciever',
+      type:'receiver',
       visible:false
     },
     {
@@ -159,7 +159,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "66855",
       caption: "This app is made by Suyash.",
-      type:'reciever',
+      type:'receiver',
       visible:false
     },
     {
@@ -168,7 +168,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "1451",
       caption: "Coffee is the most imp part of my life !",
-      type:'reciever',
+      type:'receiver',
       visible:false
     },
     {
@@ -186,7 +186,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "77",
       caption: "Waiting for someone to come back !",
-      type:'reciever',
+      type:'receiver',
       visible:true
     },
     {
@@ -195,7 +195,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "7555",
       caption: "Coffee is the most imp part of my life !",
-      type:'reciever',
+      type:'receiver',
       visible:false
     },
     {
@@ -213,7 +213,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "5265",
       caption: "rose",
-      type:'reciever',
+      type:'receiver',
       visible:true
     },
     {
@@ -240,7 +240,7 @@ const userPostData = [
       userPic: user1,
       likesCount: "66855",
       caption: "This app is made by Suyash.",
-      type:'reciever',
+      type:'receiver',
       visible:true
     },
   ];

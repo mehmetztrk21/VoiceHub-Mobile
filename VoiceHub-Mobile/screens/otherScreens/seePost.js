@@ -13,7 +13,7 @@ import userPostData from '../components/userPostData';
 
 /* HALF SCREEN, CONTINUE THIS PAGE */
 export default function SeePost({ navigation, route }) {
-    const { uName, isYourProfile } = route.params;
+    const { uName } = route.params;
 
     return (
         <SafeAreaView style={[seePostStyle.container, { background: colors.grad }]}>
