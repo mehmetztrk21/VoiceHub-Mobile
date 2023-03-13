@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import {
   Image, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from "react-native";
+
 import admin from "../assets/userImages/admin.jpg";
 
 import colors from "../assets/colors";
 import profileStyles from '../assets/styles/profile.style';
+
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import EditPostPopUp from "./components/editPostPopUp";
@@ -18,7 +20,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 const userRealName = user.name + " " + user.surname;
 
 export default function ProfileScreen({ navigation, route }) {
-  const { uName, isYourProfile } = route.params;
+  const { uName, isVerified } = route.params;
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [visibleUpload, setVisibleUpload] = useState(false)
@@ -29,7 +31,7 @@ export default function ProfileScreen({ navigation, route }) {
     <SafeAreaView style={[profileStyles.container, { background: 'linear-gradient(to right,' + colors.green + ',' + colors.tealGreen + ')' }]}>
 
       <ProfileHeader navigation={navigation} uName={uName}
-        isVerified={true} isYourProfile={isYourProfile}
+        isVerified={true}
         visibleUpload={visibleUpload} setVisibleUpload={setVisibleUpload}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
 
@@ -68,16 +70,11 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
-          {isYourProfile ? (
-            <TouchableOpacity style={[profileStyles.editProfileAndFollow, { background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')' }]}
-              onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
-              <Text style={profileStyles.btnTextF}>Edit Profile</Text>
-            </TouchableOpacity>
-          ) :
-            <TouchableOpacity style={[profileStyles.editProfileAndFollow, { background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')' }]}>
-              <Text style={profileStyles.btnTextF}>Follow</Text>
-            </TouchableOpacity>
-          }
+          <TouchableOpacity style={[profileStyles.editProfileAndFollow, { background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')' }]}
+            onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
+            <Text style={profileStyles.btnTextF}>Edit Profile</Text>
+          </TouchableOpacity>
+
         </View>
       </View>
 
@@ -101,10 +98,7 @@ export default function ProfileScreen({ navigation, route }) {
         <EditPostPopUp bottomSize={50} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName}
-        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
-        pageName={"ProfileScreen"} visibleUpload={visibleUpload}
-        setVisibleUpload={setVisibleUpload} />
+      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} pageName={"ProfileScreen"}/>
     </SafeAreaView>
   );
 }

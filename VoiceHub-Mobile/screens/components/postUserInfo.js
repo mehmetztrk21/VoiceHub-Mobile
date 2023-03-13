@@ -3,13 +3,16 @@ import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 
+const user = JSON.parse(localStorage.getItem("user"));
+
 export default function PostUserInfo(
     { navigation, userPic, userName, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp }) {
     return (
         <View style={postUserInfoStyle.postUser}>
 
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
-                onPress={() => navigation.navigate('ProfileScreen', { uName: userName, isYourProfile: false })}>
+                onPress={() => {if(userName==user.username){navigation.navigate('ProfileScreen',{uName:userName, isVerified:true});}
+                else{navigation.navigate('SeeProfile',{uName:userName, isVerified:true});}}}>
                 <Image style={postUserInfoStyle.userpostImg} source={userPic} />
 
                 <View style={{ flexDirection: "column" }}>

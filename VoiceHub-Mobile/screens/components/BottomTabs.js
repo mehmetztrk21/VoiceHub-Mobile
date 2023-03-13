@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements'
 import colors from '../../assets/colors'
 import bottomTabsStyle from '../../assets/styles/bottomTabs.style'
 
-const BottomTabs = ({ navigation, userName, visiblePopUp, setVisiblePopUp, pageName }) => {
+const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
 
   const [isSelected,setIsSelected]=useState("HomeScreen")
 
@@ -14,7 +14,7 @@ const BottomTabs = ({ navigation, userName, visiblePopUp, setVisiblePopUp, pageN
     }
     else{
       setVisiblePopUp(false)
-      navigation.navigate(page, { uName: userName, isYourProfile: true })
+      navigation.navigate(page, { uName: userName })
     }
     
   }

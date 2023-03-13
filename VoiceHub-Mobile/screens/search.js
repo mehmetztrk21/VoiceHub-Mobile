@@ -10,7 +10,7 @@ import SearchCategories from "./components/searchCategories";
 import SearchHeader from "./components/SearchHeader";
 
 export default function SearchScreen({ navigation, route }) {
-  const { uName, isYourProfile } = route.params;
+  const { uName } = route.params;
 
   const [focused, setFocused] = useState(false);
 
