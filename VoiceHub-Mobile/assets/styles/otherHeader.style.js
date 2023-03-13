@@ -15,10 +15,10 @@ export default StyleSheet.create({
         flexDirection: "row",
         borderBottomEndRadius:20,
         borderbottomStartRadius:20,
+        paddingLeft:10,
     },
     BackButton: {
         paddingTop: 15,
-        marginLeft: 8,
     },
     headerName: {
         fontSize: 24,
