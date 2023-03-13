@@ -16,9 +16,9 @@ export default StyleSheet.create({
     },
     userName:{
         fontSize:14.5,
+        fontWeight:"800"
     },
     date:{
-        textAlign:"right",
-        paddingRight:'2%',
+        paddingLeft:5
     }
 });
