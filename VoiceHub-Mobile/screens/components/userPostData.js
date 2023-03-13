@@ -6,6 +6,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "1451",
       caption: "Coffee is the most imp part of my life !",
+      type:'sender',
+      visible:true
     },
     {
       id: "2",
@@ -13,6 +15,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "155",
       caption: "Nothings is better than reading book !",
+      type:'reciever',
+      visible:true
     },
     {
       id: "3",
@@ -20,6 +24,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "77",
       caption: "Waiting for someone to come back !",
+      type:'sender',
+      visible:false
     },
     {
       id: "4",
@@ -27,6 +33,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "7555",
       caption: "Coffee is the most imp part of my life !",
+      type:'reciever',
+      visible:true
     },
     {
       id: "5",
@@ -34,6 +42,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "93578",
       caption: "car",
+      type:'reciever',
+      visible:true
     },
     {
       id: "6",
@@ -41,6 +51,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "5265",
       caption: "rose",
+      type:'sender',
+      visible:false
     },
     {
       id: "7",
@@ -48,6 +60,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "4858",
       caption: "Flowers",
+      type:'sender',
+      visible:false
     },
     {
       id: "8",
@@ -55,6 +69,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "2723",
       caption: "kaan",
+      type:'reciever',
+      visible:false
     },
     {
       id: "9",
@@ -62,6 +78,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "66855",
       caption: "This app is made by Suyash.",
+      type:'reciever',
+      visible:true
     },
     {
       id: "1",
@@ -69,6 +87,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "1451",
       caption: "Coffee is the most imp part of my life !",
+      type:'reciever',
+      visible:true
     },
     {
       id: "2",
@@ -76,6 +96,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "155",
       caption: "Nothings is better than reading book !",
+      type:'sender',
+      visible:false
     },
     {
       id: "3",
@@ -83,6 +105,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "77",
       caption: "Waiting for someone to come back !",
+      type:'sender',
+      visible:true
     },
     {
       id: "4",
@@ -90,6 +114,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "7555",
       caption: "Coffee is the most imp part of my life !",
+      type:'reciever',
+      visible:false
     },
     {
       id: "5",
@@ -97,6 +123,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "93578",
       caption: "car",
+      type:'reciever',
+      visible:false
     },
     {
       id: "6",
@@ -104,6 +132,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "5265",
       caption: "rose",
+      type:'sender',
+      visible:true
     },
     {
       id: "7",
@@ -111,6 +141,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "4858",
       caption: "Flowers",
+      type:'reciever',
+      visible:false
     },
     {
       id: "8",
@@ -118,6 +150,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "2723",
       caption: "kaan",
+      type:'sender',
+      visible:true
     },
     {
       id: "9",
@@ -125,6 +159,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "66855",
       caption: "This app is made by Suyash.",
+      type:'reciever',
+      visible:false
     },
     {
       id: "1",
@@ -132,6 +168,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "1451",
       caption: "Coffee is the most imp part of my life !",
+      type:'reciever',
+      visible:false
     },
     {
       id: "2",
@@ -139,6 +177,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "155",
       caption: "Nothings is better than reading book !",
+      type:'sender',
+      visible:true
     },
     {
       id: "3",
@@ -146,6 +186,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "77",
       caption: "Waiting for someone to come back !",
+      type:'reciever',
+      visible:true
     },
     {
       id: "4",
@@ -153,6 +195,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "7555",
       caption: "Coffee is the most imp part of my life !",
+      type:'reciever',
+      visible:false
     },
     {
       id: "5",
@@ -160,6 +204,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "93578",
       caption: "car",
+      type:'sender',
+      visible:true
     },
     {
       id: "6",
@@ -167,6 +213,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "5265",
       caption: "rose",
+      type:'reciever',
+      visible:true
     },
     {
       id: "7",
@@ -174,6 +222,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "4858",
       caption: "Flowers",
+      type:'sender',
+      visible:false
     },
     {
       id: "8",
@@ -181,6 +231,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "2723",
       caption: "kaan",
+      type:'sender',
+      visible:false
     },
     {
       id: "9",
@@ -188,6 +240,8 @@ const userPostData = [
       userPic: user1,
       likesCount: "66855",
       caption: "This app is made by Suyash.",
+      type:'reciever',
+      visible:true
     },
   ];
 
