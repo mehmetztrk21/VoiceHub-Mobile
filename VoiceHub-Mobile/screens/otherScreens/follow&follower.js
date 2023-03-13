@@ -24,8 +24,9 @@ const FollowFollower = ({ navigation, route }) => {
                 {
                     userPostData.map((item) => {
                         return (
-                            <View style={followFollowerStyle.item} onPress={() => navigation.push('SeeProfile')} >
-                                <TouchableOpacity style={followFollowerStyle.seeProfile}>
+                            <View style={followFollowerStyle.item} >
+                                <TouchableOpacity style={followFollowerStyle.seeProfile}
+                                onPress={() => navigation.navigate('SeeProfile',{ uName: item.userName, isVerified: true, visible: item.visible })}>
                                     <Image source={item.userPic} style={followFollowerStyle.profileImage} />
                                     <Text style={followFollowerStyle.userName}>{item.userName}</Text>
                                 </TouchableOpacity>
