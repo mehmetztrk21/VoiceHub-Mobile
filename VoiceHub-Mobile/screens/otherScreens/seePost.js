@@ -18,7 +18,7 @@ export default function SeePost({ navigation, route }) {
     return (
         <SafeAreaView style={[seePostStyle.container, { background: colors.grad }]}>
 
-            <OtherHeader HeaderTitle={"Post"} navigation={navigation} />
+            <OtherHeader HeaderTitle={uName+"'s Post"} navigation={navigation} />
 
             <View style={{ backgroundColor: colors.white, top: 60, paddingBottom: 20, borderBottomRightRadius: 40, borderBottomLeftRadius: 40 }}>
                 <Image source={user1} style={{ height: 200, width: 200, borderRadius: 100, marginVertical: 25, alignSelf: 'center' }} />
