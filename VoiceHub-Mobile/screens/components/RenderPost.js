@@ -1,4 +1,4 @@
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
 import userPostData from "./userPostData";
@@ -19,6 +19,9 @@ const RenderPost = ({navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchi
           setOpenArchivePopUp={setOpenArchivePopUp}
           setOpenEditPostPopUp={setOpenEditPostPopUp}
           visible={item.visible}/>
+
+          {/* Categories */}
+          <Text style={{paddingLeft: '5%', fontSize:12, fontWeight:"500", color:colors.gray}}>#poem #sports #motivation</Text>
 
           <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
             <Post/>
