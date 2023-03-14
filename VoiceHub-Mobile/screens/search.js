@@ -1,18 +1,22 @@
 import React, { useRef, useState } from "react";
 import { RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
+
 import colors from "../assets/colors";
 import searchStyles from "../assets/styles/search.style";
+
 import BottomTabs from "./components/BottomTabs";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
-
-import { Dimensions } from "react-native";
+import AreYouSure from "./components/areYouSure";
+import PopUp from "./components/popUp";
 import userPostData from "./components/userPostData";
 
+import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 
+/* For Refresh this page */
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
@@ -23,6 +27,8 @@ export default function SearchScreen({ navigation, route }) {
   const [focused, setFocused] = useState(false);
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
+  const [openAreYouSure, setOpenAreYouSure] = useState(false)
+
   const [visibleUpload, setVisibleUpload] = useState(false)
 
   const [refreshing, setRefreshing] = useState(false);
@@ -123,6 +129,12 @@ export default function SearchScreen({ navigation, route }) {
           </View>
         }
       </ScrollView>
+
+      {visiblePopUp == true ? (
+        <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
+      ) : openAreYouSure == true ? (
+        <AreYouSure process={"LogOut"} navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} />
+      ) : null}
 
       <BottomTabs navigation={navigation} userName={uName}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}

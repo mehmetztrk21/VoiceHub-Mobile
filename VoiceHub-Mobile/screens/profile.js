@@ -9,11 +9,11 @@ import colors from "../assets/colors";
 import profileStyles from "../assets/styles/profile.style";
 
 import AreYouSure from "./components/areYouSure";
+import PopUp from "./components/popUp";
 import BottomTabs from "./components/BottomTabs";
 import EditPostPopUp from "./components/editPostPopUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
-import PopUp from "./components/popUp";
 import RenderPost from "./components/RenderPost";
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -28,7 +28,7 @@ export default function ProfileScreen({ navigation, route }) {
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false)
 
   return (
-    <SafeAreaView style={[profileStyles.container, { background: "linear-gradient(to right," + colors.green + "," + colors.tealGreen + ")" }]}>
+    <SafeAreaView style={[profileStyles.container, { background: colors.grad }]}>
 
       <ProfileHeader navigation={navigation} uName={uName}
         isVerified={true}
@@ -70,7 +70,7 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
-          <TouchableOpacity style={[profileStyles.editProfileAndFollow, { background: "linear-gradient(to right, " + colors.green + "," + colors.tealGreen + ")" }]}
+          <TouchableOpacity style={[profileStyles.editProfileAndFollow, { background: colors.grad }]}
             onPress={() => navigation.navigate("EditProfile", { RealName: userRealName, uName: uName, pic: admin })}>
             <Text style={profileStyles.btnTextF}>Edit Profile</Text>
           </TouchableOpacity>
@@ -90,15 +90,13 @@ export default function ProfileScreen({ navigation, route }) {
 
       {visiblePopUp == true ? (
         <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
-      ) : visibleUpload == true ? (
-        <AddVoice bottomSize={50} />
       ) : openAreYouSure == true ? (
         <AreYouSure process={"LogOut"} navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} />
       ) : openEditPostPopUp == true ? (
         <EditPostPopUp bottomSize={50} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} pageName={"ProfileScreen"}/>
+      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} pageName={"ProfileScreen"} />
     </SafeAreaView>
   );
 }
