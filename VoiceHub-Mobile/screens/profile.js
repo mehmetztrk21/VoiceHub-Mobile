@@ -13,7 +13,7 @@ import BottomTabs from "./components/BottomTabs";
 import EditPostPopUp from "./components/editPostPopUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
-import ProfilePopUp from "./components/profilePopUp";
+import PopUp from "./components/popUp";
 import RenderPost from "./components/RenderPost";
 
 const user = JSON.parse(localStorage.getItem("user"));
@@ -89,7 +89,7 @@ export default function ProfileScreen({ navigation, route }) {
       </ScrollView>
 
       {visiblePopUp == true ? (
-        <ProfilePopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
+        <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
       ) : visibleUpload == true ? (
         <AddVoice bottomSize={50} />
       ) : openAreYouSure == true ? (
