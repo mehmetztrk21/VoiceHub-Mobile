@@ -6,7 +6,7 @@ import {
 import admin from "../assets/userImages/admin.jpg";
 
 import colors from "../assets/colors";
-import profileStyles from '../assets/styles/profile.style';
+import profileStyles from "../assets/styles/profile.style";
 
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
@@ -28,7 +28,7 @@ export default function ProfileScreen({ navigation, route }) {
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false)
 
   return (
-    <SafeAreaView style={[profileStyles.container, { background: 'linear-gradient(to right,' + colors.green + ',' + colors.tealGreen + ')' }]}>
+    <SafeAreaView style={[profileStyles.container, { background: "linear-gradient(to right," + colors.green + "," + colors.tealGreen + ")" }]}>
 
       <ProfileHeader navigation={navigation} uName={uName}
         isVerified={true}
@@ -48,13 +48,13 @@ export default function ProfileScreen({ navigation, route }) {
             </View>
 
             <TouchableOpacity style={profileStyles.followerCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: 'Followers' }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers" }); }}>
               <Text style={profileStyles.fNumber}>1M</Text>
               <Text style={profileStyles.fText}>Followers</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={profileStyles.followCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: 'Following' }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Following" }); }}>
               <Text style={profileStyles.fNumber}>150</Text>
               <Text style={profileStyles.fText}>Following</Text>
             </TouchableOpacity>
@@ -70,8 +70,8 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
-          <TouchableOpacity style={[profileStyles.editProfileAndFollow, { background: 'linear-gradient(to right, ' + colors.green + ',' + colors.tealGreen + ')' }]}
-            onPress={() => navigation.navigate('EditProfile', { RealName: userRealName, uName: uName, pic: admin })}>
+          <TouchableOpacity style={[profileStyles.editProfileAndFollow, { background: "linear-gradient(to right, " + colors.green + "," + colors.tealGreen + ")" }]}
+            onPress={() => navigation.navigate("EditProfile", { RealName: userRealName, uName: uName, pic: admin })}>
             <Text style={profileStyles.btnTextF}>Edit Profile</Text>
           </TouchableOpacity>
 
@@ -84,7 +84,7 @@ export default function ProfileScreen({ navigation, route }) {
         style={[profileStyles.scroll, visibleUpload == true ? (profileStyles.uploadMargin) : visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
       >
         <View style={[profileStyles.postView, { background: colors.grad }]}>
-          <RenderPost navigation={navigation} HeaderTitle={'ProfileScreen'} setOpenEditPostPopUp={setOpenEditPostPopUp} />
+          <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp} />
         </View>
       </ScrollView>
 
@@ -93,7 +93,7 @@ export default function ProfileScreen({ navigation, route }) {
       ) : visibleUpload == true ? (
         <AddVoice bottomSize={50} />
       ) : openAreYouSure == true ? (
-        <AreYouSure process={'LogOut'} navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} />
+        <AreYouSure process={"LogOut"} navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} />
       ) : openEditPostPopUp == true ? (
         <EditPostPopUp bottomSize={50} />
       ) : null}

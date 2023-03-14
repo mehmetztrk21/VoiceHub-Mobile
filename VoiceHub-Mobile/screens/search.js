@@ -114,7 +114,7 @@ export default function SearchScreen({ navigation, route }) {
         {focused == false ? (
           <View>
             {/* Get Users Posts */}
-            <RenderPost navigation={navigation} HeaderTitle={'SearchScreen'} />
+            <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} />
           </View>
         ) :
           <View>
