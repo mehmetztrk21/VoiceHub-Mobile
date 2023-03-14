@@ -6,22 +6,23 @@ import bottomTabsStyle from "../../assets/styles/bottomTabs.style";
 
 const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
 
-  const [isSelected, setIsSelected] = useState("HomeScreen");
+  const [timer, setTimer] = useState(null);
+
+  const handeleButtonPress = () => {
+    let timerId = setTimeout(() => {
+      setVisiblePopUp(prev => !prev)
+    }, 2000);
+    setTimer(timerId);
+  }
 
   const Select = (page) => {
-    if (pageName === "ProfileScreen" && page === "ProfileScreen") {
-      setVisiblePopUp(prev => !prev);
+    setVisiblePopUp(false)
+    if (page == "SearchScreen") {
+      navigation.navigate(page, { uName: userName, getCategory: "all" });
     }
     else {
-      setVisiblePopUp(false)
-      if (page == "SearchScreen") {
-        navigation.navigate(page, { uName: userName, getCategory: "all" });
-      }
-      else {
-        navigation.navigate(page, { uName: userName });
-      }
+      navigation.navigate(page, { uName: userName });
     }
-
   }
 
   return (
@@ -39,7 +40,7 @@ const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
           <Icon size={25} type="font-awesome" name={"plus"} color={colors.white} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Select("ProfileScreen")}>
+        <TouchableOpacity onPress={() => Select("ProfileScreen")} onPressIn={handeleButtonPress} onPressOut={() => clearTimeout(timer)}>
           <Icon size={25} type="font-awesome" name={"user"} color={colors.white} />
         </TouchableOpacity>
       </View>
