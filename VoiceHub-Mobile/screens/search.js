@@ -2,23 +2,23 @@ import React, { useRef, useState } from "react";
 import { RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../assets/colors";
-import searchStyles from '../assets/styles/search.style';
+import searchStyles from "../assets/styles/search.style";
 import BottomTabs from "./components/BottomTabs";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
 
-import { Dimensions } from 'react-native';
+import { Dimensions } from "react-native";
 import userPostData from "./components/userPostData";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
 export default function SearchScreen({ navigation, route }) {
-  const { uName } = route.params;
+  const { uName, getCategory } = route.params;
 
   const [focused, setFocused] = useState(false);
 
@@ -26,6 +26,8 @@ export default function SearchScreen({ navigation, route }) {
   const [visibleUpload, setVisibleUpload] = useState(false)
 
   const [refreshing, setRefreshing] = useState(false);
+
+  const [selectedCategory, setSelectedCategory] = useState(getCategory);
 
   {/*Coming Soon --->*/ }
   const [searchQuery, setSearchQuery] = useState("");
@@ -35,7 +37,7 @@ export default function SearchScreen({ navigation, route }) {
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
-    console.log('yukarı kaydı')
+    console.log("yukarı kaydı")
     scrollViewRef.current.scrollTo({ y: 0 })
   };
 
@@ -83,8 +85,15 @@ export default function SearchScreen({ navigation, route }) {
               {
                 userPostData.map((item) => {
                   return (
-                    <TouchableOpacity onPress={()=>console.log(item.userName)}>
-                      <Text style={[searchStyles.SecondText, { background: colors.grad, width: width * 0.3, marginHorizontal: width * 0.0125, }]}>#{item.userName}</Text>
+                    <TouchableOpacity onPress={() => setSelectedCategory(item.category)}>
+
+                      <Text style={[searchStyles.SecondText,
+                      { width: width * 0.3, marginHorizontal: width * 0.0125, },
+                      selectedCategory == item.category ? {
+                        borderWidth: 2, borderColor: colors.tealGreen,
+                        backgroundColor: colors.white, color: colors.tealGreen
+                      } : { background: colors.grad, color: colors.white }]}>#{item.category}</Text>
+
                     </TouchableOpacity>
                   )
                 })
@@ -105,7 +114,7 @@ export default function SearchScreen({ navigation, route }) {
         {focused == false ? (
           <View>
             {/* Get Users Posts */}
-            <RenderPost navigation={navigation} />
+            <RenderPost navigation={navigation} HeaderTitle={'SearchScreen'} />
           </View>
         ) :
           <View>
@@ -114,6 +123,7 @@ export default function SearchScreen({ navigation, route }) {
           </View>
         }
       </ScrollView>
+
       <BottomTabs navigation={navigation} userName={uName}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
         pageName={"SearchScreen"} visibleUpload={visibleUpload}

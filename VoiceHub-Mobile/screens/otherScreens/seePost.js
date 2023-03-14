@@ -33,16 +33,22 @@ export default function SeePost({ navigation, route }) {
                 </View>
 
                 <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', { uName: username })}>
-                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>#poem</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', { uName: username, getCategory:"poem" })}
+                        style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>#</Text>
+                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>poem</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', { uName: username })}>
-                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}> #sports</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', { uName: username, getCategory:"sports" })}
+                        style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}> #</Text>
+                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>sports</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', { uName: username })}>
-                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}> #motivation</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('SearchScreen', { uName: username, getCategory:"motivation" })}
+                        style={{ flexDirection: 'row' }}>
+                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}> #</Text>
+                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>motivation</Text>
                     </TouchableOpacity>
                 </View>
 
