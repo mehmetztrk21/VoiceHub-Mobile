@@ -11,11 +11,12 @@ const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
   const handeleButtonPress = () => {
     let timerId = setTimeout(() => {
       setVisiblePopUp(prev => !prev)
-    }, 2000);
+    }, 1000);
     setTimer(timerId);
   }
 
   const Select = (page) => {
+    setTimer(0);
     setVisiblePopUp(false)
     if (page == "SearchScreen") {
       navigation.navigate(page, { uName: userName, getCategory: "all" });
@@ -23,6 +24,7 @@ const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
     else {
       navigation.navigate(page, { uName: userName });
     }
+    
   }
 
   return (
@@ -40,7 +42,7 @@ const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
           <Icon size={25} type="font-awesome" name={"plus"} color={colors.white} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Select("ProfileScreen")} onPressIn={handeleButtonPress} onPressOut={() => clearTimeout(timer)}>
+        <TouchableOpacity onPress={() => Select("ProfileScreen")} onPressIn={handeleButtonPress} onPressOut={() => {console.log("Butondan elini cekti")}}>
           <Icon size={25} type="font-awesome" name={"user"} color={colors.white} />
         </TouchableOpacity>
       </View>
