@@ -4,12 +4,12 @@ import { SafeAreaView, ScrollView } from "react-native";
 //importing components
 import BottomTabs from "./components/BottomTabs";
 import HomeHeader from "./components/HomeHeader";
-import RenderPost from './components/RenderPost';
+import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
 import PopUp from "./components/popUp";
 
 //importing styles
-import homeStyles from '../assets/styles/home.style';
+import homeStyles from "../assets/styles/home.style";
 import { PostsList } from "../services/postServices";
 
 export default function HomeScreen({ navigation, route }) {
@@ -22,7 +22,7 @@ export default function HomeScreen({ navigation, route }) {
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
-    console.log('yukarı kaydı')
+    console.log("yukarı kaydı")
     scrollViewRef.current.scrollTo({ y: 0 })
   };
   const getPosts = async () => {
@@ -44,7 +44,7 @@ export default function HomeScreen({ navigation, route }) {
 
       <ScrollView style={homeStyles.scroll} ref={scrollViewRef}>
         {/* User Posts */}
-        <RenderPost navigation={navigation} pageName={'HomeScreen'} posts={posts} />
+        <RenderPost navigation={navigation} pageName={"HomeScreen"} posts={posts} />
       </ScrollView>
 
       {visiblePopUp == true ? (
