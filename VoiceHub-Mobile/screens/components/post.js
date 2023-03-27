@@ -7,7 +7,7 @@ import postStyle from "../../assets/styles/post.style";
 import sliderStyle from "../../assets/styles/slider.style";
 import colors from "../../assets/colors";
 
-const Post = () => {
+const Post = ({uri}) => {
   const [soundObject, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(1);
@@ -30,7 +30,7 @@ const Post = () => {
 
   const loadSound = async () => {
     const { sound } = await Audio.Sound.createAsync({
-      uri: "http://10.0.2.2:5000/public/voices/64204d89487c5763f0ccaeb3_content.mpeg",
+      uri: "http://192.168.0.33:5000/" + uri || "",
     });
     setSound(sound);
     sound.setOnPlaybackStatusUpdate((playbackStatus) => {

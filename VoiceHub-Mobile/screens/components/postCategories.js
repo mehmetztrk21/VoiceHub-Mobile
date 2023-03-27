@@ -1,27 +1,23 @@
 import { View, Text, TouchableOpacity } from "react-native"
-import React from "react"
+import React, { useEffect } from "react"
 import colors from "../../assets/colors"
 
-const PostCategories = ({ navigation, username }) => {
+const PostCategories = ({ navigation, username, categories }) => {
+    useEffect(() => {
+        console.log("categories", categories)
+    }, [])
     return (
         <View style={{ flexDirection: "row" }}>
-            <TouchableOpacity onPress={() => navigation.navigate("SearchScreen", { uName: username, getCategory: "poem", type: "discovery" })}
-                style={{ flexDirection: "row" }}>
-                <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>#</Text>
-                <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>poem </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => navigation.navigate("SearchScreen", { uName: username, getCategory: "sports", type: "discovery" })}
-                style={{ flexDirection: "row" }}>
-                <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}> #</Text>
-                <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>sports </Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity onPress={() => navigation.navigate("SearchScreen", { uName: username, getCategory: "motivation", type: "discovery" })}
-                style={{ flexDirection: "row" }}>
-                <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}> #</Text>
-                <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>motivation</Text>
-            </TouchableOpacity>
+            {
+                categories?.map((item, index) => (
+                    <TouchableOpacity onPress={() => navigation.navigate("SearchScreen", { uName: username, getCategory: "poem", type: "discovery" })}
+                        style={{ flexDirection: "row" }}>
+                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>#</Text>
+                        <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>{item} </Text>
+                    </TouchableOpacity>
+                )
+                )
+            }
         </View>
     )
 }

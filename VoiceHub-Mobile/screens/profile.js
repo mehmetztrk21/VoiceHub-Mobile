@@ -53,15 +53,44 @@ export default function ProfileScreen({ navigation, route }) {
     const response = await getMyPosts();
     console.log(response)
     if (response && response.success) {
-      setPosts(res.data);
+      let temp =response.data.map((item) => {
+        console.log(item.categories,"item.categories")
+        return {
+         contentUrl: item.contentUrl,
+         categories: item.categories,
+         userName: "Mehmet",
+          createdBy: item.createdBy,
+          createdAt: item.createdAt,
+          userPic: "user1",
+          likesCount: 1451,
+          caption: "Coffee is the most imp part of my life !",
+          type: "sender",
+          visible: true,
+          category: "all",
+          showLike: false,
+          isSaved: false,
+          isLiked: true, date: "12/02/2023 12:41",
+          isYourFollower: true,
+          isYouFollowing: true,
+          commentCount: 12,
+          hasBio: false,
+          isVerify: false,
+        }
+      })
+
+      setPosts(temp);
     }
     setLoading(false);
   }
 
   useEffect(() => {
     getPosts();
-  })
-
+  },[])
+  if (loading) {
+    return <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <Text>Loading...</Text>
+    </View>
+  }
   return (
     <SafeAreaView style={profileStyles.container}>
 

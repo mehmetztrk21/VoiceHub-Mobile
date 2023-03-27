@@ -1,7 +1,7 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 const apiAxios = axios.create({
-    baseURL: "http://10.0.2.2:5000"
+    baseURL: "http://192.168.0.33:5000"
 })
 
 apiAxios.interceptors.response.use((response) => response, (error) => {

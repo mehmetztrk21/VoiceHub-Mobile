@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 import colors from "../../assets/colors";
@@ -8,6 +8,7 @@ import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
 import userPostData from "./userPostData";
+import user1 from "../../assets/userImages/user1.jpg";
 
 //User"s Local Storage"s infos
 const user = {
@@ -18,28 +19,32 @@ const user = {
 const username = user.username;
 
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
+useEffect(() => {
+  console.log("posts", posts)
+}, [])
 
-  return userPostData.map((item,index) => (
+
+  return posts?.map((item,index) => (
     <View style={[styles.container]} key={index}>
 
       {/* User Informations */}
       <PostUserInfo
-        navigation={navigation} userPic={item.userPic}
+        navigation={navigation} userPic={user1}
         userName={item.userName} HeaderTitle={HeaderTitle}
         setOpenArchivePopUp={setOpenArchivePopUp}
         setOpenEditPostPopUp={setOpenEditPostPopUp}
-        visible={item.visible} date={item.date}
+        visible={item.visible} date={item.createdAt || item.date}
         isVerify={item.isVerify} isYouFollowing={item.isYouFollowing}
         isYourFollower={item.isYourFollower} hasBio={item.hasBio} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>
-        <PostCategories navigation={navigation} username={username} />
+        <PostCategories navigation={navigation} categories={item.categories} username={username} />
       </View>
 
       {/* Slider and Play Button */}
       <View style={{ paddingLeft: "20%", paddingRight: "2.5%" }}>
-        <Post />
+        <Post uri={item.contentUrl} />
       </View>
 
       {/* Like, Comment and Save Button */}

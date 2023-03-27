@@ -8,7 +8,7 @@ export const login = async (data) => {
     }).then(res => {
         return res.data;
     }).catch(err => {
-        console.log(err);
+        console.log(err,"hata");
         return null
     }
     );
