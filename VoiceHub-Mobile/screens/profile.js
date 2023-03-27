@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
+  Image, Modal, ActivityIndicator, RefreshControl,
+  SafeAreaView, ScrollView, Text, TouchableOpacity,
+  View, Dimensions
 } from "react-native";
 
 import admin from "../assets/userImages/admin.jpg";
@@ -9,6 +11,7 @@ import colors from "../assets/colors";
 import profileStyles from "../assets/styles/profile.style";
 
 import { getMyPosts } from "../services/postServices";
+
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import EditPostPopUp from "./components/editPostPopUp";
@@ -16,6 +19,8 @@ import PopUp from "./components/popUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import RenderPost from "./components/RenderPost";
+
+const { width } = Dimensions.get("window");
 
 const user = {
   name: "Mehmet",
@@ -25,7 +30,7 @@ const user = {
 const userRealName = user.name + " " + user.surname;
 
 export default function ProfileScreen({ navigation, route }) {
-  const { uName, isVerified } = route.params;
+  const { uName } = route.params;
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [visibleUpload, setVisibleUpload] = useState(false)
@@ -44,7 +49,7 @@ export default function ProfileScreen({ navigation, route }) {
     setRefreshing(true);
 
     setTimeout(() => {
-      setRefreshing(false)
+      setRefreshing(false);
     }, 800)
   }
 
@@ -53,12 +58,12 @@ export default function ProfileScreen({ navigation, route }) {
     const response = await getMyPosts();
     console.log(response)
     if (response && response.success) {
-      let temp =response.data.map((item) => {
-        console.log(item.categories,"item.categories")
+      let temp = response.data.map((item) => {
+        console.log(item.categories, "item.categories");
         return {
-         contentUrl: item.contentUrl,
-         categories: item.categories,
-         userName: "Mehmet",
+          contentUrl: item.contentUrl,
+          categories: item.categories,
+          userName: "Mehmet",
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: "user1",
@@ -69,7 +74,8 @@ export default function ProfileScreen({ navigation, route }) {
           category: "all",
           showLike: false,
           isSaved: false,
-          isLiked: true, date: "12/02/2023 12:41",
+          isLiked: true,
+          date: "12/02/2023 12:41",
           isYourFollower: true,
           isYouFollowing: true,
           commentCount: 12,
@@ -85,17 +91,22 @@ export default function ProfileScreen({ navigation, route }) {
 
   useEffect(() => {
     getPosts();
-  },[])
+  }, [])
+
   if (loading) {
-    return <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Loading...</Text>
-    </View>
+    return (
+      <View style={{
+        flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
+        justifyContent: "center", alignItems: "center"
+      }}>
+        <ActivityIndicator size="large" color={colors.green} />
+      </View>)
   }
+
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} uName={uName}
-        isVerified={true} />
+      <ProfileHeader navigation={navigation} uName={uName} isVerified={true} />
 
       <Modal
         animationType="slide"
@@ -120,7 +131,7 @@ export default function ProfileScreen({ navigation, route }) {
         <EditPostPopUp />
       </Modal>
 
-      <View style={{ width: "100%", borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>
+      <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
@@ -186,7 +197,8 @@ export default function ProfileScreen({ navigation, route }) {
           visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
-          <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp} posts={posts} />
+          <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"} 
+          setOpenEditPostPopUp={setOpenEditPostPopUp} posts={posts} />
         </View>
       </ScrollView>
 

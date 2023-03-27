@@ -30,7 +30,7 @@ const Post = ({uri}) => {
 
   const loadSound = async () => {
     const { sound } = await Audio.Sound.createAsync({
-      uri: "http://192.168.0.33:5000/" + uri || "",
+      uri: "http://10.0.2.2:5000/" + uri || "",
     });
     setSound(sound);
     sound.setOnPlaybackStatusUpdate((playbackStatus) => {

@@ -1,11 +1,14 @@
-import { Audio } from 'expo-av';
-import * as FileSystem from 'expo-file-system';
-import * as Permissions from 'expo-permissions';
+import { Audio } from "expo-av";
+import * as FileSystem from "expo-file-system";
+import * as Permissions from "expo-permissions";
 
-import DocumentPicker from 'react-native-document-picker';
+import DocumentPicker from "react-native-document-picker";
 
 import React, { useEffect, useState } from "react";
-import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View, Dimensions, Modal } from "react-native";
+import {
+    Image, SafeAreaView, Text, TextInput, TouchableOpacity, View, Dimensions, Modal
+} from "react-native";
+
 import { Icon } from "react-native-elements";
 
 import colors from "../../assets/colors";
@@ -18,8 +21,8 @@ import PopUp from "../components/popUp";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
-import { createPost } from '../../services/postServices';
-import { recordingOptions } from '../../utils/recordingOptions';
+import { createPost } from "../../services/postServices";
+import { recordingOptions } from "../../utils/recordingOptions";
 
 export default function Upload({ navigation, route }) {
     const { uName } = route.params;
@@ -40,13 +43,13 @@ export default function Upload({ navigation, route }) {
                 type: [DocumentPicker.types.allFiles],
             });
             console.log(
-                'URI : ' + result.uri,
-                'Type : ' + result.type, // mime type
-                'File Name : ' + result.name,
-                'File Size : ' + result.size
+                "URI : " + result.uri,
+                "Type : " + result.type, // mime type
+                "File Name : " + result.name,
+                "File Size : " + result.size
             );
         } catch (error) {
-            console.log('Error picking file: ', error);
+            console.log("Error picking file: ", error);
         }
     }
 
@@ -61,27 +64,27 @@ export default function Upload({ navigation, route }) {
     }, [isRunning]);
 
     const toggleRecord = async () => {
-        const filename = 'test.mp3';
+        const filename = "test.mp3";
         const path = `${FileSystem.documentDirectory}${filename}`;
         console.log(path);
 
         const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
 
-        if (status !== 'granted') {
-            console.log('Missing audio recording permissions');
+        if (status !== "granted") {
+            console.log("Missing audio recording permissions");
             return;
         }
 
         const { status: existingStatus } = await Audio.getPermissionsAsync();
         let finalStatus = existingStatus;
 
-        if (existingStatus !== 'granted') {
+        if (existingStatus !== "granted") {
             const { status } = await Audio.requestPermissionsAsync();
             finalStatus = status;
         }
 
-        if (finalStatus !== 'granted') {
-            console.log('Missing audio recording permissions');
+        if (finalStatus !== "granted") {
+            console.log("Missing audio recording permissions");
             return;
         }
 
@@ -93,9 +96,9 @@ export default function Upload({ navigation, route }) {
                     await recording.stopAndUnloadAsync();
                     setOpenReadCategory(true);
                     setIsRunning(false);
-                    console.log('Recording stopped');
+                    console.log("Recording stopped");
                 } else {
-                    console.log('Recording is not prepared');
+                    console.log("Recording is not prepared");
                 }
             }
             else {
@@ -104,14 +107,14 @@ export default function Upload({ navigation, route }) {
                 setIsRunning(true);
                 if (recording) {
                     console.log("4")
-                    console.log('Recording already exists');
+                    console.log("Recording already exists");
                 } else {
                     console.log("5")
                     const newRecording = new Audio.Recording();
                     await newRecording.prepareToRecordAsync(recordingOptions);
                     await newRecording.startAsync();
                     setRecording(newRecording);
-                    console.log('Recording started');
+                    console.log("Recording started");
                 }
             }
         } catch (error) {
@@ -124,10 +127,10 @@ export default function Upload({ navigation, route }) {
         const uri = recording.getURI();
         const info = await FileSystem.getInfoAsync(uri);
         const formData = new FormData();  //dosya ile veri göndermk için
-        formData.append('content', {
+        formData.append("content", {
             uri: info.uri,
             name: `recording-${Date.now()}.mpeg`,
-            type: 'audio/mpeg',
+            type: "audio/mpeg",
         });
 
         let temp = categories?.split("#");

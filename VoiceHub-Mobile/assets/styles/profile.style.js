@@ -17,7 +17,7 @@ export default StyleSheet.create({
     padding: 10,
     marginTop: 12,
     width: "96%",
-    marginBottom:12,
+    marginBottom: 12,
   },
   userPic: {
     width: 90,
@@ -36,7 +36,7 @@ export default StyleSheet.create({
     flexDirection: "column",
     textAlign: "center",
     paddingLeft: "10%",
-    alignItems: "center"
+    alignItems: "center",
   },
   followerCount: {
     flexDirection: "column",
