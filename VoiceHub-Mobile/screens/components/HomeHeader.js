@@ -4,7 +4,8 @@ import { Divider, Icon } from "react-native-elements";
 import colors from '../../assets/colors';
 import logo from "../../assets/images/VoiceHub-1.png";
 import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
-
+import { Dimensions } from "react-native";
+const { width } = Dimensions.get("window");
 const HomeHeader = ({ navigation, pressLogo, uName, isYourProfile }) => {
 
   return (
@@ -21,11 +22,11 @@ const HomeHeader = ({ navigation, pressLogo, uName, isYourProfile }) => {
 
           <View style={{flexDirection:"row"}}>
             <TouchableOpacity onPress={() => navigation.push('Message')}>
-              <Icon type="font-awesome" size={30} name={"envelope-o"} />
+              <Icon type="font-awesome" size={30} name={"envelope-o"} color={colors.black}/>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => navigation.navigate('ActivityScreen',{uName:uName, isYourProfile})} style={{marginLeft:10}}>
-              <Icon type="font-awesome" size={30}  name={'heart-o'}/>
+              <Icon type="font-awesome" size={30}  name={'heart-o'} color={colors.black}/>
             </TouchableOpacity>
           </View>
 

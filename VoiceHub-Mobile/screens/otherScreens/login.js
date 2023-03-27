@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { TouchableOpacity, View, Text, Image, TextInput, SafeAreaView } from "react-native";
+import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import loginStyle from "../../assets/styles/login.style";
-import { Login as LoginService } from "../../services/authServices";
+import { login } from "../../services/authServices";
+
 export default function Login({ navigation }) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -9,9 +10,13 @@ export default function Login({ navigation }) {
     const isLogin = async () => {
 
         if (userName !== "" && password !== "") {
-            const result = await LoginService(userName, password);
-            if (result) navigation.navigate('HomeScreen', { uName: JSON.parse(localStorage.getItem('user')).username, isYourProfile: true })
-            else alert("Username or Password is wrong");
+            const response = await login({ username: userName, password: password })
+            console.log(response)
+            if (response && response.success)
+                    //local storage gibi bir şey bul token i oraya koy.
+                navigation.navigate('HomeScreen', { uName: userName, isYourProfile: true })
+            else
+                alert("Kullanıcı adı veya şifre hatalı")
         }
         else {
             alert("don't empty inputs")

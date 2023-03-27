@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
-    slider:{
-        tintColor:"#212121",
+    slider: {
+        tintColor: colors.black,
         width: "60%",
     }
 });

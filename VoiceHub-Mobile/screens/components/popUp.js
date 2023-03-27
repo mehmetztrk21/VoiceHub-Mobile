@@ -9,19 +9,19 @@ const PopUp = ({ navigation, bottomSize, setOpenAreYouSure, setVisiblePopUp }) =
     <View style={[popUpStyle.wrapper,
     {
       marginBottom: bottomSize,
-      background: colors.grad
+      backgroundColor: colors.green
     }]}>
       <Divider width={1} orientation='vertical' />
 
       <TouchableOpacity style={popUpStyle.container}
-        onPress={() => navigation.push('Options')}>
-        <Icon type="font-awesome" size={"175%"} name={"cog"} style={popUpStyle.icon} color={colors.white} />
+        onPress={() => { navigation.push('Options'); setVisiblePopUp(false); }}>
+        <Icon type="font-awesome" size={28} name={"cog"} style={popUpStyle.icon} color={colors.white} />
         <Text style={popUpStyle.text}>Options</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={popUpStyle.container}
-        onPress={() => {setVisiblePopUp(false);setOpenAreYouSure(true)}}>
-        <Icon type="font-awesome" size={"175%"} name={"sign-out"} style={popUpStyle.icon} color={colors.white} />
+        onPress={() => { setVisiblePopUp(false); setOpenAreYouSure(true) }}>
+        <Icon type="font-awesome" size={28} name={"sign-out"} style={popUpStyle.icon} color={colors.white} />
         <Text style={popUpStyle.text}>Log out</Text>
       </TouchableOpacity>
 

@@ -3,11 +3,11 @@ import colors from "../colors";
 
 export default StyleSheet.create({
     wrapper:{
-        position:"fixed",
+        position:"absolute",
         width:'100%',
         top:0,
         zIndex:999,
-        backgroundColor:'#FFF',
+        backgroundColor:colors.white,
     },
     head: {
         padding: "5%",

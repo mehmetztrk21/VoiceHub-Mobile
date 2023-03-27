@@ -1,16 +1,15 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
     wrapper: {
-        position: "fixed",
-        width: '100%',
-        top: 0,
+        position: "absolute",
+        width: "100%",
         zIndex: 999,
-        backgroundColor: '#FFF',
+        backgroundColor: colors.white,
     },
     aHeadView: {
         left: 0,
-        height: 60,
         width: "100%",
         flexDirection: "row",
         borderBottomEndRadius:20,

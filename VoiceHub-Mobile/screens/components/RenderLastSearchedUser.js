@@ -7,8 +7,8 @@ import RenderLastSearchedUserStyle from "../../assets/styles/RenderLastSearchedU
 import userPostData from "./userPostData"
 
 const RenderLastSearchedUser = ({ navigation }) => {
-  return userPostData.map((item) => (
-    <View style={RenderLastSearchedUserStyle.last}>
+  return userPostData.map((item, index) => (
+    <View style={RenderLastSearchedUserStyle.last} key={index}>
       <TouchableOpacity style={{ flexDirection: "row" }}
         onPress={() => navigation.navigate('ProfileScreen', { uName: item.userName, isYourProfile: false })}>
         <Image source={item.userPic} style={RenderLastSearchedUserStyle.lastSearchImage} />
@@ -19,7 +19,7 @@ const RenderLastSearchedUser = ({ navigation }) => {
       </TouchableOpacity>
 
       <TouchableOpacity style={RenderLastSearchedUserStyle.closeButtonTouch}>
-        <Icon type="font-awesome" size={"150%"} name={"times"} color={colors.gray} />
+        <Icon type="font-awesome" size={20} name={"times"} color={colors.gray} />
       </TouchableOpacity>
     </View>
   ));

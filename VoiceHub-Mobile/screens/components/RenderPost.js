@@ -1,21 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import colors from "../../assets/colors";
 
 import Post from "./post";
 import PostActions from "./postActions";
+import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
 import userPostData from "./userPostData";
 
 //User"s Local Storage"s infos
-const user = JSON.parse(localStorage.getItem("user"));
+const user = {
+  name: "Mehmet",
+  surname: "Öztürk",
+  username: "mehmet.ztrk"
+} //TODO: get in localStorage
 const username = user.username;
 
-const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp }) => {
+const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
 
-  return userPostData.map((item) => (
-    <View style={[styles.container]}>
+  return userPostData.map((item,index) => (
+    <View style={[styles.container]} key={index}>
 
       {/* User Informations */}
       <PostUserInfo
@@ -23,27 +28,13 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
         userName={item.userName} HeaderTitle={HeaderTitle}
         setOpenArchivePopUp={setOpenArchivePopUp}
         setOpenEditPostPopUp={setOpenEditPostPopUp}
-        visible={item.visible} />
+        visible={item.visible} date={item.date}
+        isVerify={item.isVerify} isYouFollowing={item.isYouFollowing}
+        isYourFollower={item.isYourFollower} hasBio={item.hasBio} />
 
       {/* Categories */}
-      <View style={{ flexDirection: "row", marginLeft: "5%" }}>
-        <TouchableOpacity onPress={() => {navigation.navigate("SearchScreen", { uName: username, getCategory:"poem" })}}
-          style={{ flexDirection: "row" }}>
-          <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>#</Text>
-          <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>poem</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("SearchScreen", { uName: username, getCategory:"sports" })}
-          style={{ flexDirection: "row" }}>
-          <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}> #</Text>
-          <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>sports</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={() => navigation.navigate("SearchScreen", { uName: username, getCategory:"motivation" })}
-          style={{ flexDirection: "row" }}>
-          <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}> #</Text>
-          <Text style={{ fontSize: 12, fontWeight: "500", color: colors.gray }}>motivation</Text>
-        </TouchableOpacity>
+      <View style={{ marginHorizontal: "3%" }}>
+        <PostCategories navigation={navigation} username={username} />
       </View>
 
       {/* Slider and Play Button */}
@@ -52,7 +43,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
       </View>
 
       {/* Like, Comment and Save Button */}
-      <PostActions navigation={navigation} />
+      <PostActions navigation={navigation} isLiked={item.isLiked} isSaved={item.isSaved} showLike={item.showLike} likesCount={item.likesCount} commentCount={item.commentCount} />
 
     </View>
   ));
@@ -63,7 +54,7 @@ const styles = StyleSheet.create({
     width: "90%",
     backgroundColor: colors.white,
     marginHorizontal: "5%",
-    shadowColor: "#333333",
+    shadowColor: colors.darkGray,
     shadowOffset: {
       width: 0,
       height: 2,

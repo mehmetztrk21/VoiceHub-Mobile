@@ -3,26 +3,18 @@ import colors from "../colors";
 
 export default StyleSheet.create({
     wrapper: {
-        position: "fixed",
-        width: '100%',
-        bottom: 0,
+        position: "absolute",
+        width: "100%",
+        height: "8%",
         zIndex: 999,
+        backgroundColor: colors.green,
+        bottom: 0,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
-        shadowColor: '#333333',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-
-        },
-        shadowOpacity: 0.5,
-        shadowRadius: 2,
-        elevation: 5,
+        justifyContent: "center",
     },
     container: {
         flexDirection: "row",
         justifyContent: "space-around",
-        height: 60,
-        paddingTop: 20,
     }
 })

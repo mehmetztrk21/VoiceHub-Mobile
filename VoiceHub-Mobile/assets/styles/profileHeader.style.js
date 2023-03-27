@@ -1,34 +1,34 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
   wrapper: {
-    position: "fixed",
+    position: "absolute",
     width: '100%',
     top: 0,
     zIndex: 999,
-    backgroundColor: '#FFF',
+    backgroundColor: colors.white,
     
   },
   aHeadView: {
     left: 0,
-    height: 60,
     width: "100%",
-    marginTop: 20,
+    marginTop: "5%",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center",//yatay
+    alignItems: "center",
     
   },
   leftTop: {
     flexDirection: "row",
-    alignItems: "center",//yatay
+    alignItems: "center",
   },
   BackButton:{
     paddingLeft: 10,
   },
   rightTop: {
     flexDirection: "row",
-    alignItems: "center",//yatay
+    alignItems: "center",
   },
   head: {
     fontSize: 22,

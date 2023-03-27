@@ -1,21 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView } from "react-native";
+import React, { useRef, useState } from "react";
+import { SafeAreaView, ScrollView, RefreshControl } from "react-native";
 
 //importing components
+import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import HomeHeader from "./components/HomeHeader";
-import RenderPost from "./components/RenderPost";
-import AreYouSure from "./components/areYouSure";
 import PopUp from "./components/popUp";
+import RenderPost from "./components/RenderPost";
 
 //importing styles
 import homeStyles from "../assets/styles/home.style";
-import { PostsList } from "../services/postServices";
+import colors from "../assets/colors";
 
 export default function HomeScreen({ navigation, route }) {
   const { uName } = route.params;
 
-  const [posts, setPosts] = useState([]);
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
 
@@ -23,34 +22,35 @@ export default function HomeScreen({ navigation, route }) {
 
   const handleScrollToTop = () => {
     console.log("yukarı kaydı")
-    scrollViewRef.current.scrollTo({ y: 0 })
+    scrollViewRef.current.scrollTo({ y: 0, animated: true })
   };
-  const getPosts = async () => {
-    const response = await PostsList();
-    if (response.status) {
-      setPosts(response.list)
-    }
-    else {
-      alert("Get posts error")
-    }
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const pullThePage = () => {
+    setRefreshing(true);
+
+    setTimeout(() => {
+      setRefreshing(false)
+    }, 800)
   }
-  useEffect(() => {
-    getPosts();
-  }, [])
 
   return (
     <SafeAreaView style={homeStyles.container}>
       <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} uName={uName} />
 
-      <ScrollView style={homeStyles.scroll} ref={scrollViewRef}>
+      <ScrollView style={homeStyles.scroll} ref={scrollViewRef} refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
+      }
+      >
         {/* User Posts */}
-        <RenderPost navigation={navigation} pageName={"HomeScreen"} posts={posts} />
+        <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} />
       </ScrollView>
 
       {visiblePopUp == true ? (
         <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
       ) : openAreYouSure == true ? (
-        <AreYouSure process={"LogOut"} navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} />
+        <AreYouSure process={"LogOut"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} />
       ) : null}
 
       <BottomTabs navigation={navigation} userName={uName}

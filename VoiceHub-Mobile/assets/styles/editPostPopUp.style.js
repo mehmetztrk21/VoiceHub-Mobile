@@ -3,7 +3,7 @@ import colors from "../colors";
 
 export default StyleSheet.create({
     container: {
-        position: "fixed",
+        position: "absolute",
         width: '100%',
         zIndex: 999,
         bottom: -2,

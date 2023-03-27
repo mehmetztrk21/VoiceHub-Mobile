@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { Text, TextInput, TouchableOpacity, View, SafeAreaView } from "react-native";
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import forgotPasswordStyle from "../../assets/styles/forgotPassword.style";
-import OtherHeader from "../components/otherHeader";
+
+import { Dimensions } from "react-native";
+import colors from '../../assets/colors';
+const { width } = Dimensions.get("window");
+const { height } = Dimensions.get("window");
+
 export default function ForgotPassword({ navigation }) {
 
     const [userName, setUserName] = useState("");
@@ -10,40 +15,41 @@ export default function ForgotPassword({ navigation }) {
     const [password2, setPassword2] = useState("");
 
     const Reset = () => {
-        if (password1 === password2){
-            if(password1.length,password2.length!=0){
-                if(password1.length, password2.length >= 8){
-                    if(userName.length>=3){
+        if (password1 === password2) {
+            if (password1.length, password2.length != 0) {
+                if (password1.length, password2.length >= 8) {
+                    if (userName.length >= 3) {
                         navigation.navigate('HomeScreen', { userName })
                     }
-                    else{
+                    else {
                         alert("kullanıcı adı en az 3 karakter olmalı");
                     }
                 }
-                else{
+                else {
                     alert("şifreniz en az 8 karakter olmalı");
                 }
             }
-            else{
+            else {
                 alert("şifreler boş olmamalı");
-                
+
             }
         }
-        else{
+        else {
             alert("şifreler birbirine eşit değil");
         }
     }
 
     return (
-        <SafeAreaView style={forgotPasswordStyle.container}>
-            <View style={{marginBottom:"2.5%", marginLeft:"2.5%", flexDirection:"row" }}>
-                <TouchableOpacity onPress={()=>navigation.goBack('Login')}>
-                    <Icon type="ionicon" size={30} name={"arrow-back-outline"} style={{marginRight:"1%", paddingTop: 7.5,}}/>
+        <SafeAreaView style={[forgotPasswordStyle.container, { paddingTop: width * 0.08 }]}>
+
+            <View style={{ marginBottom: "2.5%", marginLeft: "2.5%", flexDirection: "row", height:height*0.07 }}>
+                <TouchableOpacity onPress={() => navigation.goBack('Login')}>
+                    <Icon type="ionicon" size={30} name={"arrow-back-outline"} style={{ marginRight: "1%", paddingTop: 7.5, }} />
                 </TouchableOpacity>
-                <Text style={{fontSize:30, fontWeight:"500"}}>Forgot Password</Text>
+                <Text style={{ fontSize: 30, fontWeight: "500" }}>Forgot Password</Text>
             </View>
 
-            <View style={forgotPasswordStyle.inputs}>
+            <View style={{height:height*0.85 ,width:width*0.7, marginLeft:width*0.15, justifyContent:"center"}}>
                 <Text style={forgotPasswordStyle.label}>User Name</Text>
                 <TextInput
                     placeholder="User Name"
@@ -70,12 +76,13 @@ export default function ForgotPassword({ navigation }) {
                     maxLength={18}
                     onChangeText={password2 => setPassword2(password2)}
                 />
-            </View>
 
-            <TouchableOpacity style={forgotPasswordStyle.ButtonTouch}
-                onPress={Reset}>
-                <Text style={forgotPasswordStyle.ButtonText}>Reset Password</Text>
-            </TouchableOpacity>
+
+                <TouchableOpacity style={{width:width*0.5, marginLeft:width*0.1}}
+                    onPress={Reset}>
+                    <Text style={forgotPasswordStyle.ButtonText}>Reset Password</Text>
+                </TouchableOpacity>
+            </View> 
         </SafeAreaView>
     );
 }

@@ -5,17 +5,23 @@ import colors from "../../assets/colors";
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
-export default function postActions({ navigation }) {
+export default function postActions({ navigation, isLiked, isSaved, showLike, likesCount, commentCount }) {
 
-  const [liked, setLiked] = useState(false)
-  const [saved, setSaved] = useState(false)
+  const [liked, setLiked] = useState(isLiked)
+  const [likeCount, setLikeCount] = useState(likesCount);
+  const [saved, setSaved] = useState(isSaved)
 
   const postLiked = () => {
     setLiked(prev => {
       if (!prev == true) {
-        console.log("begenildi")
+        console.log("begenildi");
+        setLikeCount(likeCount => likeCount + 1);
       }
-      return !prev
+      else {
+        console.log("beğeni geri çekildi");
+        setLikeCount(likeCount => likeCount - 1);
+      }
+      return !prev;
     })
   };
 
@@ -24,21 +30,30 @@ export default function postActions({ navigation }) {
       if (!prev == true) {
         console.log("kaydedildi")
       }
-      return !prev
+      else {
+        console.log("kaydetme geri çekildi")
+      }
+      return !prev;
     })
   };
 
   return (
     <View style={postActionsStyle.postActions}>
-
-
+      {/* Likes */}
       {liked == true ? (
         <View style={{ flexDirection: "row", }}>
           <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
             <Icon type="font-awesome" size={20} name={"heart"} color={colors.green} />
           </TouchableOpacity>
-          <TouchableOpacity style={postActionsStyle.pactions} onPress={()=>navigation.navigate('SeeLikes',{title:'Likes'})}>
-            <Text style={{ fontWeight: "700", fontSize: 14, marginLeft:5, color: colors.green }}>12087</Text>
+
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { title: "Likes" })}>
+            {showLike ? (
+              <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
+                {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              </Text>
+            ) :
+              <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>See Likes</Text>
+            }
           </TouchableOpacity>
         </View>
       ) :
@@ -47,17 +62,26 @@ export default function postActions({ navigation }) {
             <Icon type="font-awesome" size={20} name={"heart-o"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={postActionsStyle.pactions} onPress={()=>navigation.navigate('SeeLikes',{title:'Likes'})}>
-            <Text style={{ fontWeight: "700", fontSize: 14, marginLeft:5, color: colors.black }}>12087</Text>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { title: "Likes" })}>
+            {showLike ? (
+              <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
+                {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+              </Text>
+            ) :
+              <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>See Likes</Text>}
           </TouchableOpacity>
         </View>
       }
 
-      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push('OtherComments')}>
+      {/* Comments */}
+      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push("OtherComments")}>
         <Icon type="font-awesome" size={20} name={"comment-o"} color={colors.black} />
-        <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>258</Text>
+        <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>
+          {commentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        </Text>
       </TouchableOpacity>
 
+      {/* Save */}
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
         {saved == true ? (
           <Icon type="font-awesome" size={20} name={"bookmark"} color={colors.green} />

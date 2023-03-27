@@ -1,19 +1,20 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
     wrapper: {
-        position: "fixed",
+        position: "absolute",
         width: '100%',
         top: 0,
         zIndex: 999,
-        backgroundColor: '#FFF'
+        backgroundColor: colors.white
       },
       header: {
         left: 0,
         height: 60,
         width: "100%",
         flexDirection: "row",
-        alignItems: "center",//yatay
+        alignItems: "center",
       },
       headerName: {
         fontSize: 22,
