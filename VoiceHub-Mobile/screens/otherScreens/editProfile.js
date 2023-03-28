@@ -37,6 +37,8 @@ export default function EditProfile({ navigation, route }) {
     }
   }
 
+
+
   return (
     <SafeAreaView style={editProfileStyle.container}>
       <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} />

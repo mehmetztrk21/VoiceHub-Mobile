@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { RefreshControl, SafeAreaView, ScrollView, View } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, View } from 'react-native';
 
 import ArchivePopUp from "../components/archivePopUp";
 import OtherHeader from '../components/otherHeader';
@@ -7,8 +7,8 @@ import RenderPost from "../components/RenderPost";
 
 import savedStyle from "../../assets/styles/saved.style";
 
-import { getSavedPosts } from "../services/postServices";
-import { getArchivePosts } from "../services/postServices";
+import { getSavedPosts } from "../../services/postServices";
+import { getMyPosts } from "../../services/postServices";
 
 import { Dimensions } from "react-native";
 import colors from '../../assets/colors';
@@ -42,7 +42,7 @@ export default function SavedArchieves({ navigation, route }) {
   const getPosts = async () => {
     setLoading(true);
     if (HeaderTitle == "Archived") {
-      const response = await getArchivePosts();
+      const response = await getMyPosts({ isArchived: true });
       console.log(response)
       if (response && response.success) {
         let temp = response.data.map((item) => {
@@ -75,7 +75,7 @@ export default function SavedArchieves({ navigation, route }) {
       }
     }
     else if (HeaderTitle == "Saved") {
-      const response = await getSavedPosts();
+      const response = await getSavedPosts({ page: 1, limit: 20 });
       console.log(response)
       if (response && response.success) {
         let temp = response.data.map((item) => {

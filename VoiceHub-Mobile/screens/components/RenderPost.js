@@ -7,7 +7,7 @@ import Post from "./post";
 import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
-import userPostData from "./userPostData";
+
 import user1 from "../../assets/userImages/user1.jpg";
 
 //User"s Local Storage"s infos
@@ -19,12 +19,12 @@ const user = {
 const username = user.username;
 
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
-useEffect(() => {
-  console.log("posts", posts)
-}, [])
+  useEffect(() => {
+    console.log("posts", posts)
+  }, [])
 
 
-  return posts?.map((item,index) => (
+  return posts?.map((item, index) => (
     <View style={[styles.container]} key={index}>
 
       {/* User Informations */}
@@ -48,7 +48,9 @@ useEffect(() => {
       </View>
 
       {/* Like, Comment and Save Button */}
-      <PostActions navigation={navigation} isLiked={item.isLiked} isSaved={item.isSaved} showLike={item.showLike} likesCount={item.likesCount} commentCount={item.commentCount} />
+      <PostActions navigation={navigation} isLiked={item.isLiked}
+        isSaved={item.isSaved} showLike={item.showLike} likesCount={item.likesCount}
+        commentCount={item.commentCount} />
 
     </View>
   ));
@@ -74,4 +76,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default RenderPost
+export default RenderPost;

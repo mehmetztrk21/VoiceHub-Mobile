@@ -4,7 +4,7 @@ export const createPost = async (data) => {
     return await apiAxios.post("/post/createPost", data, {
         headers: {
             'Content-Type': 'multipart/form-data'
-        }//dosya göndereceksen form-data göndermeteceksen apllication/json
+        }//dosya göndereceksen form-data göndermeteceksen apllication/json(yazmaya gerek yok)
     }).then(res => {
         return res.data
     }).catch(err => { console.error(err, "Post Services"); return null })
@@ -38,9 +38,9 @@ export const getSavedPosts = async (data) => {
     }).catch(err => { console.error(err, "Post Services"); return null })
 }
 
-export const getArchivePosts = async (data) => {
+export const setArchivePost = async (data) => {
     return await apiAxios.post("/post/archivePost", data
     ).then(res => {
         return res.data
     }).catch(err => { console.error(err, "Post Services"); return null })
-} 
+}

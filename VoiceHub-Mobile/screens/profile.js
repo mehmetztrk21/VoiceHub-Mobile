@@ -102,6 +102,7 @@ export default function ProfileScreen({ navigation, route }) {
         <ActivityIndicator size="large" color={colors.green} />
       </View>)
   }
+  
 
   return (
     <SafeAreaView style={profileStyles.container}>
@@ -197,8 +198,8 @@ export default function ProfileScreen({ navigation, route }) {
           visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
-          <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"} 
-          setOpenEditPostPopUp={setOpenEditPostPopUp} posts={posts} />
+          <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"}
+            setOpenEditPostPopUp={setOpenEditPostPopUp} posts={posts} />
         </View>
       </ScrollView>
 

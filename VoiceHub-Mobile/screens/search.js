@@ -68,7 +68,7 @@ export default function SearchScreen({ navigation, route }) {
 
   const getPosts = async () => {
     setLoading(true);
-    const response = await getExplorePosts();
+    const response = await getExplorePosts({ page: 1, limit: 20 });
     console.log(response)
     if (response && response.success) {
       let temp = response.data.map((item) => {
@@ -96,7 +96,7 @@ export default function SearchScreen({ navigation, route }) {
           isVerify: false,
         }
       })
-      
+
       setPosts(temp);
     }
     setLoading(false);
@@ -110,7 +110,7 @@ export default function SearchScreen({ navigation, route }) {
     return (
       <View style={{
         flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-        justifyContent: "center", alignItems: "center"
+        justifyContent: "center", alignItems: "center",
       }}>
         <ActivityIndicator size="large" color={colors.green} />
       </View>)
@@ -196,7 +196,7 @@ export default function SearchScreen({ navigation, route }) {
         {focused ? (
           <RenderLastSearchedUser navigation={navigation} />
         ) :
-          <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} />
+          <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />
         }
       </ScrollView>
 

@@ -44,7 +44,7 @@ export default function ActivityScreen({ navigation, route }) {
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         } >
         {
-          userPostData.map((item,index) => {
+          userPostData.map((item, index) => {
             return (
               <View key={index}>
                 <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.navigate("SeePost", { uName: uName, isYourProfile: true, isVerify: item.isVerify })}>

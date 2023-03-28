@@ -42,8 +42,8 @@ export default function HomeScreen({ navigation, route }) {
 
   const getPosts = async () => {
     setLoading(true);
-    const response = await getMainPagePosts();
-    console.log(response)
+    const response = await getMainPagePosts({ page: 1, limit: 20 });
+    console.log(response);
     if (response && response.success) {
       let temp = response.data.map((item) => {
         console.log(item.categories, "item.categories")
@@ -69,8 +69,7 @@ export default function HomeScreen({ navigation, route }) {
           hasBio: false,
           isVerify: false,
         }
-      })
-
+      });
       setPosts(temp);
     }
     setLoading(false);
@@ -84,10 +83,11 @@ export default function HomeScreen({ navigation, route }) {
     return (
       <View style={{
         flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-        justifyContent: "center", alignItems: "center"
+        justifyContent: "center", alignItems: "center",
       }}>
         <ActivityIndicator size="large" color={colors.green} />
-      </View>)
+      </View>
+    )
   }
 
   return (
