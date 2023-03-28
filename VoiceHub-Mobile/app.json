@@ -21,7 +21,7 @@
           "allowsRecording": true,
           "importance": "always"
         }
-      },
+      }
     },
     "android": {
       "adaptiveIcon": {

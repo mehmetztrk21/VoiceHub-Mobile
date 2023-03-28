@@ -19,19 +19,14 @@ import PopUp from "./components/popUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import RenderPost from "./components/RenderPost";
+import { baseURL } from "../utils/constants";
+import { getUserInfo } from "../utils/getUserInfo";
 
 const { width } = Dimensions.get("window");
 
-const user = {
-  name: "Mehmet",
-  surname: "Öztürk",
-  username: "mehmet.ztrk"
-} //TODO: get in localStorage
-const userRealName = user.name + " " + user.surname;
-
 export default function ProfileScreen({ navigation, route }) {
   const { uName } = route.params;
-
+  const [user, setUser] = useState({});
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false);
@@ -90,7 +85,11 @@ export default function ProfileScreen({ navigation, route }) {
   }
 
   useEffect(() => {
-    getPosts();
+    setLoading(true);
+    getUserInfo().then((res) => {
+      setUser(res);
+      getPosts();
+    })
   }, [])
 
   if (loading) {
@@ -136,7 +135,7 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
-          <Image source={admin} style={profileStyles.userPic} />
+          <Image source={{uri:baseURL+user?.profilePhotoUrl}} style={profileStyles.userPic} />
           <View style={profileStyles.followContents}>
 
             <View style={profileStyles.postCount}>
@@ -173,7 +172,7 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* Bio */}
         <View style={profileStyles.bioContents}>
-          <Text style={profileStyles.name}>{userRealName}</Text>
+          <Text style={profileStyles.name}>{user?.name +" "+user?.surname}</Text>
           <Post />
         </View>
 

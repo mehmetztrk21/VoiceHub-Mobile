@@ -1,8 +1,9 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { baseURL } from "../utils/constants";
 const apiAxios = axios.create({
-    baseURL: "http://192.168.0.33:5000/"
+    baseURL: baseURL
 })
 
 apiAxios.interceptors.response.use((response) => response, (error) => {

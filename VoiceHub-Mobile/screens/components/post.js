@@ -6,6 +6,7 @@ import { Icon, Slider } from "react-native-elements";
 import postStyle from "../../assets/styles/post.style";
 import sliderStyle from "../../assets/styles/slider.style";
 import colors from "../../assets/colors";
+import { baseURL } from "../../utils/constants";
 
 const Post = ({uri}) => {
   const [soundObject, setSound] = useState(null);
@@ -30,7 +31,7 @@ const Post = ({uri}) => {
 
   const loadSound = async () => {
     const { sound } = await Audio.Sound.createAsync({
-      uri: "http://192.168.0.33:5000/" + uri || "",
+      uri: baseURL + uri || "",
     });
     setSound(sound);
     sound.setOnPlaybackStatusUpdate((playbackStatus) => {

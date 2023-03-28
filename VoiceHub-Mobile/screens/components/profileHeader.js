@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 import colors from '../../assets/colors';
 
 import profileHeaderStyle from "../../assets/styles/profileHeader.style";
-
 import verfy from "../../assets/ver.png";
+import { getUserInfo } from '../../utils/getUserInfo';
 
 const profileHeader = ({ navigation, uName, isVerified }) => {
+  const [user, setUser] = React.useState({})
+  useEffect(() => {
+    getUserInfo().then((res) => {
+      console.log(res)
+      setUser(res)
+    })
+  }, [])
   return (
     <View style={profileHeaderStyle.wrapper}>
       <View style={profileHeaderStyle.aHeadView}>
         <View style={profileHeaderStyle.leftTop}>
 
-          <Text style={profileHeaderStyle.head}>{uName}</Text>
+          <Text style={profileHeaderStyle.head}>{user?.username}</Text>
 
           {isVerified ? (
             <Image source={verfy} style={profileHeaderStyle.ver} />
