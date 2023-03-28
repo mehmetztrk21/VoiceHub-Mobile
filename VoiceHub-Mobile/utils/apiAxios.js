@@ -18,8 +18,7 @@ apiAxios.interceptors.response.use((response) => response, (error) => {
 });
 
 apiAxios.interceptors.request.use(async (req) => {
-    //local storage dan aldığın token i buraya koy.
-    const token = await AsyncStorage.getItem("token");
+    const token = await AsyncStorage.getItem("token") || ""
     if (token) req.headers.Authorization = `Bearer ${token}`;
     return req;
 });
