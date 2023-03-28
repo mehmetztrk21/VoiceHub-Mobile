@@ -77,6 +77,7 @@ export default function HomeScreen({ navigation, route }) {
   }
 
   useEffect(() => {
+    console.log("main")
     getPosts();
   }, [])
 

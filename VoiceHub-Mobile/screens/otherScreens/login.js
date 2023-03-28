@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import loginStyle from "../../assets/styles/login.style";
 import { login } from "../../services/authServices";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 export default function Login({ navigation }) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -12,9 +12,11 @@ export default function Login({ navigation }) {
         if (userName !== "" && password !== "") {
             const response = await login({ username: userName, password: password })
             console.log(response)
-            if (response && response.success)
-                    //local storage gibi bir şey bul token i oraya koy.
+            if (response && response.success) {
+                await AsyncStorage.setItem('token', response.data.accessToken)
+                await AsyncStorage.setItem('user', JSON.stringify(response.data.user))
                 navigation.navigate('HomeScreen', { uName: userName, isYourProfile: true })
+            }
             else
                 alert("Kullanıcı adı veya şifre hatalı")
         }

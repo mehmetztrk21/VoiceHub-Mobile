@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "kaan",
-    "slug": "kaan",
+    "name": "VoiceHub",
+    "slug": "VoiceHub",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

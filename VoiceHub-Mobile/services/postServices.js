@@ -1,3 +1,4 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import apiAxios from "../utils/apiAxios"
 
 export const createPost = async (data) => {
@@ -18,6 +19,7 @@ export const getUserInfo = async (data) => {
 }
 
 export const getMyPosts = async (data) => {
+    console.log(await AsyncStorage.getItem("token"),"dasjdaj");
     return await apiAxios.post("/post/myPosts", data
     ).then(res => {
         return res.data
