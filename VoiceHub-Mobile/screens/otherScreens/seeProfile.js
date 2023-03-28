@@ -102,7 +102,7 @@ export default function SeeProfile({ navigation, route }) {
                         borderRadius: 12.5,
                     }}>
                         <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                            {(FollowFollowerButtonText(isYouFollowing, isYourFollower))}
+                            {(FollowFollowerButtonText(isYouFollowing))}
                         </Text>
                     </TouchableOpacity>
                 </View>
@@ -128,8 +128,8 @@ export default function SeeProfile({ navigation, route }) {
             </ScrollView>
 
             {openAreYouSure == true ? (
-                <AreYouSure process={'LogOut'} navigation={navigation} 
-                setOpenAreYouSure={setOpenAreYouSure} />
+                <AreYouSure process={'LogOut'} navigation={navigation}
+                    setOpenAreYouSure={setOpenAreYouSure} />
             ) : null}
         </SafeAreaView>
     );
