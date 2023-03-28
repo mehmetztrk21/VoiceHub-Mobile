@@ -18,11 +18,8 @@ const user = {
 } //TODO: get in localStorage
 const username = user.username;
 
-const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
-  useEffect(() => {
-    console.log("iddddddddddassssssssssss",posts[0]?.id)
-  }, [])
-
+const RenderPost = (
+  { navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
 
   return posts?.map((item, index) => (
     <View style={[styles.container]} key={index}>
@@ -50,7 +47,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
       {/* Like, Comment and Save Button */}
       <PostActions navigation={navigation} isLiked={item.isLiked}
         isSaved={item.isSaved} showLike={item.showLike} likesCount={item.likesCount}
-        commentCount={item.commentCount} />
+        commentCount={item.commentCount} id={item.id} />
 
     </View>
   ));

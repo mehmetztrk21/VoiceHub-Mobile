@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, RefreshControl, SafeAreaView, ScrollView, View } from 'react-native';
+import { ActivityIndicator, Modal, RefreshControl, SafeAreaView, ScrollView, View } from 'react-native';
 
 import ArchivePopUp from "../components/archivePopUp";
 import OtherHeader from '../components/otherHeader';
@@ -14,7 +14,7 @@ import colors from '../../assets/colors';
 const { width } = Dimensions.get("window");
 
 export default function SavedArchieves({ navigation, route }) {
-
+  const { HeaderTitle } = route.params;
   const scrollViewRef = useRef();
 
   const handleLayout = () => {
@@ -31,22 +31,23 @@ export default function SavedArchieves({ navigation, route }) {
     }, 800)
   }
 
-  const { HeaderTitle } = route.params;
+
 
   const [openArchivePopUp, setOpenArchivePopUp] = useState(false)
   const [loading, setLoading] = useState(false);
-
+  const [id, setId] = useState("");
   const [posts, setPosts] = useState([]);
 
   const getPosts = async () => {
     setLoading(true);
     if (HeaderTitle == "Archived") {
-      const response = await getMyPosts({ isArchived: true });
+      const response = await getMyPosts({ isArchived: "active" });
       console.log(response)
       if (response && response.success) {
         let temp = response.data.map((item) => {
           console.log(item.categories, "item.categories");
           return {
+            id: item._id,
             contentUrl: item.contentUrl,
             categories: item.categories,
             userName: "Mehmet",
@@ -69,7 +70,6 @@ export default function SavedArchieves({ navigation, route }) {
             isVerify: false,
           }
         })
-
         setPosts(temp);
       }
     }
@@ -132,20 +132,25 @@ export default function SavedArchieves({ navigation, route }) {
     <SafeAreaView style={savedStyle.container}>
 
       <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} />
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openArchivePopUp ? true : false}
+        onRequestClose={() => {
+          setOpenArchivePopUp(false);
+        }}
+      >
+        <ArchivePopUp id={openArchivePopUp} setId={setOpenArchivePopUp} />
+      </Modal>
       <View style={{ marginTop: width * 0.04 }}>
 
         <ScrollView style={savedStyle.savedPostContainer} ref={scrollViewRef} onLayout={handleLayout}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
           } >
-          <RenderPost navigation={navigation} HeaderTitle={HeaderTitle} setOpenArchivePopUp={setOpenArchivePopUp} posts={posts} />
+          <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
+            setOpenArchivePopUp={setOpenArchivePopUp} posts={posts} />
         </ScrollView>
-
-        {
-          openArchivePopUp == true ? (
-            <ArchivePopUp />
-          ) : null
-        }
 
       </View>
     </SafeAreaView>

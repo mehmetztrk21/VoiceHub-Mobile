@@ -18,9 +18,10 @@ export default function PostUserInfo(
     const [differenceInDays, setDifferenceInDays] = useState("0");
 
     useEffect(() => {
+        console.log("kaaaaaaaaaaaaaaaa",id);
+
         const currentDate = new Date();
         const postDate = new Date(date);
-        console.log(id,"iddddddd")
         const differenceInMs = currentDate.getTime() - postDate.getTime();
         const msInOneYear = 1000 * 60 * 60 * 24 * 365;
         const msInOneMonth = 1000 * 60 * 60 * 24 * 30;
@@ -54,7 +55,6 @@ export default function PostUserInfo(
         else {
             setDifferenceInDays("0");
         }
-
     }, []);
 
 
@@ -90,7 +90,7 @@ export default function PostUserInfo(
                         <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == 'Archived' ? (
-                    <TouchableOpacity onPress={() => { setOpenArchivePopUp(prev => !prev) }}>
+                    <TouchableOpacity onPress={() => { setOpenArchivePopUp(id ? id : false) }}>
                         <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
                     </TouchableOpacity>
                 ) : null}

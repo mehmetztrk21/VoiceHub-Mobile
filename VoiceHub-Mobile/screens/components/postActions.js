@@ -3,38 +3,109 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 
+import { setLikedPost, setSavedPost } from "../../services/postServices"
+
 import postActionsStyle from "../../assets/styles/postActions.style";
 
-export default function postActions({ navigation, isLiked, isSaved, showLike, likesCount, commentCount }) {
+export default function postActions(
+  { navigation, isLiked, isSaved, showLike, likesCount, commentCount, id, setId }) {
 
   const [liked, setLiked] = useState(isLiked)
   const [likeCount, setLikeCount] = useState(likesCount);
   const [saved, setSaved] = useState(isSaved)
 
-  const postLiked = () => {
+  const postLiked = async () => {
     setLiked(prev => {
       if (!prev == true) {
-        console.log("begenildi");
-        setLikeCount(likeCount => likeCount + 1);
+        console.log("beğenildi");
+
       }
       else {
-        console.log("beğeni geri çekildi");
-        setLikeCount(likeCount => likeCount - 1);
+        console.log("beğenme geri çekildi");
+
       }
       return !prev;
     })
+
+    const response = await setLikedPost({ postId: id });
+    console.log(response);
+    if (response && response.success) {
+      let temp = response.data.map((item) => {
+        console.log(item.categories, "item.categories")
+        return {
+          id: item._id,
+          contentUrl: item.contentUrl,
+          categories: item.categories,
+          userName: "Mehmet",
+          createdBy: item.createdBy,
+          createdAt: item.createdAt,
+          userPic: "user1",
+          likesCount: 1451,
+          caption: "Coffee is the most imp part of my life !",
+          type: "sender",
+          visible: true,
+          category: "all",
+          showLike: false,
+          isSaved: false,
+          isLiked: true,
+          date: "12/02/2023 12:41",
+          isYourFollower: true,
+          isYouFollowing: true,
+          commentCount: 12,
+          hasBio: false,
+          isVerify: false,
+        }
+      });
+      setId(false);
+      setPosts(temp);
+    }
   };
 
-  const postSave = () => {
+  const postSave = async () => {
     setSaved(prev => {
       if (!prev == true) {
-        console.log("kaydedildi")
+        console.log("kaydedildi");
+
       }
       else {
-        console.log("kaydetme geri çekildi")
+        console.log("kaydetme geri çekildi");
+
       }
       return !prev;
     })
+
+    const response = await setSavedPost({ postId: id });
+    console.log(response);
+    if (response && response.success) {
+      let temp = response.data.map((item) => {
+        console.log(item.categories, "item.categories")
+        return {
+          id: item._id,
+          contentUrl: item.contentUrl,
+          categories: item.categories,
+          userName: "Mehmet",
+          createdBy: item.createdBy,
+          createdAt: item.createdAt,
+          userPic: "user1",
+          likesCount: 1451,
+          caption: "Coffee is the most imp part of my life !",
+          type: "sender",
+          visible: true,
+          category: "all",
+          showLike: false,
+          isSaved: false,
+          isLiked: true,
+          date: "12/02/2023 12:41",
+          isYourFollower: true,
+          isYouFollowing: true,
+          commentCount: 12,
+          hasBio: false,
+          isVerify: false,
+        }
+      });
+      setId(false);
+      setPosts(temp);
+    }
   };
 
   return (

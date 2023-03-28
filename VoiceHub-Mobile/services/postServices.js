@@ -39,7 +39,28 @@ export const getSavedPosts = async (data) => {
 }
 
 export const setArchivePost = async (data) => {
-    return await apiAxios.post("/post/archivePost", data
+    return await apiAxios.post("/action/archivePost", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services"); return null })
+}
+
+export const setNotArchivePost = async (data) => {
+    return await apiAxios.post("/action/activatePost", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services"); return null })
+}
+
+export const setSavedPost = async (data) => {
+    return await apiAxios.post("/action/save", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services"); return null })
+}
+
+export const setLikedPost = async (data) => {
+    return await apiAxios.post("/action/like", data
     ).then(res => {
         return res.data
     }).catch(err => { console.error(err, "Post Services"); return null })

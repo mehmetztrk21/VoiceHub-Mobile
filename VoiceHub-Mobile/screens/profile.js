@@ -33,7 +33,6 @@ export default function ProfileScreen({ navigation, route }) {
   const { uName } = route.params;
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
-  const [visibleUpload, setVisibleUpload] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false);
 
@@ -56,12 +55,12 @@ export default function ProfileScreen({ navigation, route }) {
   const getPosts = async () => {
     setLoading(true);
     const response = await getMyPosts();
-   // console.log(response)
+    // console.log(response)
     if (response && response.success) {
       let temp = response.data.map((item) => {
-     //   console.log(item.categories, "item.categories");
+        //   console.log(item.categories, "item.categories");
         return {
-          id:item._id,
+          id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
           userName: "Mehmet",
@@ -74,7 +73,7 @@ export default function ProfileScreen({ navigation, route }) {
           visible: true,
           category: "all",
           showLike: false,
-          isSaved: false,
+          isSaved: item.isSaved,
           isLiked: true,
           date: "12/02/2023 12:41",
           isYourFollower: true,
@@ -103,7 +102,7 @@ export default function ProfileScreen({ navigation, route }) {
         <ActivityIndicator size="large" color={colors.green} />
       </View>)
   }
-  
+
 
   return (
     <SafeAreaView style={profileStyles.container}>
@@ -195,8 +194,7 @@ export default function ProfileScreen({ navigation, route }) {
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }
         style={[profileStyles.scroll,
-        visibleUpload == true ? (profileStyles.uploadMargin) :
-          visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
+        visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
           <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"}

@@ -74,6 +74,7 @@ export default function SearchScreen({ navigation, route }) {
       let temp = response.data.map((item) => {
         console.log(item.categories, "item.categories");
         return {
+          id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
           userName: "Mehmet",

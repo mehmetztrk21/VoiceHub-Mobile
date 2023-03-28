@@ -1,17 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements';
 
-import colors from '../../assets/colors.js'
+import colors from '../../assets/colors.js';
 import editPostPopUpStyle from '../../assets/styles/editPostPopUp.style';
 
 import { setArchivePost } from "../../services/postServices";
 
 const editPostPopUp = ({ bottomSize, id, setId }) => {
-  useEffect(() => {
-    console.log("popup:", id)
-  }, [id])
+
   const setArchive = async () => {
     const response = await setArchivePost({ id: id });
     console.log(response);
@@ -43,7 +41,6 @@ const editPostPopUp = ({ bottomSize, id, setId }) => {
         }
       });
       setId(false);
-      setPosts(temp);
     }
   }
 
