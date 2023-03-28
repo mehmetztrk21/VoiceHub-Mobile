@@ -20,7 +20,7 @@ const username = user.username;
 
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
   useEffect(() => {
-    console.log("posts", posts)
+    console.log("iddddddddddassssssssssss",posts[0]?.id)
   }, [])
 
 
@@ -35,7 +35,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
         setOpenEditPostPopUp={setOpenEditPostPopUp}
         visible={item.visible} date={item.createdAt || item.date}
         isVerify={item.isVerify} isYouFollowing={item.isYouFollowing}
-        isYourFollower={item.isYourFollower} hasBio={item.hasBio} />
+        isYourFollower={item.isYourFollower} hasBio={item.hasBio} id={item.id} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>

@@ -56,11 +56,12 @@ export default function ProfileScreen({ navigation, route }) {
   const getPosts = async () => {
     setLoading(true);
     const response = await getMyPosts();
-    console.log(response)
+   // console.log(response)
     if (response && response.success) {
       let temp = response.data.map((item) => {
-        console.log(item.categories, "item.categories");
+     //   console.log(item.categories, "item.categories");
         return {
+          id:item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
           userName: "Mehmet",
@@ -124,12 +125,12 @@ export default function ProfileScreen({ navigation, route }) {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={openEditPostPopUp}
+        visible={openEditPostPopUp ? true : false}
         onRequestClose={() => {
           setOpenEditPostPopUp(false);
         }}
       >
-        <EditPostPopUp />
+        <EditPostPopUp bottomSize={50} id={openEditPostPopUp} setId={setOpenEditPostPopUp} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>

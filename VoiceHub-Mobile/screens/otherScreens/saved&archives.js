@@ -7,8 +7,7 @@ import RenderPost from "../components/RenderPost";
 
 import savedStyle from "../../assets/styles/saved.style";
 
-import { getSavedPosts } from "../../services/postServices";
-import { getMyPosts } from "../../services/postServices";
+import { getMyPosts, getSavedPosts } from "../../services/postServices";
 
 import { Dimensions } from "react-native";
 import colors from '../../assets/colors';
@@ -139,7 +138,7 @@ export default function SavedArchieves({ navigation, route }) {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
           } >
-          <RenderPost navigation={navigation} HeaderTitle={HeaderTitle} setOpenArchivePopUp={setOpenArchivePopUp} />
+          <RenderPost navigation={navigation} HeaderTitle={HeaderTitle} setOpenArchivePopUp={setOpenArchivePopUp} posts={posts} />
         </ScrollView>
 
         {

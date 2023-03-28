@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { Icon } from 'react-native-elements'
@@ -8,10 +8,12 @@ import editPostPopUpStyle from '../../assets/styles/editPostPopUp.style';
 
 import { setArchivePost } from "../../services/postServices";
 
-const editPostPopUp = ({ data, updateData }) => {
-
+const editPostPopUp = ({ bottomSize, id, setId }) => {
+  useEffect(() => {
+    console.log("popup:", id)
+  }, [id])
   const setArchive = async () => {
-    const response = await setArchivePost({ id: "id" });
+    const response = await setArchivePost({ id: id });
     console.log(response);
     if (response && response.success) {
       let temp = response.data.map((item) => {
@@ -40,6 +42,7 @@ const editPostPopUp = ({ data, updateData }) => {
           isVerify: false,
         }
       });
+      setId(false);
       setPosts(temp);
     }
   }

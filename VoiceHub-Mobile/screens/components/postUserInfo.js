@@ -13,17 +13,14 @@ const user = {
 export default function PostUserInfo(
     { navigation, userPic, userName, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp,
-        visible, date, isVerify, isYouFollowing, hasBio, isYourFollower }) {
+        visible, date, isVerify, isYouFollowing, hasBio, isYourFollower, id }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
 
     useEffect(() => {
         const currentDate = new Date();
-        console.log(currentDate);
-
         const postDate = new Date(date);
-        console.log(postDate);
-
+        console.log(id,"iddddddd")
         const differenceInMs = currentDate.getTime() - postDate.getTime();
         const msInOneYear = 1000 * 60 * 60 * 24 * 365;
         const msInOneMonth = 1000 * 60 * 60 * 24 * 30;
@@ -89,7 +86,7 @@ export default function PostUserInfo(
 
             <View style={{ marginRight: 16 }}>
                 {HeaderTitle == 'ProfileScreen' ? (
-                    <TouchableOpacity onPress={() => { setOpenEditPostPopUp(prev => !prev) }}>
+                    <TouchableOpacity onPress={() => { setOpenEditPostPopUp(id ? id : false) }}>
                         <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == 'Archived' ? (
