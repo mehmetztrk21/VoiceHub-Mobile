@@ -4,10 +4,13 @@ import areYouSureStyle from '../../assets/styles/areYouSure.style'
 const areYouSure = ({ process, navigation, setOpenAreYouSure }) => {
 
     const Operation = (status) => {
-        process == true
-        if (status == true) {
-            if (process == 'LogOut') {
+        if (status) {
+            if (process == "LogOut") {
                 navigation.navigate("Login");
+            }
+            else if (process == "DeleteComment") {
+                console.log("Yorum silme onaylandı")
+                //yorumları çekince gelecek
             }
             else {
                 //continue

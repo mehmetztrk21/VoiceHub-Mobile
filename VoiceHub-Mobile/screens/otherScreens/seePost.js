@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View, Dimensions } from "react-native";
+import { Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View, Dimensions, Modal } from "react-native";
 
 import colors from "../../assets/colors";
 import seePostStyle from "../../assets/styles/seePost.style";
@@ -12,6 +12,7 @@ import OtherHeader from "../components/otherHeader";
 import Post from "../components/post";
 import PostActions from "../components/postActions";
 import PostCategories from "../components/postCategories";
+import AreYouSure from "../components/areYouSure";
 import userPostData from "../components/userPostData";
 
 const { width } = Dimensions.get("window");
@@ -35,6 +36,7 @@ export default function SeePost({ navigation, route }) {
     };
 
     const [refreshing, setRefreshing] = useState(false);
+    const [openAreYouSurePopUp, setOpenAreYouSurePopUp] = useState(false);
 
     const pullThePage = () => {
         setRefreshing(true);
@@ -48,7 +50,16 @@ export default function SeePost({ navigation, route }) {
         <SafeAreaView style={seePostStyle.container}>
 
             <OtherHeader HeaderTitle={""} navigation={navigation} />
-
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={openAreYouSurePopUp}
+                onRequestClose={() => {
+                    setOpenAreYouSurePopUp(false);
+                }}
+            >
+                <AreYouSure process={"DeleteComment"} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
+            </Modal>
             <View style={{
                 flexDirection: "column", backgroundColor: colors.white,
                 paddingBottom: 20, marginTop: width * 0.04,
@@ -75,8 +86,10 @@ export default function SeePost({ navigation, route }) {
                     <PostCategories navigation={navigation} username={username} />
                 </View>
 
-                <View style={{width:"50%", marginLeft:"25%"}}>
-                    <PostActions navigation={navigation} isLiked={false} isSaved={false} showLike={true} likesCount={"1555"} />
+                <View style={{ width: "50%", marginLeft: "25%" }}>
+                    <PostActions navigation={navigation} isLiked={false}
+                        isSaved={false} showLike={true} likesCount={1555}
+                        commentCount={125} id={"efawfe"} />
                 </View>
 
 
@@ -91,14 +104,15 @@ export default function SeePost({ navigation, route }) {
                     userPostData.map((item, index) => {
                         return (
                             <View key={index} style={{ backgroundColor: colors.white, borderRadius: 20, marginTop: 15, padding: "1%" }}>
-                                <Comment navigation={navigation} userPic={item.userPic} userName={item.userName} />
+                                <Comment navigation={navigation} userPic={item.userPic}
+                                    userName={item.userName} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
                             </View>
                         )
                     })
                 }
             </ScrollView>
 
-            <AddVoice title={"comments"}/>
+            <AddVoice title={"comments"} />
         </SafeAreaView>
     );
 }

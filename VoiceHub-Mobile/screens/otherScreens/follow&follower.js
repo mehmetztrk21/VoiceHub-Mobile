@@ -21,8 +21,9 @@ const FollowFollower = ({ navigation, route }) => {
 
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
-
     const [posts, setPosts] = useState([]);
+    const [follow, setFollow] = useState([]);
+    const [follower, setFollower] = useState([]);
     const pullThePage = () => {
         setRefreshing(true);
 
@@ -63,7 +64,8 @@ const FollowFollower = ({ navigation, route }) => {
                     isVerify: false,
                 }
             });
-            setPosts(temp);
+            setFollow(temp);
+            setFollower(temp);
         }
         setLoading(false);
     }

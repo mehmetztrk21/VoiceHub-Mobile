@@ -135,7 +135,7 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
-          <Image source={{uri:baseURL+user?.profilePhotoUrl}} style={profileStyles.userPic} />
+          <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} />
           <View style={profileStyles.followContents}>
 
             <View style={profileStyles.postCount}>
@@ -172,14 +172,14 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* Bio */}
         <View style={profileStyles.bioContents}>
-          <Text style={profileStyles.name}>{user?.name +" "+user?.surname}</Text>
+          <Text style={profileStyles.name}>{user?.name + " " + user?.surname}</Text>
           <Post />
         </View>
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
           <TouchableOpacity style={[profileStyles.editProfileAndFollow, { backgroundColor: colors.green }]}
-            onPress={() => navigation.navigate("EditProfile", { RealName: userRealName, uName: uName, pic: admin })}>
+            onPress={() => navigation.navigate("EditProfile", { RealName: (user?.name + " " + user?.surname), uName: uName, pic: admin })}>
             <Text style={profileStyles.btnTextF}>Edit Profile</Text>
           </TouchableOpacity>
 
