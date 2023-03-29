@@ -3,7 +3,8 @@ import { ActivityIndicator, Dimensions, Image, RefreshControl, SafeAreaView, Scr
 
 import { FollowFollowerButtonText } from "../components/followFollowerButtonText"
 import OtherHeader from "../components/otherHeader"
-import userPostData from "../components/userPostData"
+
+import { getUserInfo } from "../../services/postServices";
 
 import colors from "../../assets/colors"
 import followFollowerStyle from "../../assets/styles/follow&follower.style"
@@ -12,7 +13,7 @@ import ver from "../../assets/ver.png"
 const { width } = Dimensions.get("window");
 
 const FollowFollower = ({ navigation, route }) => {
-    const { title } = route.params;
+    const { title, followers, followings } = route.params;
 
     const scrollViewRef = useRef();
     const handleLayout = () => {
@@ -21,9 +22,9 @@ const FollowFollower = ({ navigation, route }) => {
 
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [posts, setPosts] = useState([]);
     const [follow, setFollow] = useState([]);
     const [follower, setFollower] = useState([]);
+
     const pullThePage = () => {
         setRefreshing(true);
 
@@ -64,14 +65,12 @@ const FollowFollower = ({ navigation, route }) => {
                     isVerify: false,
                 }
             });
-            setFollow(temp);
-            setFollower(temp);
         }
         setLoading(false);
     }
 
     useEffect(() => {
-        getUserInfos();
+        //getUserInfos();
     }, [])
 
     if (loading) {
@@ -100,14 +99,14 @@ const FollowFollower = ({ navigation, route }) => {
                     onLayout={handleLayout} refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                     } >
-                    {
-                        posts?.map((item, index) => {
+                    {title == "Followers" ? (
+                        followers?.map((item, index) => {
                             return (
                                 <View style={followFollowerStyle.item} key={index} >
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
-                                        onPress={() => navigation.navigate("SeeProfile", { uName: item.userName, isVerified: true, visible: item.visible, hasBio: item.hasBio })}>
+                                        onPress={() => navigation.navigate("SeeProfile", { uName: "kaan", isVerified: true, visible: true, hasBio: true })}>
                                         <Image source={item.userPic} style={followFollowerStyle.profileImage} />
-                                        <Text style={followFollowerStyle.userName}>{item.userName}</Text>
+                                        <Text style={followFollowerStyle.userName}>{"kaan"}</Text>
                                         {item.isVerify ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
@@ -121,13 +120,40 @@ const FollowFollower = ({ navigation, route }) => {
                                         borderRadius: 12.5,
                                     }}>
                                         <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                            {(FollowFollowerButtonText(item.isYouFollowing, item.isYourFollower))}
+                                            {(FollowFollowerButtonText(true, false))}
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
                             )
                         })
-                    }
+                    ) : title == "Followings" ? (
+                        followings?.map((item, index) => {
+                            return (
+                                <View style={followFollowerStyle.item} key={index} >
+                                    <TouchableOpacity style={followFollowerStyle.seeProfile}
+                                        onPress={() => navigation.navigate("SeeProfile", { uName: "kaan", isVerified: true, visible: true, hasBio: true })}>
+                                        <Image source={item.userPic} style={followFollowerStyle.profileImage} />
+                                        <Text style={followFollowerStyle.userName}>{"kaan"}</Text>
+                                        {item.isVerify ? (
+                                            <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
+                                        ) : null}
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity style={{
+                                        width: "30%",
+                                        alignItems: "center",
+                                        padding: "2%",
+                                        backgroundColor: colors.green,
+                                        borderRadius: 12.5,
+                                    }}>
+                                        <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
+                                            {(FollowFollowerButtonText(true, false))}
+                                        </Text>
+                                    </TouchableOpacity>
+                                </View>
+                            )
+                        })
+                    ) : null}
                 </ScrollView>
             </View>
         </SafeAreaView>

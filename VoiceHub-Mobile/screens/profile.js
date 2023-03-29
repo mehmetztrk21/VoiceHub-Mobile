@@ -144,7 +144,7 @@ export default function ProfileScreen({ navigation, route }) {
             </View>
 
             <TouchableOpacity style={profileStyles.followerCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers" }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", followings:user.followings }); }}>
               <Text style={profileStyles.fNumber}>
                 {
                   followerCount >= 1000000 ? `${Math.floor(followerCount / 1000000)},${Math.floor((followerCount % 1000000) / 100000)}M`
@@ -156,7 +156,7 @@ export default function ProfileScreen({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity style={profileStyles.followCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: "Following" }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", followers:user.followers }); }}>
               <Text style={profileStyles.fNumber}>
                 {
                   followCount >= 1000000 ? `${Math.floor(followCount / 1000000)}M`
