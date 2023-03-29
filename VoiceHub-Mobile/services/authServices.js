@@ -8,8 +8,23 @@ export const login = async (data) => {
     }).then(res => {
         return res.data;
     }).catch(err => {
-        console.log(err,"hata");
+        console.log(err, "hata");
         return null
+    }
+    );
+    return res;
+}
+
+export const register = async (data) => {
+    const res = await apiAxios.post("/auth/register", data, {
+        header: {
+            "content-type": "application/json",
+        }
+    }).then(res => {
+        return res.data;
+    }).catch(err => {
+        console.log(err, "hata");
+        return null;
     }
     );
     return res;

@@ -15,10 +15,11 @@ export default function Login({ navigation }) {
             if (response && response.success) {
                 await AsyncStorage.setItem('token', response.data.accessToken)
                 await AsyncStorage.setItem('user', JSON.stringify(response.data.user))
-                navigation.navigate('HomeScreen', { uName: userName, isYourProfile: true })
+                navigation.navigate('HomeScreen', { uName: userName })
             }
-            else
+            else {
                 alert("Kullanıcı adı veya şifre hatalı")
+            }
         }
         else {
             alert("don't empty inputs")
