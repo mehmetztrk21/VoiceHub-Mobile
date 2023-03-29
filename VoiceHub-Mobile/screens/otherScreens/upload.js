@@ -127,6 +127,7 @@ export default function Upload({ navigation, route }) {
         const uri = recording.getURI();
         const info = await FileSystem.getInfoAsync(uri);
         const formData = new FormData();  //dosya ile veri göndermk için
+
         formData.append("content", {
             uri: info.uri,
             name: `recording-${Date.now()}.mpeg`,
