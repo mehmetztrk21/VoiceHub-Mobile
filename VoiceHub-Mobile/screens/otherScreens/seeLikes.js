@@ -3,7 +3,7 @@ import {
     Dimensions, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput,
     TouchableOpacity, View
 } from "react-native";
-import { FollowFollowerButtonText } from "../components/followFollowerButtonText";
+import { FollowFollowerButtonText } from "../../utils/followFollowerButtonText";
 import OtherHeader from "../components/otherHeader";
 import userPostData from "../components/userPostData";
 
@@ -68,7 +68,7 @@ const SeeLikes = ({ navigation, route }) => {
                                         borderRadius: 12.5,
                                     }}>
                                         <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                            {(FollowFollowerButtonText(item.isYouFollowing, item.isYourFollower))}
+                                            Follow
                                         </Text>
                                     </TouchableOpacity>
                                 </View>

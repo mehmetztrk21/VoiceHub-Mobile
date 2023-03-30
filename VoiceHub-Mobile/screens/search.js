@@ -17,6 +17,7 @@ import SearchHeader from "./components/SearchHeader";
 import userPostData from "./components/userPostData";
 
 import { Dimensions } from "react-native";
+import { baseURL } from "../utils/constants";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
@@ -68,19 +69,18 @@ export default function SearchScreen({ navigation, route }) {
 
   const getPosts = async () => {
     setLoading(true);
-    const response = await getExplorePosts({ page: 1, limit: 20 });
+    const response = await getExplorePosts({ page: 1, limit: 30 });
     console.log(response)
     if (response && response.success) {
       let temp = response.data.map((item) => {
-        console.log(item.categories, "item.categories");
         return {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
-          userName: "Mehmet",
+          userName: item.createdBy.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: "user1",
+          userPic: baseURL + item.createdBy.profilePhotoUrl,
           likesCount: 1451,
           caption: "Coffee is the most imp part of my life !",
           type: "sender",

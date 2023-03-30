@@ -49,7 +49,7 @@ export default function ActivityScreen({ navigation, route }) {
               <View key={index}>
                 <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.navigate("SeePost", { uName: uName, isYourProfile: true, isVerify: item.isVerify })}>
 
-                  <TouchableOpacity onPress={() => navigation.navigate("SeeProfile", { uName: item.userName, isYourProfile: true, isVerified: item.isVerify, visible: item.visible, hasBio: item.hasBio })}>
+                  <TouchableOpacity onPress={() => navigation.navigate("SeeProfile", { userId: item.id})}>
                     <Image source={item.userPic} style={activityStyles.userPic} />
                   </TouchableOpacity>
 

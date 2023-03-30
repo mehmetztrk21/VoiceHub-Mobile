@@ -1,19 +1,20 @@
 import React, { useEffect, useRef, useState } from "react"
 import { ActivityIndicator, Dimensions, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native"
 
-import { FollowFollowerButtonText } from "../components/followFollowerButtonText"
+import { FollowFollowerButtonText } from "../../utils/followFollowerButtonText"
 import OtherHeader from "../components/otherHeader"
 
-import { getUserInfo } from "../../services/postServices";
+import { getFollowers, getFollowings } from "../../services/userServices";
 
 import colors from "../../assets/colors"
 import followFollowerStyle from "../../assets/styles/follow&follower.style"
 import ver from "../../assets/ver.png"
+import { baseURL } from "../../utils/constants";
 
 const { width } = Dimensions.get("window");
 
 const FollowFollower = ({ navigation, route }) => {
-    const { title, followers, followings } = route.params;
+    const { title, user } = route.params;
 
     const scrollViewRef = useRef();
     const handleLayout = () => {
@@ -22,8 +23,8 @@ const FollowFollower = ({ navigation, route }) => {
 
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [follow, setFollow] = useState([]);
-    const [follower, setFollower] = useState([]);
+    const [followings, setFollowings] = useState([]);
+    const [followers, setFollowers] = useState([]);
 
     const pullThePage = () => {
         setRefreshing(true);
@@ -33,44 +34,35 @@ const FollowFollower = ({ navigation, route }) => {
         }, 800)
     }
 
-    const getUserInfos = async () => {
-        setLoading(true);
-        const response = await getUserInfo({ page: 1, limit: 30 });
-        console.log(response);
-        if (response && response.success) {
-            let temp = response.data.map((item) => {
-                console.log(item.categories, "item.categories")
-                return {
-                    id: item._id,
-                    userId: item.userId,
-                    contentUrl: item.contentUrl,
-                    categories: item.categories,
-                    userName: "Mehmet",
-                    createdBy: item.createdBy,
-                    createdAt: item.createdAt,
-                    userPic: "user1",
-                    likesCount: 1451,
-                    caption: "Coffee is the most imp part of my life !",
-                    type: "sender",
-                    visible: true,
-                    category: "all",
-                    showLike: false,
-                    isSaved: false,
-                    isLiked: true,
-                    date: "12/02/2023 12:41",
-                    isYourFollower: true,
-                    isYouFollowing: true,
-                    commentCount: 12,
-                    hasBio: false,
-                    isVerify: false,
-                }
-            });
-        }
-        setLoading(false);
-    }
-
     useEffect(() => {
-        //getUserInfos();
+        setLoading(true);
+        console.log("kmwofenıbenjakmlse", user, title)
+        if (title == "Followings") {
+            getFollowings({ userId: user?._id }).then((res) => {
+                console.log(res?.data, "aaaaaaaaaaaaaaaaaaaaa");
+                setFollowings(res?.data);
+                setLoading(false);
+            }).catch((err) => {
+                console.log(err);
+                setLoading(false);
+
+            })
+        }
+        else if (title == "Followers") {
+            getFollowers({ userId: user?._id }).then((res) => {
+                console.log(res?.data, "aaaaaaaaaaaaaaaaaaaaa");
+                setFollowers(res?.data);
+                setLoading(false);
+
+            }).catch((err) => {
+                console.log(err);
+                setLoading(false);
+
+            })
+        }
+        else {
+            //empty
+        }
     }, [])
 
     if (loading) {
@@ -104,9 +96,9 @@ const FollowFollower = ({ navigation, route }) => {
                             return (
                                 <View style={followFollowerStyle.item} key={index} >
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
-                                        onPress={() => navigation.navigate("SeeProfile", { uName: "kaan", isVerified: true, visible: true, hasBio: true })}>
-                                        <Image source={item.userPic} style={followFollowerStyle.profileImage} />
-                                        <Text style={followFollowerStyle.userName}>{"kaan"}</Text>
+                                        onPress={() => navigation.navigate("SeeProfile", { userId: user?._id })}>
+                                        <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={followFollowerStyle.profileImage} />
+                                        <Text style={followFollowerStyle.userName}>{item.username}</Text>
                                         {item.isVerify ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
@@ -120,7 +112,7 @@ const FollowFollower = ({ navigation, route }) => {
                                         borderRadius: 12.5,
                                     }}>
                                         <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                            {(FollowFollowerButtonText(true, false))}
+                                            {FollowFollowerButtonText(title, item, user?._id)}
                                         </Text>
                                     </TouchableOpacity>
                                 </View>
@@ -131,9 +123,9 @@ const FollowFollower = ({ navigation, route }) => {
                             return (
                                 <View style={followFollowerStyle.item} key={index} >
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
-                                        onPress={() => navigation.navigate("SeeProfile", { uName: "kaan", isVerified: true, visible: true, hasBio: true })}>
-                                        <Image source={item.userPic} style={followFollowerStyle.profileImage} />
-                                        <Text style={followFollowerStyle.userName}>{"kaan"}</Text>
+                                        onPress={() => navigation.navigate("SeeProfile", { userId: user?._id })}>
+                                        <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />
+                                        <Text style={followFollowerStyle.userName}>{item.username}</Text>
                                         {item.isVerify ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
@@ -147,7 +139,7 @@ const FollowFollower = ({ navigation, route }) => {
                                         borderRadius: 12.5,
                                     }}>
                                         <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                            {(FollowFollowerButtonText(true, false))}
+                                            {FollowFollowerButtonText(title, item, user?._id)}
                                         </Text>
                                     </TouchableOpacity>
                                 </View>

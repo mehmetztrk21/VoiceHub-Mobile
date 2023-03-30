@@ -7,7 +7,10 @@ export const createComment = async (data) => {
         }
     }).then(res => {
         return res.data;
-    }).catch(err => { console.error(err, "Comment Create Services"); return null })
+    }).catch(err => {
+        console.error(err, "Comment Create Services");
+        return null
+    })
 }
 
 export const deleteComment = async (data) => {
@@ -17,5 +20,8 @@ export const deleteComment = async (data) => {
         }
     }).then(res => {
         return res.data;
-    }).catch(err => { console.error(err, "Comment Delete Services"); return null })
+    }).catch(err => {
+        console.error(err, "Comment Delete Services");
+        return null
+    })
 }

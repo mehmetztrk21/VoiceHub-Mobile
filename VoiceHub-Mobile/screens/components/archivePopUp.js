@@ -3,16 +3,14 @@ import { Text, TouchableOpacity, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import colors from '../../assets/colors.js'
 import archivePopUpStyle from "../../assets/styles/archivePopUp.style.js"
-import { setNotArchivePost } from '../../services/postServices.js'
+import { setNotArchivePost } from '../../services/actionServices'
 
 const archivePopUp = ({ id, setId }) => {
 
   const setNotArchive = async () => {
     const response = await setNotArchivePost({ id: id });
-    console.log(response);
     if (response && response.success) {
       let temp = response.data.map((item) => {
-        console.log(item.categories, "item.categories")
         return {
           id: item._id,
           contentUrl: item.contentUrl,

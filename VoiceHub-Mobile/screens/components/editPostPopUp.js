@@ -6,7 +6,7 @@ import { Icon } from 'react-native-elements';
 import colors from '../../assets/colors.js';
 import editPostPopUpStyle from '../../assets/styles/editPostPopUp.style';
 
-import { setArchivePost } from "../../services/postServices";
+import { setArchivePost } from "../../services/actionServices";
 
 const editPostPopUp = ({ bottomSize, id, setId }) => {
 
@@ -15,7 +15,6 @@ const editPostPopUp = ({ bottomSize, id, setId }) => {
     console.log(response);
     if (response && response.success) {
       let temp = response.data.map((item) => {
-        console.log(item.categories, "item.categories")
         return {
           id: item._id,
           contentUrl: item.contentUrl,

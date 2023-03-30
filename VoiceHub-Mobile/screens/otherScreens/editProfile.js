@@ -13,6 +13,7 @@ import OtherHeader from "../components/otherHeader";
 import Slider from "../components/slider";
 
 import { Dimensions } from "react-native";
+import { baseURL } from "../../utils/constants";
 const { width } = Dimensions.get("window");
 
 export default function EditProfile({ navigation, route }) {
@@ -46,7 +47,7 @@ export default function EditProfile({ navigation, route }) {
       <View style={{ flexDirection: "column", marginTop: width * 0.07 }}>
         <View>
           <TouchableOpacity style={editProfileStyle.ppView} onPress={pickFile}>
-            <Image source={pic} style={editProfileStyle.profilePhoto} />
+            <Image source={{ uri: pic }} style={editProfileStyle.profilePhoto} />
             <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
           </TouchableOpacity>
         </View>

@@ -41,11 +41,10 @@ export default function SavedArchieves({ navigation, route }) {
   const getPosts = async () => {
     setLoading(true);
     if (HeaderTitle == "Archived") {
-      const response = await getMyPosts({ isArchived: "active" });
+      const response = await getMyPosts({ isArchived: false });
       console.log(response)
       if (response && response.success) {
         let temp = response.data.map((item) => {
-          console.log(item.categories, "item.categories");
           return {
             id: item._id,
             contentUrl: item.contentUrl,
@@ -75,10 +74,8 @@ export default function SavedArchieves({ navigation, route }) {
     }
     else if (HeaderTitle == "Saved") {
       const response = await getSavedPosts({ page: 1, limit: 20 });
-      console.log(response)
       if (response && response.success) {
         let temp = response.data.map((item) => {
-          console.log(item.categories, "item.categories");
           return {
             contentUrl: item.contentUrl,
             categories: item.categories,

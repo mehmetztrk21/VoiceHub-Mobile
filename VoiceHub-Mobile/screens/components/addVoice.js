@@ -102,7 +102,6 @@ export default function AddVoice({title}) {
       });
 
       const response = await createPost(formData);
-      console.log(response);
     }
 
     else if (title == "comments") {
@@ -126,7 +125,6 @@ export default function AddVoice({title}) {
       });
 
       const response = await createPost(formData);
-      console.log(response);
     }
     else {
       console.error("type not found")

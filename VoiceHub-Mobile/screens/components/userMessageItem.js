@@ -14,7 +14,7 @@ export default function UserMessageItem({ navigation, userName, userPic, who, ha
 
       {who == "receiver" ? (
         <TouchableOpacity
-          onPress={() => navigation.navigate("SeeProfile", { uName: userName, hasBio: hasBio })}>
+          onPress={() => navigation.navigate("SeeProfile", { userId:"1" })}>
           <Image source={userPic}
             style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0675 }} />
         </TouchableOpacity>

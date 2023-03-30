@@ -3,9 +3,6 @@ import React, { useEffect } from "react"
 import colors from "../../assets/colors"
 
 const PostCategories = ({ navigation, username, categories }) => {
-    useEffect(() => {
-        console.log("categories", categories)
-    }, [])
     return (
         <View style={{ flexDirection: "row" }}>
             {

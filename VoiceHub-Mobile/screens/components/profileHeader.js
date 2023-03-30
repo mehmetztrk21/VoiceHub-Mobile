@@ -11,7 +11,6 @@ const profileHeader = ({ navigation, uName, isVerified }) => {
   const [user, setUser] = React.useState({})
   useEffect(() => {
     getUserInfo().then((res) => {
-      console.log(res)
       setUser(res)
     })
   }, [])

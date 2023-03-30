@@ -19,7 +19,7 @@ apiAxios.interceptors.response.use((response) => response, (error) => {
 });
 
 apiAxios.interceptors.request.use(async (req) => {
-    const token = await AsyncStorage.getItem("token") || ""
+    const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDFkNTIzNzE3ZjhlODBjYTViOGVkYjciLCJpYXQiOjE2ODAxODg5OTcsImV4cCI6NDgzNTk0ODk5N30.gNnMi_6wYrPzn7llbRswTXunbJqTBJ8VcKVcmktJalk"
     if (token) req.headers.Authorization = `Bearer ${token}`;
     return req;
 });

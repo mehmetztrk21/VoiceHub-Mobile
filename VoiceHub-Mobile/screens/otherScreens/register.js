@@ -7,7 +7,7 @@ import { login } from "../../services/authServices";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { registerCondition } from "../components/registerCondition";
+import { registerCondition } from "../../utils/registerCondition";
 
 export default function Register({ navigation }) {
     const [firstName, setName] = useState("");
@@ -29,12 +29,10 @@ export default function Register({ navigation }) {
             const response1 = await register(
                 {
                     name: firstName, surname: lastName, username: userName, password: password1,
-                    email: email, phone: phone, birthDay: birth, gender: gender
+                    email: email, phone: phone, birthDay: birth, gender: gender, 
                 })
-            console.log(response1)
             if (response1 && response1.success) {
                 const response2 = await login({ username: userName, password: password1 })
-                console.log(response2)
                 if (response2 && response2.success) {
                     await AsyncStorage.setItem('token', response2.data.accessToken)
                     await AsyncStorage.setItem('user', JSON.stringify(response2.data.user))

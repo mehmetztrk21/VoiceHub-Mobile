@@ -47,25 +47,22 @@ export default function ProfileScreen({ navigation, route }) {
     }, 800)
   }
 
-  const getPosts = async () => {
+  const getPosts = async (res = null) => {
     setLoading(true);
-    const response = await getMyPosts();
-    // console.log(response)
+    const response = await getMyPosts({ isArchived: false });
     if (response && response.success) {
       let temp = response.data.map((item) => {
-        //   console.log(item.categories, "item.categories");
         return {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
-          userName: "Mehmet",
+          userName: res?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: "user1",
+          userPic: baseURL + res?.profilePhotoUrl,
           likesCount: 1451,
           caption: "Coffee is the most imp part of my life !",
           type: "sender",
-          visible: true,
           category: "all",
           showLike: false,
           isSaved: item.isSaved,
@@ -78,7 +75,6 @@ export default function ProfileScreen({ navigation, route }) {
           isVerify: false,
         }
       })
-
       setPosts(temp);
     }
     setLoading(false);
@@ -86,9 +82,9 @@ export default function ProfileScreen({ navigation, route }) {
 
   useEffect(() => {
     setLoading(true);
-    getUserInfo().then((res) => {
+    getUserInfo().then(async (res) => {
       setUser(res);
-      getPosts();
+      await getPosts(res);
     })
   }, [])
 
@@ -97,11 +93,10 @@ export default function ProfileScreen({ navigation, route }) {
       <View style={{
         flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
         justifyContent: "center", alignItems: "center"
-      }}>
+      }}> 
         <ActivityIndicator size="large" color={colors.green} />
       </View>)
   }
-
 
   return (
     <SafeAreaView style={profileStyles.container}>
@@ -139,29 +134,29 @@ export default function ProfileScreen({ navigation, route }) {
           <View style={profileStyles.followContents}>
 
             <View style={profileStyles.postCount}>
-              <Text style={profileStyles.fNumber}>47</Text>
+              <Text style={profileStyles.fNumber}>{posts.length}</Text>
               <Text style={profileStyles.fText}>Post</Text>
             </View>
 
             <TouchableOpacity style={profileStyles.followerCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", followings: user.followings }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user:user }); }}>
               <Text style={profileStyles.fNumber}>
                 {
-                  followerCount >= 1000000 ? `${Math.floor(followerCount / 1000000)},${Math.floor((followerCount % 1000000) / 100000)}M`
-                    : followerCount >= 1000 ? `${Math.floor(followerCount / 1000)},${Math.floor((followerCount % 1000) / 100)}K`
-                      : followerCount
+                  user["followers"]?.length >= 1000000 ? `${Math.floor(user["followers"]?.length / 1000000)},${Math.floor((user["followers"]?.length) / 100000)}M`
+                    : user["followers"]?.length >= 1000 ? `${Math.floor(user["followers"]?.length / 1000)},${Math.floor((user["followers"]?.length) / 100)}K`
+                      : user["followers"]?.length
                 }
               </Text>
               <Text style={profileStyles.fText}>Followers</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={profileStyles.followCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", followers: user.followers }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user:user }); }}>
               <Text style={profileStyles.fNumber}>
                 {
-                  followCount >= 1000000 ? `${Math.floor(followCount / 1000000)}M`
-                    : followCount >= 1000 ? `${Math.floor(followCount / 1000)},${Math.floor((followCount % 1000) / 100)}K`
-                      : followCount
+                  user["followings"]?.length >= 1000000 ? `${Math.floor(user["followings"]?.length / 1000000)}M`
+                    : user["followings"]?.length >= 1000 ? `${Math.floor(user["followings"]?.length / 1000)},${Math.floor((user["followings"]?.length % 1000) / 100)}K`
+                      : user["followings"]?.length
                 }
               </Text>
               <Text style={profileStyles.fText}>Following</Text>

@@ -13,6 +13,7 @@ import { getMainPagePosts } from "../services/postServices";
 //importing styles
 import homeStyles from "../assets/styles/home.style";
 import colors from "../assets/colors";
+import { baseURL } from "../utils/constants";
 
 export default function HomeScreen({ navigation, route }) {
   const { uName } = route.params;
@@ -43,18 +44,16 @@ export default function HomeScreen({ navigation, route }) {
   const getPosts = async () => {
     setLoading(true);
     const response = await getMainPagePosts({ page: 1, limit: 20 });
-    console.log(response);
     if (response && response.success) {
       let temp = response.data.map((item) => {
-        console.log(item.categories, "item.categories")
         return {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
-          userName: "Mehmet",
+          userName: item.createdBy.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: "user1",
+          userPic: baseURL + item.createdBy.profilePhotoUrl,
           likesCount: 1451,
           caption: "Coffee is the most imp part of my life !",
           type: "sender",
@@ -77,7 +76,6 @@ export default function HomeScreen({ navigation, route }) {
   }
 
   useEffect(() => {
-    console.log("main")
     getPosts();
   }, [])
 

@@ -12,14 +12,13 @@ const user = {
 
 export default function PostUserInfo(
     { navigation, userPic, userName, HeaderTitle,
-        setOpenEditPostPopUp, setOpenArchivePopUp,
+        setOpenEditPostPopUp, setOpenArchivePopUp, userId,
         visible, date, isVerify, isYouFollowing, hasBio, isYourFollower, id }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
 
     useEffect(() => {
-        console.log("kaaaaaaaaaaaaaaaa",id);
-
+        console.log("KAAAAAAAA", userPic)
         const currentDate = new Date();
         const postDate = new Date(date);
         const differenceInMs = currentDate.getTime() - postDate.getTime();
@@ -64,13 +63,15 @@ export default function PostUserInfo(
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
                 onPress={() => {
                     if (userName == user.username) {
-                        navigation.navigate('ProfileScreen', { uName: userName, isVerified: isVerify });
+                        navigation.navigate('ProfileScreen', { uName: userName });
                     }
                     else {
-                        navigation.navigate('SeeProfile', { uName: userName, isVerified: isVerify, visible: visible, isYouFollowing: isYouFollowing, isYourFollower: isYourFollower, hasBio: hasBio });
+                        console.log(id)
+                        navigation.navigate('SeeProfile',
+                            { userId: userId, });
                     }
                 }}>
-                <Image style={postUserInfoStyle.userpostImg} source={userPic} />
+                <Image style={postUserInfoStyle.userpostImg} source={{ uri: userPic }} />
 
                 <View style={{ flexDirection: "column" }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>

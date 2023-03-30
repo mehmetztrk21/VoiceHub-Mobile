@@ -8,8 +8,6 @@ import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
 
-import user1 from "../../assets/userImages/user1.jpg";
-
 //User"s Local Storage"s infos
 const user = {
   name: "Mehmet",
@@ -18,21 +16,20 @@ const user = {
 } //TODO: get in localStorage
 const username = user.username;
 
-const RenderPost = (
-  { navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
+const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
 
   return posts?.map((item, index) => (
     <View style={[styles.container]} key={index}>
 
       {/* User Informations */}
       <PostUserInfo
-        navigation={navigation} userPic={user1}
+        navigation={navigation} userPic={item.userPic}
         userName={item.userName} HeaderTitle={HeaderTitle}
         setOpenArchivePopUp={setOpenArchivePopUp}
         setOpenEditPostPopUp={setOpenEditPostPopUp}
         visible={item.visible} date={item.createdAt || item.date}
         isVerify={item.isVerify} isYouFollowing={item.isYouFollowing}
-        isYourFollower={item.isYourFollower} hasBio={item.hasBio} id={item.id} />
+        isYourFollower={item.isYourFollower} hasBio={item.hasBio} id={item.id} userId={item.createdBy._id} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>

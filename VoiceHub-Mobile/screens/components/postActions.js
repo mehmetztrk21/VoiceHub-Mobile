@@ -3,7 +3,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 
-import { setLikedPost, setSavedPost } from "../../services/postServices"
+import { setLikedPost, setSavedPost } from '../../services/actionServices'
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
@@ -28,10 +28,8 @@ export default function postActions(
     })
 
     const response = await setLikedPost({ postId: id });
-    console.log(response);
     if (response && response.success) {
       let temp = response.data.map((item) => {
-        console.log(item.categories, "item.categories")
         return {
           id: item._id,
           contentUrl: item.contentUrl,
@@ -75,10 +73,8 @@ export default function postActions(
     })
 
     const response = await setSavedPost({ postId: id });
-    console.log(response);
     if (response && response.success) {
       let temp = response.data.map((item) => {
-        console.log(item.categories, "item.categories")
         return {
           id: item._id,
           contentUrl: item.contentUrl,
