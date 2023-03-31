@@ -5,12 +5,8 @@ import {
   View, Dimensions
 } from "react-native";
 
-import admin from "../assets/userImages/admin.jpg";
-
 import colors from "../assets/colors";
 import profileStyles from "../assets/styles/profile.style";
-
-import { getMyPosts } from "../services/postServices";
 
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
@@ -19,8 +15,11 @@ import PopUp from "./components/popUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import RenderPost from "./components/RenderPost";
+
 import { baseURL } from "../utils/constants";
 import { getUserInfo } from "../utils/getUserInfo";
+
+import { getMyPosts } from "../services/postServices";
 
 const { width } = Dimensions.get("window");
 
@@ -166,7 +165,7 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Bio */}
         <View style={profileStyles.bioContents}>
           <Text style={profileStyles.name}>{user?.name + " " + user?.surname}</Text>
-          <Post />
+          <Post uri={user?.descriptionVoiceUrl} />
         </View>
 
         {/* Edit Profile Buttons */}
