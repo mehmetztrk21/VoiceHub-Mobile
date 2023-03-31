@@ -21,3 +21,10 @@ export const getFollowings = async (data) => {
         return res.data
     }).catch(err => { console.error(err, "Post Services user/followings"); return null })
 }
+
+export const updateUserInfo = async (data) => {
+    return await apiAxios.post("/user/update", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services user/update"); return null })
+}

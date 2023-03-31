@@ -46,7 +46,8 @@ export default function ProfileScreen({ navigation, route }) {
 
   const getPosts = async (res = null) => {
     setLoading(true);
-    const response = await getMyPosts({ isArchived: false });
+    const response = await getMyPosts({ isArchived: false, userId: user?._id });
+    console.log(response)
     if (response && response.success) {
       let temp = response.data.map((item) => {
         return {
@@ -58,18 +59,8 @@ export default function ProfileScreen({ navigation, route }) {
           createdAt: item.createdAt,
           userPic: baseURL + res?.profilePhotoUrl,
           likesCount: 1451,
-          caption: "Coffee is the most imp part of my life !",
-          type: "sender",
-          category: "all",
-          showLike: false,
           isSaved: item.isSaved,
-          isLiked: true,
-          date: "12/02/2023 12:41",
-          isYourFollower: true,
-          isYouFollowing: true,
           commentCount: 12,
-          hasBio: false,
-          isVerify: false,
         }
       })
       setPosts(temp);
@@ -165,13 +156,16 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Bio */}
         <View style={profileStyles.bioContents}>
           <Text style={profileStyles.name}>{user?.name + " " + user?.surname}</Text>
-          <Post uri={user?.descriptionVoiceUrl} />
+
+          {user?.descriptionVoiceUrl != null ? (
+            <Post uri={user?.descriptionVoiceUrl} />
+          ) : null}
         </View>
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
           <TouchableOpacity style={[profileStyles.editProfileAndFollow, { backgroundColor: colors.green }]}
-            onPress={() => navigation.navigate("EditProfile", { RealName: (user?.name + " " + user?.surname), uName: user?.username, pic: (baseURL + user?.profilePhotoUrl) })}>
+            onPress={() => navigation.navigate("EditProfile", { userInfo: user })}>
             <Text style={profileStyles.btnTextF}>Edit Profile</Text>
           </TouchableOpacity>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { Icon } from "react-native-elements";
@@ -17,8 +17,7 @@ import { baseURL } from "../../utils/constants";
 const { width } = Dimensions.get("window");
 
 export default function EditProfile({ navigation, route }) {
-  const { RealName, uName, pic } = route.params;
-  const hasBio = true;
+  const { userInfo } = route.params;
 
   const [openAddVoice, setOpenAddVoice] = useState(false);
 
@@ -38,8 +37,6 @@ export default function EditProfile({ navigation, route }) {
     }
   }
 
-
-
   return (
     <SafeAreaView style={editProfileStyle.container}>
       <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} />
@@ -47,26 +44,26 @@ export default function EditProfile({ navigation, route }) {
       <View style={{ flexDirection: "column", marginTop: width * 0.07 }}>
         <View>
           <TouchableOpacity style={editProfileStyle.ppView} onPress={pickFile}>
-            <Image source={{ uri: pic }} style={editProfileStyle.profilePhoto} />
+            <Image source={{ uri: baseURL + userInfo?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} />
             <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
           </TouchableOpacity>
         </View>
 
         <Text style={editProfileStyle.label}>User Name</Text>
         <TextInput
-          placeholder={uName}
+          placeholder={userInfo?.username}
           style={editProfileStyle.searchBar}
         />
 
         <Text style={editProfileStyle.label}>Name</Text>
         <TextInput
-          placeholder={RealName}
+          placeholder={userInfo?.name + " " + userInfo?.surname}
           style={editProfileStyle.searchBar}
         />
 
 
         <View style={{ marginTop: "2.5%", marginHorizontal: "10%" }}>
-          {hasBio ? (
+          {true ? (
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
               <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
               <Slider />
@@ -86,7 +83,7 @@ export default function EditProfile({ navigation, route }) {
           }
         </View>
 
-        <TouchableOpacity onPress={() => navigation.goBack({ uName: uName })}>
+        <TouchableOpacity onPress={() => navigation.goBack({ uName: userInfo?.username })}>
           <Text style={[editProfileStyle.saveButtonText, { backgroundColor: colors.green, textAlign: "center" }]}>Save</Text>
         </TouchableOpacity>
 

@@ -8,11 +8,11 @@ import { setLikedPost, setSavedPost } from '../../services/actionServices'
 import postActionsStyle from "../../assets/styles/postActions.style";
 
 export default function postActions(
-  { navigation, isLiked, isSaved, showLike, likesCount, commentCount, id, setId }) {
+  { navigation, likesCount, commentCount }) {
 
-  const [liked, setLiked] = useState(isLiked)
+  const [liked, setLiked] = useState(false)
   const [likeCount, setLikeCount] = useState(likesCount);
-  const [saved, setSaved] = useState(isSaved)
+  const [saved, setSaved] = useState(false)
 
   const postLiked = async () => {
     setLiked(prev => {
@@ -26,37 +26,6 @@ export default function postActions(
       }
       return !prev;
     })
-
-    const response = await setLikedPost({ postId: id });
-    if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          userName: "Mehmet",
-          createdBy: item.createdBy,
-          createdAt: item.createdAt,
-          userPic: "user1",
-          likesCount: 1451,
-          caption: "Coffee is the most imp part of my life !",
-          type: "sender",
-          visible: true,
-          category: "all",
-          showLike: false,
-          isSaved: false,
-          isLiked: true,
-          date: "12/02/2023 12:41",
-          isYourFollower: true,
-          isYouFollowing: true,
-          commentCount: 12,
-          hasBio: false,
-          isVerify: false,
-        }
-      });
-      setId(false);
-      setPosts(temp);
-    }
   };
 
   const postSave = async () => {
@@ -71,37 +40,6 @@ export default function postActions(
       }
       return !prev;
     })
-
-    const response = await setSavedPost({ postId: id });
-    if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          userName: "Mehmet",
-          createdBy: item.createdBy,
-          createdAt: item.createdAt,
-          userPic: "user1",
-          likesCount: 1451,
-          caption: "Coffee is the most imp part of my life !",
-          type: "sender",
-          visible: true,
-          category: "all",
-          showLike: false,
-          isSaved: false,
-          isLiked: true,
-          date: "12/02/2023 12:41",
-          isYourFollower: true,
-          isYouFollowing: true,
-          commentCount: 12,
-          hasBio: false,
-          isVerify: false,
-        }
-      });
-      setId(false);
-      setPosts(temp);
-    }
   };
 
   return (
@@ -114,7 +52,7 @@ export default function postActions(
           </TouchableOpacity>
 
           <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes")}>
-            {showLike ? (
+            {true ? (
               <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
                 {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Text>
@@ -130,7 +68,7 @@ export default function postActions(
           </TouchableOpacity>
 
           <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes")}>
-            {showLike ? (
+            {true ? (
               <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
                 {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Text>

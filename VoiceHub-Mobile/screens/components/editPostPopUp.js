@@ -11,39 +11,11 @@ import { setArchivePost } from "../../services/actionServices";
 const editPostPopUp = ({ bottomSize, id, setId }) => {
 
   const setArchive = async () => {
-    const response = await setArchivePost({ id: id });
-    if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          userName: "Mehmet",
-          createdBy: item.createdBy,
-          createdAt: item.createdAt,
-          userPic: "user1",
-          likesCount: 1451,
-          caption: "Coffee is the most imp part of my life !",
-          type: "sender",
-          visible: true,
-          category: "all",
-          showLike: false,
-          isSaved: false,
-          isLiked: true,
-          date: "12/02/2023 12:41",
-          isYourFollower: true,
-          isYouFollowing: true,
-          commentCount: 12,
-          hasBio: false,
-          isVerify: false,
-        }
-      });
-      setId(false);
-    }
+
   }
 
   return (
-    <View style={[editPostPopUpStyle.container, { backgroundColor: colors.green, paddingHorizontal: 10, marginBottom: bottomSize }]}>
+    <View style={[editPostPopUpStyle.container, { backgroundColor: colors.green, paddingHorizontal: 10, marginBottom: "16%" }]}>
 
       <TouchableOpacity style={{ flexDirection: 'row', paddingVertical: 10 }}>
         <Icon type={'font-awesome'} name={'pencil'} size={28} color={colors.white} />

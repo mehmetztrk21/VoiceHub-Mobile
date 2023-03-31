@@ -40,9 +40,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
       </View>
 
       {/* Like, Comment and Save Button */}
-      <PostActions navigation={navigation} isLiked={item.isLiked}
-        isSaved={item.isSaved} showLike={item.showLike} likesCount={item.likesCount}
-        commentCount={item.commentCount} id={item.id} />
+      <PostActions navigation={navigation} likesCount={item.likesCount} commentCount={item.commentCount} id={item._id} />
 
     </View>
   ));
