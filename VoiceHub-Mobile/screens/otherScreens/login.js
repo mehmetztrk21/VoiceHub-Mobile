@@ -15,6 +15,7 @@ export default function Login({ navigation }) {
         if (userName !== "" && password !== "") {
             const response = await login({ username: userName, password: password });
             if (response && response.success) {
+                console.log(response.data)
                 await AsyncStorage.setItem('token', response.data.accessToken);
                 await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
 

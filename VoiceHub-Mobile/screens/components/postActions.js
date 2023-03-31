@@ -116,7 +116,7 @@ export default function postActions(
           <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes")}>
             {showLike ? (
               <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
-                {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+                {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Text>
             ) :
               <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>See Likes</Text>

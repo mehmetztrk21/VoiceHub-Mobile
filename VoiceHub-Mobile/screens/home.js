@@ -55,19 +55,10 @@ export default function HomeScreen({ navigation, route }) {
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
           likesCount: 1451,
-          caption: "Coffee is the most imp part of my life !",
-          type: "sender",
-          visible: true,
-          category: "all",
-          showLike: false,
+          showLike: true,
           isSaved: false,
           isLiked: true,
-          date: "12/02/2023 12:41",
-          isYourFollower: true,
-          isYouFollowing: true,
           commentCount: 12,
-          hasBio: false,
-          isVerify: false,
         }
       });
       setPosts(temp);
