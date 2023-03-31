@@ -36,7 +36,7 @@ export default function Comment({ navigation, userPic, userName, isVerify, setOp
                         ) : null}
                         <Text style={{ fontWeight: "700", fontSize: 12, color: colors.gray }}> 12day</Text>
                     </View>
-                    <Post />
+                    <Post uri={"buraya uri gelecek"} />
                 </View>
             </View>
 

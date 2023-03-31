@@ -43,7 +43,7 @@ export default function Message({ navigation }) {
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
           } >
           {
-            userPostData.map((item,index) => {
+            userPostData.map((item, index) => {
               return (
                 <MessageItem key={index} navigation={navigation} userName={item.userName} isVerify={item.isVerify} date={item.date} />
               )

@@ -42,8 +42,7 @@ export default function OtherComments({ navigation }) {
                         userPostData.map((item, index) => {
                             return (
                                 <Comment key={index} navigation={navigation} userPic={item.userPic}
-                                    userName={item.userName} isVerify={item.isVerify}
-                                    setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
+                                    userName={item.userName} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
                             )
                         })
                     }
