@@ -14,7 +14,7 @@ import addVoiceStyle from "../../assets/styles/addVoice.style";
 import { createComment } from "../../services/commentServices";
 import { recordingOptions } from '../../utils/recordingOptions';
 
-export default function AddVoice({title}) {
+export default function AddVoice({ title }) {
   const [isRunning, setIsRunning] = useState(false);
   const [recording, setRecording] = useState(null);
   const [seconds, setSeconds] = useState(0);
@@ -56,26 +56,26 @@ export default function AddVoice({title}) {
     }
 
     try {
-      console.log("1")
       if (isRunning == true) {
         setIsRunning(false);
-        console.log("2");
         if (recording) {
           await recording.stopAndUnloadAsync();
           console.log('Recording stopped');
-          save();
+          if (seconds < 1) {
+            alert("You recorded voice must be longer 1 seconds.");
+          }
+          else {
+            save();
+          }
         } else {
           console.log('Recording is not prepared');
         }
       }
       else {
-        console.log("3");
         setIsRunning(true);
         if (recording) {
-          console.log("4")
           console.log('Recording already exists');
         } else {
-          console.log("5")
           const newRecording = new Audio.Recording();
           await newRecording.prepareToRecordAsync(recordingOptions);
           await newRecording.startAsync();
@@ -114,7 +114,6 @@ export default function AddVoice({title}) {
       formData.append("postId", "64202d92c36029a871b607aa");
 
       const response = await createComment(formData);
-      console.log(response);
     }
 
     else if (title == "bio") {

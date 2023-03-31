@@ -11,7 +11,7 @@ import userPostData from '../components/userPostData';
 const { width } = Dimensions.get("window");
 
 export default function UserMessage({ navigation, route }) {
-  const { uName, isVerify } = route.params;
+  const { uName } = route.params;
 
   const scrollViewRef = useRef(null);
 
@@ -21,14 +21,14 @@ export default function UserMessage({ navigation, route }) {
 
   return (
     <SafeAreaView style={userMessageStyle.container}>
-      <OtherHeader navigation={navigation} HeaderTitle={uName} isVerify={isVerify} />
+      <OtherHeader navigation={navigation} HeaderTitle={uName} isVerify={true} />
       <View style={{ marginTop: width * 0.04 }}>
         <ScrollView style={userMessageStyle.scroll} ref={scrollViewRef} onLayout={handleLayout}>
           {
             userPostData.map((item, index) => {
               return (
                 <View key={index} style={{ marginBottom: 20 }}>
-                  <UserMessageItem navigation={navigation} userName={uName} userPic={item.userPic} who={item.type} hasBio={item.hasBio} />
+                  <UserMessageItem navigation={navigation} userPic={item.userPic} who={item.type} />
                 </View>
               )
             })

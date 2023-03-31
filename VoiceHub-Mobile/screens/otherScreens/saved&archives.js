@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ActivityIndicator, Modal, RefreshControl, SafeAreaView, ScrollView, View } from 'react-native';
+import { ActivityIndicator, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import ArchivePopUp from "../components/archivePopUp";
 import OtherHeader from '../components/otherHeader';
@@ -42,7 +42,7 @@ export default function SavedArchieves({ navigation, route }) {
     setLoading(true);
     if (HeaderTitle == "Archived") {
       const response = await getMyPosts({ isArchived: false });
-      console.log(response)
+      
       if (response && response.success) {
         let temp = response.data.map((item) => {
           return {
@@ -129,6 +129,7 @@ export default function SavedArchieves({ navigation, route }) {
     <SafeAreaView style={savedStyle.container}>
 
       <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} />
+
       <Modal
         animationType="slide"
         transparent={true}
@@ -139,6 +140,32 @@ export default function SavedArchieves({ navigation, route }) {
       >
         <ArchivePopUp id={openArchivePopUp} setId={setOpenArchivePopUp} />
       </Modal>
+
+      {(HeaderTitle == "Archived" && posts?.length == 0) ? (
+        <View style={{ marginTop: 200 }}>
+          <Text style={
+            { textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
+          }>
+            {"You have not archived post anyone yet :("}
+          </Text>
+        </View>
+      ) : (HeaderTitle == "Saved" && posts?.length == 0) ? (
+        <View style={{ marginTop: 200 }}>
+          <Text style={
+            { textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
+          }>
+            {"You have not saved post anyone yet :("}
+          </Text>
+
+          <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: "all", type: "discovery" }) }}>
+            <Text style={
+              { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
+              Discover now!
+            </Text>
+          </TouchableOpacity>
+        </View>
+      ) : null}
+
       <View style={{ marginTop: width * 0.04 }}>
 
         <ScrollView style={savedStyle.savedPostContainer} ref={scrollViewRef} onLayout={handleLayout}

@@ -20,13 +20,13 @@ const HomeHeader = ({ navigation, pressLogo, uName, isYourProfile }) => {
             <Image source={logo} style={{ width: 115.2, height: 64.8 }} />
           </TouchableOpacity>
 
-          <View style={{flexDirection:"row"}}>
-            <TouchableOpacity onPress={() => navigation.push('Message')}>
-              <Icon type="font-awesome" size={30} name={"envelope-o"} color={colors.black}/>
+          <View style={{ flexDirection: "row" }}>
+            <TouchableOpacity onPress={() => navigation.navigate("Message")}>
+              <Icon type="font-awesome" size={30} name={"envelope-o"} color={colors.black} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate('ActivityScreen',{uName:uName, isYourProfile})} style={{marginLeft:10}}>
-              <Icon type="font-awesome" size={30}  name={'heart-o'} color={colors.black}/>
+            <TouchableOpacity onPress={() => navigation.navigate("ActivityScreen", { uName: uName })} style={{ marginLeft: 10 }}>
+              <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
             </TouchableOpacity>
           </View>
 

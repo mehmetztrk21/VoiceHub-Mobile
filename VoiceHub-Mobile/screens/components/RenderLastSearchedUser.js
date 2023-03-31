@@ -10,7 +10,7 @@ const RenderLastSearchedUser = ({ navigation }) => {
   return userPostData.map((item, index) => (
     <View style={RenderLastSearchedUserStyle.last} key={index}>
       <TouchableOpacity style={{ flexDirection: "row" }}
-        onPress={() => navigation.navigate('ProfileScreen', { uName: item.userName, isYourProfile: false })}>
+        onPress={() => navigation.navigate("ProfileScreen", { uName: item.userName })}>
         <Image source={item.userPic} style={RenderLastSearchedUserStyle.lastSearchImage} />
         <View style={{ flexDirection: "column" }}>
           <Text>{item.userName}</Text>

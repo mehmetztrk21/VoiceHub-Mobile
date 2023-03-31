@@ -34,7 +34,7 @@ const SeeLikes = ({ navigation, route }) => {
 
     return (
         <SafeAreaView>
-            <OtherHeader HeaderTitle={title} navigation={navigation} />
+            <OtherHeader HeaderTitle={"Likes"} navigation={navigation} />
             <View style={{ marginTop: width * 0.05, backgroundColor: colors.white }}>
                 <View style={[seeLikesStyle.searchBarHolder, { marginBottom: width * 0.07 }]}>
                     <TextInput
@@ -48,14 +48,14 @@ const SeeLikes = ({ navigation, route }) => {
                         <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                     } >
                     {
-                        userPostData.map((item,index) => {
+                        userPostData.map((item, index) => {
                             return (
                                 <View style={seeLikesStyle.item} key={index}>
                                     <TouchableOpacity style={seeLikesStyle.seeProfile}
-                                        onPress={() => navigation.navigate("ProfileScreen", { uName: item.userName, isYourProfile: false })} >
+                                        onPress={() => navigation.navigate("SeeProfile", { userId: "1" })} >
                                         <Image source={item.userPic} style={seeLikesStyle.profileImage} />
                                         <Text style={seeLikesStyle.userName}>{item.userName}</Text>
-                                        {item.isVerify ? (
+                                        {true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>

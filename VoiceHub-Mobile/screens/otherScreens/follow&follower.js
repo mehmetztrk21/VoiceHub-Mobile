@@ -36,10 +36,9 @@ const FollowFollower = ({ navigation, route }) => {
 
     useEffect(() => {
         setLoading(true);
-        console.log("kmwofenıbenjakmlse", user, title)
+
         if (title == "Followings") {
             getFollowings({ userId: user?._id }).then((res) => {
-                console.log(res?.data, "aaaaaaaaaaaaaaaaaaaaa");
                 setFollowings(res?.data);
                 setLoading(false);
             }).catch((err) => {
@@ -50,7 +49,6 @@ const FollowFollower = ({ navigation, route }) => {
         }
         else if (title == "Followers") {
             getFollowers({ userId: user?._id }).then((res) => {
-                console.log(res?.data, "aaaaaaaaaaaaaaaaaaaaa");
                 setFollowers(res?.data);
                 setLoading(false);
 
@@ -86,6 +84,23 @@ const FollowFollower = ({ navigation, route }) => {
                         style={[followFollowerStyle.searchBar, { marginBottom: width * 0.03 }]}
                     />
                 </View>
+
+                {((title == "Followers" && followers?.length == 0) || (title == "Followings" && followings?.length == 0)) ? (
+                    <View style={{ marginTop: "5%" }}>
+                        <Text style={
+                            { textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
+                        }>
+                            {"You are not following anyone yet :("}
+                        </Text>
+
+                        <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: "all", type: "discovery" }) }}>
+                            <Text style={
+                                { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
+                                Discover now!
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                ) : null}
 
                 <ScrollView style={followFollowerStyle.scroll} ref={scrollViewRef}
                     onLayout={handleLayout} refreshControl={

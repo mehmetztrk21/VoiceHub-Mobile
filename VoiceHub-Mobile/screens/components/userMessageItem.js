@@ -7,14 +7,14 @@ import Post from "../../screens/components/post";
 
 const { width } = Dimensions.get("window");
 
-export default function UserMessageItem({ navigation, userName, userPic, who, hasBio }) {
+export default function UserMessageItem({ navigation, userPic, who }) {
 
   return (
     <View style={{ flexDirection: "row" }}>
 
       {who == "receiver" ? (
         <TouchableOpacity
-          onPress={() => navigation.navigate("SeeProfile", { userId:"1" })}>
+          onPress={() => navigation.navigate("SeeProfile", { userId: "1" })}>
           <Image source={userPic}
             style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0675 }} />
         </TouchableOpacity>

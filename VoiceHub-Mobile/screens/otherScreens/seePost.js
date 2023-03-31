@@ -29,7 +29,7 @@ const username = user.username;
 export default function SeePost({ navigation, route }) {
 
     const scrollViewRef = useRef();
-    const { uName, isVerify } = route.params;
+    const { uName } = route.params;
 
     const handleLayout = () => {
         scrollViewRef.current.scrollTo({ y: 0, animated: true });
@@ -71,7 +71,7 @@ export default function SeePost({ navigation, route }) {
                         {uName}
                     </Text>
 
-                    {isVerify ? (
+                    {true ? (
                         <Image source={ver} style={{ width: 24, height: 24, paddingLeft: 6, alignSelf: "center" }} />
                     ) : null}
                 </View>

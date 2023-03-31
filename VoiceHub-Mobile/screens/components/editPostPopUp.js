@@ -12,7 +12,6 @@ const editPostPopUp = ({ bottomSize, id, setId }) => {
 
   const setArchive = async () => {
     const response = await setArchivePost({ id: id });
-    console.log(response);
     if (response && response.success) {
       let temp = response.data.map((item) => {
         return {

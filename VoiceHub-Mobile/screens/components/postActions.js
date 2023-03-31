@@ -113,7 +113,7 @@ export default function postActions(
             <Icon type="font-awesome" size={20} name={"heart"} color={colors.green} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { title: "Likes" })}>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes")}>
             {showLike ? (
               <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
                 {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
@@ -129,7 +129,7 @@ export default function postActions(
             <Icon type="font-awesome" size={20} name={"heart-o"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { title: "Likes" })}>
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes")}>
             {showLike ? (
               <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
                 {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -141,7 +141,7 @@ export default function postActions(
       }
 
       {/* Comments */}
-      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.push("OtherComments")}>
+      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("OtherComments")}>
         <Icon type="font-awesome" size={20} name={"comment-o"} color={colors.black} />
         <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>
           {commentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -150,10 +150,12 @@ export default function postActions(
 
       {/* Save */}
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
-        {saved == true ? (
-          <Icon type="font-awesome" size={20} name={"bookmark"} color={colors.green} />
-        ) :
-          <Icon type="font-awesome" size={20} name={"bookmark-o"} color={colors.black} />}
+        {
+          saved == true ? (
+            <Icon type="font-awesome" size={20} name={"bookmark"} color={colors.green} />
+          ) :
+            <Icon type="font-awesome" size={20} name={"bookmark-o"} color={colors.black} />
+        }
       </TouchableOpacity>
     </View>
   );

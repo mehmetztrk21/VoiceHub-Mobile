@@ -29,7 +29,7 @@ export default function Register({ navigation }) {
             const response1 = await register(
                 {
                     name: firstName, surname: lastName, username: userName, password: password1,
-                    email: email, phone: phone, birthDay: birth, gender: gender, 
+                    email: email, phone: phone, birthDay: birth, gender: gender,
                 })
             if (response1 && response1.success) {
                 const response2 = await login({ username: userName, password: password1 })
@@ -130,7 +130,7 @@ export default function Register({ navigation }) {
                     <Text style={registerStyle.registerButton}>Register</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={registerStyle.touch} onPress={() => navigation.goBack('Login')}>
+                <TouchableOpacity style={registerStyle.touch} onPress={() => navigation.goBack()}>
                     <Text style={registerStyle.textButton}>Do you have accont? Go Log in</Text>
                 </TouchableOpacity>
             </ScrollView>

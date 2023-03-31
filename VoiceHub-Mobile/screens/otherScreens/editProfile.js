@@ -86,7 +86,7 @@ export default function EditProfile({ navigation, route }) {
           }
         </View>
 
-        <TouchableOpacity onPress={() => navigation.goBack("ProfileScreen")}>
+        <TouchableOpacity onPress={() => navigation.goBack({ uName: uName })}>
           <Text style={[editProfileStyle.saveButtonText, { backgroundColor: colors.green, textAlign: "center" }]}>Save</Text>
         </TouchableOpacity>
 

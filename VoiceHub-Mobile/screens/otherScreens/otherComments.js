@@ -21,7 +21,7 @@ export default function OtherComments({ navigation }) {
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "column" }}>
-            <OtherHeader HeaderTitle={'Comments'} navigation={navigation} />
+            <OtherHeader HeaderTitle={"Comments"} navigation={navigation} />
 
             <Modal
                 animationType="slide"

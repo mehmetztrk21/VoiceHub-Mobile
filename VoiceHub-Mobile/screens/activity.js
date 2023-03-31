@@ -47,9 +47,9 @@ export default function ActivityScreen({ navigation, route }) {
           userPostData.map((item, index) => {
             return (
               <View key={index}>
-                <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.navigate("SeePost", { uName: uName, isYourProfile: true, isVerify: item.isVerify })}>
+                <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.navigate("SeePost", { uName: uName })}>
 
-                  <TouchableOpacity onPress={() => navigation.navigate("SeeProfile", { userId: item.id})}>
+                  <TouchableOpacity onPress={() => navigation.navigate("SeeProfile", { userId: item.id })}>
                     <Image source={item.userPic} style={activityStyles.userPic} />
                   </TouchableOpacity>
 

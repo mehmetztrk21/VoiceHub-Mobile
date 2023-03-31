@@ -44,7 +44,7 @@ export default function SeeProfile({ navigation, route }) {
 
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
 
-    const getPosts = async (user=null) => {
+    const getPosts = async (user = null) => {
         const response = await getMyPosts({ isArchived: false, userId: userId });
         if (response && response.success) {
             let temp = response.data.map((item) => {
@@ -78,7 +78,6 @@ export default function SeeProfile({ navigation, route }) {
         setLoading(true);
         getUserById({ id: userId }).then(async (res) => {
             setUser(res.data);
-            console.log(res);
             await getPosts(res.data);
         }).catch((err) => {
             console.log(err);
@@ -100,7 +99,7 @@ export default function SeeProfile({ navigation, route }) {
         <SafeAreaView style={[seeProfileStyles.container, { backgroundColor: colors.green }]}>
 
             <View style={seeProfileStyles.leftTop}>
-                <TouchableOpacity onPress={() => navigation.goBack('HomeScreen')}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
                 </TouchableOpacity>
 
@@ -184,7 +183,14 @@ export default function SeeProfile({ navigation, route }) {
             >
                 <View style={[seeProfileStyles.postView, { backgroundColor: colors.green }]}>
                     {true ? (
-                        <RenderPost navigation={navigation} HeaderTitle={'OtherProfiles'} posts={posts} />
+                        posts?.length > 0 ? (
+                            <RenderPost navigation={navigation} HeaderTitle={'OtherProfiles'} posts={posts} />
+                        ) :
+                            <Text style={
+                                { marginTop: "5%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
+                            }>
+                                {"You have not post anyone yet :("}
+                            </Text>
                     ) :
                         <DontShowPosts />
                     }

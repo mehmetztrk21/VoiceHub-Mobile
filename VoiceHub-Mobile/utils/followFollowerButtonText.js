@@ -1,7 +1,5 @@
 export const FollowFollowerButtonText = (title, item, id) => {
 
-    console.log(title + "fkopsrckepfsrgesrgd"+item+id);
-
     if (title == "Followings") {
         if (item.followers.find(i => i?.toString() == id.toString())) {
             return "Following";

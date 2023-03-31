@@ -5,22 +5,22 @@ import messageItemStyle from "../../assets/styles/messageItem.style";
 import user1 from "../../assets/userImages/user1.jpg";
 import ver from "../../assets/ver.png";
 
-import { deleteComment } from "../../services/commentServices";
+//import { deleteComment } from "../../services/commentServices";
 
 import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 
-export default function MessageItemScreen({ navigation, userName, isVerify, date }) {
+export default function MessageItemScreen({ navigation, uName, date }) {
     return (
         <View>
             <TouchableOpacity style={messageItemStyle.container}
-                onPress={() => navigation.navigate('UserMessage', { uName: userName, isVerify: isVerify })}>
+                onPress={() => navigation.navigate("UserMessage", { uName: uName })}>
                 <Image source={user1} style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0625 }} />
 
                 <View style={{ flexDirection: "column", width: "70%" }}>
                     <View style={{ flexDirection: "row" }}>
-                        <Text style={messageItemStyle.userName}>{userName}</Text>
-                        {isVerify ? (
+                        <Text style={messageItemStyle.userName}>{uName}</Text>
+                        {true ? (
                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                         ) : null}
                     </View>

@@ -23,7 +23,7 @@ export default function Comment({ navigation, userPic, userName, isVerify, setOp
         }}>
             <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Profile', { uName: userName, isYourProfile: true })}>
+                    onPress={() => navigation.navigate("ProfileScreen", { uName: userName })}>
                     <Image source={userPic}
                         style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0675 }} />
                 </TouchableOpacity>

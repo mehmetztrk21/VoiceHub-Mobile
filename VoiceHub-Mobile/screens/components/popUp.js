@@ -14,7 +14,7 @@ const PopUp = ({ navigation, bottomSize, setOpenAreYouSure, setVisiblePopUp }) =
       <Divider width={1} orientation='vertical' />
 
       <TouchableOpacity style={popUpStyle.container}
-        onPress={() => { navigation.push('Options'); setVisiblePopUp(false); }}>
+        onPress={() => { navigation.navigate("Options"); setVisiblePopUp(false); }}>
         <Icon type="font-awesome" size={28} name={"cog"} style={popUpStyle.icon} color={colors.white} />
         <Text style={popUpStyle.text}>Options</Text>
       </TouchableOpacity>

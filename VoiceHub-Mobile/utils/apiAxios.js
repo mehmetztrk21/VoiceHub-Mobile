@@ -2,6 +2,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { baseURL } from "../utils/constants";
+
 const apiAxios = axios.create({
     baseURL: baseURL
 })
@@ -19,7 +20,7 @@ apiAxios.interceptors.response.use((response) => response, (error) => {
 });
 
 apiAxios.interceptors.request.use(async (req) => {
-    const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDFkNTIzNzE3ZjhlODBjYTViOGVkYjciLCJpYXQiOjE2ODAxODg5OTcsImV4cCI6NDgzNTk0ODk5N30.gNnMi_6wYrPzn7llbRswTXunbJqTBJ8VcKVcmktJalk"
+    const token = await AsyncStorage.getItem("token") || ""
     if (token) req.headers.Authorization = `Bearer ${token}`;
     return req;
 });

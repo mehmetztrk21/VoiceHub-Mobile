@@ -29,7 +29,7 @@ export default function Upload({ navigation, route }) {
 
     const [visiblePopUp, setVisiblePopUp] = useState(false);
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
-    const [categories, setCategories] = useState(null);
+    const [categories, setCategories] = useState("");
 
     const [openReadCategory, setOpenReadCategory] = useState(false);
 
@@ -89,27 +89,27 @@ export default function Upload({ navigation, route }) {
         }
 
         try {
-            console.log("1")
             if (isRunning == true) {
-                console.log("2")
-                if (recording) {
-                    await recording.stopAndUnloadAsync();
-                    setOpenReadCategory(true);
-                    setIsRunning(false);
-                    console.log("Recording stopped");
-                } else {
-                    console.log("Recording is not prepared");
+                setIsRunning(false);
+                if (seconds < 1) {
+                    alert("You recorded voice must be longer 1 seconds.");
+                }
+                else {
+                    if (recording) {
+                        await recording.stopAndUnloadAsync();
+                        setOpenReadCategory(true);
+                        console.log("Recording stopped");
+                    } else {
+                        console.log("Recording is not prepared");
+                    }
                 }
             }
             else {
-                console.log("3")
                 setOpenReadCategory(false);
                 setIsRunning(true);
                 if (recording) {
-                    console.log("4")
                     console.log("Recording already exists");
                 } else {
-                    console.log("5")
                     const newRecording = new Audio.Recording();
                     await newRecording.prepareToRecordAsync(recordingOptions);
                     await newRecording.startAsync();
@@ -142,10 +142,11 @@ export default function Upload({ navigation, route }) {
         }
 
         const response = await createPost(formData);
-        console.log(response);
         setRecording(new Audio.Recording());
         console.log("Post loaded");
+
         handleReset();
+
     }
 
     const handleReset = () => {
@@ -155,6 +156,7 @@ export default function Upload({ navigation, route }) {
         setOpenReadCategory(false);
         setRecording(null);
         setSeconds(0);
+        setCategories("");
         setIsRunning(false);
     };
 

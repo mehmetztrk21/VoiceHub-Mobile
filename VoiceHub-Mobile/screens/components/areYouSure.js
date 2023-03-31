@@ -9,7 +9,7 @@ const areYouSure = ({ process, navigation, setOpenAreYouSure }) => {
                 navigation.navigate("Login");
             }
             else if (process == "DeleteComment") {
-                console.log("Yorum silme onaylandı")
+                console.log("Deleted Comment")
                 //yorumları çekince gelecek
             }
             else {

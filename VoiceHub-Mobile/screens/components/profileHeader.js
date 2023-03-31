@@ -26,19 +26,19 @@ const profileHeader = ({ navigation, uName, isVerified }) => {
           ) : null}
         </View>
 
-          <View style={profileHeaderStyle.rightTop}>
-            <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate('SavedArchived', { HeaderTitle: 'Archived' })}>
-              <Icon type="feather" size={28} name={"archive"} color={colors.black} />
-            </TouchableOpacity>
+        <View style={profileHeaderStyle.rightTop}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { uName: uName, HeaderTitle: 'Archived' })}>
+            <Icon type="feather" size={28} name={"archive"} color={colors.black} />
+          </TouchableOpacity>
 
-            <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate('SavedArchived', { HeaderTitle: 'Saved' })}>
-              <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
-            </TouchableOpacity>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { uName: uName, HeaderTitle: 'Saved' })}>
+            <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
+          </TouchableOpacity>
 
-            <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate('ActivityScreen', { uName: uName })}>
-              <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("ActivityScreen", { uName: uName })}>
+            <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
+          </TouchableOpacity>
+        </View>
 
       </View>
     </View>

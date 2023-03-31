@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, RefreshControl, View, ActivityIndicator } from "react-native";
+import { SafeAreaView, ScrollView, RefreshControl, View, ActivityIndicator, Text } from "react-native";
 
 //importing components
 import AreYouSure from "./components/areYouSure";
@@ -14,6 +14,7 @@ import { getMainPagePosts } from "../services/postServices";
 import homeStyles from "../assets/styles/home.style";
 import colors from "../assets/colors";
 import { baseURL } from "../utils/constants";
+import { TouchableOpacity } from "react-native";
 
 export default function HomeScreen({ navigation, route }) {
   const { uName } = route.params;
@@ -27,7 +28,6 @@ export default function HomeScreen({ navigation, route }) {
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
-    console.log("yukarı kaydı")
     scrollViewRef.current.scrollTo({ y: 0, animated: true })
   };
 
@@ -99,7 +99,24 @@ export default function HomeScreen({ navigation, route }) {
       }
       >
         {/* User Posts */}
-        <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} posts={posts} />
+        {posts?.length > 0 ? (
+          <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} posts={posts} />
+        ) :
+          <View style={{ marginTop: "5%" }}>
+            <Text style={
+              { textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
+            }>
+              {"You are not following anyone yet :("}
+            </Text>
+
+            <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: "all", type: "discovery" }) }}>
+              <Text style={
+                { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
+                Discover now!
+              </Text>
+            </TouchableOpacity>
+          </View>
+        }
       </ScrollView>
 
       {visiblePopUp == true ? (

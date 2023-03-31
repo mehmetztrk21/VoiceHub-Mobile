@@ -26,10 +26,8 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
         navigation={navigation} userPic={item.userPic}
         userName={item.userName} HeaderTitle={HeaderTitle}
         setOpenArchivePopUp={setOpenArchivePopUp}
-        setOpenEditPostPopUp={setOpenEditPostPopUp}
-        visible={item.visible} date={item.createdAt || item.date}
-        isVerify={item.isVerify} isYouFollowing={item.isYouFollowing}
-        isYourFollower={item.isYourFollower} hasBio={item.hasBio} id={item.id} userId={item.createdBy._id} />
+        setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date}
+        isVerify={item.isVerify} id={item.id} userId={item.createdBy._id} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>

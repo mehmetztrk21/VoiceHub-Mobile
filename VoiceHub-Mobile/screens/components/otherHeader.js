@@ -10,7 +10,7 @@ const otherHeader = ({ navigation, HeaderTitle, isVerify }) => {
     return (
         <View style={[otherHeaderStyle.wrapper, { paddingTop: width * 0.07 }]}>
             <View style={otherHeaderStyle.aHeadView}>
-                <TouchableOpacity onPress={() => navigation.goBack('HomeScreen')}>
+                <TouchableOpacity onPress={() => navigation.goBack("HomeScreen")}>
                     <Icon type="ionicon" size={30} name={"arrow-back-outline"} style={otherHeaderStyle.BackButton} />
                 </TouchableOpacity>
                 <Text style={otherHeaderStyle.headerName}>{HeaderTitle}</Text>

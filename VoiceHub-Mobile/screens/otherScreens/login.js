@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+
 import loginStyle from "../../assets/styles/login.style";
+
 import { login } from "../../services/authServices";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 export default function Login({ navigation }) {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -10,19 +13,22 @@ export default function Login({ navigation }) {
     const isLogin = async () => {
 
         if (userName !== "" && password !== "") {
-            const response = await login({ username: userName, password: password })
-            console.log(response)
+            const response = await login({ username: userName, password: password });
             if (response && response.success) {
-                await AsyncStorage.setItem('token', response.data.accessToken)
-                await AsyncStorage.setItem('user', JSON.stringify(response.data.user))
-                navigation.navigate('HomeScreen', { uName: userName })
+                await AsyncStorage.setItem('token', response.data.accessToken);
+                await AsyncStorage.setItem('user', JSON.stringify(response.data.user));
+
+                setUserName("");
+                setPassword("");
+
+                navigation.navigate("HomeScreen", { uName: userName });
             }
             else {
-                alert("Kullanıcı adı veya şifre hatalı")
+                alert("Username or password is worng");
             }
         }
         else {
-            alert("don't empty inputs")
+            alert("Don't empty inputs");
         }
     }
 
@@ -49,11 +55,11 @@ export default function Login({ navigation }) {
                 <Text style={loginStyle.loginButton}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.push('ForgotPassword')}>
+            <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.navigate('ForgotPassword')}>
                 <Text style={loginStyle.textButton}>Forgot Password</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.push('Register')}>
+            <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.navigate('Register')}>
                 <Text style={loginStyle.textButton}>Do you have not account?</Text>
             </TouchableOpacity>
         </SafeAreaView>

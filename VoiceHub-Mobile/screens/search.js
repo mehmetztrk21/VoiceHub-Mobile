@@ -44,7 +44,7 @@ export default function SearchScreen({ navigation, route }) {
       setFocused(false);
     }
     else {
-      console.log("err!!!")
+      console.log("screen type error. Search.js")
       setFocused(false);
     }
   })
@@ -55,7 +55,6 @@ export default function SearchScreen({ navigation, route }) {
   {/*<--- Coming Soon */ }
 
   const handleScrollToTop = () => {
-    console.log("yukarı kaydı")
     scrollViewRef.current.scrollTo({ y: 0, animated: true })
   };
 
@@ -70,7 +69,7 @@ export default function SearchScreen({ navigation, route }) {
   const getPosts = async () => {
     setLoading(true);
     const response = await getExplorePosts({ page: 1, limit: 30 });
-    console.log(response)
+
     if (response && response.success) {
       let temp = response.data.map((item) => {
         return {
@@ -205,7 +204,7 @@ export default function SearchScreen({ navigation, route }) {
         <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} pageName={"SearchScreen"} />
+      <BottomTabs navigation={navigation} userName={uName} visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} pageName={"SearchScreen"} />
     </SafeAreaView>
   );
 }
