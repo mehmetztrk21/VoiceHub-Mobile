@@ -78,15 +78,19 @@ export default function SearchScreen({ navigation, route }) {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
+          comments: item.comments,
           userName: item.createdBy.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
           likesCount: 1451,
+          showLike: true,
+          isSaved: false,
+          isLiked: true,
           commentCount: 12,
         }
       })
-
+      console.log(temp.id)
       setPosts(temp);
     }
     setLoading(false);
@@ -99,6 +103,14 @@ export default function SearchScreen({ navigation, route }) {
       await getPosts(res);
     });
   }, [])
+
+  useEffect(() => {
+    setLoading(true);
+    getUserInfo().then(async (res) => {
+      setUser(res);
+      await getPosts(res);
+    });
+  }, [selectedCategory])
 
   if (loading) {
     return (
@@ -198,7 +210,7 @@ export default function SearchScreen({ navigation, route }) {
         <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName} visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} pageName={"SearchScreen"} />
+      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );
 }

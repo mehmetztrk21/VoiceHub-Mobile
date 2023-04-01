@@ -36,7 +36,7 @@ export default function Register({ navigation }) {
                 if (response2 && response2.success) {
                     await AsyncStorage.setItem('token', response2.data.accessToken)
                     await AsyncStorage.setItem('user', JSON.stringify(response2.data.user))
-                    navigation.navigate('HomeScreen', { uName: userName })
+                    navigation.navigate("HomeScreen", { uName: userName })
                 }
                 else {
                     alert("Girdiğiniz Bilgiler Yanlış")

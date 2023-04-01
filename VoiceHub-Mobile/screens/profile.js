@@ -18,7 +18,6 @@ import RenderPost from "./components/RenderPost";
 
 import { baseURL } from "../utils/constants";
 import { getUserInfo } from "../utils/getUserInfo";
-
 import { getMyPosts } from "../services/postServices";
 
 const { width } = Dimensions.get("window");
@@ -53,12 +52,15 @@ export default function ProfileScreen({ navigation, route }) {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
+          comments: item.comments,
           userName: res?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: baseURL + user?.profilePhotoUrl,
+          userPic: baseURL + item.createdBy.profilePhotoUrl,
           likesCount: 1451,
-          isSaved: item.isSaved,
+          showLike: true,
+          isSaved: false,
+          isLiked: true,
           commentCount: 12,
         }
       })
@@ -207,7 +209,7 @@ export default function ProfileScreen({ navigation, route }) {
         <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName} visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} pageName={"ProfileScreen"} />
+      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );
 }

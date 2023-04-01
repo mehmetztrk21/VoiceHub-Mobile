@@ -259,9 +259,7 @@ export default function Upload({ navigation, route }) {
                 ) : null
             }
 
-            <BottomTabs navigation={navigation} userName={uName}
-                visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
-                pageName={"Upload"} />
+            <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} />
         </SafeAreaView>
     );
 }

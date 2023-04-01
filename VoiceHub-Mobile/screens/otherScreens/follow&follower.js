@@ -114,7 +114,7 @@ const FollowFollower = ({ navigation, route }) => {
                                         onPress={() => navigation.navigate("SeeProfile", { userId: user?._id })}>
                                         <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={followFollowerStyle.profileImage} />
                                         <Text style={followFollowerStyle.userName}>{item.username}</Text>
-                                        {item.isVerify ? (
+                                        {true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>
@@ -141,7 +141,7 @@ const FollowFollower = ({ navigation, route }) => {
                                         onPress={() => navigation.navigate("SeeProfile", { userId: user?._id })}>
                                         <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />
                                         <Text style={followFollowerStyle.userName}>{item.username}</Text>
-                                        {item.isVerify ? (
+                                        {true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>

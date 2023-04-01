@@ -78,11 +78,7 @@ export default function SavedArchieves({ navigation, route }) {
             isSaved: false,
             isLiked: true,
             date: "12/02/2023 12:41",
-            isYourFollower: true,
-            isYouFollowing: true,
             commentCount: 12,
-            hasBio: false,
-            isVerify: false,
           }
         })
 

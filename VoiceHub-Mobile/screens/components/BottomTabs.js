@@ -4,7 +4,7 @@ import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 import bottomTabsStyle from "../../assets/styles/bottomTabs.style";
 
-const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
+const BottomTabs = ({ navigation, userName, setVisiblePopUp }) => {
 
   const [timer, setTimer] = useState(null);
   const [timerSearch, setTimerSearch] = useState(null);

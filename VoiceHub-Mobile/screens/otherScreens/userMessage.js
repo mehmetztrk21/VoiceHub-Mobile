@@ -21,7 +21,7 @@ export default function UserMessage({ navigation, route }) {
 
   return (
     <SafeAreaView style={userMessageStyle.container}>
-      <OtherHeader navigation={navigation} HeaderTitle={uName} isVerify={true} />
+      <OtherHeader navigation={navigation} HeaderTitle={uName}/>
       <View style={{ marginTop: width * 0.04 }}>
         <ScrollView style={userMessageStyle.scroll} ref={scrollViewRef} onLayout={handleLayout}>
           {

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, RefreshControl, View, ActivityIndicator, Text } from "react-native";
+import { SafeAreaView, ScrollView, RefreshControl, View, ActivityIndicator, Text, TouchableOpacity } from "react-native";
 
 //importing components
 import AreYouSure from "./components/areYouSure";
@@ -9,13 +9,13 @@ import PopUp from "./components/popUp";
 import RenderPost from "./components/RenderPost";
 
 import { getMainPagePosts } from "../services/postServices";
+import { getUserInfo } from "../utils/getUserInfo";
+import { baseURL } from "../utils/constants";
 
 //importing styles
 import homeStyles from "../assets/styles/home.style";
 import colors from "../assets/colors";
-import { baseURL } from "../utils/constants";
-import { TouchableOpacity } from "react-native";
-import { getUserInfo } from "../utils/getUserInfo";
+
 
 export default function HomeScreen({ navigation, route }) {
   const { uName } = route.params;
@@ -50,6 +50,7 @@ export default function HomeScreen({ navigation, route }) {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
+          comments: item.comments,
           userName: item.createdBy.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
@@ -78,11 +79,10 @@ export default function HomeScreen({ navigation, route }) {
     return (
       <View style={{
         flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-        justifyContent: "center", alignItems: "center",
+        justifyContent: "center", alignItems: "center"
       }}>
         <ActivityIndicator size="large" color={colors.green} />
-      </View>
-    )
+      </View>)
   }
 
   return (
@@ -121,8 +121,7 @@ export default function HomeScreen({ navigation, route }) {
       ) : null}
 
       <BottomTabs navigation={navigation} userName={uName}
-        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp}
-        pageName={"HomeScreen"} />
+        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );
 }

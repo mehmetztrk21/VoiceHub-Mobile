@@ -14,7 +14,7 @@ import addVoiceStyle from "../../assets/styles/addVoice.style";
 import { createComment } from "../../services/commentServices";
 import { recordingOptions } from '../../utils/recordingOptions';
 
-export default function AddVoice({ title }) {
+export default function AddVoice({ title, postId }) {
   const [isRunning, setIsRunning] = useState(false);
   const [recording, setRecording] = useState(null);
   const [seconds, setSeconds] = useState(0);
@@ -111,7 +111,7 @@ export default function AddVoice({ title }) {
         type: 'audio/mpeg',
       });
 
-      formData.append("postId", "64202d92c36029a871b607aa");
+      formData.append("postId", postId);
 
       const response = await createComment(formData);
     }

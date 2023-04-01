@@ -3,14 +3,15 @@ import { Text, TouchableOpacity, View } from 'react-native'
 import areYouSureStyle from '../../assets/styles/areYouSure.style'
 const areYouSure = ({ process, navigation, setOpenAreYouSure }) => {
 
-    const Operation = (status) => {
+    const Operation = async (status) => {
         if (status) {
             if (process == "LogOut") {
                 navigation.navigate("Login");
             }
             else if (process == "DeleteComment") {
-                console.log("Deleted Comment")
-                //yorumları çekince gelecek
+                console.log("Deleted Comment");
+
+                setOpenAreYouSurePopUp(false);
             }
             else {
                 //continue

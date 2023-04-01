@@ -45,7 +45,7 @@ export default function Message({ navigation }) {
           {
             userPostData.map((item, index) => {
               return (
-                <MessageItem key={index} navigation={navigation} userName={item.userName} isVerify={item.isVerify} date={item.date} />
+                <MessageItem key={index} navigation={navigation} userName={item.userName} date={item.date} />
               )
             })
           }

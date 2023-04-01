@@ -8,11 +8,11 @@ import AreYouSure from "../components/areYouSure";
 
 import { View } from "react-native";
 import colors from "../../assets/colors";
-import { getUserInfo } from "../../utils/getUserInfo";
 
 const { width } = Dimensions.get("window");
 
-export default function OtherComments({ navigation, comments }) {
+export default function OtherComments({ navigation, route }) {
+    const { postId, comments } = route.params;
     const scrollViewRef = useRef(null);
 
     const [openAreYouSurePopUp, setOpenAreYouSurePopUp] = useState(false);
@@ -35,7 +35,7 @@ export default function OtherComments({ navigation, comments }) {
     }
 
     return (
-        <SafeAreaView style={{ flex: 1, flexDirection: "column" }}>
+        <SafeAreaView style={{ flex: 1, flexDirection: "column", backgroundColor: colors.white }}>
             <OtherHeader HeaderTitle={"Comments"} navigation={navigation} />
 
             <Modal
@@ -67,7 +67,7 @@ export default function OtherComments({ navigation, comments }) {
 
 
             </View>
-            <AddVoice title={"comments"} />
+            <AddVoice title={"comments"} postId={postId} />
 
         </SafeAreaView >
     );

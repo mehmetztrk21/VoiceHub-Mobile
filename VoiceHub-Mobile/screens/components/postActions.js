@@ -90,7 +90,7 @@ export default function postActions(
       }
 
       {/* Comments */}
-      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("OtherComments", { comments: posts?.comments })}>
+      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("OtherComments", { postId: postId, comments: posts?.comments })}>
         <Icon type="font-awesome" size={20} name={"comment-o"} color={colors.black} />
         <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>
           {commentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}

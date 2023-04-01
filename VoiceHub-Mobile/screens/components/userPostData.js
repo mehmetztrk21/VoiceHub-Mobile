@@ -12,12 +12,7 @@ const userPostData = [
     showLike: false,
     isSaved: false,
     isLiked: true,
-    date: "12-12-2019 12:12",
-    isYourFollower: true,
-    isYouFollowing: true,
     commentCount: 12,
-    hasBio: false,
-    isVerify: false,
 
   },
   {
@@ -32,12 +27,7 @@ const userPostData = [
     showLike: true,
     isSaved: false,
     isLiked: false,
-    date: "12-12-2019 12:12",
-    isYourFollower: false,
-    isYouFollowing: true,
     commentCount: 258,
-    hasBio: false,
-    isVerify: true,
 
   },
   {
@@ -52,12 +42,7 @@ const userPostData = [
     showLike: false,
     isSaved: false,
     isLiked: false,
-    date: "12-12-2019 12:12",
-    isYourFollower: false,
-    isYouFollowing: false,
     commentCount: 258,
-    hasBio: true,
-    isVerify: false,
 
   },
   {
@@ -72,12 +57,7 @@ const userPostData = [
     showLike: false,
     isSaved: true,
     isLiked: false,
-    date: "12-12-2019 12:12",
-    isYourFollower: true,
-    isYouFollowing: false,
     commentCount: 258,
-    hasBio: false,
-    isVerify: false,
   },
 ];
 
