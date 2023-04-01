@@ -11,7 +11,7 @@ const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
 
   const SearchButtonPress = () => {
     let timerId = setTimeout(() => {
-      navigation.navigate("SearchScreen", { uName: userName, getCategory: "all", type: "lastSearched" })
+      navigation.navigate("SearchScreen", { uName: userName, getCategory: null, type: "lastSearched" })
     }, 1000);
     setTimerSearch(timerId);
   }
@@ -27,7 +27,7 @@ const BottomTabs = ({ navigation, userName, setVisiblePopUp, pageName }) => {
     setTimer(0);
     setVisiblePopUp(false)
     if (page == "SearchScreen") {
-      navigation.navigate(page, { uName: userName, getCategory: "all", type: "discovery" });
+      navigation.navigate(page, { uName: userName, getCategory: null, type: "discovery" });
     }
     else {
       navigation.navigate(page, { uName: userName });

@@ -15,6 +15,7 @@ import homeStyles from "../assets/styles/home.style";
 import colors from "../assets/colors";
 import { baseURL } from "../utils/constants";
 import { TouchableOpacity } from "react-native";
+import { getUserInfo } from "../utils/getUserInfo";
 
 export default function HomeScreen({ navigation, route }) {
   const { uName } = route.params;
@@ -22,16 +23,15 @@ export default function HomeScreen({ navigation, route }) {
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [loading, setLoading] = useState(false);
-
+  const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
 
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true })
   };
-
-  const [refreshing, setRefreshing] = useState(false);
 
   const pullThePage = () => {
     setRefreshing(true);
@@ -41,7 +41,7 @@ export default function HomeScreen({ navigation, route }) {
     }, 800)
   }
 
-  const getPosts = async () => {
+  const getPosts = async (res = null) => {
     setLoading(true);
     const response = await getMainPagePosts({ page: 1, limit: 20 });
     if (response && response.success) {
@@ -67,7 +67,11 @@ export default function HomeScreen({ navigation, route }) {
   }
 
   useEffect(() => {
-    getPosts();
+    setLoading(true);
+    getUserInfo().then(async (res) => {
+      setUser(res);
+      await getPosts(res);
+    });
   }, [])
 
   if (loading) {
@@ -100,7 +104,7 @@ export default function HomeScreen({ navigation, route }) {
               {"You are not following anyone yet :("}
             </Text>
 
-            <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: "all", type: "discovery" }) }}>
+            <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: null, type: "discovery" }) }}>
               <Text style={
                 { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
                 Discover now!

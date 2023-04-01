@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
@@ -6,13 +6,19 @@ import colors from "../../assets/colors";
 import { setLikedPost, setSavedPost } from '../../services/actionServices'
 
 import postActionsStyle from "../../assets/styles/postActions.style";
+import { baseURL } from "../../utils/constants";
 
 export default function postActions(
-  { navigation, likesCount, commentCount }) {
+  { navigation, posts, likesCount, commentCount, postId }) {
 
   const [liked, setLiked] = useState(false)
   const [likeCount, setLikeCount] = useState(likesCount);
   const [saved, setSaved] = useState(false)
+
+
+  useEffect(() => {
+    console.log("Post Id's: ", postId);
+  }, [])
 
   const postLiked = async () => {
     setLiked(prev => {
@@ -26,6 +32,9 @@ export default function postActions(
       }
       return !prev;
     })
+
+    await setLikedPost({ postId: postId });
+
   };
 
   const postSave = async () => {
@@ -40,6 +49,8 @@ export default function postActions(
       }
       return !prev;
     })
+
+    await setSavedPost({ postId: postId });
   };
 
   return (
@@ -79,7 +90,7 @@ export default function postActions(
       }
 
       {/* Comments */}
-      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("OtherComments")}>
+      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("OtherComments", { comments: posts?.comments })}>
         <Icon type="font-awesome" size={20} name={"comment-o"} color={colors.black} />
         <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>
           {commentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}

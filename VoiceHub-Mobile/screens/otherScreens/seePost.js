@@ -18,14 +18,6 @@ import userPostData from "../components/userPostData";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
-const user = {
-    name: "Mehmet",
-    surname: "Öztürk",
-    username: "mehmet.ztrk"
-} //TODO: get in localStorage
-const username = user.username;
-
-/* HALF SCREEN, CONTINUE THIS PAGE */
 export default function SeePost({ navigation, route }) {
 
     const scrollViewRef = useRef();

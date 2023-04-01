@@ -1,3 +1,5 @@
+import apiAxios from "../utils/apiAxios";
+
 {/* Archive */ }
 export const setArchivePost = async (data) => {
     return await apiAxios.post("/action/archivePost", data

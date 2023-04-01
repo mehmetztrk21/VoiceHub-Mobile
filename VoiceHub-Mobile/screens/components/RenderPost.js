@@ -8,18 +8,15 @@ import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
 
-//User"s Local Storage"s infos
-const user = {
-  name: "Mehmet",
-  surname: "Öztürk",
-  username: "mehmet.ztrk"
-} //TODO: get in localStorage
-const username = user.username;
-
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
 
+
+  useEffect(() => {
+    console.log(posts)
+  }, [])
+
   return posts?.map((item, index) => (
-    <View style={[styles.container]} key={index}>
+    <View style={styles.container} key={index}>
 
       {/* User Informations */}
       <PostUserInfo
@@ -31,7 +28,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>
-        <PostCategories navigation={navigation} categories={item.categories} username={username} />
+        <PostCategories navigation={navigation} categories={item.categories} username={item.userName} />
       </View>
 
       {/* Slider and Play Button */}
@@ -40,7 +37,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
       </View>
 
       {/* Like, Comment and Save Button */}
-      <PostActions navigation={navigation} likesCount={item.likesCount} commentCount={item.commentCount} id={item._id} />
+      <PostActions posts={item} navigation={navigation} userName={item.userName} likesCount={item.likesCount} commentCount={item.commentCount} postId={item.id} />
 
     </View>
   ));

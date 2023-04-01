@@ -1,23 +1,38 @@
-import React, { useRef, useState } from "react";
-import { Dimensions, Modal, SafeAreaView, ScrollView } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { ActivityIndicator, Dimensions, Modal, SafeAreaView, ScrollView, Text } from "react-native";
 
 import AddVoice from "../components/addVoice";
 import Comment from "../components/comment";
 import OtherHeader from "../components/otherHeader";
-import userPostData from "../components/userPostData";
 import AreYouSure from "../components/areYouSure";
 
 import { View } from "react-native";
+import colors from "../../assets/colors";
+import { getUserInfo } from "../../utils/getUserInfo";
+
 const { width } = Dimensions.get("window");
 
-export default function OtherComments({ navigation }) {
+export default function OtherComments({ navigation, comments }) {
     const scrollViewRef = useRef(null);
 
     const [openAreYouSurePopUp, setOpenAreYouSurePopUp] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [refreshing, setRefreshing] = useState(false);
 
     const handleLayout = () => {
         scrollViewRef.current.scrollToEnd({ animated: true });
     };
+
+    if (loading) {
+        return (
+            <View style={{
+                flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
+                justifyContent: "center", alignItems: "center",
+            }}>
+                <ActivityIndicator size="large" color={colors.green} />
+            </View>
+        )
+    }
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "column" }}>
@@ -38,13 +53,15 @@ export default function OtherComments({ navigation }) {
 
                 <ScrollView ref={scrollViewRef} onLayout={handleLayout}
                     showsVerticalScrollIndicator={false} style={{ marginTop: width * 0.2, marginBottom: width * 0.15 }}>
-                    {
-                        userPostData.map((item, index) => {
+                    {comments?.length > 0 ? (
+                        comments?.map((item, index) => {
                             return (
-                                <Comment key={index} navigation={navigation} userPic={item.userPic}
-                                    userName={item.userName} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
+                                <Comment key={index} navigation={navigation} userPic={"user1"}
+                                    userName={"k"} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} id={item.id} />
                             )
                         })
+                    ) :
+                        <Text style={{ textAlign: "center", fontWeight: "600", color: colors.green, fontSize: 16, }}>Henüz Bir Yorum Yok</Text>
                     }
                 </ScrollView>
 
@@ -52,6 +69,6 @@ export default function OtherComments({ navigation }) {
             </View>
             <AddVoice title={"comments"} />
 
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }

@@ -59,7 +59,7 @@ export default function SeeProfile({ navigation, route }) {
                     likesCount: 1451,
                     caption: "Coffee is the most imp part of my life !",
                     type: "sender",
-                    category: "all",
+                    category: null,
                     showLike: false,
                     isSaved: item.isSaved,
                     isLiked: true,

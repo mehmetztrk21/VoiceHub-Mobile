@@ -9,7 +9,7 @@ import colors from "../../assets/colors";
 import { Icon } from "react-native-elements";
 const { width } = Dimensions.get('window');
 
-export default function Comment({ navigation, userPic, userName, isVerify, setOpenAreYouSurePopUp }) {
+export default function Comment({ navigation, userPic, userName, setOpenAreYouSurePopUp, id }) {
 
     const deleteComment = async () => {
         setOpenAreYouSurePopUp(true);
@@ -30,7 +30,7 @@ export default function Comment({ navigation, userPic, userName, isVerify, setOp
 
                 <View style={{ width: width * 0.75, flexDirection: "column", paddingLeft: width * 0.03 }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <Text style={{ fontWeight: "700", fontSize: 16 }}>{userName}</Text>
+                        <Text style={{ fontWeight: "700", fontSize: 16 }}>{id}</Text>
                         {isVerify ? (
                             <Image source={ver} style={{ width: 14, height: 14, marginLeft: 3, alignSelf: "center" }} />
                         ) : null}

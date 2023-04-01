@@ -47,7 +47,6 @@ export default function ProfileScreen({ navigation, route }) {
   const getPosts = async (res = null) => {
     setLoading(true);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
-    console.log(response)
     if (response && response.success) {
       let temp = response.data.map((item) => {
         return {
@@ -57,7 +56,7 @@ export default function ProfileScreen({ navigation, route }) {
           userName: res?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: baseURL + res?.profilePhotoUrl,
+          userPic: baseURL + user?.profilePhotoUrl,
           likesCount: 1451,
           isSaved: item.isSaved,
           commentCount: 12,
@@ -73,7 +72,7 @@ export default function ProfileScreen({ navigation, route }) {
     getUserInfo().then(async (res) => {
       setUser(res);
       await getPosts(res);
-    })
+    });
   }, [])
 
   if (loading) {
@@ -89,7 +88,7 @@ export default function ProfileScreen({ navigation, route }) {
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} uName={uName} isVerified={true} />
+      <ProfileHeader navigation={navigation} userId={posts?._id} uName={uName} />
 
       <Modal
         animationType="slide"
@@ -111,7 +110,7 @@ export default function ProfileScreen({ navigation, route }) {
           setOpenEditPostPopUp(false);
         }}
       >
-        <EditPostPopUp bottomSize={50} id={openEditPostPopUp} setId={setOpenEditPostPopUp} />
+        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>

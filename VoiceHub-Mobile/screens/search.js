@@ -18,6 +18,7 @@ import userPostData from "./components/userPostData";
 
 import { Dimensions } from "react-native";
 import { baseURL } from "../utils/constants";
+import { getUserInfo } from "../utils/getUserInfo";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
@@ -25,14 +26,15 @@ export default function SearchScreen({ navigation, route }) {
 
   const scrollViewRef = useRef();
   const categoryScrollViewRef = useRef();
-  const [loading, setLoading] = useState(false);
 
+  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [focused, setFocused] = useState(false);
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState(getCategory);
+  const [selectedCategory, setSelectedCategory] = useState({ getCategory });
 
   useState(() => {
     if (type == "lastSearched") {
@@ -66,9 +68,9 @@ export default function SearchScreen({ navigation, route }) {
     }, 800)
   }
 
-  const getPosts = async () => {
+  const getPosts = async (res = null) => {
     setLoading(true);
-    const response = await getExplorePosts({ page: 1, limit: 30 });
+    const response = await getExplorePosts({ page: 1, limit: 30, category: selectedCategory });
 
     if (response && response.success) {
       let temp = response.data.map((item) => {
@@ -81,19 +83,7 @@ export default function SearchScreen({ navigation, route }) {
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
           likesCount: 1451,
-          caption: "Coffee is the most imp part of my life !",
-          type: "sender",
-          visible: true,
-          category: "all",
-          showLike: false,
-          isSaved: false,
-          isLiked: true,
-          date: "12/02/2023 12:41",
-          isYourFollower: true,
-          isYouFollowing: true,
           commentCount: 12,
-          hasBio: false,
-          isVerify: false,
         }
       })
 
@@ -103,7 +93,11 @@ export default function SearchScreen({ navigation, route }) {
   }
 
   useEffect(() => {
-    getPosts();
+    setLoading(true);
+    getUserInfo().then(async (res) => {
+      setUser(res);
+      await getPosts(res);
+    });
   }, [])
 
   if (loading) {

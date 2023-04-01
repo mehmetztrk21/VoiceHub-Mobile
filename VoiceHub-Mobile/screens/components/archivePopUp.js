@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import colors from '../../assets/colors.js'
 import archivePopUpStyle from "../../assets/styles/archivePopUp.style.js"
 import { setNotArchivePost } from '../../services/actionServices'
+import { baseURL } from '../../utils/constants.js'
 
 const archivePopUp = ({ id, setId }) => {
 
-  const setNotArchive = async () => {
+  const [user, setUser] = useState({});
+
+  const setNotArchive = async (res = null) => {
     const response = await setNotArchivePost({ id: id });
     if (response && response.success) {
       let temp = response.data.map((item) => {
@@ -15,29 +18,25 @@ const archivePopUp = ({ id, setId }) => {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
-          userName: "Mehmet",
+          userName: res?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: "user1",
+          userPic: baseURL + user?.profilePhotoUrl,
           likesCount: 1451,
-          caption: "Coffee is the most imp part of my life !",
-          type: "sender",
-          visible: true,
-          category: "all",
-          showLike: false,
-          isSaved: false,
-          isLiked: true,
-          date: "12/02/2023 12:41",
-          isYourFollower: true,
-          isYouFollowing: true,
           commentCount: 12,
-          hasBio: false,
-          isVerify: false,
         }
       });
       setId(false);
     }
   }
+
+  useEffect(() => {
+    setLoading(true);
+    getUserInfo().then(async (res) => {
+      setUser(res);
+      await setNotArchive(res);
+    });
+  }, [])
 
   return (
     <View style={[archivePopUpStyle.container, { backgroundColor: colors.green, paddingHorizontal: 10 }]}>

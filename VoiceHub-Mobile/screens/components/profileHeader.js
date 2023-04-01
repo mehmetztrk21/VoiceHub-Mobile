@@ -7,7 +7,7 @@ import profileHeaderStyle from "../../assets/styles/profileHeader.style";
 import verfy from "../../assets/ver.png";
 import { getUserInfo } from '../../utils/getUserInfo';
 
-const profileHeader = ({ navigation, uName, isVerified }) => {
+const profileHeader = ({ navigation, uName, id }) => {
   const [user, setUser] = React.useState({})
   useEffect(() => {
     getUserInfo().then((res) => {
@@ -21,17 +21,17 @@ const profileHeader = ({ navigation, uName, isVerified }) => {
 
           <Text style={profileHeaderStyle.head}>{user?.username}</Text>
 
-          {isVerified ? (
+          {true ? (
             <Image source={verfy} style={profileHeaderStyle.ver} />
           ) : null}
         </View>
 
         <View style={profileHeaderStyle.rightTop}>
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { uName: uName, HeaderTitle: 'Archived' })}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { uName: uName, HeaderTitle: 'Archived', id: id })}>
             <Icon type="feather" size={28} name={"archive"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { uName: uName, HeaderTitle: 'Saved' })}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { uName: uName, HeaderTitle: 'Saved', id: id })}>
             <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
           </TouchableOpacity>
 

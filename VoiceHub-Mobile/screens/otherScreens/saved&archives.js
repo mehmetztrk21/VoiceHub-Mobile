@@ -11,16 +11,21 @@ import { getMyPosts, getSavedPosts } from "../../services/postServices";
 
 import { Dimensions } from "react-native";
 import colors from '../../assets/colors';
+import { baseURL } from '../../utils/constants';
 const { width } = Dimensions.get("window");
 
 export default function SavedArchieves({ navigation, route }) {
-  const { HeaderTitle } = route.params;
+  const { uName, HeaderTitle, id } = route.params;
+
   const scrollViewRef = useRef();
 
   const handleLayout = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true });
   };
 
+  const [openArchivePopUp, setOpenArchivePopUp] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
   const pullThePage = () => {
@@ -31,42 +36,23 @@ export default function SavedArchieves({ navigation, route }) {
     }, 800)
   }
 
-
-
-  const [openArchivePopUp, setOpenArchivePopUp] = useState(false)
-  const [loading, setLoading] = useState(false);
-  const [id, setId] = useState("");
-  const [posts, setPosts] = useState([]);
-
   const getPosts = async () => {
     setLoading(true);
     if (HeaderTitle == "Archived") {
-      const response = await getMyPosts({ isArchived: false });
-      
+      const response = await getMyPosts({ isArchived: true, userId: id });
+
       if (response && response.success) {
         let temp = response.data.map((item) => {
           return {
             id: item._id,
             contentUrl: item.contentUrl,
             categories: item.categories,
-            userName: "Mehmet",
+            userName: uName,
             createdBy: item.createdBy,
             createdAt: item.createdAt,
-            userPic: "user1",
-            likesCount: 1451,
-            caption: "Coffee is the most imp part of my life !",
-            type: "sender",
-            visible: true,
-            category: "all",
-            showLike: false,
-            isSaved: false,
-            isLiked: true,
-            date: "12/02/2023 12:41",
-            isYourFollower: true,
-            isYouFollowing: true,
+            userPic: baseURL + item.createdBy.profilePhotoUrl,
             commentCount: 12,
-            hasBio: false,
-            isVerify: false,
+            likesCount: 1423,
           }
         })
         setPosts(temp);
@@ -87,7 +73,7 @@ export default function SavedArchieves({ navigation, route }) {
             caption: "Coffee is the most imp part of my life !",
             type: "sender",
             visible: true,
-            category: "all",
+            category: null,
             showLike: false,
             isSaved: false,
             isLiked: true,
@@ -157,7 +143,7 @@ export default function SavedArchieves({ navigation, route }) {
             {"You have not saved post anyone yet :("}
           </Text>
 
-          <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: "all", type: "discovery" }) }}>
+          <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: null, type: "discovery" }) }}>
             <Text style={
               { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
               Discover now!

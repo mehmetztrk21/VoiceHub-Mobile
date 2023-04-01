@@ -5,12 +5,6 @@ import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 import ver from "../../assets/ver.png"
 import { timeAgoText } from "../../utils/timeAgoText";
 
-const user = {
-    name: "Mehmet",
-    surname: "Öztürk",
-    username: "mehmet.ztrk"
-} //TODO: get in localStorage
-
 export default function PostUserInfo(
     { navigation, userPic, userName, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,

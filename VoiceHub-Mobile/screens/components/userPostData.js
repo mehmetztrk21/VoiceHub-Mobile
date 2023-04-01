@@ -8,7 +8,7 @@ const userPostData = [
     caption: "Coffee is the most imp part of my life !",
     type: "sender",
     visible: true,
-    category: "all",
+    category: null,
     showLike: false,
     isSaved: false,
     isLiked: true,
