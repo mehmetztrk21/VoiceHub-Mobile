@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from "react"
-import { ActivityIndicator, Dimensions, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native"
+import React, { useEffect, useRef, useState } from "react";
+import { Dimensions, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { FollowFollowerButtonText } from "../../utils/followFollowerButtonText"
-import OtherHeader from "../components/otherHeader"
+import { FollowFollowerButtonText } from "../../utils/followFollowerButtonText";
+import OtherHeader from "../components/otherHeader";
 
 import { getFollowers, getFollowings } from "../../services/userServices";
 
-import colors from "../../assets/colors"
-import followFollowerStyle from "../../assets/styles/follow&follower.style"
-import ver from "../../assets/ver.png"
+import colors from "../../assets/colors";
+import followFollowerStyle from "../../assets/styles/follow&follower.style";
+import ver from "../../assets/ver.png";
 import { baseURL } from "../../utils/constants";
+import Loading from "../components/loading";
 
 const { width } = Dimensions.get("window");
 
@@ -63,16 +64,7 @@ const FollowFollower = ({ navigation, route }) => {
         }
     }, [])
 
-    if (loading) {
-        return (
-            <View style={{
-                flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-                justifyContent: "center", alignItems: "center",
-            }}>
-                <ActivityIndicator size="large" color={colors.green} />
-            </View>
-        )
-    }
+    if (loading) return <Loading />
 
     return (
         <SafeAreaView style={followFollowerStyle.container}>
@@ -93,7 +85,7 @@ const FollowFollower = ({ navigation, route }) => {
                             {"You are not following anyone yet :("}
                         </Text>
 
-                        <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: null, type: "discovery" }) }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { username: user?.username, getCategory: "all", type: "discovery" }) }}>
                             <Text style={
                                 { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
                                 Discover now!
@@ -113,7 +105,7 @@ const FollowFollower = ({ navigation, route }) => {
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
                                         onPress={() => navigation.navigate("SeeProfile", { userId: user?._id })}>
                                         <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={followFollowerStyle.profileImage} />
-                                        <Text style={followFollowerStyle.userName}>{item.username}</Text>
+                                        <Text style={followFollowerStyle.username}>{item.username}</Text>
                                         {true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
@@ -140,7 +132,7 @@ const FollowFollower = ({ navigation, route }) => {
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
                                         onPress={() => navigation.navigate("SeeProfile", { userId: user?._id })}>
                                         <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />
-                                        <Text style={followFollowerStyle.userName}>{item.username}</Text>
+                                        <Text style={followFollowerStyle.username}>{item.username}</Text>
                                         {true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}

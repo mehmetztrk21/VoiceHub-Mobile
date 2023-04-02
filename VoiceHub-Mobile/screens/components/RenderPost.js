@@ -8,12 +8,7 @@ import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
 
-const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts }) => {
-
-
-  useEffect(() => {
-    console.log(posts)
-  }, [])
+const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts, user }) => {
 
   return posts?.map((item, index) => (
     <View style={styles.container} key={index}>
@@ -21,12 +16,12 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
       {/* User Informations */}
       <PostUserInfo
         navigation={navigation} userPic={item.userPic} userId={item.createdBy._id}
-        userName={item.userName} HeaderTitle={HeaderTitle} setOpenArchivePopUp={setOpenArchivePopUp}
-        setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date} id={item.id} />
+        username={item.username} HeaderTitle={HeaderTitle} setOpenArchivePopUp={setOpenArchivePopUp}
+        setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date} id={item.id} isVerify={user?.isVerify} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>
-        <PostCategories navigation={navigation} categories={item.categories} username={item.userName} />
+        <PostCategories navigation={navigation} categories={item.categories} username={item.username} />
       </View>
 
       {/* Slider and Play Button */}
@@ -35,7 +30,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
       </View>
 
       {/* Like, Comment and Save Button */}
-      <PostActions posts={item} navigation={navigation} userName={item.userName} likesCount={item.likesCount} commentCount={item.commentCount} postId={item.id} />
+      <PostActions posts={item} navigation={navigation} username={item.username} likesCount={item.likesCount} commentCount={item?.comments?.length} postId={item.id} />
 
     </View>
   ));

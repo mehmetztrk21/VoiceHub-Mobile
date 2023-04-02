@@ -6,13 +6,16 @@ import ver from "../../assets/ver.png"
 import { timeAgoText } from "../../utils/timeAgoText";
 
 export default function PostUserInfo(
-    { navigation, userPic, userName, HeaderTitle,
+    { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id }) {
+        date, id, isVerify }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
 
     useEffect(() => {
+
+
+
         setDifferenceInDays(timeAgoText(date));
     }, []);
 
@@ -21,20 +24,13 @@ export default function PostUserInfo(
         <View style={postUserInfoStyle.postUser}>
 
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
-                onPress={() => {
-                    if (userName == user.username) {
-                        navigation.navigate("ProfileScreen", { uName: userName });
-                    }
-                    else {
-                        navigation.navigate("SeeProfile", { userId: userId, });
-                    }
-                }}>
+                onPress={() => { navigation.navigate("SeeProfile", { userId: userId, }); }}>
                 <Image style={postUserInfoStyle.userpostImg} source={{ uri: userPic }} />
 
                 <View style={{ flexDirection: "column" }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
-                        <Text style={postUserInfoStyle.userName}>{userName}</Text>
-                        {true ? (
+                        <Text style={postUserInfoStyle.username}>{username}</Text>
+                        {isVerify ? (
                             <Image style={{ width: 14, height: 14, marginLeft: 4 }} source={ver} />
                         ) : null}
                     </View>

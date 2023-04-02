@@ -17,7 +17,7 @@ import colors from "../assets/colors";
 const { width } = Dimensions.get("window");
 
 export default function ActivityScreen({ navigation, route }) {
-  const { uName } = route.params;
+  const { username } = route.params;
 
   const scrollViewRef = useRef(null);
 
@@ -47,14 +47,14 @@ export default function ActivityScreen({ navigation, route }) {
           userPostData.map((item, index) => {
             return (
               <View key={index}>
-                <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.navigate("SeePost", { uName: uName })}>
+                <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.navigate("SeePost", { username: username })}>
 
                   <TouchableOpacity onPress={() => navigation.navigate("SeeProfile", { userId: item.id })}>
                     <Image source={item.userPic} style={activityStyles.userPic} />
                   </TouchableOpacity>
 
                   <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={activityStyles.actText}>{item.userName} liked your Post.</Text>
+                    <Text style={activityStyles.actText}>{item.username} liked your Post.</Text>
                     <Text style={activityStyles.date}>{item.date}</Text>
                   </View>
 

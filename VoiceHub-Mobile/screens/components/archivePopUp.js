@@ -18,12 +18,13 @@ const archivePopUp = ({ id, setId }) => {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
-          userName: res?.username,
+          username: res?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: baseURL + user?.profilePhotoUrl,
           likesCount: 1451,
           commentCount: 12,
+          comments: item.comments,
         }
       });
       setId(false);

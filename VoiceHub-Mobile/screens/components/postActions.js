@@ -15,11 +15,6 @@ export default function postActions(
   const [likeCount, setLikeCount] = useState(likesCount);
   const [saved, setSaved] = useState(false)
 
-
-  useEffect(() => {
-    console.log("Post Id's: ", postId);
-  }, [])
-
   const postLiked = async () => {
     setLiked(prev => {
       if (!prev == true) {

@@ -4,17 +4,8 @@ import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 import bottomTabsStyle from "../../assets/styles/bottomTabs.style";
 
-const BottomTabs = ({ navigation, userName, setVisiblePopUp }) => {
-
+const BottomTabs = ({ navigation, username, setVisiblePopUp }) => {
   const [timer, setTimer] = useState(null);
-  const [timerSearch, setTimerSearch] = useState(null);
-
-  const SearchButtonPress = () => {
-    let timerId = setTimeout(() => {
-      navigation.navigate("SearchScreen", { uName: userName, getCategory: null, type: "lastSearched" })
-    }, 1000);
-    setTimerSearch(timerId);
-  }
 
   const ProfileButtonPress = () => {
     let timerId = setTimeout(() => {
@@ -24,13 +15,15 @@ const BottomTabs = ({ navigation, userName, setVisiblePopUp }) => {
   }
 
   const Select = (page) => {
-    setTimer(0);
-    setVisiblePopUp(false)
     if (page == "SearchScreen") {
-      navigation.navigate(page, { uName: userName, getCategory: null, type: "discovery" });
+      setTimer(0);
+      setVisiblePopUp(false)
+      navigation.navigate(page, { username: username, getCategory: "all", type: "discovery" });
     }
     else {
-      navigation.navigate(page, { uName: userName });
+      setTimer(0);
+      setVisiblePopUp(false)
+      navigation.navigate(page, { username: username });
     }
 
   }
@@ -42,7 +35,7 @@ const BottomTabs = ({ navigation, userName, setVisiblePopUp }) => {
           <Icon size={25} type="font-awesome" name={"home"} color={colors.white} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Select("SearchScreen")} onPressIn={SearchButtonPress} onPressOut={() => { console.log("Butondan elini cekti") }}>
+        <TouchableOpacity onPress={() => Select("SearchScreen")}>
           <Icon size={25} type="font-awesome" name={"search"} color={colors.white} />
         </TouchableOpacity>
 

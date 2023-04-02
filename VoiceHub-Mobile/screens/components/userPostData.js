@@ -2,7 +2,7 @@ import user1 from "../../assets/userImages/user1.jpg";
 const userPostData = [
   {
     id: "1",
-    userName: "Alex",
+    username: "Alex",
     userPic: user1,
     likesCount: 1451,
     caption: "Coffee is the most imp part of my life !",
@@ -17,7 +17,7 @@ const userPostData = [
   },
   {
     id: "25",
-    userName: "Rohit",
+    username: "Rohit",
     userPic: user1,
     likesCount: 0,
     caption: "Flowers",
@@ -32,7 +32,7 @@ const userPostData = [
   },
   {
     id: "26",
-    userName: "Rohit",
+    username: "Rohit",
     userPic: user1,
     likesCount: 1881,
     caption: "kaan",
@@ -47,7 +47,7 @@ const userPostData = [
   },
   {
     id: "27",
-    userName: "Suyash",
+    username: "Suyash",
     userPic: user1,
     likesCount: 1,
     caption: "This app is made by Suyash.",

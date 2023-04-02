@@ -10,7 +10,7 @@ export default StyleSheet.create({
         borderRadius: 25,
         marginHorizontal:10,
     },
-    userName:{
+    username:{
         fontSize:14.5,
         fontWeight:"800"
     },

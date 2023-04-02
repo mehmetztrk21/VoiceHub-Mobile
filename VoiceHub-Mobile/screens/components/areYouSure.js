@@ -1,11 +1,13 @@
 import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import areYouSureStyle from '../../assets/styles/areYouSure.style'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const areYouSure = ({ process, navigation, setOpenAreYouSure }) => {
 
     const Operation = async (status) => {
         if (status) {
             if (process == "LogOut") {
+                await AsyncStorage.clear();
                 navigation.navigate("Login");
             }
             else if (process == "DeleteComment") {

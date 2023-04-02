@@ -42,7 +42,7 @@ export default StyleSheet.create({
     borderRadius: 25,
     marginRight: "2%",
   },
-  userName: {
+  username: {
     marginLeft: "2%",
     fontSize: 16,
     fontWeight: "600"

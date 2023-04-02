@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import apiAxios from "../utils/apiAxios";
 
 export const getFollowers = async (data) => {
@@ -6,6 +5,13 @@ export const getFollowers = async (data) => {
     ).then(res => {
         return res.data
     }).catch(err => { console.error(err, "Post Services user/followers"); return null })
+}
+
+export const searchUser = async (data) => {
+    return await apiAxios.post("/user/search", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services user/search"); return null })
 }
 
 export const getUserById = async (data) => {

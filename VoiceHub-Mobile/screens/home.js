@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
-import { SafeAreaView, ScrollView, RefreshControl, View, ActivityIndicator, Text, TouchableOpacity } from "react-native";
-
+import { RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 //importing components
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
@@ -9,17 +9,18 @@ import PopUp from "./components/popUp";
 import RenderPost from "./components/RenderPost";
 
 import { getMainPagePosts } from "../services/postServices";
-import { getUserInfo } from "../utils/getUserInfo";
 import { baseURL } from "../utils/constants";
+import { getUserInfo } from "../utils/getUserInfo";
 
 //importing styles
-import homeStyles from "../assets/styles/home.style";
 import colors from "../assets/colors";
+import homeStyles from "../assets/styles/home.style";
+import Loading from "./components/loading";
 
 
 export default function HomeScreen({ navigation, route }) {
-  const { uName } = route.params;
-
+  const { username } = route.params;
+  const isFocused = useIsFocused();
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [loading, setLoading] = useState(false);
@@ -51,7 +52,7 @@ export default function HomeScreen({ navigation, route }) {
           contentUrl: item.contentUrl,
           categories: item.categories,
           comments: item.comments,
-          userName: item.createdBy.username,
+          username: item.createdBy.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
@@ -73,21 +74,13 @@ export default function HomeScreen({ navigation, route }) {
       setUser(res);
       await getPosts(res);
     });
-  }, [])
+  }, [isFocused])
 
-  if (loading) {
-    return (
-      <View style={{
-        flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-        justifyContent: "center", alignItems: "center"
-      }}>
-        <ActivityIndicator size="large" color={colors.green} />
-      </View>)
-  }
+  if (loading) return <Loading />
 
   return (
     <SafeAreaView style={homeStyles.container}>
-      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} uName={uName} />
+      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} username={username} />
 
       <ScrollView style={homeStyles.scroll} ref={scrollViewRef} refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
@@ -104,7 +97,7 @@ export default function HomeScreen({ navigation, route }) {
               {"You are not following anyone yet :("}
             </Text>
 
-            <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { uName: uName, getCategory: null, type: "discovery" }) }}>
+            <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { username: username, getCategory: "all", type: "discovery" }) }}>
               <Text style={
                 { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
                 Discover now!
@@ -120,7 +113,7 @@ export default function HomeScreen({ navigation, route }) {
         <AreYouSure process={"LogOut"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName}
+      <BottomTabs navigation={navigation} username={username}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );

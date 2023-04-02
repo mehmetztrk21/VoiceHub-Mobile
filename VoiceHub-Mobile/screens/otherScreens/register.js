@@ -12,7 +12,7 @@ import { registerCondition } from "../../utils/registerCondition";
 export default function Register({ navigation }) {
     const [firstName, setName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [userName, setUserName] = useState("");
+    const [username, setusername] = useState("");
     const [email, setEmail] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
@@ -23,20 +23,20 @@ export default function Register({ navigation }) {
     let isGoHomePage = false
 
     const isRegister = async () => {
-        isGoHomePage = registerCondition(firstName, lastName, userName, email, password1, password2);
+        isGoHomePage = registerCondition(firstName, lastName, username, email, password1, password2);
         if (isGoHomePage) {
 
             const response1 = await register(
                 {
-                    name: firstName, surname: lastName, username: userName, password: password1,
+                    name: firstName, surname: lastName, username: username, password: password1,
                     email: email, phone: phone, birthDay: birth, gender: gender,
                 })
             if (response1 && response1.success) {
-                const response2 = await login({ username: userName, password: password1 })
+                const response2 = await login({ username: username, password: password1 })
                 if (response2 && response2.success) {
                     await AsyncStorage.setItem('token', response2.data.accessToken)
                     await AsyncStorage.setItem('user', JSON.stringify(response2.data.user))
-                    navigation.navigate("HomeScreen", { uName: userName })
+                    navigation.navigate("HomeScreen", { username: username })
                 }
                 else {
                     alert("Girdiğiniz Bilgiler Yanlış")
@@ -74,8 +74,8 @@ export default function Register({ navigation }) {
                 <TextInput
                     style={registerStyle.sbar}
                     maxLength={18}
-                    value={userName}
-                    onChangeText={userName => setUserName(userName)}
+                    value={username}
+                    onChangeText={username => setusername(username)}
                 />
 
                 <Text style={registerStyle.label}>Email</Text>

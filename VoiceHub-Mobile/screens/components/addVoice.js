@@ -33,7 +33,6 @@ export default function AddVoice({ title, postId }) {
   const toggleRecord = async () => {
     const filename = 'test.mp3';
     const path = `${FileSystem.documentDirectory}${filename}`;
-    console.log(path);
 
     const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
 

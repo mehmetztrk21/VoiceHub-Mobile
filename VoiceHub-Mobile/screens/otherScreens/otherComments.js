@@ -1,13 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, Modal, SafeAreaView, ScrollView, Text } from "react-native";
+import { Dimensions, Modal, SafeAreaView, ScrollView, Text } from "react-native";
 
 import AddVoice from "../components/addVoice";
+import AreYouSure from "../components/areYouSure";
 import Comment from "../components/comment";
 import OtherHeader from "../components/otherHeader";
-import AreYouSure from "../components/areYouSure";
 
 import { View } from "react-native";
 import colors from "../../assets/colors";
+import Loading from "../components/loading";
+import { baseURL } from "../../utils/constants";
 
 const { width } = Dimensions.get("window");
 
@@ -23,16 +25,11 @@ export default function OtherComments({ navigation, route }) {
         scrollViewRef.current.scrollToEnd({ animated: true });
     };
 
-    if (loading) {
-        return (
-            <View style={{
-                flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-                justifyContent: "center", alignItems: "center",
-            }}>
-                <ActivityIndicator size="large" color={colors.green} />
-            </View>
-        )
-    }
+    useEffect(() => {
+        console.log(postId, comments);
+    }, [])
+
+    if (loading) return <Loading />
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "column", backgroundColor: colors.white }}>
@@ -56,8 +53,8 @@ export default function OtherComments({ navigation, route }) {
                     {comments?.length > 0 ? (
                         comments?.map((item, index) => {
                             return (
-                                <Comment key={index} navigation={navigation} userPic={"user1"}
-                                    userName={"k"} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} id={item.id} />
+                                <Comment key={index} navigation={navigation} userPic={baseURL + item.createdBy?.profilePhotoUrl} createDate={item.createdAt}
+                                    contentUrl={item.contentUrl} username={item.createdBy?.username} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} userId={item.createdBy._id} />
                             )
                         })
                     ) :

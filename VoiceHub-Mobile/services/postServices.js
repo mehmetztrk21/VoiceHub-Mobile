@@ -43,6 +43,16 @@ export const getExplorePosts = async (data) => {
     })
 }
 
+export const getTopCategories = async () => {
+    return await apiAxios.post("/post/top20Tags"
+    ).then(res => {
+        return res.data  //{success:true,message:"success",data:[{_id:"poem",count:3}]}
+    }).catch(err => {
+        console.error(err, "Post Services post/myPosts");
+        return null
+    })
+}
+
 export const getSavedPosts = async (data) => {
     return await apiAxios.post("/post/savedPosts", data
     ).then(res => {

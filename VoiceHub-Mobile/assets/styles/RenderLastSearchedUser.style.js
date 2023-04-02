@@ -6,6 +6,7 @@ export default StyleSheet.create({
         width:"90%",
         marginHorizontal:"5%",
         flexDirection:"row",
+        justifyContent:"space-between",
       },
       lastSearchImage:{
         width: 50, 

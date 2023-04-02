@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
-
+import {
+  Dimensions, Modal, RefreshControl,
+  SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View
+} from "react-native";
 import { Icon } from "react-native-elements";
-
-import { getExplorePosts } from "../services/postServices";
 
 import colors from "../assets/colors";
 import searchStyles from "../assets/styles/search.style";
@@ -14,27 +14,30 @@ import PopUp from "./components/popUp";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
-import userPostData from "./components/userPostData";
 
-import { Dimensions } from "react-native";
+import { getExplorePosts, getTopCategories } from "../services/postServices";
+import { searchUser } from "../services/userServices";
 import { baseURL } from "../utils/constants";
 import { getUserInfo } from "../utils/getUserInfo";
+import Loading from "./components/loading";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
-  const { uName, getCategory, type } = route.params;
+  const { username, getCategory, type } = route.params;
 
   const scrollViewRef = useRef();
   const categoryScrollViewRef = useRef();
 
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({});
+  const [users, setUsers] = useState({});
   const [posts, setPosts] = useState([]);
   const [focused, setFocused] = useState(false);
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [refreshing, setRefreshing] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState({ getCategory });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(getCategory);
+  const [categories, setCategories] = useState([]);
 
   useState(() => {
     if (type == "lastSearched") {
@@ -51,11 +54,6 @@ export default function SearchScreen({ navigation, route }) {
     }
   })
 
-  {/*Coming Soon --->*/ }
-  const [searchQuery, setSearchQuery] = useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
-  {/*<--- Coming Soon */ }
-
   const handleScrollToTop = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true })
   };
@@ -68,7 +66,7 @@ export default function SearchScreen({ navigation, route }) {
     }, 800)
   }
 
-  const getPosts = async (res = null) => {
+  const getPosts = async () => {
     setLoading(true);
     const response = await getExplorePosts({ page: 1, limit: 30, category: selectedCategory });
 
@@ -79,7 +77,7 @@ export default function SearchScreen({ navigation, route }) {
           contentUrl: item.contentUrl,
           categories: item.categories,
           comments: item.comments,
-          userName: item.createdBy.username,
+          username: item.createdBy.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
@@ -90,37 +88,55 @@ export default function SearchScreen({ navigation, route }) {
           commentCount: 12,
         }
       })
-      console.log(temp.id)
       setPosts(temp);
     }
     setLoading(false);
   }
 
-  useEffect(() => {
+  const getCategories = async () => {
     setLoading(true);
-    getUserInfo().then(async (res) => {
-      setUser(res);
-      await getPosts(res);
-    });
-  }, [])
+    const response = await getTopCategories(); //{success:true,message:"success",data:[{_id:"poem",count:3}]}
 
-  useEffect(() => {
-    setLoading(true);
-    getUserInfo().then(async (res) => {
-      setUser(res);
-      await getPosts(res);
-    });
-  }, [selectedCategory])
-
-  if (loading) {
-    return (
-      <View style={{
-        flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-        justifyContent: "center", alignItems: "center",
-      }}>
-        <ActivityIndicator size="large" color={colors.green} />
-      </View>)
+    if (response && response.success) {
+      setCategories(response.data);  //[{_id:"poem",count:1}]
+      await getPosts()
+    }
+    setLoading(false);
   }
+
+  const onChangeSearch = async (searchQuery) => {
+    const response = await searchUser({ search: searchQuery });
+
+    if (response && response.success) {
+      let temp = response.data.map((item) => {
+        return {
+          id: item._id,
+          name: item.name,
+          username: item.username,
+          userPic: baseURL + item.profilePhotoUrl,
+          isSecretAccount: item.isSecretAccount,
+          isVerify: item.isTic,
+        }
+      })
+      setUsers(temp);
+    }
+  }
+
+  useEffect(() => {
+    getCategories();
+  }, []);
+
+  useEffect(() => {
+    getPosts();
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    onChangeSearch(searchQuery);
+  }, [searchQuery])
+
+
+
+  if (loading) return <Loading />
 
   return (
     <SafeAreaView style={searchStyles.container}>
@@ -144,7 +160,7 @@ export default function SearchScreen({ navigation, route }) {
             < TextInput
               placeholder="Search"
               style={[searchStyles.searchBar, { width: width * 0.78 }]}
-              onChangeText={onChangeSearch}
+              onChangeText={(e) => console.log(e)}
               value={searchQuery}
             />
 
@@ -160,7 +176,7 @@ export default function SearchScreen({ navigation, route }) {
             < TextInput
               placeholder="Search"
               style={[searchStyles.searchBar, { width: width * 0.9, marginLeft: width * 0.05 }]}
-              onChangeText={onChangeSearch}
+              onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
               value={searchQuery}
               onFocus={() => setFocused(true)}
             />
@@ -169,17 +185,27 @@ export default function SearchScreen({ navigation, route }) {
             <ScrollView ref={categoryScrollViewRef}
               horizontal showsHorizontalScrollIndicator={false}
               style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, paddingVertical: 10 }}>
-              {
-                userPostData.map((item, index) => {
-                  return (
-                    <TouchableOpacity onPress={() => setSelectedCategory(item.category)} key={index}>
 
+              <TouchableOpacity onPress={() => setSelectedCategory("all")} key={"all"}>
+                <Text style={[searchStyles.SecondText,
+                { width: width * 0.3, marginHorizontal: width * 0.0125, },
+                selectedCategory == "all" ? {
+                  borderWidth: 2, borderColor: colors.green,
+                  backgroundColor: colors.white, color: colors.green
+                } : { backgroundColor: colors.green, color: colors.white }]}>#all</Text>
+
+              </TouchableOpacity>
+
+              {
+                categories.map((item, index) => {
+                  return (
+                    <TouchableOpacity onPress={() => setSelectedCategory(item._id)} key={index}>
                       <Text style={[searchStyles.SecondText,
                       { width: width * 0.3, marginHorizontal: width * 0.0125, },
-                      selectedCategory == item.category ? {
+                      selectedCategory == item._id ? {
                         borderWidth: 2, borderColor: colors.green,
                         backgroundColor: colors.white, color: colors.green
-                      } : { backgroundColor: colors.green, color: colors.white }]}>#{item.category}</Text>
+                      } : { backgroundColor: colors.green, color: colors.white }]}>#{item._id}</Text>
 
                     </TouchableOpacity>
                   )
@@ -200,7 +226,7 @@ export default function SearchScreen({ navigation, route }) {
         }
       >
         {focused ? (
-          <RenderLastSearchedUser navigation={navigation} />
+          <RenderLastSearchedUser navigation={navigation} users={users} />
         ) :
           <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />
         }
@@ -210,7 +236,7 @@ export default function SearchScreen({ navigation, route }) {
         <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} />
+      <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );
 }

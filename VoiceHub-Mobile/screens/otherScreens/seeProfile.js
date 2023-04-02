@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-    ActivityIndicator,
     Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from "react-native";
 
@@ -9,14 +8,15 @@ import seeProfileStyles from '../../assets/styles/seeProfile.style';
 import verfy from "../../assets/ver.png";
 
 import { Icon } from "react-native-elements";
-import AreYouSure from "../components/areYouSure";
 import DontShowPosts from "../components/DontShowPosts";
-import Post from "../components/post";
 import RenderPost from "../components/RenderPost";
+import AreYouSure from "../components/areYouSure";
+import Post from "../components/post";
 
 import { getMyPosts } from "../../services/postServices";
 import { getUserById } from "../../services/userServices";
 import { baseURL } from "../../utils/constants";
+import Loading from "../components/loading";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -44,51 +44,42 @@ export default function SeeProfile({ navigation, route }) {
 
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
 
-    const getPosts = async (user = null) => {
+    const getPosts = async () => {
+        setLoading(true)
         const response = await getMyPosts({ isArchived: false, userId: userId });
         if (response && response.success) {
-            let temp = response.data.map((item) => {
+            let temp = response?.data?.map((item) => {
                 return {
                     id: item._id,
-                    contentUrl: item.contentUrl,
                     categories: item.categories,
-                    userName: user?.username,
-                    createdBy: item.createdBy,
+                    contentUrl: item.contentUrl,
+                    username: item.username,
                     createdAt: item.createdAt,
-                    userPic: baseURL + user?.profilePhotoUrl,
+                    createdBy: item.createdBy,
+                    userPic: baseURL + item.createdBy.profilePhotoUrl,
                     likesCount: 1451,
-                    caption: "Coffee is the most imp part of my life !",
-                    type: "sender",
-                    category: null,
-                    showLike: false,
-                    isSaved: item.isSaved,
-                    isLiked: true,
                     commentCount: 12,
+                    hasBio: !item.descriptionVoiceUrl ? false : true,
+                    descriptionVoiceUrl: item.descriptionVoiceUrl,
+                    isVerify: item.isTic,
+                    comments: item.comments,
                 }
             })
             setPosts(temp);
         }
+        setLoading(false)
     }
     useEffect(() => {
-        setLoading(true);
+        setLoading(true)
         getUserById({ id: userId }).then(async (res) => {
-            setUser(res.data);
-            await getPosts(res.data);
+            setUser(res?.data);
+            await getPosts();
         }).catch((err) => {
             console.log(err);
         })
-        setLoading(false);
     }, []);
 
-    if (loading) {
-        return (
-            <View style={{
-                flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-                justifyContent: "center", alignItems: "center",
-            }}>
-                <ActivityIndicator size="large" color={colors.green} />
-            </View>)
-    }
+    if (loading) return <Loading />
 
     return (
         <SafeAreaView style={[seeProfileStyles.container, { backgroundColor: colors.green }]}>
@@ -98,9 +89,9 @@ export default function SeeProfile({ navigation, route }) {
                     <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
                 </TouchableOpacity>
 
-                <Text style={seeProfileStyles.head}>{user.username}</Text>
+                <Text style={seeProfileStyles.head}>{user?.username}</Text>
 
-                {true ? (
+                {user?.isVerify ? (
                     <Image source={verfy} style={seeProfileStyles.ver} />
                 ) : null}
             </View>
@@ -109,11 +100,11 @@ export default function SeeProfile({ navigation, route }) {
 
                 {/* PP, Follow Count,  */}
                 <View style={seeProfileStyles.actView}>
-                    <Image source={{ uri: baseURL + user.profilePhotoUrl }} style={seeProfileStyles.userPic} />
+                    <Image source={{ uri: user?.userPic }} style={seeProfileStyles.userPic} />
                     <View style={seeProfileStyles.followContents}>
 
                         <View style={seeProfileStyles.postCount}>
-                            <Text style={seeProfileStyles.fNumber}>{user?.posts?.length}</Text>
+                            <Text style={seeProfileStyles.fNumber}>{posts?.length}</Text>
                             <Text style={seeProfileStyles.fText}>Post</Text>
                         </View>
 
@@ -146,8 +137,8 @@ export default function SeeProfile({ navigation, route }) {
 
                 {/* Bio */}
                 <View style={seeProfileStyles.bioContents}>
-                    <Text style={seeProfileStyles.name}>{user.name + " " + user.surname}</Text>
-                    {true ? (<Post />) : null}
+                    <Text style={seeProfileStyles.name}>{user?.name + " " + user?.surname}</Text>
+                    {user?.hasBio ? (<Post uri={user?.descriptionVoiceUrl} />) : null}
                 </View>
 
                 {/* Edit Profile Buttons */}

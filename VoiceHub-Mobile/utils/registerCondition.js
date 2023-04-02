@@ -1,7 +1,7 @@
-export const registerCondition = (firstName, lastName, userName, email, password1, password2) => {
-    if ((firstName, lastName, userName, email, password1, password2) !== "") {
+export const registerCondition = (firstName, lastName, username, email, password1, password2) => {
+    if ((firstName, lastName, username, email, password1, password2) !== "") {
         if (password1 == password2) {
-            if (userName.length >= 1) {
+            if (username.length >= 1) {
                 if (password1.length >= 1) {
                     return true
                 }

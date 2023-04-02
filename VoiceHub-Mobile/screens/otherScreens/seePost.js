@@ -21,7 +21,7 @@ const { height } = Dimensions.get("window");
 export default function SeePost({ navigation, route }) {
 
     const scrollViewRef = useRef();
-    const { uName } = route.params;
+    const { username } = route.params;
 
     const handleLayout = () => {
         scrollViewRef.current.scrollTo({ y: 0, animated: true });
@@ -60,7 +60,7 @@ export default function SeePost({ navigation, route }) {
                 <Image source={user1} style={{ height: height * 0.2, width: height * 0.2, borderRadius: height * 0.1, marginTop: height * 0.1, marginBottom: height * 0.01, alignSelf: "center" }} />
                 <View style={{ flexDirection: "row", justifyContent: "center" }}>
                     <Text style={{ textAlign: "center", fontSize: 24, fontWeight: "500", color: colors.black }}>
-                        {uName}
+                        {username}
                     </Text>
 
                     {true ? (
@@ -97,7 +97,7 @@ export default function SeePost({ navigation, route }) {
                         return (
                             <View key={index} style={{ backgroundColor: colors.white, borderRadius: 20, marginTop: 15, padding: "1%" }}>
                                 <Comment navigation={navigation} userPic={item.userPic}
-                                    userName={item.userName} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
+                                    username={item.username} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
                             </View>
                         )
                     })

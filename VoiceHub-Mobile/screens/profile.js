@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
-  Image, Modal, ActivityIndicator, RefreshControl,
+  Dimensions,
+  Image, Modal,
+  RefreshControl,
   SafeAreaView, ScrollView, Text, TouchableOpacity,
-  View, Dimensions
+  View
 } from "react-native";
 
 import colors from "../assets/colors";
@@ -16,14 +18,15 @@ import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import RenderPost from "./components/RenderPost";
 
+import { getMyPosts } from "../services/postServices";
 import { baseURL } from "../utils/constants";
 import { getUserInfo } from "../utils/getUserInfo";
-import { getMyPosts } from "../services/postServices";
+import Loading from "./components/loading";
 
 const { width } = Dimensions.get("window");
 
 export default function ProfileScreen({ navigation, route }) {
-  const { uName } = route.params;
+  const { username } = route.params;
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
@@ -43,7 +46,7 @@ export default function ProfileScreen({ navigation, route }) {
     }, 800)
   }
 
-  const getPosts = async (res = null) => {
+  const getPosts = async (res) => {
     setLoading(true);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
@@ -53,10 +56,10 @@ export default function ProfileScreen({ navigation, route }) {
           contentUrl: item.contentUrl,
           categories: item.categories,
           comments: item.comments,
-          userName: res?.username,
+          username: res?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: baseURL + item.createdBy.profilePhotoUrl,
+          userPic: baseURL + res?.profilePhotoUrl,
           likesCount: 1451,
           showLike: true,
           isSaved: false,
@@ -77,20 +80,12 @@ export default function ProfileScreen({ navigation, route }) {
     });
   }, [])
 
-  if (loading) {
-    return (
-      <View style={{
-        flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
-        justifyContent: "center", alignItems: "center"
-      }}>
-        <ActivityIndicator size="large" color={colors.green} />
-      </View>)
-  }
+  if (loading) return <Loading />
 
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} userId={posts?._id} uName={uName} />
+      <ProfileHeader navigation={navigation} userId={posts?._id} username={user?.username} isVerify={user?.isTic} />
 
       <Modal
         animationType="slide"
@@ -185,7 +180,7 @@ export default function ProfileScreen({ navigation, route }) {
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
           {posts?.length > 0 ? (
             <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"}
-              setOpenEditPostPopUp={setOpenEditPostPopUp} posts={posts} />
+              setOpenEditPostPopUp={setOpenEditPostPopUp} posts={posts} user={user} />
           ) :
             <View style={{ marginTop: "5%", }}>
               <Text style={
@@ -194,7 +189,7 @@ export default function ProfileScreen({ navigation, route }) {
                 {"You have not post anyone yet :("}
               </Text>
 
-              <TouchableOpacity onPress={() => { navigation.navigate("Upload", { uName: uName }) }}>
+              <TouchableOpacity onPress={() => { navigation.navigate("Upload", { username: username }) }}>
                 <Text style={
                   { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16, backgroundColor: colors.white, borderRadius: 15, paddingVertical: 10, }}>
                   Upload Now!
@@ -209,7 +204,7 @@ export default function ProfileScreen({ navigation, route }) {
         <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
       ) : null}
 
-      <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} />
+      <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );
 }

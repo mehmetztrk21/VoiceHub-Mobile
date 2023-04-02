@@ -6,7 +6,7 @@ import logo from "../../assets/images/VoiceHub-1.png";
 import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
-const HomeHeader = ({ navigation, pressLogo, uName, isYourProfile }) => {
+const HomeHeader = ({ navigation, pressLogo, username, isYourProfile }) => {
 
   return (
     <View style={homeHeaderStyles.wrapper}>
@@ -25,7 +25,7 @@ const HomeHeader = ({ navigation, pressLogo, uName, isYourProfile }) => {
               <Icon type="font-awesome" size={30} name={"envelope-o"} color={colors.black} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate("ActivityScreen", { uName: uName })} style={{ marginLeft: 10 }}>
+            <TouchableOpacity onPress={() => navigation.navigate("ActivityScreen", { username: username })} style={{ marginLeft: 10 }}>
               <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
             </TouchableOpacity>
           </View>

@@ -54,7 +54,7 @@ const SeeLikes = ({ navigation, route }) => {
                                     <TouchableOpacity style={seeLikesStyle.seeProfile}
                                         onPress={() => navigation.navigate("SeeProfile", { userId: "1" })} >
                                         <Image source={item.userPic} style={seeLikesStyle.profileImage} />
-                                        <Text style={seeLikesStyle.userName}>{item.userName}</Text>
+                                        <Text style={seeLikesStyle.username}>{item.username}</Text>
                                         {true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}

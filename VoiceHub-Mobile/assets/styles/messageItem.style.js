@@ -15,7 +15,7 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between"
   },
-  userName: {
+  username: {
     fontWeight: "bold",
     fontSize: 15,
     marginLeft: "5%",

@@ -11,7 +11,7 @@ import userPostData from '../components/userPostData';
 const { width } = Dimensions.get("window");
 
 export default function UserMessage({ navigation, route }) {
-  const { uName } = route.params;
+  const { username } = route.params;
 
   const scrollViewRef = useRef(null);
 
@@ -21,7 +21,7 @@ export default function UserMessage({ navigation, route }) {
 
   return (
     <SafeAreaView style={userMessageStyle.container}>
-      <OtherHeader navigation={navigation} HeaderTitle={uName}/>
+      <OtherHeader navigation={navigation} HeaderTitle={username}/>
       <View style={{ marginTop: width * 0.04 }}>
         <ScrollView style={userMessageStyle.scroll} ref={scrollViewRef} onLayout={handleLayout}>
           {

@@ -25,7 +25,7 @@ import { createPost } from "../../services/postServices";
 import { recordingOptions } from "../../utils/recordingOptions";
 
 export default function Upload({ navigation, route }) {
-    const { uName } = route.params;
+    const { username } = route.params;
 
     const [visiblePopUp, setVisiblePopUp] = useState(false);
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
@@ -66,7 +66,6 @@ export default function Upload({ navigation, route }) {
     const toggleRecord = async () => {
         const filename = "test.mp3";
         const path = `${FileSystem.documentDirectory}${filename}`;
-        console.log(path);
 
         const { status } = await Permissions.askAsync(Permissions.AUDIO_RECORDING);
 
@@ -133,13 +132,15 @@ export default function Upload({ navigation, route }) {
             name: `recording-${Date.now()}.mpeg`,
             type: "audio/mpeg",
         });
-
-        let temp = categories?.split("#");
-        for (const tag of temp) {
-            if (tag.trim().length > 0) {
-                formData.append("categories", tag.trim());
+        if (categories.length > 0) {
+            let temp = categories?.split("#");
+            for (const tag of temp) {
+                if (tag.trim().length > 0) {
+                    formData.append("categories", tag.trim());
+                }
             }
         }
+
 
         const response = await createPost(formData);
         setRecording(new Audio.Recording());
@@ -259,7 +260,7 @@ export default function Upload({ navigation, route }) {
                 ) : null
             }
 
-            <BottomTabs navigation={navigation} userName={uName} setVisiblePopUp={setVisiblePopUp} />
+            <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
         </SafeAreaView>
     );
 }
