@@ -8,7 +8,7 @@ import sliderStyle from "../../assets/styles/slider.style";
 import colors from "../../assets/colors";
 import { baseURL } from "../../utils/constants";
 
-const Post = ({uri}) => {
+const Post = ({ uri }) => {
   const [soundObject, setSound] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(1);
@@ -16,7 +16,7 @@ const Post = ({uri}) => {
   const [sliderValue, setSliderValue] = useState(0);
 
   useEffect(() => {
-    console.log(uri)
+    console.log("useEffect", uri);
     loadSound();
     return () => {
       if (soundObject) {
@@ -27,13 +27,14 @@ const Post = ({uri}) => {
 
   useEffect(() => {
     setSliderValue(position / duration);
-  }, [position, duration, setSliderValue]);
+  }, [position, duration]);
 
   const loadSound = async () => {
     const { sound } = await Audio.Sound.createAsync({
       uri: baseURL + uri || "",
     });
     setSound(sound);
+    console.log(sound)
     sound.setOnPlaybackStatusUpdate((playbackStatus) => {
       setDuration(playbackStatus.durationMillis);
       setPosition(playbackStatus.positionMillis);
@@ -69,8 +70,8 @@ const Post = ({uri}) => {
 
   const onSliderValueChange = (value) => {
     if (soundObject) {
-      setPosition(value);
-      soundObject.setPositionAsync(value).catch((error) => {
+      setPosition(value * duration);
+      soundObject.setPositionAsync(value * duration).catch((error) => {
         console.log("Error setting position:", error);
       });
     } else {
@@ -84,13 +85,21 @@ const Post = ({uri}) => {
         style={postStyle.playButton}
         onPress={isPlaying ? pauseSound : playSound}
       >
-        {
-          isPlaying ? (
-            <Icon type="feather" size={28} name={"pause"} color={colors.black} />
-          ) : (
-            <Icon type="feather" size={28} name={"play"} color={colors.black} />
-          )
-        }
+        {isPlaying ? (
+          <Icon
+            type="feather"
+            size={28}
+            name={"pause"}
+            color={colors.black}
+          />
+        ) : (
+          <Icon
+            type="feather"
+            size={28}
+            name={"play"}
+            color={colors.black}
+          />
+        )}
       </TouchableOpacity>
 
       <Slider
@@ -98,7 +107,7 @@ const Post = ({uri}) => {
         minimumValue={0}
         maximumValue={1}
         value={sliderValue}
-        onValueChange={(value) => onSliderValueChange}
+        onValueChange={onSliderValueChange}
         minimumTrackTintColor={colors.green}
         maximumTrackTintColor={colors.gray}
         thumbTintColor={colors.green}
