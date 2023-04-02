@@ -1,8 +1,9 @@
 import { StyleSheet } from "react-native";
-import color from "../colors"
+import colors from "../colors"
 export default StyleSheet.create({
-  container:{
-    flex:1,
+  container: {
+    flex: 1,
+    backgroundColor: colors.white,
   },
   searchBarHolder: {
     top: 50,
@@ -11,7 +12,7 @@ export default StyleSheet.create({
     height: 80,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom:20,
+    marginBottom: 20,
   },
   searchBar: {
     backgroundColor: "lightgray",
@@ -20,19 +21,19 @@ export default StyleSheet.create({
     paddingHorizontal: 12.5,
     width: "90%",
   },
-  scroll:{
+  scroll: {
     paddingHorizontal: "7.5%",
-    paddingTop: "5%",
+    marginTop: "5%",
   },
   item: {
     paddingBottom: 20,
     width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems:"center"
+    alignItems: "center"
   },
-  seeProfile:{
-    flexDirection: "row", 
+  seeProfile: {
+    flexDirection: "row",
     alignItems: "center",
   },
   profileImage: {
@@ -41,19 +42,10 @@ export default StyleSheet.create({
     borderRadius: 25,
     marginRight: "2%",
   },
-  userName:{
-    marginLeft:"2%"
-  },
-  FollowButton: {
-    backgroundColor: color.green,
-    borderRadius: 25,
-    color: color.white,
+  username: {
+    marginLeft: "2%",
     fontSize: 16,
-    fontWeight: "500",
-    paddingVertical: "3.3%",
-    paddingHorizontal: "10%",
-    textAlign:"center",
-    textAlignVertical:"center",
-  }
+    fontWeight: "600"
+  },
 
 })

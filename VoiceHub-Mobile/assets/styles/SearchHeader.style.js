@@ -1,22 +1,23 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
     wrapper:{
-        position:"fixed",
+        position:"absolute",
         width:'100%',
         top:0,
         zIndex:999,
-        backgroundColor:'#FFF'
+        backgroundColor:colors.white,
     },
     head: {
-        paddingTop: 0,
-        paddingBottom: 20,
-        paddingLeft:10,
-        paddingRight:20,
-        height:64.8,
+        paddingHorizontal: "5%",
+        paddingTop:"7%",
         flexDirection: "row",
         justifyContent:"space-between",
-        borderBottomWidth:0.5,
-        borderBottomColor:"#DADADA",
+    },
+    FirstRow:{
+        flexDirection:"row",
+        justifyContent:"space-between",
+        alignItems:"center"
     },
 })

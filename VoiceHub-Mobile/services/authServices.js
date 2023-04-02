@@ -1,20 +1,31 @@
-import axios from "axios"
-import {API_URL} from "@env"
-export const Login = async (username,password) => {
-    return axios.post(API_URL+"/auth/login",{username:username,password:password}).then(res=>{
-        if(res.data.status){
-            localStorage.setItem("token",res.data.accessToken);
-            localStorage.setItem("user",JSON.stringify(res.data.user));
-            return true;
+import apiAxios from "../utils/apiAxios";
+
+export const login = async (data) => {
+    const res = await apiAxios.post("/auth/login", data, {
+        headers: {
+            "content-type": "application/json",
         }
-        else return true;  //TODO: return false
-    }).catch(err=>{
-        console.log(err);
-        localStorage.setItem("user",JSON.stringify({
-            username:"mehmet.ztrk",
-            name:"Mehmet",
-            surname:"Öztürk"
-        }));  //TODO: Deleted.
-        return true; //TODO: return false
-    })
+    }).then(res => {
+        return res.data;
+    }).catch(err => {
+        console.log(err, "hata");
+        return null
+    }
+    );
+    return res;
+}
+
+export const register = async (data) => {
+    const res = await apiAxios.post("/auth/register", data, {
+        header: {
+            "content-type": "application/json",
+        }
+    }).then(res => {
+        return res.data;
+    }).catch(err => {
+        console.log(err, "hata");
+        return null;
+    }
+    );
+    return res;
 }

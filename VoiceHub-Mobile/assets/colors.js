@@ -1,12 +1,12 @@
 const colors = {
-    green:"#1DB954",
-    tealGreen:'#006D5B',
-    black:"#000",
-    gray:"#777777",
-    white: "#FFF",
+    black: "#000",
+    red: 'red',
+    darkGray: "#333333",
+    gray: "#777777",
     lightgray: "lightgray",
-    grad: 'linear-gradient(to right, ' + "#1DB954" + ', ' + '#006D5B' + ')',
-    red:'red'
+    white: "#FFF",
+    green: "#1DB954",
+    tealGreen: '#006D5B',
 }
 
 export default colors;

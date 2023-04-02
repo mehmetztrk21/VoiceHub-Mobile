@@ -6,15 +6,18 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width:"100%"
+    width: "100%",
+    backgroundColor: colors.green,
   },
 
 
   actView: {
     flexDirection: "row",
+    alignItems: "center",
     padding: 10,
     marginTop: 12,
     width: "96%",
+    marginBottom: 12,
   },
   userPic: {
     width: 90,
@@ -24,7 +27,7 @@ export default StyleSheet.create({
     marginLeft: "1%",
     marginVertical: -12,
     borderWidth: 3,
-    borderColor: "black",
+    borderColor: colors.black,
   },
   followContents: {
     flexDirection: "row",
@@ -32,17 +35,20 @@ export default StyleSheet.create({
   postCount: {
     flexDirection: "column",
     textAlign: "center",
-    paddingLeft: 28,
+    paddingLeft: "10%",
+    alignItems: "center",
   },
   followerCount: {
     flexDirection: "column",
     textAlign: "center",
-    paddingLeft: 28,
+    alignItems: "center",
+    paddingLeft: "10%",
   },
   followCount: {
     flexDirection: "column",
     textAlign: "center",
-    paddingLeft: 28,
+    alignItems: "center",
+    paddingLeft: "10%",
   },
   fNumber: {
     fontWeight: "bold",
@@ -64,9 +70,9 @@ export default StyleSheet.create({
     marginBottom: "2%",
     marginTop: "1%",
     paddingBottom: "2%",
-    borderBottomEndRadius:20,
-    borderBottomStartRadius:20,
-    alignItems:"center"
+    borderBottomEndRadius: 20,
+    borderBottomStartRadius: 20,
+    alignItems: "center"
   },
   editProfileAndFollow: {
     borderRadius: 25,
@@ -83,17 +89,17 @@ export default StyleSheet.create({
 
 
   scroll: {
-    marginBottom: 65,
+    marginBottom: "16%",
     width: "100%",
   },
   uploadMargin: {
     marginBottom: 120,
   },
-  popUpMargin:{
+  popUpMargin: {
     marginBottom: 140,
   },
   postView: {
-    paddingTop: 5,
+    paddingTop: "1%",
     flexDirection: "column",
     width: "100%",
   },

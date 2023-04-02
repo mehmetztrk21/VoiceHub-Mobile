@@ -20,9 +20,9 @@ export default StyleSheet.create({
         borderRadius:15,
         marginRight:7.5,
     },
-    userName:{
+    username:{
         fontSize:16,
-        fontWeight:"750",
+        fontWeight:"700",
         color:colors.black,
     },
     timeAgo:{

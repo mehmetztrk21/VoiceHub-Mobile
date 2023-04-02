@@ -1,10 +1,14 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
-    comments:{
-      paddingTop:65,
-        paddingBottom:60,
-        width:'100%',
-        paddingHorizontal:'2%'
-    }
+  container: {
+    backgroundColor: colors.green,
+    flex: 1,
+  },
+  comments: {
+    marginBottom: "16%",
+    width: "85%",
+    marginLeft: "7.5%",
+  }
 });

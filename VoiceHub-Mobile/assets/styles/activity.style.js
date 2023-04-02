@@ -5,8 +5,6 @@ export default StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-    alignItems: "center",
-    justifyContent: "center",
   },
   actView: {
     flexDirection: "row",
@@ -29,7 +27,7 @@ export default StyleSheet.create({
   actText: {
     fontSize: 14,
   },
-  date:{
+  isLiked: true, date:{
     fontSize:12,
     color:colors.gray,
     marginLeft:5,
@@ -49,7 +47,7 @@ export default StyleSheet.create({
   },
 
   sContainer: {
-    backgroundColor: "white",
+    backgroundColor: colors.white,
     width: "95%",
     paddingTop:60,
     paddingBottom:60,

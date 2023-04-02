@@ -1,26 +1,31 @@
 import React from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
-import colors from "../../assets/colors"
 import areYouSureStyle from '../../assets/styles/areYouSure.style'
-const areYouSure = ({ process, navigation, bottomSize, setOpenAreYouSure }) => {
+import AsyncStorage from '@react-native-async-storage/async-storage'
+const areYouSure = ({ process, navigation, setOpenAreYouSure }) => {
 
-    const Operation = (status) => {
-        process == true
-        if (status == true) {
-            if (process == 'LogOut') {
-                navigation.push('Login');
+    const Operation = async (status) => {
+        if (status) {
+            if (process == "LogOut") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else if (process == "DeleteComment") {
+                console.log("Deleted Comment");
+
+                setOpenAreYouSurePopUp(false);
             }
             else {
                 //continue
             }
         }
-        else{
-            setOpenAreYouSure(false)
+        else {
+            setOpenAreYouSure(false);
         }
     }
 
     return (
-        <View style={[areYouSureStyle.container,{marginBottom:bottomSize, background: colors.grad}]}>
+        <View style={areYouSureStyle.container}>
             <Text style={areYouSureStyle.title}>Are you sure?</Text>
 
             <TouchableOpacity onPress={() => Operation(true)}>

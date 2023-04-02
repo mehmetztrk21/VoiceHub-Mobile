@@ -4,30 +4,42 @@
     "slug": "VoiceHub",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/VoiceHub-3.png",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/VoiceHub-1.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
-    },
-    "updates": {
-      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": [
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "permissions": {
+        "audio": {
+          "allowsRecording": true,
+          "importance": "always"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/VoiceHub-3.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "RECORD_AUDIO",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
-    "web": {
-      "favicon": "./assets/images/VoiceHub-3.png"
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "dependencies": {
+      "expo-permissions": "^14.1.1",
+      "expo-av": "^13.2.1"
     }
   }
 }

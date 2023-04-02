@@ -4,24 +4,24 @@ import { Image, Text, TouchableOpacity, View } from 'react-native'
 import { Icon } from 'react-native-elements'
 import colors from '../../assets/colors'
 import RenderLastSearchedUserStyle from "../../assets/styles/RenderLastSearchedUser.style"
-import userPostData from "./userPostData"
 
-const RenderLastSearchedUser = ({ navigation }) => {
-  return userPostData.map((item) => (
-    <View style={RenderLastSearchedUserStyle.last}>
+const RenderLastSearchedUser = ({ navigation, users }) => {
+
+  return users?.map((item, index) => (
+    <TouchableOpacity style={RenderLastSearchedUserStyle.last} key={index}
+      onPress={() => navigation.navigate("SeeProfile", { userId: item.id })}>
       <TouchableOpacity style={{ flexDirection: "row" }}
-        onPress={() => navigation.navigate('ProfileScreen', { uName: item.userName, isYourProfile: false })}>
+        onPress={() => navigation.navigate("SeeProfile", { userId: item.id })}>
         <Image source={item.userPic} style={RenderLastSearchedUserStyle.lastSearchImage} />
         <View style={{ flexDirection: "column" }}>
-          <Text>{item.userName}</Text>
-          <Text>k.kayserili ve 5 diğer kişi daha takip ediyor</Text>
+          <Text style={{ fontWeight: "700" }}>{item.username}</Text>
         </View>
       </TouchableOpacity>
 
       <TouchableOpacity style={RenderLastSearchedUserStyle.closeButtonTouch}>
-        <Icon type="font-awesome" size={"150%"} name={"times"} color={colors.gray} />
+        <Icon type="font-awesome" size={20} name={"times"} color={colors.gray} />
       </TouchableOpacity>
-    </View>
+    </TouchableOpacity>
   ));
 }
 

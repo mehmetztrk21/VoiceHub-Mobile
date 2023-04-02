@@ -1,16 +1,16 @@
 import { StyleSheet } from "react-native";
+import colors from "../colors";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    width:"100%",
+    backgroundColor: colors.white,
+    width: "100%",
   },
   searchView: {
     width: "85%",
-    marginLeft: "7.5%",
+    marginHorizontal: "7.5%",
     marginTop: 70,
-    marginBottom:'2%',
   },
   SearchBar: {
     paddingVertical: 10,
@@ -20,8 +20,7 @@ export default StyleSheet.create({
   },
   Items: {
     flexDirection: "column",
-    marginLeft:"7.5%",
-    marginRight:"7.5%",
-    width:"100%"
+    marginVertical: "2.5%",
+    paddingLeft:"5%",
   },
 });

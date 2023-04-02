@@ -4,18 +4,13 @@ export default StyleSheet.create({
     container:{
         flex:1,
         backgroundColor:colors.white,
-        alignItems:"center",
-        justifyContent:"center",
-    },
-    inputs:{
-        width:"80%"
     },
     label:{
         fontSize:15,
         fontWeight:"500"
     },
     input: {
-        backgroundColor: "lightgray",
+        backgroundColor: colors.lightgray,
         borderRadius: 25,
         paddingVertical:10,
         paddingHorizontal:10,
@@ -26,8 +21,8 @@ export default StyleSheet.create({
         backgroundColor: colors.green,
         color: colors.white,
         textAlign: "center",
-        paddingVertical: 10,
-        paddingHorizontal: 15,
+        paddingVertical: "4%",
+        paddingHorizontal: "6%",
         fontWeight:"500",
         fontSize:16,
       }

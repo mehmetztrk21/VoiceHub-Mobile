@@ -6,25 +6,23 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width:"100%"
+    width: "100%"
   },
 
 
   actView: {
     flexDirection: "row",
-    padding: 10,
-    marginTop: 12,
     width: "96%",
+    alignItems: "center",
   },
   userPic: {
     width: 90,
     height: 90,
     borderRadius: 45,
-    margin: 10,
-    marginLeft: "1%",
-    marginVertical: -12,
+    margin: "3%",
+    marginLeft: "4%",
     borderWidth: 3,
-    borderColor: "black",
+    borderColor: colors.black,
   },
   followContents: {
     flexDirection: "row",
@@ -32,17 +30,21 @@ export default StyleSheet.create({
   postCount: {
     flexDirection: "column",
     textAlign: "center",
-    paddingLeft: 28,
+    alignItems: "center",
+    paddingRight: "5%",
+    paddingLeft: "10%",
   },
   followerCount: {
     flexDirection: "column",
     textAlign: "center",
-    paddingLeft: 28,
+    alignItems: "center",
+    paddingHorizontal: "5%",
   },
   followCount: {
     flexDirection: "column",
     textAlign: "center",
-    paddingLeft: 28,
+    alignItems: "center",
+    paddingHorizontal: "5%",
   },
   fNumber: {
     fontWeight: "bold",
@@ -57,6 +59,7 @@ export default StyleSheet.create({
   name: {
     fontSize: 15,
     fontWeight: "700",
+    marginBottom: "3%",
   },
 
 
@@ -64,9 +67,9 @@ export default StyleSheet.create({
     marginBottom: "2%",
     marginTop: "1%",
     paddingBottom: "2%",
-    borderBottomEndRadius:20,
-    borderBottomStartRadius:20,
-    alignItems:"center"
+    borderBottomEndRadius: 20,
+    borderBottomStartRadius: 20,
+    alignItems: "center"
   },
   editProfileAndFollow: {
     borderRadius: 25,
@@ -78,42 +81,32 @@ export default StyleSheet.create({
   btnTextF: {
     fontSize: 16,
     color: colors.white,
-    alignSelf: "center"
+    alignSelf: "center",
+    fontWeight: "500"
   },
 
 
   scroll: {
-    marginBottom: 65,
     width: "100%",
   },
-  uploadMargin: {
-    marginBottom: 120,
-  },
-  popUpMargin:{
-    marginBottom: 140,
-  },
   postView: {
-    paddingTop: 5,
+    paddingTop: "2%",
     flexDirection: "column",
     width: "100%",
   },
   leftTop: {
-    width:"100%",
+    width: "100%",
     flexDirection: "row",
-    alignItems: "center",//yatay
-    backgroundColor:colors.white,
+    alignItems: "center",
+    backgroundColor: colors.white,
+    paddingTop: "10%",
   },
-  BackButton:{
-    paddingLeft: 10,
-  },
-  rightTop: {
-    flexDirection: "row",
-    alignItems: "center",//yatay
+  BackButton: {
+    paddingLeft: "4%",
   },
   head: {
     fontSize: 22,
-    padding: 20,
-    paddingRight: 8,
+    paddingRight: "4%",
     fontWeight: "bold",
   },
   ver: {

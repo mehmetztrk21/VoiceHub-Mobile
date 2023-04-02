@@ -1,56 +1,59 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 
-import userPostData from "./userPostData";
+import colors from "../../assets/colors";
 
-import PostUserInfo from "./postUserInfo";
 import Post from "./post";
 import PostActions from "./postActions";
-import colors from '../../assets/colors';
+import PostCategories from "./postCategories";
+import PostUserInfo from "./postUserInfo";
 
-const RenderPost = ({navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp}) => {
+const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts, user }) => {
 
-    return userPostData.map((item) => (
-        <View style={[styles.container]}>
+  return posts?.map((item, index) => (
+    <View style={styles.container} key={index}>
 
-          <PostUserInfo 
-          navigation={navigation} userPic={item.userPic} 
-          userName={item.userName} HeaderTitle={HeaderTitle}
-          setOpenArchivePopUp={setOpenArchivePopUp}
-          setOpenEditPostPopUp={setOpenEditPostPopUp}
-          visible={item.visible}/>
+      {/* User Informations */}
+      <PostUserInfo
+        navigation={navigation} userPic={item.userPic} userId={item.createdBy._id}
+        username={item.username} HeaderTitle={HeaderTitle} setOpenArchivePopUp={setOpenArchivePopUp}
+        setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date} id={item.id} isVerify={user?.isVerify} />
 
-          {/* Categories */}
-          <Text style={{paddingLeft: '5%', fontSize:12, fontWeight:"500", color:colors.gray}}>#poem #sports #motivation</Text>
+      {/* Categories */}
+      <View style={{ marginHorizontal: "3%" }}>
+        <PostCategories navigation={navigation} categories={item.categories} username={item.username} />
+      </View>
 
-          <View style={{ paddingLeft: '20%', paddingRight: '2.5%' }}>
-            <Post/>
-          </View>
+      {/* Slider and Play Button */}
+      <View style={{ paddingLeft: "20%", paddingRight: "2.5%" }}>
+        <Post uri={item.contentUrl} />
+      </View>
 
-          <PostActions navigation={navigation}/>
+      {/* Like, Comment and Save Button */}
+      <PostActions posts={item} navigation={navigation} username={item.username} likesCount={item.likesCount} commentCount={item?.comments?.length} postId={item.id} />
 
-        </View>
-      ));
+    </View>
+  ));
 }
 
 const styles = StyleSheet.create({
-  container:{
-    width:"90%",
-    backgroundColor:colors.white,
-    marginHorizontal:"5%",
-    shadowColor: '#333333',
+  container: {
+    width: "90%",
+    backgroundColor: colors.white,
+    marginHorizontal: "5%",
+    shadowColor: colors.darkGray,
     shadowOffset: {
       width: 0,
       height: 2,
-      
+
     },
     shadowOpacity: 0.5,
     shadowRadius: 2,
     elevation: 5,
-    borderRadius:20,
+    borderRadius: 20,
     marginVertical: 10,
 
   },
 })
 
-export default RenderPost
+export default RenderPost;
