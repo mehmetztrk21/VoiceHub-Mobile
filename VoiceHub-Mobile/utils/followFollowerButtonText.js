@@ -16,6 +16,9 @@ export const FollowFollowerButtonText = (title, item, id) => {
             return "Follow Too";
         }
     }
+    else if (title == "SeeLikes") {
+        //coming soon
+    }
     else {
         return ""
     }

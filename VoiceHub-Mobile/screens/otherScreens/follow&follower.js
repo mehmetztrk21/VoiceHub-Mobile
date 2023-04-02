@@ -68,7 +68,7 @@ const FollowFollower = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={followFollowerStyle.container}>
-            <OtherHeader HeaderTitle={title} navigation={navigation} />
+            <OtherHeader HeaderTitle={title} navigation={navigation} isVerify={false}/>
             <View style={{ marginTop: width * 0.07, backgroundColor: colors.white }}>
                 <View style={[followFollowerStyle.searchBarHolder, { marginBottom: width * 0.07 }]}>
                     <TextInput

@@ -42,6 +42,10 @@ export default StyleSheet.create({
     marginRight: "2%",
   },
   username: {
-    marginLeft: "2%"
+    marginLeft: "4%",
+    marginRight: "3%",
+    fontWeight: "700",
+    fontSize: 16,
+
   },
 })

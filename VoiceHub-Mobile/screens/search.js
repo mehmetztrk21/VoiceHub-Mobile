@@ -81,11 +81,11 @@ export default function SearchScreen({ navigation, route }) {
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
-          likesCount: 1451,
+          likes: item.likes,
           showLike: true,
           isSaved: false,
           isLiked: true,
-          commentCount: 12,
+
         }
       })
       setPosts(temp);
@@ -167,8 +167,7 @@ export default function SearchScreen({ navigation, route }) {
             {/* Close Button */}
             <TouchableOpacity onPress={() => setFocused(false)}
               style={searchStyles.closeButtonTouch}>
-              <Icon type="font-awesome" size={28} name={"times"}
-                style={searchStyles.closeButton} color={colors.green} />
+              <Icon type="font-awesome" size={width * 0.08} name={"times"} color={colors.green} />
             </TouchableOpacity>
           </View>
         ) :
@@ -192,7 +191,7 @@ export default function SearchScreen({ navigation, route }) {
                 selectedCategory == "all" ? {
                   borderWidth: 2, borderColor: colors.green,
                   backgroundColor: colors.white, color: colors.green
-                } : { backgroundColor: colors.green, color: colors.white }]}>#all</Text>
+                } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#all</Text>
 
               </TouchableOpacity>
 
@@ -205,7 +204,7 @@ export default function SearchScreen({ navigation, route }) {
                       selectedCategory == item._id ? {
                         borderWidth: 2, borderColor: colors.green,
                         backgroundColor: colors.white, color: colors.green
-                      } : { backgroundColor: colors.green, color: colors.white }]}>#{item._id}</Text>
+                      } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#{item._id}</Text>
 
                     </TouchableOpacity>
                   )

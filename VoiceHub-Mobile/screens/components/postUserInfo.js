@@ -13,9 +13,6 @@ export default function PostUserInfo(
     const [differenceInDays, setDifferenceInDays] = useState("0");
 
     useEffect(() => {
-
-
-
         setDifferenceInDays(timeAgoText(date));
     }, []);
 

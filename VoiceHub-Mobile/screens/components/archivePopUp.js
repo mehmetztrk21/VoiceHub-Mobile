@@ -5,12 +5,13 @@ import colors from '../../assets/colors.js'
 import archivePopUpStyle from "../../assets/styles/archivePopUp.style.js"
 import { setNotArchivePost } from '../../services/actionServices'
 import { baseURL } from '../../utils/constants.js'
+import { getUserInfo } from '../../utils/getUserInfo.js'
 
 const archivePopUp = ({ id, setId }) => {
 
   const [user, setUser] = useState({});
 
-  const setNotArchive = async (res = null) => {
+  const setNotArchive = async () => {
     const response = await setNotArchivePost({ id: id });
     if (response && response.success) {
       let temp = response.data.map((item) => {
@@ -18,12 +19,11 @@ const archivePopUp = ({ id, setId }) => {
           id: item._id,
           contentUrl: item.contentUrl,
           categories: item.categories,
-          username: res?.username,
+          username: user?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: baseURL + user?.profilePhotoUrl,
-          likesCount: 1451,
-          commentCount: 12,
+          likes: item.likes,
           comments: item.comments,
         }
       });
@@ -32,10 +32,8 @@ const archivePopUp = ({ id, setId }) => {
   }
 
   useEffect(() => {
-    setLoading(true);
     getUserInfo().then(async (res) => {
       setUser(res);
-      await setNotArchive(res);
     });
   }, [])
 

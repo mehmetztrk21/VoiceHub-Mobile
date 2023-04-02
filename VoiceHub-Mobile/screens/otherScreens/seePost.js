@@ -41,7 +41,7 @@ export default function SeePost({ navigation, route }) {
     return (
         <SafeAreaView style={seePostStyle.container}>
 
-            <OtherHeader HeaderTitle={""} navigation={navigation} />
+            <OtherHeader HeaderTitle={""} navigation={navigation} isVerify={false}/>
             <Modal
                 animationType="slide"
                 transparent={true}

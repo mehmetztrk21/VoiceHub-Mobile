@@ -52,8 +52,7 @@ export default function SavedArchieves({ navigation, route }) {
             createdBy: item.createdBy,
             createdAt: item.createdAt,
             userPic: baseURL + item.createdBy.profilePhotoUrl,
-            commentCount: 12,
-            likesCount: 1423,
+            likes: item.likes,
             comments: item.comments,
           }
         })
@@ -65,25 +64,17 @@ export default function SavedArchieves({ navigation, route }) {
       if (response && response.success) {
         let temp = response.data.map((item) => {
           return {
+            id: item._id,
             contentUrl: item.contentUrl,
             categories: item.categories,
-            username: "Mehmet",
+            username: username,
             createdBy: item.createdBy,
             createdAt: item.createdAt,
-            userPic: "user1",
-            likesCount: 1451,
-            caption: "Coffee is the most imp part of my life !",
-            type: "sender",
-            visible: true,
-            category: null,
-            showLike: false,
-            isSaved: false,
-            isLiked: true,
-            date: "12/02/2023 12:41",
-            commentCount: 12,
+            userPic: baseURL + item.createdBy.profilePhotoUrl,
+            likes: item.likes,
+            comments: item.comments,
           }
         })
-
         setPosts(temp);
       }
     }
@@ -104,7 +95,7 @@ export default function SavedArchieves({ navigation, route }) {
   return (
     <SafeAreaView style={savedStyle.container}>
 
-      <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} />
+      <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} isVerify={false}/>
 
       <Modal
         animationType="slide"

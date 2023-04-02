@@ -34,7 +34,6 @@ const Post = ({ uri }) => {
       uri: baseURL + uri || "",
     });
     setSound(sound);
-    console.log(sound)
     sound.setOnPlaybackStatusUpdate((playbackStatus) => {
       setDuration(playbackStatus.durationMillis);
       setPosition(playbackStatus.positionMillis);

@@ -14,9 +14,9 @@ import AreYouSure from "../components/areYouSure";
 import Post from "../components/post";
 
 import { getMyPosts } from "../../services/postServices";
-import { getUserById } from "../../services/userServices";
 import { baseURL } from "../../utils/constants";
 import Loading from "../components/loading";
+import { getUserById } from "../../services/userServices";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -57,8 +57,7 @@ export default function SeeProfile({ navigation, route }) {
                     createdAt: item.createdAt,
                     createdBy: item.createdBy,
                     userPic: baseURL + item.createdBy.profilePhotoUrl,
-                    likesCount: 1451,
-                    commentCount: 12,
+                    likes: item.likes,
                     hasBio: !item.descriptionVoiceUrl ? false : true,
                     descriptionVoiceUrl: item.descriptionVoiceUrl,
                     isVerify: item.isTic,
@@ -100,7 +99,7 @@ export default function SeeProfile({ navigation, route }) {
 
                 {/* PP, Follow Count,  */}
                 <View style={seeProfileStyles.actView}>
-                    <Image source={{ uri: user?.userPic }} style={seeProfileStyles.userPic} />
+                    <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={seeProfileStyles.userPic} />
                     <View style={seeProfileStyles.followContents}>
 
                         <View style={seeProfileStyles.postCount}>
@@ -170,7 +169,7 @@ export default function SeeProfile({ navigation, route }) {
                 <View style={[seeProfileStyles.postView, { backgroundColor: colors.green }]}>
                     {true ? (
                         posts?.length > 0 ? (
-                            <RenderPost navigation={navigation} HeaderTitle={'OtherProfiles'} posts={posts} />
+                            <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={user} />
                         ) :
                             <Text style={
                                 { marginTop: "5%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }

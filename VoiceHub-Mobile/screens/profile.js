@@ -60,11 +60,11 @@ export default function ProfileScreen({ navigation, route }) {
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: baseURL + res?.profilePhotoUrl,
-          likesCount: 1451,
+          likes: item.likes,
           showLike: true,
           isSaved: false,
           isLiked: true,
-          commentCount: 12,
+          
         }
       })
       setPosts(temp);

@@ -9,7 +9,6 @@ import colors from "../../assets/colors";
 import { Icon } from "react-native-elements";
 import { getUserInfo } from "../../utils/getUserInfo";
 import { timeAgoText } from "../../utils/timeAgoText";
-import { baseURL } from "../../utils/constants";
 const { width } = Dimensions.get('window');
 
 export default function Comment({ navigation, contentUrl, userPic, username, setOpenAreYouSurePopUp, userId, createDate }) {
@@ -17,7 +16,6 @@ export default function Comment({ navigation, contentUrl, userPic, username, set
     const deleteComment = async () => {
         setOpenAreYouSurePopUp(true);
     }
-
 
     return (
         <View style={{

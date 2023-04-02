@@ -39,7 +39,7 @@ export default function EditProfile({ navigation, route }) {
 
   return (
     <SafeAreaView style={editProfileStyle.container}>
-      <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} />
+      <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} isVerify={false}/>
 
       <View style={{ flexDirection: "column", marginTop: width * 0.07 }}>
         <View>

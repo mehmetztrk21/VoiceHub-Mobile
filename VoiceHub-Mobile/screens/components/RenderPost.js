@@ -7,6 +7,7 @@ import Post from "./post";
 import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
+import { baseURL } from "../../utils/constants";
 
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts, user }) => {
 
@@ -15,8 +16,8 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
 
       {/* User Informations */}
       <PostUserInfo
-        navigation={navigation} userPic={item.userPic} userId={item.createdBy._id}
-        username={item.username} HeaderTitle={HeaderTitle} setOpenArchivePopUp={setOpenArchivePopUp}
+        navigation={navigation} userPic={HeaderTitle == "OtherProfiles" ? baseURL + user?.profilePhotoUrl : item.userPic} userId={item.createdBy._id}
+        username={item.username || user?.username} HeaderTitle={HeaderTitle} setOpenArchivePopUp={setOpenArchivePopUp}
         setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date} id={item.id} isVerify={user?.isVerify} />
 
       {/* Categories */}
@@ -30,7 +31,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
       </View>
 
       {/* Like, Comment and Save Button */}
-      <PostActions posts={item} navigation={navigation} username={item.username} likesCount={item.likesCount} commentCount={item?.comments?.length} postId={item.id} />
+      <PostActions posts={item} navigation={navigation} username={item.username} likes={item.likes} commentCount={item?.comments?.length} postId={item.id} />
 
     </View>
   ));

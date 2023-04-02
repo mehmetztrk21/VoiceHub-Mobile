@@ -25,15 +25,11 @@ export default function OtherComments({ navigation, route }) {
         scrollViewRef.current.scrollToEnd({ animated: true });
     };
 
-    useEffect(() => {
-        console.log(postId, comments);
-    }, [])
-
     if (loading) return <Loading />
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "column", backgroundColor: colors.white }}>
-            <OtherHeader HeaderTitle={"Comments"} navigation={navigation} />
+            <OtherHeader HeaderTitle={"Comments"} navigation={navigation} isVerify={false}/>
 
             <Modal
                 animationType="slide"

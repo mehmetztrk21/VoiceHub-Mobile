@@ -37,7 +37,7 @@ export default function ActivityScreen({ navigation, route }) {
 
   return (
     <SafeAreaView style={activityStyles.container}>
-      <OtherHeader navigation={navigation} HeaderTitle={"Notifications"} />
+      <OtherHeader navigation={navigation} HeaderTitle={"Notifications"} isVerify={false} />
       <ScrollView style={[activityStyles.sContainer, { marginTop: width * 0.06 }]}
         ref={scrollViewRef} onLayout={handleLayout}
         refreshControl={
