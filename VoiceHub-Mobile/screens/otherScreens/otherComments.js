@@ -29,7 +29,7 @@ export default function OtherComments({ navigation, route }) {
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "column", backgroundColor: colors.white }}>
-            <OtherHeader HeaderTitle={"Comments"} navigation={navigation} isVerify={false}/>
+            <OtherHeader HeaderTitle={"Comments"} navigation={navigation} isVerify={false} />
 
             <Modal
                 animationType="slide"
@@ -39,7 +39,7 @@ export default function OtherComments({ navigation, route }) {
                     setOpenAreYouSurePopUp(false);
                 }}
             >
-                <AreYouSure process={"DeleteComment"} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
+                    <AreYouSure process={"DeleteComment"} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
             </Modal>
 
             <View style={{ marginTop: width * 0.04 }}>

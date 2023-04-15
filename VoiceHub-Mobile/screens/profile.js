@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import {
-  Dimensions,
-  Image, Modal,
-  RefreshControl,
-  SafeAreaView, ScrollView, Text, TouchableOpacity,
-  View
+  Dimensions, Image, Modal,
+  RefreshControl, SafeAreaView, ScrollView, Text,
+  TouchableOpacity, View,
 } from "react-native";
 
 import colors from "../assets/colors";
@@ -13,7 +11,7 @@ import profileStyles from "../assets/styles/profile.style";
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import EditPostPopUp from "./components/editPostPopUp";
-import PopUp from "./components/popUp";
+import PopUp from "./components/ProfileBottomPopUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import RenderPost from "./components/RenderPost";
@@ -64,7 +62,7 @@ export default function ProfileScreen({ navigation, route }) {
           showLike: true,
           isSaved: false,
           isLiked: true,
-          
+
         }
       })
       setPosts(temp);
@@ -80,7 +78,9 @@ export default function ProfileScreen({ navigation, route }) {
     });
   }, [])
 
-  if (loading) return <Loading />
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <SafeAreaView style={profileStyles.container}>
@@ -88,11 +88,22 @@ export default function ProfileScreen({ navigation, route }) {
       <ProfileHeader navigation={navigation} userId={posts?._id} username={user?.username} isVerify={user?.isTic} />
 
       <Modal
+        visible={visiblePopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setVisiblePopUp(false)
+        }}>
+        <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
+          setVisiblePopUp={setVisiblePopUp} />
+      </Modal>
+
+      <Modal
         animationType="slide"
         transparent={true}
         visible={openAreYouSure}
         onRequestClose={() => {
-          setOpenAreYouSure(!openAreYouSure);
+          setOpenAreYouSure(false);
         }}
       >
         <AreYouSure process={"LogOut"} navigation={navigation}
@@ -103,9 +114,7 @@ export default function ProfileScreen({ navigation, route }) {
         animationType="slide"
         transparent={true}
         visible={openEditPostPopUp ? true : false}
-        onRequestClose={() => {
-          setOpenEditPostPopUp(false);
-        }}
+        onRequestClose={() => { setOpenEditPostPopUp(false) }}
       >
         <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} />
       </Modal>
@@ -114,7 +123,10 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
-          <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} />
+          <TouchableOpacity onPress={() => navigation.navigate("EditProfile", { userInfo: user })}>
+            <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} />
+          </TouchableOpacity>
+
           <View style={profileStyles.followContents}>
 
             <View style={profileStyles.postCount}>
@@ -174,8 +186,7 @@ export default function ProfileScreen({ navigation, route }) {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }
-        style={[profileStyles.scroll,
-        visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
+        style={profileStyles.scroll}
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
           {posts?.length > 0 ? (
@@ -199,10 +210,6 @@ export default function ProfileScreen({ navigation, route }) {
           }
         </View>
       </ScrollView>
-
-      {visiblePopUp == true ? (
-        <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
-      ) : null}
 
       <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>

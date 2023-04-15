@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useIsFocused } from "@react-navigation/native";
 //importing components
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import HomeHeader from "./components/HomeHeader";
-import PopUp from "./components/popUp";
+import PopUp from "./components/ProfileBottomPopUp";
 import RenderPost from "./components/RenderPost";
 
 import { getMainPagePosts } from "../services/postServices";
@@ -86,6 +86,29 @@ export default function HomeScreen({ navigation, route }) {
     <SafeAreaView style={homeStyles.container}>
       <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} username={username} />
 
+      <Modal
+        visible={visiblePopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setVisiblePopUp(false)
+        }}>
+        <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
+          setVisiblePopUp={setVisiblePopUp} />
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openAreYouSure}
+        onRequestClose={() => {
+          setOpenAreYouSure(false);
+        }}
+      >
+        <AreYouSure process={"LogOut"} navigation={navigation}
+          setOpenAreYouSure={setOpenAreYouSure} />
+      </Modal>
+
       <ScrollView style={homeStyles.scroll} ref={scrollViewRef} refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
       }
@@ -110,12 +133,6 @@ export default function HomeScreen({ navigation, route }) {
           </View>
         }
       </ScrollView>
-
-      {visiblePopUp == true ? (
-        <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
-      ) : openAreYouSure == true ? (
-        <AreYouSure process={"LogOut"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} />
-      ) : null}
 
       <BottomTabs navigation={navigation} username={username}
         visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />

@@ -95,7 +95,7 @@ export default function SavedArchieves({ navigation, route }) {
   return (
     <SafeAreaView style={savedStyle.container}>
 
-      <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} isVerify={false}/>
+      <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} isVerify={false} />
 
       <Modal
         animationType="slide"
@@ -113,7 +113,7 @@ export default function SavedArchieves({ navigation, route }) {
           <Text style={
             { textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
           }>
-            {"You have not archived post anyone yet :("}
+            {"You have not archived post anyone yet."}
           </Text>
         </View>
       ) : (HeaderTitle == "Saved" && posts?.length == 0) ? (

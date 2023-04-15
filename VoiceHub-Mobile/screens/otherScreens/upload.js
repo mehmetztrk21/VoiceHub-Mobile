@@ -16,7 +16,7 @@ import holoGif from "../../assets/images/holo.gif";
 
 import AreYouSure from "../components/areYouSure";
 import BottomTabs from "../components/BottomTabs";
-import PopUp from "../components/popUp";
+import PopUp from "../components/ProfileBottomPopUp";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
@@ -66,7 +66,7 @@ export default function Upload({ navigation, route }) {
 
     useEffect(() => {
         setVisiblePopUp(false);
-      }, [])
+    }, [])
 
     const toggleRecord = async () => {
         const filename = "test.mp3";
@@ -171,17 +171,30 @@ export default function Upload({ navigation, route }) {
             flex: 1, width: width, flexDirection: "column",
             alignItems: "center", backgroundColor: colors.green,
         }}>
+
+            <Modal
+                visible={visiblePopUp}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={() => {
+                    setVisiblePopUp(false)
+                }}>
+                <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
+                    setVisiblePopUp={setVisiblePopUp} />
+            </Modal>
+
             <Modal
                 animationType="slide"
                 transparent={true}
                 visible={openAreYouSure}
                 onRequestClose={() => {
-                    setOpenAreYouSure(!openAreYouSure);
+                    setOpenAreYouSure(false);
                 }}
             >
                 <AreYouSure process={"LogOut"} navigation={navigation}
                     setOpenAreYouSure={setOpenAreYouSure} />
             </Modal>
+
             {/* SES KAYDEDERKEN ANIMASYON OLACAK */}
             <Image source={holoGif}
                 style={{ marginTop: height * 0.1, marginBottom: height * 0.1, width: height * 0.3, height: height * 0.3, }}
@@ -252,12 +265,6 @@ export default function Upload({ navigation, route }) {
                         <Icon type={"font-awesome"} name={"microphone"} size={50} color={colors.green} />
                     </TouchableOpacity>
                 </View>
-            }
-
-            {
-                visiblePopUp == true ? (
-                    <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
-                ) : null
             }
 
             <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />

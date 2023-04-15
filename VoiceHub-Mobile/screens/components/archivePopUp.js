@@ -50,6 +50,13 @@ const archivePopUp = ({ id, setId }) => {
         <Icon type={'font-awesome'} name={'trash'} size={28} color={colors.red} />
         <Text style={[archivePopUpStyle.button, { color: colors.red }]}>Delete</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={{ paddingVertical: 10 }} onPress={() => { setId(false) }}>
+        <Text style={{
+          color: colors.green, fontSize: 14, textAlign: "center", fontWeight: "600",
+          backgroundColor: colors.white, padding: 10, borderRadius: 10,
+        }}>Close</Text>
+      </TouchableOpacity>
     </View>
   )
 }

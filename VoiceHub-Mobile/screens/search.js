@@ -10,7 +10,7 @@ import searchStyles from "../assets/styles/search.style";
 
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
-import PopUp from "./components/popUp";
+import PopUp from "./components/ProfileBottomPopUp";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
@@ -18,7 +18,6 @@ import SearchHeader from "./components/SearchHeader";
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
 import { baseURL } from "../utils/constants";
-import { getUserInfo } from "../utils/getUserInfo";
 import Loading from "./components/loading";
 const { width } = Dimensions.get("window");
 
@@ -121,7 +120,7 @@ export default function SearchScreen({ navigation, route }) {
       setUsers(temp);
     }
   }
-  
+
   useEffect(() => {
     getCategories();
     setVisiblePopUp(false);
@@ -143,17 +142,30 @@ export default function SearchScreen({ navigation, route }) {
     <SafeAreaView style={searchStyles.container}>
 
       <SearchHeader pressLogo={handleScrollToTop} />
+
+      <Modal
+        visible={visiblePopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setVisiblePopUp(false)
+        }}>
+        <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
+          setVisiblePopUp={setVisiblePopUp} />
+      </Modal>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={openAreYouSure}
         onRequestClose={() => {
-          setOpenAreYouSure(!openAreYouSure);
+          setOpenAreYouSure(false);
         }}
       >
         <AreYouSure process={"LogOut"} navigation={navigation}
           setOpenAreYouSure={setOpenAreYouSure} />
       </Modal>
+
       <View style={searchStyles.searchBarHolder}>
         {focused ? (
           <View style={{ flexDirection: "row", alignItems: "center", width: width, justifyContent: "center" }}>
@@ -231,10 +243,6 @@ export default function SearchScreen({ navigation, route }) {
           <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />
         }
       </ScrollView>
-
-      {visiblePopUp == true ? (
-        <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
-      ) : null}
 
       <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View, Dimensions, Modal } from "react-native";
+import { Dimensions, Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import colors from "../../assets/colors";
 import seePostStyle from "../../assets/styles/seePost.style";
@@ -7,12 +7,12 @@ import user1 from "../../assets/userImages/user1.jpg";
 import ver from "../../assets/ver.png";
 
 import AddVoice from "../components/addVoice";
+import AreYouSure from "../components/areYouSure";
 import Comment from "../components/comment";
 import OtherHeader from "../components/otherHeader";
 import Post from "../components/post";
 import PostActions from "../components/postActions";
 import PostCategories from "../components/postCategories";
-import AreYouSure from "../components/areYouSure";
 import userPostData from "../components/userPostData";
 
 const { width } = Dimensions.get("window");
@@ -41,7 +41,7 @@ export default function SeePost({ navigation, route }) {
     return (
         <SafeAreaView style={seePostStyle.container}>
 
-            <OtherHeader HeaderTitle={""} navigation={navigation} isVerify={false}/>
+            <OtherHeader HeaderTitle={""} navigation={navigation} isVerify={false} />
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -51,6 +51,7 @@ export default function SeePost({ navigation, route }) {
                 }}
             >
                 <AreYouSure process={"DeleteComment"} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
+
             </Modal>
             <View style={{
                 flexDirection: "column", backgroundColor: colors.white,
