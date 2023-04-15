@@ -184,9 +184,9 @@ export default function Upload({ navigation, route }) {
 
             {/* Seconds, Minutes and Hours */}
             {(Math.floor(seconds / 60) < 10 && (seconds % 60) < 10) ? (
-                <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>0{(Math.floor(seconds / 60)) + ":0" + (seconds % 60)}</Text>
+                <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>{(Math.floor(seconds / 60)) + ":0" + (seconds % 60)}</Text>
             ) : (Math.floor(seconds / 60) < 10 && (seconds % 60) >= 10) ? (
-                <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>0{(Math.floor(seconds / 60)) + ":" + (seconds % 60)}</Text>
+                <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>{(Math.floor(seconds / 60)) + ":" + (seconds % 60)}</Text>
             ) : (Math.floor(seconds / 60) >= 10 && (seconds % 60) >= 10) ? (
                 <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>{(Math.floor(seconds / 60)) + ":" + (seconds % 60)}</Text>
             ) : (Math.floor(seconds / 60) >= 10 && (seconds % 60) < 10) ? (
