@@ -155,9 +155,9 @@ export default function AddVoice({ title, postId }) {
           ) : null}
 
           {(Math.floor(seconds / 60) < 10 && (seconds % 60) < 10) ? (
-            <Text style={addVoiceStyle.time}>0{(Math.floor(seconds / 60)) + ':0' + (seconds % 60)}</Text>
+            <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60)) + ':0' + (seconds % 60)}</Text>
           ) : (Math.floor(seconds / 60) < 10 && (seconds % 60) >= 10) ? (
-            <Text style={addVoiceStyle.time}>0{(Math.floor(seconds / 60)) + ':' + (seconds % 60)}</Text>
+            <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60)) + ':' + (seconds % 60)}</Text>
           ) : (Math.floor(seconds / 60) >= 10 && (seconds % 60) >= 10) ? (
             <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60)) + ':' + (seconds % 60)}</Text>
           ) : (Math.floor(seconds / 60) >= 10 && (seconds % 60) < 10) ? (
