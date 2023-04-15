@@ -64,6 +64,10 @@ export default function Upload({ navigation, route }) {
         return () => clearInterval(intervalId);
     }, [isRunning]);
 
+    useEffect(() => {
+        setVisiblePopUp(false);
+      }, [])
+
     const toggleRecord = async () => {
         const filename = "test.mp3";
         const path = `${FileSystem.documentDirectory}${filename}`;

@@ -121,9 +121,10 @@ export default function SearchScreen({ navigation, route }) {
       setUsers(temp);
     }
   }
-
+  
   useEffect(() => {
     getCategories();
+    setVisiblePopUp(false);
   }, []);
 
   useEffect(() => {

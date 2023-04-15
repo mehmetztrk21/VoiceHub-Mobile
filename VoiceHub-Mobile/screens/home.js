@@ -76,6 +76,10 @@ export default function HomeScreen({ navigation, route }) {
     });
   }, [isFocused])
 
+  useEffect(() => {
+    setVisiblePopUp(false);
+  }, [])
+
   if (loading) return <Loading />
 
   return (
