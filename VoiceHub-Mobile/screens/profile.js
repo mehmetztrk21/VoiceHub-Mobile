@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Dimensions, Image, Modal,
   RefreshControl, SafeAreaView, ScrollView, Text,
@@ -44,6 +44,11 @@ export default function ProfileScreen({ navigation, route }) {
       setRefreshing(false);
     }, 800)
   }
+  const scrollViewRef = useRef();
+
+  const handleScrollToTop = () => {
+    scrollViewRef.current.scrollTo({ y: 0, animated: true })
+  };
 
   const getPosts = async (res) => {
     setLoading(true);
@@ -86,7 +91,7 @@ export default function ProfileScreen({ navigation, route }) {
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} userId={posts?._id} username={user?.username} isVerify={user?.isTic} />
+      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} userId={posts?._id} username={user?.username} isVerify={user?.isTic} />
 
       <Modal
         visible={visiblePopUp}
@@ -176,6 +181,7 @@ export default function ProfileScreen({ navigation, route }) {
       {/* Posts */}
       <ScrollView
         showsVerticalScrollIndicator={false}
+        ref={scrollViewRef}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }

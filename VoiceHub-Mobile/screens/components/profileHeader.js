@@ -7,7 +7,7 @@ import profileHeaderStyle from "../../assets/styles/profileHeader.style";
 import verfy from "../../assets/ver.png";
 import { getUserInfo } from '../../utils/getUserInfo';
 
-const profileHeader = ({ navigation, username, id, isVerify }) => {
+const profileHeader = ({ navigation, username, pressLogo, id, isVerify }) => {
   const [user, setUser] = React.useState({})
   useEffect(() => {
     getUserInfo().then((res) => {
@@ -18,12 +18,13 @@ const profileHeader = ({ navigation, username, id, isVerify }) => {
     <View style={profileHeaderStyle.wrapper}>
       <View style={profileHeaderStyle.aHeadView}>
         <View style={profileHeaderStyle.leftTop}>
+          <TouchableOpacity onPress={pressLogo}>
+            <Text style={profileHeaderStyle.head}>{username}</Text>
 
-          <Text style={profileHeaderStyle.head}>{username}</Text>
-
-          {isVerify ? (
-            <Image source={verfy} style={profileHeaderStyle.ver} />
-          ) : null}
+            {isVerify ? (
+              <Image source={verfy} style={profileHeaderStyle.ver} />
+            ) : null}
+          </TouchableOpacity>
         </View>
 
         <View style={profileHeaderStyle.rightTop}>
