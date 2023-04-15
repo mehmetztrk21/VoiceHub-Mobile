@@ -23,6 +23,7 @@ const { height } = Dimensions.get("window");
 
 import { createPost } from "../../services/postServices";
 import { recordingOptions } from "../../utils/recordingOptions";
+import { timeFormatText } from "../../utils/timeFormatText";
 
 export default function Upload({ navigation, route }) {
     const { username } = route.params;
@@ -183,15 +184,10 @@ export default function Upload({ navigation, route }) {
                 borderRadius={height * 0.15} />
 
             {/* Seconds, Minutes and Hours */}
-            {(Math.floor(seconds / 60) < 10 && (seconds % 60) < 10) ? (
-                <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>{(Math.floor(seconds / 60)) + ":0" + (seconds % 60)}</Text>
-            ) : (Math.floor(seconds / 60) < 10 && (seconds % 60) >= 10) ? (
-                <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>{(Math.floor(seconds / 60)) + ":" + (seconds % 60)}</Text>
-            ) : (Math.floor(seconds / 60) >= 10 && (seconds % 60) >= 10) ? (
-                <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>{(Math.floor(seconds / 60)) + ":" + (seconds % 60)}</Text>
-            ) : (Math.floor(seconds / 60) >= 10 && (seconds % 60) < 10) ? (
-                <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>{(Math.floor(seconds / 60)) + ":0" + (seconds % 60)}</Text>
-            ) : null}
+
+            <Text style={{ textAlign: "center", fontSize: height * 0.05, fontWeight: "900", color: colors.white, marginBottom: height * 0.1, }}>
+                {timeFormatText(seconds)}
+            </Text>
 
             {openReadCategory ? (
                 <View style={{ width: width, flexDirection: "column" }}>
