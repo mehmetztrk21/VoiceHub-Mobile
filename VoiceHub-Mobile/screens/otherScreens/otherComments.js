@@ -54,7 +54,7 @@ export default function OtherComments({ navigation, route }) {
                             )
                         })
                     ) :
-                        <Text style={{ textAlign: "center", fontWeight: "600", color: colors.green, fontSize: 16, }}>Henüz Bir Yorum Yok</Text>
+                        <Text style={{ textAlign: "center", fontWeight: "600", color: colors.green, fontSize: 16, }}>No Comments Yet.</Text>
                     }
                 </ScrollView>
 
