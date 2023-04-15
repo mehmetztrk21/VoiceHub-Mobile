@@ -17,6 +17,7 @@ import { getMyPosts } from "../../services/postServices";
 import { baseURL } from "../../utils/constants";
 import Loading from "../components/loading";
 import { getUserById } from "../../services/userServices";
+import { followerCountFormatText } from "../../utils/followerCountFormatText";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -109,24 +110,16 @@ export default function SeeProfile({ navigation, route }) {
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
                             onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
-                            <Text style={seeProfileStyles.fNumber}>
-                                {
-                                    user["followers"]?.length >= 1000000 ? `${Math.floor(user["followers"]?.length / 1000000)},${Math.floor((user["followers"]?.length) / 100000)}M`
-                                        : user["followers"]?.length >= 1000 ? `${Math.floor(user["followers"]?.length / 1000)},${Math.floor((user["followers"]?.length) / 100)}K`
-                                            : user["followers"]?.length
-                                }
+                            <Text style={profileStyles.fNumber}>
+                                {followerCountFormatText(user["followers"]?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Followers</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
                             onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
-                            <Text style={seeProfileStyles.fNumber}>
-                                {
-                                    user["followings"]?.length >= 1000000 ? `${Math.floor(user["followings"]?.length / 1000000)}M`
-                                        : user["followings"]?.length >= 1000 ? `${Math.floor(user["followings"]?.length / 1000)},${Math.floor((user["followings"]?.length % 1000) / 100)}K`
-                                            : user["followings"]?.length
-                                }
+                            <Text style={profileStyles.fNumber}>
+                                {followerCountFormatText(user["followings"]?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Following</Text>
                         </TouchableOpacity>
