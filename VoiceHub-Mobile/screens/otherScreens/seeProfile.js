@@ -89,11 +89,13 @@ export default function SeeProfile({ navigation, route }) {
                     <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
                 </TouchableOpacity>
 
-                <Text style={seeProfileStyles.head}>{user?.username}</Text>
+                <TouchableOpacity onPress={handleLayout}>
+                    <Text style={seeProfileStyles.head}>{user?.username}</Text>
 
-                {user?.isVerify ? (
-                    <Image source={verfy} style={seeProfileStyles.ver} />
-                ) : null}
+                    {user?.isVerify ? (
+                        <Image source={verfy} style={seeProfileStyles.ver} />
+                    ) : null}
+                </TouchableOpacity>
             </View>
 
             <View style={{ width: "100%", borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white }}>
@@ -110,7 +112,7 @@ export default function SeeProfile({ navigation, route }) {
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
                             onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
-                            <Text style={profileStyles.fNumber}>
+                            <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(user["followers"]?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Followers</Text>
@@ -118,7 +120,7 @@ export default function SeeProfile({ navigation, route }) {
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
                             onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
-                            <Text style={profileStyles.fNumber}>
+                            <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(user["followings"]?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Following</Text>
