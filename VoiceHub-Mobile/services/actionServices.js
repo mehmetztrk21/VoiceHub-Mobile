@@ -39,7 +39,7 @@ export const setLikedPost = async (data) => {
 
 
 
-{/* Follow End */ }
+{/* Follow */ }
 export const setFollowFollower = async () => {
     return await apiAxios.post("/action/follow", data
     ).then(res => {
@@ -47,3 +47,12 @@ export const setFollowFollower = async () => {
     }).catch(err => { console.error(err, "Post Services action/follow"); return null })
 }
 {/* Follow End */ }
+
+{/* See Likes  */ }
+export const getSeeLikes = async () => {
+    return await apiAxios.post("/action/seeLikes", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services action/seeLikes"); return null })
+}
+{/* See Likes End */ }

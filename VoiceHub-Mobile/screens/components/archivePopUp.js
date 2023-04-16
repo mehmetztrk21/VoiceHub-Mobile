@@ -1,26 +1,20 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 import { Icon } from "react-native-elements"
 import colors from "../../assets/colors.js"
 import archivePopUpStyle from "../../assets/styles/archivePopUp.style.js"
 import { setNotArchivePost } from "../../services/actionServices"
-import { baseURL } from "../../utils/constants.js"
-import { getUserInfo } from "../../utils/getUserInfo.js"
+import { useUser } from "../../utils/userContext.js"
 
 const archivePopUp = ({ id, setId }) => {
 
-  const [user, setUser] = useState({});
+  const { user } = useUser();
 
   const setNotArchive = async () => {
     await setNotArchivePost({ id: id });
     setId(false);
   }
 
-  useEffect(() => {
-    getUserInfo().then(async (res) => {
-      setUser(res);
-    });
-  }, [])
 
   return (
     <View style={archivePopUpStyle.container}>

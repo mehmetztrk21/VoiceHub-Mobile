@@ -16,7 +16,6 @@ const Post = ({ uri }) => {
   const [sliderValue, setSliderValue] = useState(0);
 
   useEffect(() => {
-    console.log("useEffect", uri);
     loadSound();
     return () => {
       if (soundObject) {

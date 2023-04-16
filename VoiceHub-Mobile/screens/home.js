@@ -10,23 +10,21 @@ import RenderPost from "./components/RenderPost";
 
 import { getMainPagePosts } from "../services/postServices";
 import { baseURL } from "../utils/constants";
-import { getUserInfo } from "../utils/getUserInfo";
 
 //importing styles
 import colors from "../assets/colors";
 import homeStyles from "../assets/styles/home.style";
 import Loading from "./components/loading";
-
+import { useUser } from "../utils/userContext";
 
 export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [loading, setLoading] = useState(false);
-  const [user, setUser] = useState({});
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-
+  const { user } = useUser();
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
@@ -41,7 +39,7 @@ export default function HomeScreen({ navigation }) {
     }, 800)
   }
 
-  const getPosts = async (res = null) => {
+  const getPosts = async () => {
     setLoading(true);
     const response = await getMainPagePosts({ page: 1, limit: 20 });
     if (response && response.success) {
@@ -56,7 +54,7 @@ export default function HomeScreen({ navigation }) {
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
           likes: item.likes,
-          showLike: true,
+          isLikesVisible: item.isLikesVisible,
           isSaved: false,
           isLiked: true,
 
@@ -69,10 +67,7 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     setLoading(true);
-    getUserInfo().then(async (res) => {
-      setUser(res);
-      await getPosts(res);
-    });
+    getPosts();
   }, [isFocused])
 
   useEffect(() => {

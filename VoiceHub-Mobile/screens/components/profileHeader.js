@@ -5,15 +5,12 @@ import colors from '../../assets/colors';
 
 import profileHeaderStyle from "../../assets/styles/profileHeader.style";
 import verfy from "../../assets/ver.png";
-import { getUserInfo } from '../../utils/getUserInfo';
+import { useUser } from '../../utils/userContext';
 
 const profileHeader = ({ navigation, username, pressLogo, id, isVerify }) => {
-  const [user, setUser] = React.useState({})
-  useEffect(() => {
-    getUserInfo().then((res) => {
-      setUser(res)
-    })
-  }, [])
+  
+  const { user } = useUser();
+  
   return (
     <View style={profileHeaderStyle.wrapper}>
       <View style={profileHeaderStyle.aHeadView}>

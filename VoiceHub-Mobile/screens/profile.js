@@ -18,9 +18,9 @@ import RenderPost from "./components/RenderPost";
 
 import { getMyPosts } from "../services/postServices";
 import { baseURL } from "../utils/constants";
-import { getUserInfo } from "../utils/getUserInfo";
 import Loading from "./components/loading";
 import { followerCountFormatText } from "../utils/followerCountFormatText";
+import { useUser } from "../utils/userContext";
 
 const { width } = Dimensions.get("window");
 
@@ -34,7 +34,7 @@ export default function ProfileScreen({ navigation, route }) {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [user, setUser] = useState({});
+  const { user } = useUser();
   const [posts, setPosts] = useState([]);
 
   const pullThePage = () => {
@@ -50,7 +50,7 @@ export default function ProfileScreen({ navigation, route }) {
     scrollViewRef.current.scrollTo({ y: 0, animated: true })
   };
 
-  const getPosts = async (res) => {
+  const getPosts = async () => {
     setLoading(true);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
@@ -60,10 +60,10 @@ export default function ProfileScreen({ navigation, route }) {
           contentUrl: item.contentUrl,
           categories: item.categories,
           comments: item.comments,
-          username: res?.username,
+          username: user?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: baseURL + res?.profilePhotoUrl,
+          userPic: baseURL + user?.data?.profilePhotoUrl,
           likes: item.likes,
           showLike: true,
           isSaved: false,
@@ -78,10 +78,9 @@ export default function ProfileScreen({ navigation, route }) {
 
   useEffect(() => {
     setLoading(true);
-    getUserInfo().then(async (res) => {
-      setUser(res);
-      await getPosts(res);
-    });
+    console.log("kaaaaaaan",user)
+    getPosts();
+
   }, [])
 
   if (loading) {
@@ -143,7 +142,7 @@ export default function ProfileScreen({ navigation, route }) {
             <TouchableOpacity style={profileStyles.followerCount}
               onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
               <Text style={profileStyles.fNumber}>
-                {followerCountFormatText(user["followers"]?.length)}
+                {followerCountFormatText(user?.followers.length)}
               </Text>
               <Text style={profileStyles.fText}>Followers</Text>
             </TouchableOpacity>
@@ -151,7 +150,7 @@ export default function ProfileScreen({ navigation, route }) {
             <TouchableOpacity style={profileStyles.followCount}
               onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
               <Text style={profileStyles.fNumber}>
-                {followerCountFormatText(user["followings"]?.length)}
+                {followerCountFormatText(user?.followings.length)}
               </Text>
               <Text style={profileStyles.fText}>Following</Text>
             </TouchableOpacity>
