@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
-import ver from "../../assets/ver.png"
-import { timeAgoText } from "../../utils/timeAgoText";
+import ver from "../../assets/ver.png";
 import { getUserInfo } from "../../utils/getUserInfo";
-import BottomTabs from "./BottomTabs";
+import { timeAgoText } from "../../utils/timeAgoText";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
@@ -14,9 +13,7 @@ export default function PostUserInfo(
     const [differenceInDays, setDifferenceInDays] = useState("0");
             const [user, setUser] = useState({});
     useEffect(() => {
-        console.log(userId);
         getUserInfo().then(async (res) => {
-            console.log(res)
             setUser(res);
           });
         setDifferenceInDays(timeAgoText(date));
