@@ -4,15 +4,21 @@ import { Icon } from "react-native-elements";
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 import ver from "../../assets/ver.png"
 import { timeAgoText } from "../../utils/timeAgoText";
-
+import { getUserInfo } from "../../utils/getUserInfo";
+import BottomTabs from "./BottomTabs";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
         date, id, isVerify }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
-
+            const [user, setUser] = useState({});
     useEffect(() => {
+        console.log(userId);
+        getUserInfo().then(async (res) => {
+            console.log(res)
+            setUser(res);
+          });
         setDifferenceInDays(timeAgoText(date));
     }, []);
 
@@ -20,7 +26,7 @@ export default function PostUserInfo(
         <View style={postUserInfoStyle.postUser}>
 
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
-                onPress={() => { HeaderTitle == "OtherProfiles" ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen", { username: username })}}>
+                onPress={() => { user._id != userId ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen", { username: username })}}>
                 <Image style={postUserInfoStyle.userpostImg} source={{ uri: userPic }} />
 
                 <View style={{ flexDirection: "column" }}>
@@ -46,7 +52,6 @@ export default function PostUserInfo(
                     </TouchableOpacity>
                 ) : null}
             </View>
-
         </View>
     );
 }
