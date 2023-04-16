@@ -16,12 +16,11 @@ export default function PostUserInfo(
         setDifferenceInDays(timeAgoText(date));
     }, []);
 
-
     return (
         <View style={postUserInfoStyle.postUser}>
 
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
-                onPress={() => { navigation.navigate("SeeProfile", { userId: userId, }); }}>
+                onPress={() => { HeaderTitle == "OtherProfiles" ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen", { username: username })}}>
                 <Image style={postUserInfoStyle.userpostImg} source={{ uri: userPic }} />
 
                 <View style={{ flexDirection: "column" }}>
