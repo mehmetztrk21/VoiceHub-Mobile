@@ -48,8 +48,10 @@ export const setFollowFollower = async () => {
 }
 {/* Follow End */ }
 
+
+
 {/* See Likes  */ }
-export const getSeeLikes = async () => {
+export const setSeeLikes = async (data) => {
     return await apiAxios.post("/action/seeLikes", data
     ).then(res => {
         return res.data

@@ -66,7 +66,6 @@ export default function ProfileScreen({ navigation, route }) {
           userPic: baseURL + user?.data?.profilePhotoUrl,
           likes: item.likes,
           isLikesVisible: item.isLikesVisible,
-          isSaved: false,
           isLiked: true,
 
         }
@@ -78,7 +77,7 @@ export default function ProfileScreen({ navigation, route }) {
 
   useEffect(() => {
     setLoading(true);
-    console.log("kaaaaaaan",user)
+    console.log("kaaaaaaan", user)
     getPosts();
 
   }, [])
@@ -121,7 +120,7 @@ export default function ProfileScreen({ navigation, route }) {
         visible={openEditPostPopUp ? true : false}
         onRequestClose={() => { setOpenEditPostPopUp(false) }}
       >
-        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} />
+        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} postId={posts?.id} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>

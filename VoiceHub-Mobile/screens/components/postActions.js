@@ -22,6 +22,13 @@ export default function postActions(
     else{
       setLiked(false);
     }
+
+    if (user?.savedPosts?.includes(postId)) {
+      setSaved(true);
+    }
+    else{
+      setSaved(false);
+    }
   }, [])
 
   
