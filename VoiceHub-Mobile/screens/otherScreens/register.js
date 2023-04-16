@@ -115,6 +115,7 @@ export default function Register({ navigation }) {
                     style={registerStyle.sbar}
                     maxLength={18}
                     value={password1}
+                    secureTextEntry={true}
                     onChangeText={password1 => setPassword1(password1)}
                 />
 
@@ -123,6 +124,7 @@ export default function Register({ navigation }) {
                     style={registerStyle.sbar}
                     maxLength={18}
                     value={password2}
+                    secureTextEntry={true}  
                     onChangeText={password2 => setPassword2(password2)}
                 />
 

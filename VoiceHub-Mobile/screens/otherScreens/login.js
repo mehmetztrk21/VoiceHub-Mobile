@@ -68,6 +68,7 @@ export default function Login({ navigation }) {
             <TextInput
                 style={loginStyle.sbar}
                 value={password}
+                secureTextEntry={true}
                 onChangeText={(password) => setPassword(password)}
             />
 
