@@ -12,6 +12,7 @@ export default function PostUserInfo(
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
             const [user, setUser] = useState({});
+            
     useEffect(() => {
         getUserInfo().then(async (res) => {
             setUser(res);

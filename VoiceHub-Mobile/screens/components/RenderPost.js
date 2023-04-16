@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
-import { StyleSheet, View } from "react-native";
+import React from "react";
+import { View } from "react-native";
 
 import colors from "../../assets/colors";
 
+import { baseURL } from "../../utils/constants";
 import Post from "./post";
 import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
-import { baseURL } from "../../utils/constants";
 
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts, user }) => {
 
