@@ -89,6 +89,10 @@ export default function SavedArchieves({ navigation, route }) {
     getPosts();
   }, [])
 
+  useEffect(() => {
+    getPosts();
+  }, [openArchivePopUp])
+
   if (loading) return <Loading />
 
 

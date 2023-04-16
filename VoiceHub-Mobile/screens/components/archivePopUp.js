@@ -12,23 +12,8 @@ const archivePopUp = ({ id, setId }) => {
   const [user, setUser] = useState({});
 
   const setNotArchive = async () => {
-    const response = await setNotArchivePost({ id: id });
-    if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          username: user?.username,
-          createdBy: item.createdBy,
-          createdAt: item.createdAt,
-          userPic: baseURL + user?.profilePhotoUrl,
-          likes: item.likes,
-          comments: item.comments,
-        }
-      });
-      setId(false);
-    }
+    await setNotArchivePost({ id: id });
+    setId(false);
   }
 
   useEffect(() => {
