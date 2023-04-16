@@ -21,7 +21,7 @@ export default function Login({ navigation }) {
 
                 setusername("");
                 setPassword("");
-                navigation.navigate("HomeScreen", { username: username });
+                navigation.navigate("HomeScreen");
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);
@@ -42,7 +42,7 @@ export default function Login({ navigation }) {
         AsyncStorage.getItem("token").then(async (token) => {
             const user = await AsyncStorage.getItem("user");
             if (user) {
-                navigation.navigate("HomeScreen", { username: JSON.parse(user).username })
+                navigation.navigate("HomeScreen");
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);

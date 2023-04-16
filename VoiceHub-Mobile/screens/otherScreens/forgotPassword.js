@@ -19,7 +19,7 @@ export default function ForgotPassword({ navigation }) {
             if (password1.length, password2.length != 0) {
                 if (password1.length, password2.length >= 8) {
                     if (username.length >= 3) {
-                        navigation.navigate("HomeScreen", { username })
+                        navigation.navigate("HomeScreen")
                     }
                     else {
                         alert("kullanıcı adı en az 3 karakter olmalı");
