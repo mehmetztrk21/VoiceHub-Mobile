@@ -23,7 +23,11 @@ export default function PostUserInfo(
         <View style={postUserInfoStyle.postUser}>
 
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
-                onPress={() => { user._id != userId ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen", { username: username })}}>
+                onPress={() => { 
+                    if(HeaderTitle != 'ProfileScreen')
+                        user._id != userId ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen", { username: username })
+                }
+                    }>
                 <Image style={postUserInfoStyle.userpostImg} source={{ uri: userPic }} />
 
                 <View style={{ flexDirection: "column" }}>
