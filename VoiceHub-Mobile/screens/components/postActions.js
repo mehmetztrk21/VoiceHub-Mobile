@@ -2,23 +2,29 @@ import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
-
+import { useUser } from "../../utils/userContext"
 import { setLikedPost, setSavedPost } from '../../services/actionServices'
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
 export default function postActions(
   { navigation, posts, likes, commentCount, postId }) {
-
-    useEffect(()=>{
-      if(likes?.includes()){
-
-      }
-    },[])
+  const { user } = useUser();
 
   const [liked, setLiked] = useState(false)
   const [likeCount, setLikeCount] = useState(likes?.length);
   const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    if (likes?.includes(user?._id)) {
+      setLiked(true);
+    }
+    else{
+      setLiked(false);
+    }
+  }, [])
+
+  
 
   const postLiked = async () => {
     setLiked(prev => {
@@ -48,10 +54,6 @@ export default function postActions(
     })
     await setSavedPost({ postId: postId });
   };
-
-  useEffect(() => {
-    console.log(posts?.isLikesVisible);
-  }, [])
 
   return (
     <View style={postActionsStyle.postActions}>

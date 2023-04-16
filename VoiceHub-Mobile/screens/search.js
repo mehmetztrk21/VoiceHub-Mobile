@@ -81,7 +81,7 @@ export default function SearchScreen({ navigation, route }) {
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
           likes: item.likes,
-          showLike: true,
+          isLikesVisible: item.isLikesVisible,
           isSaved: false,
           isLiked: true,
 
