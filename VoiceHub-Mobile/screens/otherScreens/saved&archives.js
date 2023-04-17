@@ -99,7 +99,7 @@ export default function SavedArchieves({ navigation, route }) {
   return (
     <SafeAreaView style={savedStyle.container}>
 
-      <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} isVerify={false} />
+      <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} isTic={false} />
 
       <Modal
         animationType="slide"

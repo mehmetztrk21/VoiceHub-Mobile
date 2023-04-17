@@ -31,7 +31,7 @@ export default function Message({ navigation }) {
   return (
     <SafeAreaView style={messageStyle.container}>
 
-      <OtherHeader HeaderTitle='Messages' navigation={navigation} isVerify={false}/>
+      <OtherHeader HeaderTitle='Messages' navigation={navigation} isTic={false}/>
       <View style={{ marginTop: width * 0.04 }}>
 
         <View style={messageStyle.searchView}>

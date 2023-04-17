@@ -7,7 +7,7 @@ import profileHeaderStyle from "../../assets/styles/profileHeader.style";
 import verfy from "../../assets/ver.png";
 import { useUser } from '../../utils/userContext';
 
-const profileHeader = ({ navigation, username, pressLogo, id, isVerify }) => {
+const profileHeader = ({ navigation, username, pressLogo, id, isTic }) => {
   
   const { user } = useUser();
   
@@ -18,7 +18,7 @@ const profileHeader = ({ navigation, username, pressLogo, id, isVerify }) => {
           <TouchableOpacity onPress={pressLogo}>
             <Text style={profileHeaderStyle.head}>{username}</Text>
 
-            {isVerify ? (
+            {isTic ? (
               <Image source={verfy} style={profileHeaderStyle.ver} />
             ) : null}
           </TouchableOpacity>

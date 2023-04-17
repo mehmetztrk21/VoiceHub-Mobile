@@ -8,12 +8,14 @@ import { useUser } from "../../utils/userContext";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id, isVerify }) {
+        date, id, isTic }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
     const { user } = useUser();
+
     useEffect(() => {
         setDifferenceInDays(timeAgoText(date));
+        //console.log(isTic)
     }, []);
 
     return (
@@ -30,7 +32,7 @@ export default function PostUserInfo(
                 <View style={{ flexDirection: "column" }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Text style={postUserInfoStyle.username}>{username}</Text>
-                        {isVerify ? (
+                        {isTic == true ? (
                             <Image style={{ width: 14, height: 14, marginLeft: 4 }} source={ver} />
                         ) : null}
                     </View>

@@ -33,7 +33,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
         navigation={navigation} userPic={HeaderTitle == "OtherProfiles" ? baseURL + user?.profilePhotoUrl : item.userPic}
         userId={item.createdBy._id} username={item.username || user?.username} HeaderTitle={HeaderTitle}
         setOpenArchivePopUp={setOpenArchivePopUp} setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date}
-        id={item.id} isVerify={user?.isVerify} />
+        id={item.id} isTic={user?.isTic} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>

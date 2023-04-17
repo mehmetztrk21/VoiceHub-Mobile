@@ -50,7 +50,7 @@ const SeeLikes = ({ navigation, route }) => {
 
     return (
         <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: width }}>
-            <OtherHeader HeaderTitle={"Likes"} navigation={navigation} isVerify={false} />
+            <OtherHeader HeaderTitle={"Likes"} navigation={navigation} isTic={false} />
             <View style={{ marginTop: width * 0.05, backgroundColor: colors.white }}>
                 <View style={[seeLikesStyle.searchBarHolder, { marginBottom: width * 0.07 }]}>
                     <TextInput

@@ -88,7 +88,7 @@ export default function ProfileScreen({ navigation, route }) {
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} userId={posts?._id} username={user?.username} isVerify={user?.isTic} />
+      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} userId={posts?._id} username={user?.username} isTic={user?.isTic} />
 
       <Modal
         visible={visiblePopUp}

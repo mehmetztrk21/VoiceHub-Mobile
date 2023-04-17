@@ -113,7 +113,7 @@ export default function SearchScreen({ navigation, route }) {
           username: item.username,
           userPic: baseURL + item.profilePhotoUrl,
           isSecretAccount: item.isSecretAccount,
-          isVerify: item.isTic,
+          isTic: item.isTic,
         }
       })
       setUsers(temp);

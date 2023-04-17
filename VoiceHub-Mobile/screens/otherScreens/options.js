@@ -9,7 +9,7 @@ const { width } = Dimensions.get("window");
 const Options = ({ navigation }) => {
     return (
         <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: '100%' }}>
-            <OtherHeader navigation={navigation} HeaderTitle={'Options'} isVerify={false}/>
+            <OtherHeader navigation={navigation} HeaderTitle={'Options'} isTic={false}/>
             <View style={{ marginTop: width * 0.04 }}>
                 <Text>Options Page is Here!</Text>
             </View>

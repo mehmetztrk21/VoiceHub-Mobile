@@ -62,7 +62,7 @@ export default function SeeProfile({ navigation, route }) {
                     likes: item.likes,
                     hasBio: !item.descriptionVoiceUrl ? false : true,
                     descriptionVoiceUrl: item.descriptionVoiceUrl,
-                    isVerify: item.isTic,
+                    isTic: item.isTic,
                     comments: item.comments,
                 }
             })
@@ -93,7 +93,7 @@ export default function SeeProfile({ navigation, route }) {
                 <TouchableOpacity onPress={handleLayout}>
                     <Text style={seeProfileStyles.head}>{user?.username}</Text>
 
-                    {user?.isVerify ? (
+                    {user?.isTic ? (
                         <Image source={verfy} style={seeProfileStyles.ver} />
                     ) : null}
                 </TouchableOpacity>
