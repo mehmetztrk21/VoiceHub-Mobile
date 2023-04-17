@@ -8,6 +8,7 @@ import seeProfileStyles from '../../assets/styles/seeProfile.style';
 import verfy from "../../assets/ver.png";
 
 import { Icon } from "react-native-elements";
+
 import DontShowPosts from "../components/DontShowPosts";
 import RenderPost from "../components/RenderPost";
 import AreYouSure from "../components/areYouSure";
@@ -111,7 +112,7 @@ export default function SeeProfile({ navigation, route }) {
                         </View>
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
-                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
+                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", thisUser: user }); }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(user?.followers?.length)}
                             </Text>
@@ -119,7 +120,7 @@ export default function SeeProfile({ navigation, route }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
-                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
+                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", thisUser: user }); }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(user?.followings?.length)}
                             </Text>

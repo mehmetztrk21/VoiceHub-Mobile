@@ -77,7 +77,6 @@ export default function ProfileScreen({ navigation, route }) {
 
   useEffect(() => {
     setLoading(true);
-    console.log("kaaaaaaan", user)
     getPosts();
 
   }, [])
@@ -139,7 +138,7 @@ export default function ProfileScreen({ navigation, route }) {
             </View>
 
             <TouchableOpacity style={profileStyles.followerCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", thisUser: user }); }}>
               <Text style={profileStyles.fNumber}>
                 {followerCountFormatText(user?.followers?.length)}
               </Text>
@@ -147,7 +146,7 @@ export default function ProfileScreen({ navigation, route }) {
             </TouchableOpacity>
 
             <TouchableOpacity style={profileStyles.followCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", thisUser: user }); }}>
               <Text style={profileStyles.fNumber}>
                 {followerCountFormatText(user?.followings?.length)}
               </Text>
