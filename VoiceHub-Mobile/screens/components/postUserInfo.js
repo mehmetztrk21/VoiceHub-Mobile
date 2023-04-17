@@ -15,7 +15,6 @@ export default function PostUserInfo(
 
     useEffect(() => {
         setDifferenceInDays(timeAgoText(date));
-        //console.log(isTic)
     }, []);
 
     return (

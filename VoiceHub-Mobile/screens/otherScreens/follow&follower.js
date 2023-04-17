@@ -41,7 +41,6 @@ const FollowFollower = ({ navigation, route }) => {
 
     useEffect(() => {
         setLoading(true);
-        console.log(thisUser?._id)
         if (title == "Followings") {
             getFollowings({ userId: thisUser?._id }).then((res) => {
                 setFollowings(res?.data);
