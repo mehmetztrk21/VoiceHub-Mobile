@@ -113,7 +113,7 @@ export default function SeeProfile({ navigation, route }) {
                         <TouchableOpacity style={seeProfileStyles.followerCount}
                             onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
                             <Text style={seeProfileStyles.fNumber}>
-                                {followerCountFormatText(user["followers"]?.length)}
+                                {followerCountFormatText(user?.followers?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Followers</Text>
                         </TouchableOpacity>
@@ -121,7 +121,7 @@ export default function SeeProfile({ navigation, route }) {
                         <TouchableOpacity style={seeProfileStyles.followCount}
                             onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
                             <Text style={seeProfileStyles.fNumber}>
-                                {followerCountFormatText(user["followings"]?.length)}
+                                {followerCountFormatText(user?.followings?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Following</Text>
                         </TouchableOpacity>

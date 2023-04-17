@@ -141,7 +141,7 @@ export default function ProfileScreen({ navigation, route }) {
             <TouchableOpacity style={profileStyles.followerCount}
               onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
               <Text style={profileStyles.fNumber}>
-                {followerCountFormatText(user["followers"]?.length)}
+                {followerCountFormatText(user?.followers?.length)}
               </Text>
               <Text style={profileStyles.fText}>Followers</Text>
             </TouchableOpacity>
@@ -149,7 +149,7 @@ export default function ProfileScreen({ navigation, route }) {
             <TouchableOpacity style={profileStyles.followCount}
               onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
               <Text style={profileStyles.fNumber}>
-                {followerCountFormatText(user["followings"]?.length)}
+                {followerCountFormatText(user?.followings?.length)}
               </Text>
               <Text style={profileStyles.fText}>Following</Text>
             </TouchableOpacity>
