@@ -8,6 +8,8 @@ import { login } from "../../services/authServices";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { registerCondition } from "../../utils/registerCondition";
+import { Icon } from "react-native-elements";
+import colors from "../../assets/colors";
 
 export default function Register({ navigation }) {
     const [firstName, setName] = useState("");
@@ -19,6 +21,12 @@ export default function Register({ navigation }) {
     const [phone, setPhone] = useState("");
     const [birth, setBirth] = useState("");
     const [gender, setGender] = useState("");
+
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const handlePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
 
     let isGoHomePage = false
 
@@ -111,20 +119,26 @@ export default function Register({ navigation }) {
                 />
 
                 <Text style={registerStyle.label}>Password</Text>
-                <TextInput
-                    style={registerStyle.sbar}
-                    maxLength={18}
-                    value={password1}
-                    secureTextEntry={true}
-                    onChangeText={password1 => setPassword1(password1)}
-                />
+
+                <View style={registerStyle.passwordbar}>
+                    <TextInput
+                        style={{ width: "80%" }}
+                        maxLength={18}
+                        value={password1}
+                        secureTextEntry={!isPasswordVisible}
+                        onChangeText={password1 => setPassword1(password1)}
+                    />
+                    <TouchableOpacity onPress={handlePasswordVisibility}>
+                        <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
+                    </TouchableOpacity>
+                </View>
 
                 <Text style={registerStyle.label}>Password Repeat</Text>
                 <TextInput
-                    style={registerStyle.sbar}
+                    style={registerStyle.passwordbar}
                     maxLength={18}
                     value={password2}
-                    secureTextEntry={true}  
+                    secureTextEntry={!isPasswordVisible}
                     onChangeText={password2 => setPassword2(password2)}
                 />
 

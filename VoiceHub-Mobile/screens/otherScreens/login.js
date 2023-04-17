@@ -6,11 +6,20 @@ import loginStyle from "../../assets/styles/login.style";
 import { login } from "../../services/authServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Loading from "../components/loading";
+import { Icon } from "react-native-elements";
+import colors from "../../assets/colors";
 
 export default function Login({ navigation }) {
     const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const handlePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
+
+
     const isLogin = async () => {
         setLoading(true);
         if (username !== "" && password !== "") {
@@ -65,12 +74,18 @@ export default function Login({ navigation }) {
             />
 
             <Text style={loginStyle.label}>Password</Text>
-            <TextInput
-                style={loginStyle.sbar}
-                value={password}
-                secureTextEntry={true}
-                onChangeText={(password) => setPassword(password)}
-            />
+            <View style={loginStyle.passwordbar}>
+                <TextInput
+                    style={{width:"80%"}}
+                    maxLength={18}
+                    value={password}
+                    secureTextEntry={!isPasswordVisible}
+                    onChangeText={password => setPassword(password)}
+                />
+                <TouchableOpacity onPress={handlePasswordVisibility}>
+                    <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
+                </TouchableOpacity>
+            </View>
 
             <TouchableOpacity style={loginStyle.touch} onPress={() => isLogin()}>
                 <Text style={loginStyle.loginButton}>Login</Text>
