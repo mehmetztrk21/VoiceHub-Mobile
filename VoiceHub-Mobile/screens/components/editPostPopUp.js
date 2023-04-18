@@ -26,7 +26,6 @@ const editPostPopUp = ({ id, setId }) => {
   useState(() => {
     getPostById({ postId: id }).then(async (res) => {
       setPost(res?.data);
-      console.log("kaaaaan", res?.data);
     }).catch((err) => {
       console.log(err);
     })
