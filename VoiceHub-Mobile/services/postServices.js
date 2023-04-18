@@ -63,5 +63,15 @@ export const getSavedPosts = async (data) => {
     })
 }
 
+export const getPostById = async (data) => {
+    return await apiAxios.post("/post/getById", data
+    ).then(res => {
+        return res.data
+    }).catch(err => {
+        console.error(err, "Post Services post/getById");
+        return null;
+    })
+}
+
 
 

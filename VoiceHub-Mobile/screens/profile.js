@@ -118,7 +118,7 @@ export default function ProfileScreen({ navigation, route }) {
         visible={openEditPostPopUp ? true : false}
         onRequestClose={() => { setOpenEditPostPopUp(false) }}
       >
-        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} postId={posts?.id} />
+        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>

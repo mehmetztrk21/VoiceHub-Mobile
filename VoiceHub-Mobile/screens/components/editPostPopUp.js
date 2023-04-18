@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
 import { Icon } from "react-native-elements";
@@ -7,8 +7,11 @@ import colors from "../../assets/colors.js";
 import editPostPopUpStyle from "../../assets/styles/editPostPopUp.style";
 
 import { setArchivePost, setSeeLikes, } from "../../services/actionServices";
+import { getPostById } from "../../services/postServices.js";
 
-const editPostPopUp = ({ id, setId, postId }) => {
+const editPostPopUp = ({ id, setId }) => {
+
+  const [post, setPost] = useState({});
 
   const setArchive = async () => {
     await setArchivePost({ id: id });
@@ -19,6 +22,15 @@ const editPostPopUp = ({ id, setId, postId }) => {
     await setSeeLikes({ postId: id });
     setId(false);
   }
+
+  useState(() => {
+    getPostById({ postId: id }).then(async (res) => {
+      setPost(res?.data);
+      console.log("kaaaaan", res?.data);
+    }).catch((err) => {
+      console.log(err);
+    })
+  }, [])
 
   return (
     <View style={editPostPopUpStyle.container}>
@@ -34,11 +46,14 @@ const editPostPopUp = ({ id, setId, postId }) => {
           <Text style={editPostPopUpStyle.button}>Share</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }}
-          onPress={setSeeLike}>
+        <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={setSeeLike}>
           <Icon type={"font-awesome"} name={"heart"} size={28} color={colors.white} />
-          {
+          {post?.isLikesVisible == true ?
             <Text style={editPostPopUpStyle.button}>Unshow Likes Count</Text>
+            : post?.isLikesVisible == false ?
+              <Text style={editPostPopUpStyle.button}>Show Likes Count</Text>
+              : <Text style={editPostPopUpStyle.button}>Show Likes Count</Text>
+
           }
         </TouchableOpacity>
 
