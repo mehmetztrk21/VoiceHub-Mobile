@@ -16,7 +16,7 @@ const editPostPopUp = ({ id, setId, postId }) => {
   }
 
   const setSeeLike = async () => {
-    await setSeeLikes({ postId: postId });
+    await setSeeLikes({ postId: id });
     setId(false);
   }
 

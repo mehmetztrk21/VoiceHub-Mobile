@@ -48,12 +48,14 @@ export default function SavedArchieves({ navigation, route }) {
             id: item._id,
             contentUrl: item.contentUrl,
             categories: item.categories,
+            comments: item.comments,
             username: username,
-            createdBy: item.createdBy,
             createdAt: item.createdAt,
+            createdBy: item.createdBy,
             userPic: baseURL + item.createdBy.profilePhotoUrl,
             likes: item.likes,
-            comments: item.comments,
+            isLikesVisible: item.isLikesVisible,
+            isLiked: true,
           }
         })
         setPosts(temp);
@@ -67,12 +69,14 @@ export default function SavedArchieves({ navigation, route }) {
             id: item._id,
             contentUrl: item.contentUrl,
             categories: item.categories,
+            comments: item.comments,
             username: username,
-            createdBy: item.createdBy,
             createdAt: item.createdAt,
+            createdBy: item.createdBy,
             userPic: baseURL + item.createdBy.profilePhotoUrl,
             likes: item.likes,
-            comments: item.comments,
+            isLikesVisible: item.isLikesVisible,
+            isLiked: true,
           }
         })
         setPosts(temp);
