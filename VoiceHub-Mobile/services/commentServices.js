@@ -14,14 +14,8 @@ export const createComment = async (data) => {
 }
 
 export const deleteComment = async (data) => {
-    return await apiAxios.post("/comment/delete", data, {
-        headers: {
-            "Content-Type": "multipart/form-data"
-        }
-    }).then(res => {
-        return res.data;
-    }).catch(err => {
-        console.error(err, "Comment Delete Services");
-        return null
-    })
+    return await apiAxios.post("/comment/delete", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services comment/delete"); return null })
 }

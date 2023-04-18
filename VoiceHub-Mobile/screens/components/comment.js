@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 
 import ver from "../../assets/ver.png";
 import Post from "../components/post";
 
 import { Dimensions } from "react-native";
-import colors from "../../assets/colors";
 import { Icon } from "react-native-elements";
+import colors from "../../assets/colors";
 import { timeAgoText } from "../../utils/timeAgoText";
 import { useUser } from "../../utils/userContext";
 const { width } = Dimensions.get('window');
 
-export default function Comment({ navigation, contentUrl, userPic, username, setOpenAreYouSurePopUp, userId, createDate }) {
+export default function Comment({ navigation, commentId, contentUrl, userPic, username, setOpenAreYouSurePopUp, userId, createDate }) {
 
     const { user } = useUser();
 
     const deleteComment = async () => {
-        setOpenAreYouSurePopUp(true);
+        setOpenAreYouSurePopUp(commentId ? commentId : false);
     }
 
     return (
@@ -28,12 +28,12 @@ export default function Comment({ navigation, contentUrl, userPic, username, set
             <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <TouchableOpacity
                     onPress={() => {
-                            if (userId == user?._id) {
-                                navigation.navigate("ProfileScreen", { username: username });
-                            }
-                            else {
-                                navigation.navigate("SeeProfile", { userId: userId });
-                            }
+                        if (userId == user?._id) {
+                            navigation.navigate("ProfileScreen", { username: username });
+                        }
+                        else {
+                            navigation.navigate("SeeProfile", { userId: userId });
+                        }
                     }}>
                     <Image source={{ uri: userPic }}
                         style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0675 }} />
