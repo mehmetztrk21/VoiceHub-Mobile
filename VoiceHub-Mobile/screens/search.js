@@ -109,7 +109,6 @@ export default function SearchScreen({ navigation, route }) {
       let temp = response.data.map((item) => {
         return {
           id: item._id,
-          name: item.name,
           username: item.username,
           userPic: baseURL + item.profilePhotoUrl,
           isSecretAccount: item.isSecretAccount,
@@ -181,7 +180,7 @@ export default function SearchScreen({ navigation, route }) {
             < TextInput
               placeholder="Search"
               style={[searchStyles.searchBar, { width: "90%" }]}
-              onChangeText={(e) => console.log(e)}
+              onChangeText={searchQuery => setSearchQuery(searchQuery)}
               value={searchQuery}
             />
 
