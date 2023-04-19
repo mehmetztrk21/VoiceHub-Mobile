@@ -54,13 +54,17 @@ export default function Message({ navigation, title, id }) {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
           } >
-          {
+          {userPostData.length != 0 ?
             userPostData.map((item, index) => {
               return (
                 <MessageItem key={index} navigation={navigation} username={item.username} date={item.date} />
               )
             })
-          }
+            :
+            <View>
+              <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}
+              >No message yet</Text>
+            </View>}
         </ScrollView>
       </View>
     </SafeAreaView>
