@@ -43,9 +43,7 @@ export default function Register({ navigation }) {
             formData.append("phone", phone);
             formData.append("birthDay", birth);
             formData.append("gender", gender)
-            console.log(image, "image");
             const info = await FileSystem.getInfoAsync(image);
-            console.log(info, "info");
             formData.append('profilePhoto', {
                 uri: info.uri,
                 type: 'image/jpeg', // ya da 'image/png'
@@ -77,8 +75,6 @@ export default function Register({ navigation }) {
             aspect: [4, 3],
             quality: 1,
         });
-
-        console.log(result);
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);
