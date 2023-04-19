@@ -11,10 +11,11 @@ import { Dimensions } from "react-native";
 import colors from "../../assets/colors";
 import { useUser } from "../../utils/userContext";
 const { width } = Dimensions.get("window");
-const { user } = useUser();
 
 export default function Message({ navigation, title, id }) {
   const scrollViewRef = useRef(null);
+
+  const { user } = useUser();
 
   const handleLayout = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true });

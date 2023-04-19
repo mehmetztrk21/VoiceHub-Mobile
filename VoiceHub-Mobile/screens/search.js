@@ -167,11 +167,20 @@ export default function SearchScreen({ navigation, route }) {
 
       <View style={searchStyles.searchBarHolder}>
         {focused ? (
-          <View style={{ flexDirection: "row", alignItems: "center", width: width, justifyContent: "center" }}>
+          <View style={{
+            backgroundColor: "lightgray",
+            borderRadius: 25,
+            paddingHorizontal: "3%",
+            width: "90%",
+            marginLeft: "5%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}>
+
             {/* Search Bar */}
             < TextInput
               placeholder="Search"
-              style={[searchStyles.searchBar, { width: width * 0.78 }]}
+              style={[searchStyles.searchBar, { width: "90%" }]}
               onChangeText={(e) => console.log(e)}
               value={searchQuery}
             />
@@ -179,18 +188,26 @@ export default function SearchScreen({ navigation, route }) {
             {/* Close Button */}
             <TouchableOpacity onPress={() => setFocused(false)}
               style={searchStyles.closeButtonTouch}>
-              <Icon type="font-awesome" size={width * 0.08} name={"times"} color={colors.green} />
+              <Icon type="font-awesome" size={20} name={"times"} color={colors.green} />
             </TouchableOpacity>
           </View>
         ) :
           <View style={{ flexDirection: "column" }}>
-            < TextInput
-              placeholder="Search"
-              style={[searchStyles.searchBar, { width: width * 0.9, marginLeft: width * 0.05 }]}
-              onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
-              value={searchQuery}
-              onFocus={() => setFocused(true)}
-            />
+            <View style={{
+              backgroundColor: "lightgray",
+              borderRadius: 25,
+              paddingHorizontal: "3%",
+              width: "90%",
+              marginLeft: "5%",
+            }}>
+              < TextInput
+                placeholder="Search"
+                style={[searchStyles.searchBar, { width: "90%", }]}
+                onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
+                value={searchQuery}
+                onFocus={() => setFocused(true)}
+              />
+            </View>
 
             {/* CATEGORIES */}
             <ScrollView ref={categoryScrollViewRef}
