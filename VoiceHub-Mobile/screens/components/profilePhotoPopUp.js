@@ -1,21 +1,44 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, TouchableOpacity, View } from 'react-native'
 import { Icon } from 'react-native-elements'
+
+
+import * as FileSystem from 'expo-file-system';
+import * as ImagePicker from 'expo-image-picker';
+
+
 import colors from '../../assets/colors'
 import profilePhotoPopUpStyle from '../../assets/styles/bioVoicePopUp.style'
 
 const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
+    const [image, setImage] = useState(null);
 
     const deletePhoto = () => {
         //continue
         setOpenProfilePhotoPopUp(false);
     }
 
+    const pickImage = async () => {
+        setOpenProfilePhotoPopUp(false);
+
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+        }
+    };
+
     return (
         <View style={profilePhotoPopUpStyle.container}>
             <View style={profilePhotoPopUpStyle.container2}>
 
-                <TouchableOpacity onPress={() => { setOpenProfilePhotoPopUp(false); }}
+                <TouchableOpacity onPress={pickImage}
                     style={{ flexDirection: "row", alignItems: "center", marginBottom: 12.5, }}>
                     <Icon size={20} type={"font-awesome"} name={"folder"} color={colors.white} />
                     <Text style={profilePhotoPopUpStyle.button}>Choose Photo</Text>

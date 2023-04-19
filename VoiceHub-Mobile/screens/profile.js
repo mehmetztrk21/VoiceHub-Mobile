@@ -63,7 +63,7 @@ export default function ProfileScreen({ navigation, route }) {
           username: user?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: baseURL + user?.data?.profilePhotoUrl,
+          userPic: baseURL + user?.profilePhotoUrl,
           likes: item.likes,
           isLikesVisible: item.isLikesVisible,
           isLiked: true,
