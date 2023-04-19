@@ -15,6 +15,7 @@ import Slider from "../components/slider";
 
 import { Dimensions } from "react-native";
 import { baseURL } from "../../utils/constants";
+import ProfilePhotoPopUp from "../components/profilePhotoPopUp";
 const { width } = Dimensions.get("window");
 
 export default function EditProfile({ navigation, route }) {
@@ -22,6 +23,7 @@ export default function EditProfile({ navigation, route }) {
 
   const [openAddVoice, setOpenAddVoice] = useState(false);
   const [openBioVoicePopUp, setOpenBioVoicePopUp] = useState(false);
+  const [openProfilePhotoPopUp, setOpenProfilePhotoPopUp] = useState(false);
 
   async function pickFile() {
     try {
@@ -39,7 +41,6 @@ export default function EditProfile({ navigation, route }) {
     }
   }
 
-
   return (
     <SafeAreaView style={editProfileStyle.container}>
       <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} isTic={false} />
@@ -53,9 +54,18 @@ export default function EditProfile({ navigation, route }) {
         <BioVoicePopUp setOpenAddVoice={setOpenAddVoice} setOpenBioVoicePopUp={setOpenBioVoicePopUp} />
       </Modal>
 
+      <Modal visible={openProfilePhotoPopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setOpenProfilePhotoPopUp(false)
+        }}>
+        <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} />
+      </Modal>
+
       <View style={{ flexDirection: "column", marginTop: width * 0.07 }}>
         <View>
-          <TouchableOpacity style={editProfileStyle.ppView} onPress={pickFile}>
+          <TouchableOpacity style={editProfileStyle.ppView} onPress={() => { setOpenProfilePhotoPopUp(true) }}>
             <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} />
             <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
           </TouchableOpacity>
@@ -74,8 +84,8 @@ export default function EditProfile({ navigation, route }) {
         />
 
 
-        <View style={{ marginTop: "2.5%", marginHorizontal: "10%" }}>
-          {true ? (
+        <View style={{ marginVertical: "3%", marginHorizontal: "10%" }}>
+          {user?.descriptionVoiceInfo != null ? (
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
               <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
               <Slider />
@@ -86,21 +96,25 @@ export default function EditProfile({ navigation, route }) {
             </View>
           ) :
             <View style={{ justifyContent: "center" }}>
-              <Text style={{ color: colors.black, fontSize: 14, fontWeight: "400" }}>You Don"t have a biography</Text>
+              <Text style={{ color: colors.darkGray, fontSize: 14, fontWeight: "400", textAlign: "center", marginTop: "5%", marginBottom: "5%" }}>You Don"t have a biography</Text>
 
-              <TouchableOpacity onPress={() => setOpenAddVoice(prev => !prev)}>
-                <Text style={{ color: colors.green, fontSize: 14, fontWeight: "700" }}>Add new voice</Text>
+              <TouchableOpacity onPress={() => setOpenAddVoice(prev => !prev)}
+                style={{ width: "50%", marginLeft: "25%", backgroundColor: colors.green, borderRadius: 50, padding: 5, }}>
+                <Text style={{ color: colors.white, fontSize: 14, fontWeight: "700", textAlign: "center", }}>Add Voice</Text>
               </TouchableOpacity>
             </View>
           }
         </View>
 
-        <TouchableOpacity onPress={() => navigation.goBack({ username: user?.username })}>
-          <Text style={[editProfileStyle.saveButtonText, { backgroundColor: colors.green, textAlign: "center" }]}>Save</Text>
-        </TouchableOpacity>
+
 
 
       </View>
+
+      <TouchableOpacity onPress={() => navigation.goBack({ username: user?.username })} style={{ position: "absolute", bottom: 0, zIndex: 999 }}>
+        <Text style={[editProfileStyle.saveButtonText, { backgroundColor: colors.green, textAlign: "center" }]}>Save</Text>
+      </TouchableOpacity>
+
       {openAddVoice ? (<AddVoice title={"bio"} />) : null}
     </SafeAreaView >
   );
