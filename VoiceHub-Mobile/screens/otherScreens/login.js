@@ -3,13 +3,14 @@ import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "re
 
 import loginStyle from "../../assets/styles/login.style";
 
-import { login } from "../../services/authServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Loading from "../components/loading";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
-
+import { login } from "../../services/authServices";
+import { useUser } from "../../utils/userContext";
+import Loading from "../components/loading";
 export default function Login({ navigation }) {
+    const { user, setUser } = useUser()
     const [username, setusername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -27,7 +28,7 @@ export default function Login({ navigation }) {
             if (response && response.success) {
                 await AsyncStorage.setItem("token", response.data.accessToken);
                 await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
-
+                setUser(response.data.user);
                 setusername("");
                 setPassword("");
                 navigation.navigate("HomeScreen");
@@ -76,7 +77,7 @@ export default function Login({ navigation }) {
             <Text style={loginStyle.label}>Password</Text>
             <View style={loginStyle.passwordbar}>
                 <TextInput
-                    style={{width:"80%"}}
+                    style={{ width: "80%" }}
                     maxLength={18}
                     value={password}
                     secureTextEntry={!isPasswordVisible}
