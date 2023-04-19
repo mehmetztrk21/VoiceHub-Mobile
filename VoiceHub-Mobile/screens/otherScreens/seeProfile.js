@@ -90,7 +90,7 @@ export default function SeeProfile({ navigation, route }) {
                     <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={handleLayout}>
+                <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
                     <Text style={seeProfileStyles.head}>{user?.username}</Text>
 
                     {user?.isTic ? (
@@ -139,11 +139,26 @@ export default function SeeProfile({ navigation, route }) {
                 {/* Edit Profile Buttons */}
                 <View style={seeProfileStyles.btnHolder}>
                     <TouchableOpacity style={{
-                        width: "80%",
+                        width: "42.5%",
                         alignItems: "center",
                         padding: "2%",
                         backgroundColor: colors.green,
                         borderRadius: 12.5,
+                        marginLeft: "5%"
+                    }}
+                        onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: user?._id }); }}>
+                        <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
+                            Message
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{
+                        width: "42.5%",
+                        alignItems: "center",
+                        padding: "2%",
+                        backgroundColor: colors.green,
+                        borderRadius: 12.5,
+                        marginLeft: "5%"
                     }}>
                         <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
                             Follow
@@ -178,11 +193,13 @@ export default function SeeProfile({ navigation, route }) {
                 </View>
             </ScrollView>
 
-            {openAreYouSure == true ? (
-                <AreYouSure process={'LogOut'} navigation={navigation}
-                    setOpenAreYouSure={setOpenAreYouSure} />
-            ) : null}
-        </SafeAreaView>
+            {
+                openAreYouSure == true ? (
+                    <AreYouSure process={'LogOut'} navigation={navigation}
+                        setOpenAreYouSure={setOpenAreYouSure} />
+                ) : null
+            }
+        </SafeAreaView >
     );
 }
 
