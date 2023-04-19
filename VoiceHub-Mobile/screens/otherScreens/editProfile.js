@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { Icon } from "react-native-elements";
 
@@ -10,6 +10,7 @@ import editProfileStyle from "../../assets/styles/editProfile.style";
 
 import AddVoice from "../components/addVoice";
 import OtherHeader from "../components/otherHeader";
+import BioVoicePopUp from "../components/bioVoicePopUp";
 import Slider from "../components/slider";
 
 import { Dimensions } from "react-native";
@@ -17,9 +18,10 @@ import { baseURL } from "../../utils/constants";
 const { width } = Dimensions.get("window");
 
 export default function EditProfile({ navigation, route }) {
-  const { userInfo } = route.params;
+  const { user } = route.params;
 
   const [openAddVoice, setOpenAddVoice] = useState(false);
+  const [openBioVoicePopUp, setOpenBioVoicePopUp] = useState(false);
 
   async function pickFile() {
     try {
@@ -37,27 +39,37 @@ export default function EditProfile({ navigation, route }) {
     }
   }
 
+
   return (
     <SafeAreaView style={editProfileStyle.container}>
-      <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} isTic={false}/>
+      <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} isTic={false} />
+
+      <Modal visible={openBioVoicePopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setOpenBioVoicePopUp(false)
+        }}>
+        <BioVoicePopUp setOpenAddVoice={setOpenAddVoice} setOpenBioVoicePopUp={setOpenBioVoicePopUp} />
+      </Modal>
 
       <View style={{ flexDirection: "column", marginTop: width * 0.07 }}>
         <View>
           <TouchableOpacity style={editProfileStyle.ppView} onPress={pickFile}>
-            <Image source={{ uri: baseURL + userInfo?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} />
+            <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} />
             <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
           </TouchableOpacity>
         </View>
 
         <Text style={editProfileStyle.label}>User Name</Text>
         <TextInput
-          placeholder={userInfo?.username}
+          placeholder={user?.username}
           style={editProfileStyle.searchBar}
         />
 
         <Text style={editProfileStyle.label}>Name</Text>
         <TextInput
-          placeholder={userInfo?.name + " " + userInfo?.surname}
+          placeholder={user?.name + " " + user?.surname}
           style={editProfileStyle.searchBar}
         />
 
@@ -67,7 +79,7 @@ export default function EditProfile({ navigation, route }) {
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
               <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
               <Slider />
-              <TouchableOpacity onPress={() => setOpenAddVoice(prev => !prev)}>
+              <TouchableOpacity onPress={() => { setOpenBioVoicePopUp(true) }}>
                 <Text style={{ color: colors.green, fontSize: 14, fontWeight: "700", paddingLeft: 10 }}>Edit</Text>
               </TouchableOpacity>
 
@@ -83,7 +95,7 @@ export default function EditProfile({ navigation, route }) {
           }
         </View>
 
-        <TouchableOpacity onPress={() => navigation.goBack({ username: userInfo?.username })}>
+        <TouchableOpacity onPress={() => navigation.goBack({ username: user?.username })}>
           <Text style={[editProfileStyle.saveButtonText, { backgroundColor: colors.green, textAlign: "center" }]}>Save</Text>
         </TouchableOpacity>
 
