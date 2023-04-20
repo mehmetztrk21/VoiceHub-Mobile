@@ -110,7 +110,13 @@ const FollowFollower = ({ navigation, route }) => {
                                                 navigation.navigate("ProfileScreen", { userId: user?._id }) :
                                                 navigation.navigate("SeeProfile", { userId: item?._id })
                                         }}>
-                                        <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />
+
+                                        {item?.profilePhotoUrl ?
+                                            <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} /> :
+                                            <Image source={require("../../assets/avatar.png")} style={followFollowerStyle.profileImage} />
+                                        }
+
+
                                         <Text style={followFollowerStyle.username}>{item.username}</Text>
                                         {item?.isTic ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
