@@ -10,7 +10,7 @@ const { height } = Dimensions.get("window");
 
 export default function ForgotPassword({ navigation }) {
 
-    const [username, setusername] = useState("");
+    const [username, setUsername] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
 
@@ -56,7 +56,7 @@ export default function ForgotPassword({ navigation }) {
                     style={forgotPasswordStyle.input}
                     maxLength={18}
                     value={username}
-                    onChangeText={username => setusername(username)}
+                    onChangeText={username => setUsername(username)}
                 />
 
                 <Text style={forgotPasswordStyle.label}>New Password</Text>

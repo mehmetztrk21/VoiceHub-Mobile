@@ -15,12 +15,14 @@ import Slider from "../components/slider";
 
 import { Dimensions } from "react-native";
 import { baseURL } from "../../utils/constants";
-import { updateUserInfo } from "../../services/userServices"
+import { getUserById, updateUserInfo } from "../../services/userServices"
 import ProfilePhotoPopUp from "../components/profilePhotoPopUp";
+import { useUser } from "../../utils/userContext";
 const { width } = Dimensions.get("window");
 
-export default function EditProfile({ navigation, route }) {
-  const { user } = route.params;
+export default function EditProfile({ navigation }) {
+
+  const { user, setUser } = useUser();
 
   const [firstname, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
@@ -34,7 +36,7 @@ export default function EditProfile({ navigation, route }) {
   const [openProfilePhotoPopUp, setOpenProfilePhotoPopUp] = useState(false);
 
   const save = async () => {
-    await updateUserInfo({
+    const response = await updateUserInfo({
       name: (firstname != "" ? firstname : user?.name),
       surname: (surname != "" ? surname : user?.surname),
       username: (username != "" ? username : user?.username),
@@ -42,6 +44,17 @@ export default function EditProfile({ navigation, route }) {
       birthDay: (birthDay != "" ? birthDay : user?.birthDay),
       gender: (gender != "" ? gender : user?.gender),
     })
+
+    if (response && response.success) {
+
+      getUserById({ id: user?._id }).then(async (res) => {
+        setUser(res?.data);
+        await getPosts();
+      }).catch((err) => {
+        console.log(err);
+      })
+
+    }
 
     navigation.goBack({ username: user?.username });
   }

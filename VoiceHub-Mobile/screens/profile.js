@@ -87,7 +87,7 @@ export default function ProfileScreen({ navigation, route }) {
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} userId={posts?._id} username={user?.username} isTic={user?.isTic} />
+      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} />
 
       <Modal
         visible={visiblePopUp}
@@ -125,8 +125,11 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
-          <TouchableOpacity onPress={() => navigation.navigate("EditProfile", { user: user })}>
-            <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} />
+          <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
+            {user?.profilePhotoUrl ?
+              < Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} /> :
+              <Image source={require('../assets/avatar.png')} style={profileStyles.userPic} />
+            }
           </TouchableOpacity>
 
           <View style={profileStyles.followContents}>
@@ -167,7 +170,7 @@ export default function ProfileScreen({ navigation, route }) {
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
           <TouchableOpacity style={[profileStyles.editProfileAndFollow, { backgroundColor: colors.green }]}
-            onPress={() => navigation.navigate("EditProfile", { user: user })}>
+            onPress={() => navigation.navigate("EditProfile", { userInfo: user })}>
             <Text style={profileStyles.btnTextF}>Edit Profile</Text>
           </TouchableOpacity>
 

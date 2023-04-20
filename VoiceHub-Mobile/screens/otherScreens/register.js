@@ -14,7 +14,7 @@ export default function Register({ navigation }) {
     const { setUser } = useUser()
     const [firstName, setName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [username, setusername] = useState("");
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
@@ -108,7 +108,7 @@ export default function Register({ navigation }) {
                     style={registerStyle.sbar}
                     maxLength={18}
                     value={username}
-                    onChangeText={username => setusername(username)}
+                    onChangeText={username => setUsername(username)}
                 />
 
                 <Text style={registerStyle.label}>Email</Text>

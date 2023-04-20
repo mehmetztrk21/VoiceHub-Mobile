@@ -11,7 +11,7 @@ import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
 export default function Login({ navigation }) {
     const { user, setUser } = useUser()
-    const [username, setusername] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
@@ -29,7 +29,7 @@ export default function Login({ navigation }) {
                 await AsyncStorage.setItem("token", response.data.accessToken);
                 await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
                 setUser(response.data.user);
-                setusername("");
+                setUsername("");
                 setPassword("");
                 navigation.navigate("HomeScreen");
                 setTimeout(() => {
@@ -71,7 +71,7 @@ export default function Login({ navigation }) {
             <TextInput
                 style={loginStyle.sbar}
                 value={username}
-                onChangeText={(username) => setusername(username)}
+                onChangeText={(username) => setUsername(username)}
             />
 
             <Text style={loginStyle.label}>Password</Text>
