@@ -49,44 +49,17 @@ export default function EditProfile({ navigation }) {
 
       getUserById({ id: user?._id }).then(async (res) => {
         setUser(res?.data);
-        await getPosts();
       }).catch((err) => {
         console.log(err);
       })
-
     }
 
     navigation.goBack({ username: user?.username });
   }
 
-  async function pickFile() {
-    try {
-      const result = await DocumentPicker.pick({
-        type: [DocumentPicker.types.images],
-      });
-      console.log(
-        "URI : " + result.uri,
-        "Type : " + result.type, // mime type
-        "File Name : " + result.name,
-        "File Size : " + result.size
-      );
-    } catch (error) {
-      console.log("Error picking file: ", error);
-    }
-  }
-
   return (
     <SafeAreaView style={editProfileStyle.container}>
       <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} isTic={false} />
-
-      <Modal visible={openBioVoicePopUp}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => {
-          setOpenBioVoicePopUp(false)
-        }}>
-        <BioVoicePopUp setOpenAddVoice={setOpenAddVoice} setOpenBioVoicePopUp={setOpenBioVoicePopUp} />
-      </Modal>
 
       <Modal visible={openProfilePhotoPopUp}
         animationType="slide"
@@ -95,6 +68,15 @@ export default function EditProfile({ navigation }) {
           setOpenProfilePhotoPopUp(false)
         }}>
         <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} />
+      </Modal>
+
+      <Modal visible={openBioVoicePopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setOpenBioVoicePopUp(false)
+        }}>
+        <BioVoicePopUp setOpenAddVoice={setOpenAddVoice} setOpenBioVoicePopUp={setOpenBioVoicePopUp} />
       </Modal>
 
       <View style={{ flexDirection: "column", marginTop: width * 0.07 }}>
