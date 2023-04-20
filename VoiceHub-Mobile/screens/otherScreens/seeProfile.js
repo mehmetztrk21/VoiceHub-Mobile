@@ -103,7 +103,12 @@ export default function SeeProfile({ navigation, route }) {
 
                 {/* PP, Follow Count,  */}
                 <View style={seeProfileStyles.actView}>
-                    <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={seeProfileStyles.userPic} />
+
+                    {user?.profilePhotoUrl ?
+                        <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={seeProfileStyles.userPic} /> : 
+                        <Image source={require("../../assets/avatar.png")} style={seeProfileStyles.userPic} />
+                    }
+
                     <View style={seeProfileStyles.followContents}>
 
                         <View style={seeProfileStyles.postCount}>
