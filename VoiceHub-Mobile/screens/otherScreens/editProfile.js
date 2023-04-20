@@ -56,6 +56,7 @@ export default function EditProfile({ navigation }) {
 
     navigation.goBack({ username: user?.username });
   }
+  
 
   return (
     <SafeAreaView style={editProfileStyle.container}>

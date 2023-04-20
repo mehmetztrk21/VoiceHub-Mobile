@@ -34,3 +34,10 @@ export const updateUserInfo = async (data) => {
         return res.data
     }).catch(err => { console.error(err, "Post Services user/update"); return null })
 }
+
+export const changePassword = async (data) => {
+    return await apiAxios.post("/user/changePassword", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services user/changePassword"); return null })
+}
