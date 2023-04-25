@@ -142,7 +142,7 @@ export default function SeeProfile({ navigation, route }) {
                     {user?.hasBio ? (<Post uri={user?.descriptionVoiceUrl} />) : null}
                 </View>
 
-                {/* Edit Profile Buttons */}
+                {/* Message and Follow Buttons */}
                 <View style={seeProfileStyles.btnHolder}>
                     <TouchableOpacity style={{
                         width: "42.5%",
