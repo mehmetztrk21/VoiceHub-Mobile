@@ -6,7 +6,7 @@ import { Icon } from 'react-native-elements'
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 
-import { updateUserInfo } from "../../services/userServices"
+import { updateUserInfo, removeUserFiles } from "../../services/userServices"
 
 import colors from '../../assets/colors'
 import profilePhotoPopUpStyle from '../../assets/styles/bioVoicePopUp.style'
@@ -14,7 +14,8 @@ import profilePhotoPopUpStyle from '../../assets/styles/bioVoicePopUp.style'
 const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
     const [image, setImage] = useState(null);
 
-    const deletePhoto = () => {
+    const deletePhoto = async () => {
+        await removeUserFiles({ type: "profilePhoto" })
         //continue
         setOpenProfilePhotoPopUp(false);
     }

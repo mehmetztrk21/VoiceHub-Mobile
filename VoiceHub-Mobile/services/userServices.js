@@ -28,6 +28,13 @@ export const getFollowings = async (data) => {
     }).catch(err => { console.error(err, "Post Services user/followings"); return null })
 }
 
+export const removeUserFiles = async (data) => {
+    return await apiAxios.post("/user/removeUserFiles", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services user/removeUserFiles"); return null })
+}
+
 export const updateUserInfo = async (data) => {
     return await apiAxios.post("/user/update", data, {
         headers: {

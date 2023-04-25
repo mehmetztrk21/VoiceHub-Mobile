@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import bioVoicePopUpStyle from '../../assets/styles/bioVoicePopUp.style'
 import { Icon } from 'react-native-elements'
 import colors from '../../assets/colors'
+import { removeUserFiles } from '../../services/userServices'
 
 const bioVoicePopUp = ({ setOpenAddVoice, setOpenBioVoicePopUp }) => {
 
@@ -11,12 +12,8 @@ const bioVoicePopUp = ({ setOpenAddVoice, setOpenBioVoicePopUp }) => {
     }, [])
 
     const deleteVoice = async () => {
-        const formData = new FormData();
-        formData.append('descriptionVoice', {
-            uri: null,
-            type: 'image/png', // ya da 'image/png'
-            name: 'profilePhoto.png',
-        });
+        await removeUserFiles({ type: "descriptionVoice" })
+
         setOpenBioVoicePopUp(false);
     }
 
