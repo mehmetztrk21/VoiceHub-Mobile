@@ -139,7 +139,7 @@ export default function EditProfile({ navigation }) {
 
 
           <View style={{ marginVertical: "3%", marginHorizontal: "10%" }}>
-            {!user?.descriptionVoiceInfo ? (
+            {user?.descriptionVoiceUrl != null ? (
               <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
                 <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
                 <Slider />
