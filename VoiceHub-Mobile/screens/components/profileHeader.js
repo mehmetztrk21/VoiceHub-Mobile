@@ -14,10 +14,10 @@ const profileHeader = ({ navigation, pressLogo }) => {
     <View style={profileHeaderStyle.wrapper}>
       <View style={profileHeaderStyle.aHeadView}>
         <View style={profileHeaderStyle.leftTop}>
-          <TouchableOpacity onPress={pressLogo} style={{ flexDirection: "row" }}>
+          <TouchableOpacity onPress={pressLogo} style={{ flexDirection: "row", alignItems: "center" }}>
             <Text style={profileHeaderStyle.head}>{user?.username}</Text>
 
-            {user?.isTic==true ? (
+            {user?.isTic == true ? (
               <Image source={verfy} style={profileHeaderStyle.ver} />
             ) : null}
           </TouchableOpacity>
