@@ -84,7 +84,10 @@ export default function EditProfile({ navigation }) {
         <View style={{ flexDirection: "column", marginTop: width * 0.07 }}>
           <View>
             <TouchableOpacity style={editProfileStyle.ppView} onPress={() => { setOpenProfilePhotoPopUp(true) }}>
-              <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} />
+              {user?.profilePhotoUrl ?
+                <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} /> :
+                <Image source={require('../../assets/avatar.png')} style={editProfileStyle.profilePhoto} />
+              }
               <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
             </TouchableOpacity>
           </View>
