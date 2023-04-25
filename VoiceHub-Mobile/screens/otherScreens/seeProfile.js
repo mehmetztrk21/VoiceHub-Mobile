@@ -200,11 +200,7 @@ export default function SeeProfile({ navigation, route }) {
                         }
                     </View>
                     :
-                    <View>
-                        <Text>Bu Hesap Gizli</Text>
-
-                        <Icon type={"font-awesome"} name={"lock"} />
-                    </View>
+                    <DontShowPosts/>
                 }
             </ScrollView>
 
