@@ -118,7 +118,7 @@ export default function SeeProfile({ navigation, route }) {
                         </View>
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
-                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", thisUser: user }); }}>
+                            onPress={() => { user?.isSecretAccount == false ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: user }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(user?.followers?.length)}
                             </Text>
@@ -126,7 +126,7 @@ export default function SeeProfile({ navigation, route }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
-                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", thisUser: user }); }}>
+                            onPress={() => { user?.isSecretAccount == false ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: user }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(user?.followings?.length)}
                             </Text>
@@ -172,9 +172,10 @@ export default function SeeProfile({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
             </View>
-
             {/* Posts */}
-            <ScrollView
+
+
+            < ScrollView
                 showsVerticalScrollIndicator={false}
                 style={seeProfileStyles.scroll}
                 ref={scrollViewRef}
@@ -183,20 +184,28 @@ export default function SeeProfile({ navigation, route }) {
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                 }
             >
-                <View style={[seeProfileStyles.postView, { backgroundColor: colors.green }]}>
-                    {true ? (
-                        posts?.length > 0 ? (
-                            <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={user} />
+                {user?.isSecretAccount == false ?
+                    <View style={[seeProfileStyles.postView, { backgroundColor: colors.green }]}>
+                        {true ? (
+                            posts?.length > 0 ? (
+                                <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={user} />
+                            ) :
+                                <Text style={
+                                    { marginTop: "5%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
+                                }>
+                                    {"You have not post anyone yet :("}
+                                </Text>
                         ) :
-                            <Text style={
-                                { marginTop: "5%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
-                            }>
-                                {"You have not post anyone yet :("}
-                            </Text>
-                    ) :
-                        <DontShowPosts />
-                    }
-                </View>
+                            <DontShowPosts />
+                        }
+                    </View>
+                    :
+                    <View>
+                        <Text>Bu Hesap Gizli</Text>
+
+                        <Icon type={"font-awesome"} name={"lock"} />
+                    </View>
+                }
             </ScrollView>
 
             {
