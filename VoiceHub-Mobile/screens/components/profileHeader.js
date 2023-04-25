@@ -10,10 +10,6 @@ import { useUser } from '../../utils/userContext';
 const profileHeader = ({ navigation, pressLogo }) => {
   const { user } = useUser();
 
-  useEffect(() => {
-    console.log(user)
-  }, [])
-
   return (
     <View style={profileHeaderStyle.wrapper}>
       <View style={profileHeaderStyle.aHeadView}>

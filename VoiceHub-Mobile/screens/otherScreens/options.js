@@ -17,16 +17,14 @@ const Options = ({ navigation }) => {
     const [password2, setPassword2] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    const [isSecret, setIsSecret] = useState(false);
+    const [isSecret, setIsSecret] = useState(user?.isSecretAccount);
 
     const toggleSwitch = async () => {
         setIsSecret(previousState => !previousState);
-        if (isSecret == true) {
-            await updateUserInfo({ isSecretAccount: isSecret })
-        }
-        else {
+        const formData = new FormData();
+        formData.append("isSecretAccount", isSecret);
+        await updateUserInfo(formData)
 
-        }
     }
 
 

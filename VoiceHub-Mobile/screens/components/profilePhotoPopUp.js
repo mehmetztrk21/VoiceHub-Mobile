@@ -45,8 +45,6 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
             name: 'profilePhoto.png',
         });
 
-        console.log(formData)
-        console.log(image)
         const response = await updateUserInfo(formData)
         if (response && response.success) {
             console.log(response)
