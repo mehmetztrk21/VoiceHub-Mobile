@@ -14,6 +14,7 @@ import addVoiceStyle from "../../assets/styles/addVoice.style";
 import { createComment } from "../../services/commentServices";
 import { recordingOptions } from '../../utils/recordingOptions';
 import { timeFormatText } from "../../utils/timeFormatText";
+import { updateUserInfo } from "../../services/userServices";
 
 export default function AddVoice({ title, postId }) {
   const [isRunning, setIsRunning] = useState(false);
@@ -117,13 +118,13 @@ export default function AddVoice({ title, postId }) {
     }
 
     else if (title == "bio") {
-      formData.append('bio', {
+      formData.append('descriptionVoice', {
         uri: info.uri,
         name: `recording-${Date.now()}.mpeg`,
         type: 'audio/mpeg',
       });
 
-      const response = await createPost(formData);
+      await updateUserInfo(formData);
     }
     else {
       console.error("type not found")

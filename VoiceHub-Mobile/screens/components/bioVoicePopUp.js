@@ -10,8 +10,13 @@ const bioVoicePopUp = ({ setOpenAddVoice, setOpenBioVoicePopUp }) => {
         setOpenAddVoice(false);
     }, [])
 
-    const deleteVoice = () => {
-        //continue
+    const deleteVoice = async () => {
+        const formData = new FormData();
+        formData.append('descriptionVoice', {
+            uri: null,
+            type: 'image/png', // ya da 'image/png'
+            name: 'profilePhoto.png',
+        });
         setOpenBioVoicePopUp(false);
     }
 
