@@ -22,6 +22,7 @@ import Upload from "./screens/otherScreens/upload";
 import SeeLikes from "./screens/otherScreens/seeLikes";
 import SeeProfile from "./screens/otherScreens/seeProfile";
 import Options from "./screens/otherScreens/options";
+import { UserProvider } from "./utils/userContext";
 
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ const screenOptions = {
 
 const SignedInStack = () => (
   <NavigationContainer>
+    <UserProvider>
     <Stack.Navigator
       initialRouteName="Login"
       screenOptions={screenOptions}
@@ -55,6 +57,7 @@ const SignedInStack = () => (
       <Stack.Screen name="Options" component={Options} />
       <Stack.Screen name="SeeProfile" component={SeeProfile} />
     </Stack.Navigator>
+    </UserProvider>
   </NavigationContainer>
 )
 

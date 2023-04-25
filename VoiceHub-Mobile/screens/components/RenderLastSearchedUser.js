@@ -8,9 +8,8 @@ import RenderLastSearchedUserStyle from "../../assets/styles/RenderLastSearchedU
 const RenderLastSearchedUser = ({ navigation, users }) => {
 
   return users?.map((item, index) => (
-    <TouchableOpacity style={RenderLastSearchedUserStyle.last} key={index}
-      onPress={() => navigation.navigate("SeeProfile", { userId: item.id })}>
-      <TouchableOpacity style={{ flexDirection: "row" }}
+    <View>
+      <TouchableOpacity style={RenderLastSearchedUserStyle.last} key={index}
         onPress={() => navigation.navigate("SeeProfile", { userId: item.id })}>
         <Image source={item.userPic} style={RenderLastSearchedUserStyle.lastSearchImage} />
         <View style={{ flexDirection: "column" }}>
@@ -21,7 +20,7 @@ const RenderLastSearchedUser = ({ navigation, users }) => {
       <TouchableOpacity style={RenderLastSearchedUserStyle.closeButtonTouch}>
         <Icon type="font-awesome" size={20} name={"times"} color={colors.gray} />
       </TouchableOpacity>
-    </TouchableOpacity>
+    </View>
   ));
 }
 

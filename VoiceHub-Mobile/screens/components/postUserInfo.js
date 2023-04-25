@@ -2,35 +2,40 @@ import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
-import ver from "../../assets/ver.png"
+import ver from "../../assets/ver.png";
 import { timeAgoText } from "../../utils/timeAgoText";
-
+import { useUser } from "../../utils/userContext";
+import { baseURL } from "../../utils/constants";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id, isVerify }) {
+        date, id, isTic, userInfo }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
+    const { user } = useUser();
 
     useEffect(() => {
-
-
-
         setDifferenceInDays(timeAgoText(date));
     }, []);
-
 
     return (
         <View style={postUserInfoStyle.postUser}>
 
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
-                onPress={() => { navigation.navigate("SeeProfile", { userId: userId, }); }}>
-                <Image style={postUserInfoStyle.userpostImg} source={{ uri: userPic }} />
+                onPress={() => {
+                    if (HeaderTitle != 'ProfileScreen')
+                        user._id != userId ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen", { username: username })
+                }
+                }>
+                {userPic == null || userPic == baseURL + null || userPic == baseURL ?
+                    <Image source={require("../../assets/avatar.png")} style={postUserInfoStyle.userpostImg} /> :
+                    <Image style={postUserInfoStyle.userpostImg} source={{ uri: userPic }} />
+                }
 
                 <View style={{ flexDirection: "column" }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Text style={postUserInfoStyle.username}>{username}</Text>
-                        {isVerify ? (
+                        {isTic ? (
                             <Image style={{ width: 14, height: 14, marginLeft: 4 }} source={ver} />
                         ) : null}
                     </View>
@@ -50,7 +55,6 @@ export default function PostUserInfo(
                     </TouchableOpacity>
                 ) : null}
             </View>
-
         </View>
     );
 }

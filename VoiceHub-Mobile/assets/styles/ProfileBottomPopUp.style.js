@@ -25,11 +25,13 @@ export default StyleSheet.create({
         shadowRadius: 4,
         elevation: 10,
     },
-    button: {
-        fontSize: 16,
+    text: {
+        fontSize: 15,
         fontWeight: "700",
-        paddingVertical: 5,
+        paddingBottom: 5,
+        paddingHorizontal: 5,
         textAlign: "center",
         color: colors.white,
     },
+
 })

@@ -11,11 +11,15 @@ import followFollowerStyle from "../../assets/styles/follow&follower.style";
 import ver from "../../assets/ver.png";
 import { baseURL } from "../../utils/constants";
 import Loading from "../components/loading";
+import { useUser } from "../../utils/userContext";
 
 const { width } = Dimensions.get("window");
 
 const FollowFollower = ({ navigation, route }) => {
-    const { title, user } = route.params;
+    const { title, thisUser } = route.params;
+    //thisUser is navigation user
+
+    const { user } = useUser();//logined user
 
     const scrollViewRef = useRef();
     const handleLayout = () => {
@@ -37,9 +41,8 @@ const FollowFollower = ({ navigation, route }) => {
 
     useEffect(() => {
         setLoading(true);
-
         if (title == "Followings") {
-            getFollowings({ userId: user?._id }).then((res) => {
+            getFollowings({ userId: thisUser?._id }).then((res) => {
                 setFollowings(res?.data);
                 setLoading(false);
             }).catch((err) => {
@@ -49,26 +52,25 @@ const FollowFollower = ({ navigation, route }) => {
             })
         }
         else if (title == "Followers") {
-            getFollowers({ userId: user?._id }).then((res) => {
+            getFollowers({ userId: thisUser?._id }).then((res) => {
                 setFollowers(res?.data);
                 setLoading(false);
 
             }).catch((err) => {
                 console.log(err);
                 setLoading(false);
-
             })
         }
         else {
             //empty
         }
-    }, [])
+    }, [thisUser])
 
     if (loading) return <Loading />
 
     return (
         <SafeAreaView style={followFollowerStyle.container}>
-            <OtherHeader HeaderTitle={title} navigation={navigation} />
+            <OtherHeader HeaderTitle={title} navigation={navigation} isTic={false} />
             <View style={{ marginTop: width * 0.07, backgroundColor: colors.white }}>
                 <View style={[followFollowerStyle.searchBarHolder, { marginBottom: width * 0.07 }]}>
                     <TextInput
@@ -103,25 +105,37 @@ const FollowFollower = ({ navigation, route }) => {
                             return (
                                 <View style={followFollowerStyle.item} key={index} >
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
-                                        onPress={() => navigation.navigate("SeeProfile", { userId: user?._id })}>
-                                        <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={followFollowerStyle.profileImage} />
+                                        onPress={() => {
+                                            item?._id == user?._id ?
+                                                navigation.navigate("ProfileScreen", { userId: user?._id }) :
+                                                navigation.navigate("SeeProfile", { userId: item?._id })
+                                        }}>
+
+                                        {item?.profilePhotoUrl ?
+                                            <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} /> :
+                                            <Image source={require("../../assets/avatar.png")} style={followFollowerStyle.profileImage} />
+                                        }
+
+
                                         <Text style={followFollowerStyle.username}>{item.username}</Text>
-                                        {true ? (
+                                        {item?.isTic ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>
 
-                                    <TouchableOpacity style={{
-                                        width: "30%",
-                                        alignItems: "center",
-                                        padding: "2%",
-                                        backgroundColor: colors.green,
-                                        borderRadius: 12.5,
-                                    }}>
-                                        <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                            {FollowFollowerButtonText(title, item, user?._id)}
-                                        </Text>
-                                    </TouchableOpacity>
+                                    {user?._id != thisUser?.id ?
+                                        <TouchableOpacity style={{
+                                            width: "30%",
+                                            alignItems: "center",
+                                            padding: "2%",
+                                            backgroundColor: colors.green,
+                                            borderRadius: 12.5,
+                                        }}>
+                                            <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
+                                                {FollowFollowerButtonText("FollowFollower", item?._id, item?.followings, thisUser?._id)}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        : null}
                                 </View>
                             )
                         })
@@ -130,25 +144,31 @@ const FollowFollower = ({ navigation, route }) => {
                             return (
                                 <View style={followFollowerStyle.item} key={index} >
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
-                                        onPress={() => navigation.navigate("SeeProfile", { userId: user?._id })}>
+                                        onPress={() => {
+                                            item?._id == user?._id ?
+                                                navigation.navigate("ProfileScreen", { userId: user?._id }) :
+                                                navigation.navigate("SeeProfile", { userId: item?._id })
+                                        }}>
                                         <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />
                                         <Text style={followFollowerStyle.username}>{item.username}</Text>
-                                        {true ? (
+                                        {item?.isTic ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>
 
-                                    <TouchableOpacity style={{
-                                        width: "30%",
-                                        alignItems: "center",
-                                        padding: "2%",
-                                        backgroundColor: colors.green,
-                                        borderRadius: 12.5,
-                                    }}>
-                                        <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                            {FollowFollowerButtonText(title, item, user?._id)}
-                                        </Text>
-                                    </TouchableOpacity>
+                                    {user?._id == thisUser?.id ?
+                                        <TouchableOpacity style={{
+                                            width: "30%",
+                                            alignItems: "center",
+                                            padding: "2%",
+                                            backgroundColor: colors.green,
+                                            borderRadius: 12.5,
+                                        }}>
+                                            <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600" }}>
+                                                {FollowFollowerButtonText("FollowFollower", item?.followers, item?._id, thisUser?._id)}
+                                            </Text>
+                                        </TouchableOpacity>
+                                        : null}
                                 </View>
                             )
                         })

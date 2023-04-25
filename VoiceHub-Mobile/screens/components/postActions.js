@@ -2,49 +2,63 @@ import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
-
+import { useUser } from "../../utils/userContext"
 import { setLikedPost, setSavedPost } from '../../services/actionServices'
 
 import postActionsStyle from "../../assets/styles/postActions.style";
-import { baseURL } from "../../utils/constants";
 
 export default function postActions(
-  { navigation, posts, likesCount, commentCount, postId }) {
+  { navigation, posts, likes, commentCount, postId }) {
+  const { user } = useUser();
 
   const [liked, setLiked] = useState(false)
-  const [likeCount, setLikeCount] = useState(likesCount);
+  const [likeCount, setLikeCount] = useState(likes?.length);
   const [saved, setSaved] = useState(false)
+
+  useEffect(() => {
+    if (likes?.includes(user?._id)) {
+      setLiked(true);
+    }
+    else{
+      setLiked(false);
+    }
+
+    if (user?.savedPosts?.includes(postId)) {
+      setSaved(true);
+    }
+    else{
+      setSaved(false);
+    }
+  }, [])
+
+  
 
   const postLiked = async () => {
     setLiked(prev => {
       if (!prev == true) {
         console.log("beğenildi");
-
+        setLikeCount(prev => prev + 1);
       }
       else {
         console.log("beğenme geri çekildi");
+        setLikeCount(prev => prev - 1);
 
       }
       return !prev;
     })
-
     await setLikedPost({ postId: postId });
-
   };
 
   const postSave = async () => {
     setSaved(prev => {
       if (!prev == true) {
         console.log("kaydedildi");
-
       }
       else {
         console.log("kaydetme geri çekildi");
-
       }
       return !prev;
     })
-
     await setSavedPost({ postId: postId });
   };
 
@@ -52,13 +66,13 @@ export default function postActions(
     <View style={postActionsStyle.postActions}>
       {/* Likes */}
       {liked == true ? (
-        <View style={{ flexDirection: "row", }}>
+        <View style={{ flexDirection: "row" }}>
           <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
             <Icon type="font-awesome" size={20} name={"heart"} color={colors.green} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes")}>
-            {true ? (
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { likes: likes })}>
+            {posts?.isLikesVisible == true ? (
               <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
                 {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Text>
@@ -73,8 +87,8 @@ export default function postActions(
             <Icon type="font-awesome" size={20} name={"heart-o"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes")}>
-            {true ? (
+          <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { likes: likes })}>
+            {posts?.isLikesVisible == true ? (
               <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
                 {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Text>

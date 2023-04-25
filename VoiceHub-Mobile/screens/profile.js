@@ -1,10 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
-  Dimensions,
-  Image, Modal,
-  RefreshControl,
-  SafeAreaView, ScrollView, Text, TouchableOpacity,
-  View
+  Dimensions, Image, Modal,
+  RefreshControl, SafeAreaView, ScrollView, Text,
+  TouchableOpacity, View,
 } from "react-native";
 
 import colors from "../assets/colors";
@@ -13,15 +11,16 @@ import profileStyles from "../assets/styles/profile.style";
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import EditPostPopUp from "./components/editPostPopUp";
-import PopUp from "./components/popUp";
+import PopUp from "./components/ProfileBottomPopUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import RenderPost from "./components/RenderPost";
 
 import { getMyPosts } from "../services/postServices";
 import { baseURL } from "../utils/constants";
-import { getUserInfo } from "../utils/getUserInfo";
 import Loading from "./components/loading";
+import { followerCountFormatText } from "../utils/followerCountFormatText";
+import { useUser } from "../utils/userContext";
 
 const { width } = Dimensions.get("window");
 
@@ -35,7 +34,7 @@ export default function ProfileScreen({ navigation, route }) {
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const [user, setUser] = useState({});
+  const { user } = useUser();
   const [posts, setPosts] = useState([]);
 
   const pullThePage = () => {
@@ -45,8 +44,13 @@ export default function ProfileScreen({ navigation, route }) {
       setRefreshing(false);
     }, 800)
   }
+  const scrollViewRef = useRef();
 
-  const getPosts = async (res) => {
+  const handleScrollToTop = () => {
+    scrollViewRef.current.scrollTo({ y: 0, animated: true })
+  };
+
+  const getPosts = async () => {
     setLoading(true);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
@@ -56,15 +60,13 @@ export default function ProfileScreen({ navigation, route }) {
           contentUrl: item.contentUrl,
           categories: item.categories,
           comments: item.comments,
-          username: res?.username,
+          username: user?.username,
           createdBy: item.createdBy,
           createdAt: item.createdAt,
-          userPic: baseURL + res?.profilePhotoUrl,
-          likesCount: 1451,
-          showLike: true,
-          isSaved: false,
+          userPic: baseURL + user?.profilePhotoUrl,
+          likes: item.likes,
+          isLikesVisible: item.isLikesVisible,
           isLiked: true,
-          commentCount: 12,
         }
       })
       setPosts(temp);
@@ -74,25 +76,36 @@ export default function ProfileScreen({ navigation, route }) {
 
   useEffect(() => {
     setLoading(true);
-    getUserInfo().then(async (res) => {
-      setUser(res);
-      await getPosts(res);
-    });
+    getPosts();
+
   }, [])
 
-  if (loading) return <Loading />
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} userId={posts?._id} username={user?.username} isVerify={user?.isTic} />
+      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} />
+
+      <Modal
+        visible={visiblePopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setVisiblePopUp(false)
+        }}>
+        <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
+          setVisiblePopUp={setVisiblePopUp} />
+      </Modal>
 
       <Modal
         animationType="slide"
         transparent={true}
         visible={openAreYouSure}
         onRequestClose={() => {
-          setOpenAreYouSure(!openAreYouSure);
+          setOpenAreYouSure(false);
         }}
       >
         <AreYouSure process={"LogOut"} navigation={navigation}
@@ -103,9 +116,7 @@ export default function ProfileScreen({ navigation, route }) {
         animationType="slide"
         transparent={true}
         visible={openEditPostPopUp ? true : false}
-        onRequestClose={() => {
-          setOpenEditPostPopUp(false);
-        }}
+        onRequestClose={() => { setOpenEditPostPopUp(false) }}
       >
         <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} />
       </Modal>
@@ -114,7 +125,13 @@ export default function ProfileScreen({ navigation, route }) {
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
-          <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} />
+          <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
+            {user?.profilePhotoUrl ?
+              < Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} /> :
+              <Image source={require('../assets/avatar.png')} style={profileStyles.userPic} />
+            }
+          </TouchableOpacity>
+
           <View style={profileStyles.followContents}>
 
             <View style={profileStyles.postCount}>
@@ -123,25 +140,17 @@ export default function ProfileScreen({ navigation, route }) {
             </View>
 
             <TouchableOpacity style={profileStyles.followerCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", thisUser: user }); }}>
               <Text style={profileStyles.fNumber}>
-                {
-                  user["followers"]?.length >= 1000000 ? `${Math.floor(user["followers"]?.length / 1000000)},${Math.floor((user["followers"]?.length) / 100000)}M`
-                    : user["followers"]?.length >= 1000 ? `${Math.floor(user["followers"]?.length / 1000)},${Math.floor((user["followers"]?.length) / 100)}K`
-                      : user["followers"]?.length
-                }
+                {followerCountFormatText(user?.followers?.length)}
               </Text>
               <Text style={profileStyles.fText}>Followers</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={profileStyles.followCount}
-              onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
+              onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", thisUser: user }); }}>
               <Text style={profileStyles.fNumber}>
-                {
-                  user["followings"]?.length >= 1000000 ? `${Math.floor(user["followings"]?.length / 1000000)}M`
-                    : user["followings"]?.length >= 1000 ? `${Math.floor(user["followings"]?.length / 1000)},${Math.floor((user["followings"]?.length % 1000) / 100)}K`
-                      : user["followings"]?.length
-                }
+                {followerCountFormatText(user?.followings?.length)}
               </Text>
               <Text style={profileStyles.fText}>Following</Text>
             </TouchableOpacity>
@@ -171,11 +180,11 @@ export default function ProfileScreen({ navigation, route }) {
       {/* Posts */}
       <ScrollView
         showsVerticalScrollIndicator={false}
+        ref={scrollViewRef}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }
-        style={[profileStyles.scroll,
-        visiblePopUp == true ? (profileStyles.popUpMargin) : null]}
+        style={profileStyles.scroll}
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
           {posts?.length > 0 ? (
@@ -199,10 +208,6 @@ export default function ProfileScreen({ navigation, route }) {
           }
         </View>
       </ScrollView>
-
-      {visiblePopUp == true ? (
-        <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
-      ) : null}
 
       <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>

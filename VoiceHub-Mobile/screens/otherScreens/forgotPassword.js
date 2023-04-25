@@ -10,7 +10,7 @@ const { height } = Dimensions.get("window");
 
 export default function ForgotPassword({ navigation }) {
 
-    const [username, setusername] = useState("");
+    const [username, setUsername] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
 
@@ -19,7 +19,7 @@ export default function ForgotPassword({ navigation }) {
             if (password1.length, password2.length != 0) {
                 if (password1.length, password2.length >= 8) {
                     if (username.length >= 3) {
-                        navigation.navigate("HomeScreen", { username })
+                        navigation.navigate("HomeScreen")
                     }
                     else {
                         alert("kullanıcı adı en az 3 karakter olmalı");
@@ -56,7 +56,7 @@ export default function ForgotPassword({ navigation }) {
                     style={forgotPasswordStyle.input}
                     maxLength={18}
                     value={username}
-                    onChangeText={username => setusername(username)}
+                    onChangeText={username => setUsername(username)}
                 />
 
                 <Text style={forgotPasswordStyle.label}>New Password</Text>

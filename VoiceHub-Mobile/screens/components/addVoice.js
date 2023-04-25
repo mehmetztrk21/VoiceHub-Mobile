@@ -13,6 +13,7 @@ import addVoiceStyle from "../../assets/styles/addVoice.style";
 
 import { createComment } from "../../services/commentServices";
 import { recordingOptions } from '../../utils/recordingOptions';
+import { timeFormatText } from "../../utils/timeFormatText";
 
 export default function AddVoice({ title, postId }) {
   const [isRunning, setIsRunning] = useState(false);
@@ -154,15 +155,8 @@ export default function AddVoice({ title, postId }) {
               style={{ width: 50, height: 50, borderRadius: 25, marginRight: "3%" }} />
           ) : null}
 
-          {(Math.floor(seconds / 60) < 10 && (seconds % 60) < 10) ? (
-            <Text style={addVoiceStyle.time}>0{(Math.floor(seconds / 60)) + ':0' + (seconds % 60)}</Text>
-          ) : (Math.floor(seconds / 60) < 10 && (seconds % 60) >= 10) ? (
-            <Text style={addVoiceStyle.time}>0{(Math.floor(seconds / 60)) + ':' + (seconds % 60)}</Text>
-          ) : (Math.floor(seconds / 60) >= 10 && (seconds % 60) >= 10) ? (
-            <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60)) + ':' + (seconds % 60)}</Text>
-          ) : (Math.floor(seconds / 60) >= 10 && (seconds % 60) < 10) ? (
-            <Text style={addVoiceStyle.time}>{(Math.floor(seconds / 60)) + ':0' + (seconds % 60)}</Text>
-          ) : null}
+          <Text style={addVoiceStyle.time}>{timeFormatText(seconds)}</Text>
+
           {isRunning == true ? (
             <Image
               source={waweGif}

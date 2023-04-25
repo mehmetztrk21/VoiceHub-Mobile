@@ -8,7 +8,7 @@ export default StyleSheet.create({
     top: 0,
     zIndex: 999,
     backgroundColor: colors.white,
-    
+
   },
   aHeadView: {
     left: 0,
@@ -17,13 +17,13 @@ export default StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    
+
   },
   leftTop: {
     flexDirection: "row",
     alignItems: "center",
   },
-  BackButton:{
+  BackButton: {
     paddingLeft: 10,
   },
   rightTop: {
@@ -39,6 +39,7 @@ export default StyleSheet.create({
   ver: {
     height: 22,
     width: 22,
+    marginLeft: 3,
   },
   pactions: {
     paddingRight: 15,

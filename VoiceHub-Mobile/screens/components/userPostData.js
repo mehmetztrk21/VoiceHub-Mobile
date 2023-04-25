@@ -12,7 +12,7 @@ const userPostData = [
     showLike: false,
     isSaved: false,
     isLiked: true,
-    commentCount: 12,
+    
 
   },
   {

@@ -10,7 +10,7 @@ import searchStyles from "../assets/styles/search.style";
 
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
-import PopUp from "./components/popUp";
+import PopUp from "./components/ProfileBottomPopUp";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
@@ -18,7 +18,6 @@ import SearchHeader from "./components/SearchHeader";
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
 import { baseURL } from "../utils/constants";
-import { getUserInfo } from "../utils/getUserInfo";
 import Loading from "./components/loading";
 const { width } = Dimensions.get("window");
 
@@ -81,11 +80,10 @@ export default function SearchScreen({ navigation, route }) {
           createdBy: item.createdBy,
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
-          likesCount: 1451,
-          showLike: true,
-          isSaved: false,
+          likes: item.likes,
+          isLikesVisible: item.isLikesVisible,
           isLiked: true,
-          commentCount: 12,
+
         }
       })
       setPosts(temp);
@@ -111,11 +109,10 @@ export default function SearchScreen({ navigation, route }) {
       let temp = response.data.map((item) => {
         return {
           id: item._id,
-          name: item.name,
           username: item.username,
           userPic: baseURL + item.profilePhotoUrl,
           isSecretAccount: item.isSecretAccount,
-          isVerify: item.isTic,
+          isTic: item.isTic,
         }
       })
       setUsers(temp);
@@ -124,6 +121,7 @@ export default function SearchScreen({ navigation, route }) {
 
   useEffect(() => {
     getCategories();
+    setVisiblePopUp(false);
   }, []);
 
   useEffect(() => {
@@ -142,44 +140,73 @@ export default function SearchScreen({ navigation, route }) {
     <SafeAreaView style={searchStyles.container}>
 
       <SearchHeader pressLogo={handleScrollToTop} />
+
+      <Modal
+        visible={visiblePopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setVisiblePopUp(false)
+        }}>
+        <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
+          setVisiblePopUp={setVisiblePopUp} />
+      </Modal>
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={openAreYouSure}
         onRequestClose={() => {
-          setOpenAreYouSure(!openAreYouSure);
+          setOpenAreYouSure(false);
         }}
       >
         <AreYouSure process={"LogOut"} navigation={navigation}
           setOpenAreYouSure={setOpenAreYouSure} />
       </Modal>
+
       <View style={searchStyles.searchBarHolder}>
         {focused ? (
-          <View style={{ flexDirection: "row", alignItems: "center", width: width, justifyContent: "center" }}>
+          <View style={{
+            backgroundColor: "lightgray",
+            borderRadius: 25,
+            paddingHorizontal: "3%",
+            width: "90%",
+            marginLeft: "5%",
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}>
+
             {/* Search Bar */}
             < TextInput
               placeholder="Search"
-              style={[searchStyles.searchBar, { width: width * 0.78 }]}
-              onChangeText={(e) => console.log(e)}
+              style={[searchStyles.searchBar, { width: "90%" }]}
+              onChangeText={searchQuery => setSearchQuery(searchQuery)}
               value={searchQuery}
             />
 
             {/* Close Button */}
             <TouchableOpacity onPress={() => setFocused(false)}
               style={searchStyles.closeButtonTouch}>
-              <Icon type="font-awesome" size={28} name={"times"}
-                style={searchStyles.closeButton} color={colors.green} />
+              <Icon type="font-awesome" size={20} name={"times"} color={colors.green} />
             </TouchableOpacity>
           </View>
         ) :
           <View style={{ flexDirection: "column" }}>
-            < TextInput
-              placeholder="Search"
-              style={[searchStyles.searchBar, { width: width * 0.9, marginLeft: width * 0.05 }]}
-              onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
-              value={searchQuery}
-              onFocus={() => setFocused(true)}
-            />
+            <View style={{
+              backgroundColor: "lightgray",
+              borderRadius: 25,
+              paddingHorizontal: "3%",
+              width: "90%",
+              marginLeft: "5%",
+            }}>
+              < TextInput
+                placeholder="Search"
+                style={[searchStyles.searchBar, { width: "90%", }]}
+                onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
+                value={searchQuery}
+                onFocus={() => setFocused(true)}
+              />
+            </View>
 
             {/* CATEGORIES */}
             <ScrollView ref={categoryScrollViewRef}
@@ -192,7 +219,7 @@ export default function SearchScreen({ navigation, route }) {
                 selectedCategory == "all" ? {
                   borderWidth: 2, borderColor: colors.green,
                   backgroundColor: colors.white, color: colors.green
-                } : { backgroundColor: colors.green, color: colors.white }]}>#all</Text>
+                } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#all</Text>
 
               </TouchableOpacity>
 
@@ -205,7 +232,7 @@ export default function SearchScreen({ navigation, route }) {
                       selectedCategory == item._id ? {
                         borderWidth: 2, borderColor: colors.green,
                         backgroundColor: colors.white, color: colors.green
-                      } : { backgroundColor: colors.green, color: colors.white }]}>#{item._id}</Text>
+                      } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#{item._id}</Text>
 
                     </TouchableOpacity>
                   )
@@ -231,10 +258,6 @@ export default function SearchScreen({ navigation, route }) {
           <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />
         }
       </ScrollView>
-
-      {visiblePopUp == true ? (
-        <PopUp navigation={navigation} bottomSize={50} setOpenAreYouSure={setOpenAreYouSure} setVisiblePopUp={setVisiblePopUp} />
-      ) : null}
 
       <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>

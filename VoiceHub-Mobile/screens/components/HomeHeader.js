@@ -1,12 +1,15 @@
 import React from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Image, TouchableOpacity, View } from 'react-native';
 import { Divider, Icon } from "react-native-elements";
+
 import colors from '../../assets/colors';
 import logo from "../../assets/images/VoiceHub-1.png";
 import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
+
 import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
-const HomeHeader = ({ navigation, pressLogo, username, isYourProfile }) => {
+
+const HomeHeader = ({ navigation, pressLogo, username }) => {
 
   return (
     <View style={homeHeaderStyles.wrapper}>

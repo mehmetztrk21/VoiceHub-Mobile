@@ -11,7 +11,7 @@ import userPostData from '../components/userPostData';
 const { width } = Dimensions.get("window");
 
 export default function UserMessage({ navigation, route }) {
-  const { username } = route.params;
+  const { id } = route.params;
 
   const scrollViewRef = useRef(null);
 
@@ -21,10 +21,10 @@ export default function UserMessage({ navigation, route }) {
 
   return (
     <SafeAreaView style={userMessageStyle.container}>
-      <OtherHeader navigation={navigation} HeaderTitle={username}/>
+      <OtherHeader navigation={navigation} HeaderTitle={username} />
       <View style={{ marginTop: width * 0.04 }}>
         <ScrollView style={userMessageStyle.scroll} ref={scrollViewRef} onLayout={handleLayout}>
-          {
+          {userPostData.length != 0 ?
             userPostData.map((item, index) => {
               return (
                 <View key={index} style={{ marginBottom: 20 }}>
@@ -32,6 +32,12 @@ export default function UserMessage({ navigation, route }) {
                 </View>
               )
             })
+            :
+            <View>
+              <Text style={
+                { textAlign: "center", marginTop: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
+              }>You take the first step!</Text>
+            </View>
           }
 
         </ScrollView>

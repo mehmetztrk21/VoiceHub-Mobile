@@ -1,23 +1,28 @@
-export const FollowFollowerButtonText = (title, item, id) => {
+export const FollowFollowerButtonText = (title, followersId, followingsId, id) => {
+    //item.followings.find(i => i?.toString() == id.toString())
 
-    if (title == "Followings") {
-        if (item.followers.find(i => i?.toString() == id.toString())) {
+    if (title == "FollowFollower") {
+        if (followersId == id && followingsId == id) {
             return "Following";
         }
-        else {
+        else if (followersId == id && !(followingsId == id)) {
             return "Following";
         }
-    }
-    else if (title == "Followers") {
-        if (item.followings.find(i => i?.toString() == id.toString())) {
-            return "Following";
-        }
-        else {
+        else if (!(followersId == id) && followingsId == id) {
             return "Follow Too";
         }
+        else if (!(followersId == id) && !(followingsId == id)) {
+            return "Follow";
+        }
+        else {
+            return "hata";
+        }
+    }
+
+    else if (title == "SeeLikes") {
+
     }
     else {
-        return ""
+        return " ";
     }
-    return ""
 }

@@ -3,14 +3,24 @@ import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "re
 
 import loginStyle from "../../assets/styles/login.style";
 
-import { login } from "../../services/authServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Icon } from "react-native-elements";
+import colors from "../../assets/colors";
+import { login } from "../../services/authServices";
+import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
-
 export default function Login({ navigation }) {
-    const [username, setusername] = useState("");
+    const { user, setUser } = useUser()
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const handlePasswordVisibility = () => {
+        setIsPasswordVisible(!isPasswordVisible);
+    };
+
+
     const isLogin = async () => {
         setLoading(true);
         if (username !== "" && password !== "") {
@@ -18,10 +28,10 @@ export default function Login({ navigation }) {
             if (response && response.success) {
                 await AsyncStorage.setItem("token", response.data.accessToken);
                 await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
-
-                setusername("");
+                setUser(response.data.user);
+                setUsername("");
                 setPassword("");
-                navigation.navigate("HomeScreen", { username: username });
+                navigation.navigate("HomeScreen");
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);
@@ -42,7 +52,7 @@ export default function Login({ navigation }) {
         AsyncStorage.getItem("token").then(async (token) => {
             const user = await AsyncStorage.getItem("user");
             if (user) {
-                navigation.navigate("HomeScreen", { username: JSON.parse(user).username })
+                navigation.navigate("HomeScreen");
                 setTimeout(() => {
                     setLoading(false);
                 }, 1000);
@@ -61,15 +71,22 @@ export default function Login({ navigation }) {
             <TextInput
                 style={loginStyle.sbar}
                 value={username}
-                onChangeText={(username) => setusername(username)}
+                onChangeText={(username) => setUsername(username)}
             />
 
             <Text style={loginStyle.label}>Password</Text>
-            <TextInput
-                style={loginStyle.sbar}
-                value={password}
-                onChangeText={(password) => setPassword(password)}
-            />
+            <View style={loginStyle.passwordbar}>
+                <TextInput
+                    style={{ width: "80%" }}
+                    maxLength={18}
+                    value={password}
+                    secureTextEntry={!isPasswordVisible}
+                    onChangeText={password => setPassword(password)}
+                />
+                <TouchableOpacity onPress={handlePasswordVisibility}>
+                    <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
+                </TouchableOpacity>
+            </View>
 
             <TouchableOpacity style={loginStyle.touch} onPress={() => isLogin()}>
                 <Text style={loginStyle.loginButton}>Login</Text>

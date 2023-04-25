@@ -31,7 +31,7 @@ const BottomTabs = ({ navigation, username, setVisiblePopUp }) => {
   return (
     <View style={bottomTabsStyle.wrapper}>
       <View style={bottomTabsStyle.container}>
-        <TouchableOpacity onPress={() => Select("HomeScreen")}>
+        <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
           <Icon size={25} type="font-awesome" name={"home"} color={colors.white} />
         </TouchableOpacity>
 

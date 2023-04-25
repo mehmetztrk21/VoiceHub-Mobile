@@ -35,11 +35,11 @@ export default StyleSheet.create({
         color:colors.white,
         fontSize:26,
         fontWeight:"700",
-        width:"40%",
+        width:"50%",
         padding:5,
-        marginLeft:"30%",
+        marginLeft:"50%",
         borderRadius:26,
-        marginTop:"10%"
+        marginBottom:"20%"
       },
       TextView:{
         marginTop:"2%"

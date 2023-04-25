@@ -8,15 +8,17 @@ import seeProfileStyles from '../../assets/styles/seeProfile.style';
 import verfy from "../../assets/ver.png";
 
 import { Icon } from "react-native-elements";
+
 import DontShowPosts from "../components/DontShowPosts";
 import RenderPost from "../components/RenderPost";
 import AreYouSure from "../components/areYouSure";
 import Post from "../components/post";
 
 import { getMyPosts } from "../../services/postServices";
-import { getUserById } from "../../services/userServices";
 import { baseURL } from "../../utils/constants";
 import Loading from "../components/loading";
+import { getUserById } from "../../services/userServices";
+import { followerCountFormatText } from "../../utils/followerCountFormatText";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -57,11 +59,10 @@ export default function SeeProfile({ navigation, route }) {
                     createdAt: item.createdAt,
                     createdBy: item.createdBy,
                     userPic: baseURL + item.createdBy.profilePhotoUrl,
-                    likesCount: 1451,
-                    commentCount: 12,
+                    likes: item.likes,
                     hasBio: !item.descriptionVoiceUrl ? false : true,
                     descriptionVoiceUrl: item.descriptionVoiceUrl,
-                    isVerify: item.isTic,
+                    isTic: item.isTic,
                     comments: item.comments,
                 }
             })
@@ -89,18 +90,25 @@ export default function SeeProfile({ navigation, route }) {
                     <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
                 </TouchableOpacity>
 
-                <Text style={seeProfileStyles.head}>{user?.username}</Text>
+                <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
+                    <Text style={seeProfileStyles.head}>{user?.username}</Text>
 
-                {user?.isVerify ? (
-                    <Image source={verfy} style={seeProfileStyles.ver} />
-                ) : null}
+                    {user?.isTic ? (
+                        <Image source={verfy} style={seeProfileStyles.ver} />
+                    ) : null}
+                </TouchableOpacity>
             </View>
 
             <View style={{ width: "100%", borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white }}>
 
                 {/* PP, Follow Count,  */}
                 <View style={seeProfileStyles.actView}>
-                    <Image source={{ uri: user?.userPic }} style={seeProfileStyles.userPic} />
+
+                    {user?.profilePhotoUrl ?
+                        <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={seeProfileStyles.userPic} /> : 
+                        <Image source={require("../../assets/avatar.png")} style={seeProfileStyles.userPic} />
+                    }
+
                     <View style={seeProfileStyles.followContents}>
 
                         <View style={seeProfileStyles.postCount}>
@@ -109,25 +117,17 @@ export default function SeeProfile({ navigation, route }) {
                         </View>
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
-                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", user: user }); }}>
+                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", thisUser: user }); }}>
                             <Text style={seeProfileStyles.fNumber}>
-                                {
-                                    user["followers"]?.length >= 1000000 ? `${Math.floor(user["followers"]?.length / 1000000)},${Math.floor((user["followers"]?.length) / 100000)}M`
-                                        : user["followers"]?.length >= 1000 ? `${Math.floor(user["followers"]?.length / 1000)},${Math.floor((user["followers"]?.length) / 100)}K`
-                                            : user["followers"]?.length
-                                }
+                                {followerCountFormatText(user?.followers?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Followers</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
-                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", user: user }); }}>
+                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", thisUser: user }); }}>
                             <Text style={seeProfileStyles.fNumber}>
-                                {
-                                    user["followings"]?.length >= 1000000 ? `${Math.floor(user["followings"]?.length / 1000000)}M`
-                                        : user["followings"]?.length >= 1000 ? `${Math.floor(user["followings"]?.length / 1000)},${Math.floor((user["followings"]?.length % 1000) / 100)}K`
-                                            : user["followings"]?.length
-                                }
+                                {followerCountFormatText(user?.followings?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Following</Text>
                         </TouchableOpacity>
@@ -144,11 +144,26 @@ export default function SeeProfile({ navigation, route }) {
                 {/* Edit Profile Buttons */}
                 <View style={seeProfileStyles.btnHolder}>
                     <TouchableOpacity style={{
-                        width: "80%",
+                        width: "42.5%",
                         alignItems: "center",
                         padding: "2%",
                         backgroundColor: colors.green,
                         borderRadius: 12.5,
+                        marginLeft: "5%"
+                    }}
+                        onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: user?._id }); }}>
+                        <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
+                            Message
+                        </Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{
+                        width: "42.5%",
+                        alignItems: "center",
+                        padding: "2%",
+                        backgroundColor: colors.green,
+                        borderRadius: 12.5,
+                        marginLeft: "5%"
                     }}>
                         <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
                             Follow
@@ -170,7 +185,7 @@ export default function SeeProfile({ navigation, route }) {
                 <View style={[seeProfileStyles.postView, { backgroundColor: colors.green }]}>
                     {true ? (
                         posts?.length > 0 ? (
-                            <RenderPost navigation={navigation} HeaderTitle={'OtherProfiles'} posts={posts} />
+                            <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={user} />
                         ) :
                             <Text style={
                                 { marginTop: "5%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
@@ -183,11 +198,13 @@ export default function SeeProfile({ navigation, route }) {
                 </View>
             </ScrollView>
 
-            {openAreYouSure == true ? (
-                <AreYouSure process={'LogOut'} navigation={navigation}
-                    setOpenAreYouSure={setOpenAreYouSure} />
-            ) : null}
-        </SafeAreaView>
+            {
+                openAreYouSure == true ? (
+                    <AreYouSure process={'LogOut'} navigation={navigation}
+                        setOpenAreYouSure={setOpenAreYouSure} />
+                ) : null
+            }
+        </SafeAreaView >
     );
 }
 

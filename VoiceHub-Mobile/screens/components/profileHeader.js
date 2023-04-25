@@ -5,37 +5,38 @@ import colors from '../../assets/colors';
 
 import profileHeaderStyle from "../../assets/styles/profileHeader.style";
 import verfy from "../../assets/ver.png";
-import { getUserInfo } from '../../utils/getUserInfo';
+import { useUser } from '../../utils/userContext';
 
-const profileHeader = ({ navigation, username, id, isVerify }) => {
-  const [user, setUser] = React.useState({})
+const profileHeader = ({ navigation, pressLogo }) => {
+  const { user } = useUser();
+
   useEffect(() => {
-    getUserInfo().then((res) => {
-      setUser(res)
-    })
+    console.log(user)
   }, [])
+
   return (
     <View style={profileHeaderStyle.wrapper}>
       <View style={profileHeaderStyle.aHeadView}>
         <View style={profileHeaderStyle.leftTop}>
+          <TouchableOpacity onPress={pressLogo} style={{ flexDirection: "row" }}>
+            <Text style={profileHeaderStyle.head}>{user?.username}</Text>
 
-          <Text style={profileHeaderStyle.head}>{username}</Text>
-
-          {isVerify ? (
-            <Image source={verfy} style={profileHeaderStyle.ver} />
-          ) : null}
+            {user?.isTic ? (
+              <Image source={verfy} style={profileHeaderStyle.ver} />
+            ) : null}
+          </TouchableOpacity>
         </View>
 
         <View style={profileHeaderStyle.rightTop}>
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { username: username, HeaderTitle: 'Archived', id: id })}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { username: user?.username, HeaderTitle: 'Archived', id: user?.id })}>
             <Icon type="feather" size={28} name={"archive"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { username: username, HeaderTitle: 'Saved', id: id })}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { username: user?.username, HeaderTitle: 'Saved', id: user?.id })}>
             <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("ActivityScreen", { username: username })}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("ActivityScreen", { username: user?.username })}>
             <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
           </TouchableOpacity>
         </View>

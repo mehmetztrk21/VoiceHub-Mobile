@@ -48,13 +48,14 @@ export default function SavedArchieves({ navigation, route }) {
             id: item._id,
             contentUrl: item.contentUrl,
             categories: item.categories,
-            username: username,
-            createdBy: item.createdBy,
-            createdAt: item.createdAt,
-            userPic: baseURL + item.createdBy.profilePhotoUrl,
-            commentCount: 12,
-            likesCount: 1423,
             comments: item.comments,
+            username: username,
+            createdAt: item.createdAt,
+            createdBy: item.createdBy,
+            userPic: baseURL + item.createdBy.profilePhotoUrl,
+            likes: item.likes,
+            isLikesVisible: item.isLikesVisible,
+            isLiked: true,
           }
         })
         setPosts(temp);
@@ -65,25 +66,19 @@ export default function SavedArchieves({ navigation, route }) {
       if (response && response.success) {
         let temp = response.data.map((item) => {
           return {
+            id: item._id,
             contentUrl: item.contentUrl,
             categories: item.categories,
-            username: "Mehmet",
-            createdBy: item.createdBy,
+            comments: item.comments,
+            username: username,
             createdAt: item.createdAt,
-            userPic: "user1",
-            likesCount: 1451,
-            caption: "Coffee is the most imp part of my life !",
-            type: "sender",
-            visible: true,
-            category: null,
-            showLike: false,
-            isSaved: false,
+            createdBy: item.createdBy,
+            userPic: baseURL + item.createdBy.profilePhotoUrl,
+            likes: item.likes,
+            isLikesVisible: item.isLikesVisible,
             isLiked: true,
-            date: "12/02/2023 12:41",
-            commentCount: 12,
           }
         })
-
         setPosts(temp);
       }
     }
@@ -98,13 +93,17 @@ export default function SavedArchieves({ navigation, route }) {
     getPosts();
   }, [])
 
+  useEffect(() => {
+    getPosts();
+  }, [openArchivePopUp])
+
   if (loading) return <Loading />
 
 
   return (
     <SafeAreaView style={savedStyle.container}>
 
-      <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} />
+      <OtherHeader HeaderTitle={HeaderTitle} navigation={navigation} isTic={false} />
 
       <Modal
         animationType="slide"
@@ -122,7 +121,7 @@ export default function SavedArchieves({ navigation, route }) {
           <Text style={
             { textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
           }>
-            {"You have not archived post anyone yet :("}
+            {"You have not archived post anyone yet."}
           </Text>
         </View>
       ) : (HeaderTitle == "Saved" && posts?.length == 0) ? (

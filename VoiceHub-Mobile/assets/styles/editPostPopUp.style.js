@@ -3,18 +3,34 @@ import colors from "../colors";
 
 export default StyleSheet.create({
     container: {
-        position: "absolute",
-        width: '100%',
-        zIndex: 999,
-        bottom: -2,
-        paddingBottom: 7.5,
+        flex: 1,
+        width: "70%",
+        alignSelf: "center",
+        justifyContent: "center",
     },
-    button: { 
-        fontSize: 15, 
-        fontWeight: "700", 
-        paddingVertical:5,
-        paddingHorizontal:5,
-        textAlign:"center",
+    container2: {
+        width: "100%",
+        alignSelf: "center",
+        justifyContent: "center",
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 20,
+        backgroundColor: colors.green,
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 8,
+        },
+        shadowOpacity: 1,
+        shadowRadius: 4,
+        elevation: 10,
+    },
+    button: {
+        fontSize: 15,
+        fontWeight: "700",
+        paddingBottom: 5,
+        paddingHorizontal: 5,
+        textAlign: "center",
         color: colors.white,
     },
 })

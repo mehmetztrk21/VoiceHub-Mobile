@@ -22,6 +22,7 @@ export default StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 12.5,
   },
+
   scrollContainer: {
     backgroundColor: colors.white,
     width: "100%",
@@ -33,11 +34,12 @@ export default StyleSheet.create({
   },
   SecondText: {
     color: colors.white,
-    fontWeight: "500",
+    fontWeight: "600",
     paddingVertical: 10,
-    borderRadius: 20,
+    borderRadius: 30,
     fontSize: 16,
     textAlign: "center",
+    textAlignVertical: "center",
 
   },
 });

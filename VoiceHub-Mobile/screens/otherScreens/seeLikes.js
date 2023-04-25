@@ -1,20 +1,22 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-    Dimensions, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput,
-    TouchableOpacity, View
+    Dimensions, RefreshControl, SafeAreaView, ScrollView, TextInput, View
 } from "react-native";
-import { FollowFollowerButtonText } from "../../utils/followFollowerButtonText";
 import OtherHeader from "../components/otherHeader";
-import userPostData from "../components/userPostData";
+import LikeItem from "../components/LikeItem";
+
+import { getUserById } from "../../services/userServices";
 
 import colors from "../../assets/colors";
 import seeLikesStyle from "../../assets/styles/seeLikes.style";
-import ver from "../../assets/ver.png";
+import { baseURL } from "../../utils/constants";
 
 const { width } = Dimensions.get("window");
 
 const SeeLikes = ({ navigation, route }) => {
-    const { title } = route.params;
+    const { likes } = route.params;
+
+    const [users, setUsers] = useState([]);
 
     const scrollViewRef = useRef(null);
 
@@ -32,9 +34,23 @@ const SeeLikes = ({ navigation, route }) => {
         }, 800)
     }
 
+    useEffect(() => {
+        if (likes && likes.length) { // added a check here
+            likes.map((item) => {
+                getUserById({ id: item })
+                    .then(async (res) => {
+                        setUsers((prevUsers) => [...prevUsers, res?.data]);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            });
+        }
+    }, []);
+
     return (
-        <SafeAreaView>
-            <OtherHeader HeaderTitle={"Likes"} navigation={navigation} />
+        <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: width }}>
+            <OtherHeader HeaderTitle={"Likes"} navigation={navigation} isTic={false} />
             <View style={{ marginTop: width * 0.05, backgroundColor: colors.white }}>
                 <View style={[seeLikesStyle.searchBarHolder, { marginBottom: width * 0.07 }]}>
                     <TextInput
@@ -47,34 +63,11 @@ const SeeLikes = ({ navigation, route }) => {
                     refreshControl={
                         <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                     } >
-                    {
-                        userPostData.map((item, index) => {
-                            return (
-                                <View style={seeLikesStyle.item} key={index}>
-                                    <TouchableOpacity style={seeLikesStyle.seeProfile}
-                                        onPress={() => navigation.navigate("SeeProfile", { userId: "1" })} >
-                                        <Image source={item.userPic} style={seeLikesStyle.profileImage} />
-                                        <Text style={seeLikesStyle.username}>{item.username}</Text>
-                                        {true ? (
-                                            <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
-                                        ) : null}
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={{
-                                        width: "30%",
-                                        alignItems: "center",
-                                        padding: "2%",
-                                        backgroundColor: colors.green,
-                                        borderRadius: 12.5,
-                                    }}>
-                                        <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                            Follow
-                                        </Text>
-                                    </TouchableOpacity>
-                                </View>
-                            )
-                        })
-                    }
+                    {users?.map((item, index) => {
+                        return (
+                            <LikeItem navigation={navigation} key={index} userId={item._id} profilePhotoUrl={baseURL + item.profilePhotoUrl} username={item.username} isTic={item.isTic} />
+                        )
+                    })}
                 </ScrollView>
             </View>
         </SafeAreaView>

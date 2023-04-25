@@ -6,7 +6,7 @@ export default StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    width: "100%"
+    width: "100%",
   },
 
 
@@ -69,7 +69,8 @@ export default StyleSheet.create({
     paddingBottom: "2%",
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
-    alignItems: "center"
+    alignItems: "center",
+    flexDirection: "row",
   },
   editProfileAndFollow: {
     borderRadius: 25,
@@ -82,7 +83,7 @@ export default StyleSheet.create({
     fontSize: 16,
     color: colors.white,
     alignSelf: "center",
-    fontWeight: "500"
+    fontWeight: "500",
   },
 
 
@@ -106,11 +107,12 @@ export default StyleSheet.create({
   },
   head: {
     fontSize: 22,
-    paddingRight: "4%",
+    paddingRight: "1%",
     fontWeight: "bold",
   },
   ver: {
     height: 22,
     width: 22,
+    alignSelf: "center",
   },
 });
