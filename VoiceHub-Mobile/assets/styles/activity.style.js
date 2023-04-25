@@ -27,16 +27,16 @@ export default StyleSheet.create({
   actText: {
     fontSize: 14,
   },
-  isLiked: true, date:{
-    fontSize:12,
-    color:colors.gray,
-    marginLeft:5,
-    textAlignVertical:"center"
+  date: {
+    fontSize: 12,
+    color: colors.gray,
+    marginLeft: 5,
+    textAlignVertical: "center"
   },
   header: {
     flexDirection: "row",
-    paddingLeft:10,
-    
+    paddingLeft: 10,
+
   },
 
   headerName: {
@@ -49,7 +49,7 @@ export default StyleSheet.create({
   sContainer: {
     backgroundColor: colors.white,
     width: "95%",
-    paddingTop:60,
-    paddingBottom:60,
+    paddingTop: 60,
+    paddingBottom: 60,
   },
 });

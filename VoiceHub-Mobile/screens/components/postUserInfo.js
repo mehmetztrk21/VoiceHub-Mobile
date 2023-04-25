@@ -9,7 +9,7 @@ import { baseURL } from "../../utils/constants";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id, isTic, userInfo }) {
+        date, id, isTic }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
     const { user } = useUser();
@@ -35,9 +35,9 @@ export default function PostUserInfo(
                 <View style={{ flexDirection: "column" }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Text style={postUserInfoStyle.username}>{username}</Text>
-                        {isTic ? (
+                        {isTic == true ?
                             <Image style={{ width: 14, height: 14, marginLeft: 4 }} source={ver} />
-                        ) : null}
+                            : null}
                     </View>
                     <Text style={postUserInfoStyle.timeAgo}>{differenceInDays}</Text>
                 </View>

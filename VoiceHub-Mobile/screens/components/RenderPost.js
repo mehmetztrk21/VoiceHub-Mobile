@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View } from "react-native";
 
 import colors from "../../assets/colors";
@@ -10,7 +10,9 @@ import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
 
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts, user }) => {
-
+  useEffect(()=>{
+    console.log(posts)
+});
   return posts?.map((item, index) => (
     <View style={{
       width: "90%",
@@ -33,7 +35,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
         navigation={navigation} userPic={HeaderTitle == "OtherProfiles" ? baseURL + user?.profilePhotoUrl : item.userPic}
         userId={item.createdBy._id} username={item.username || user?.username} HeaderTitle={HeaderTitle}
         setOpenArchivePopUp={setOpenArchivePopUp} setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date}
-        id={item.id} isTic={user?.isTic} userInfo={user} />
+        id={item.id} isTic={posts?.isTic ? posts?.isTic : user?.isTic} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>

@@ -50,7 +50,7 @@ export default function SearchScreen({ navigation, route }) {
     else {
       console.log("screen type error. Search.js")
       setFocused(false);
-    }
+    }//çok uzun sürecek siktir e
   })
 
   const handleScrollToTop = () => {
@@ -81,12 +81,13 @@ export default function SearchScreen({ navigation, route }) {
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
           likes: item.likes,
+          isTic: item.createdBy.isTic,
           isLikesVisible: item.isLikesVisible,
-          isLiked: true,
 
         }
       })
       setPosts(temp);
+      console.log("kaaaan", temp)
     }
     setLoading(false);
   }

@@ -14,7 +14,7 @@ export default StyleSheet.create({
         fontSize:14.5,
         fontWeight:"800"
     },
-    isLiked: true, date:{
+    date:{
         paddingLeft:5
     }
 });

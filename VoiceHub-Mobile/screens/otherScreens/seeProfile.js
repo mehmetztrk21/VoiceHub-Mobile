@@ -94,7 +94,7 @@ export default function SeeProfile({ navigation, route }) {
                 <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
                     <Text style={seeProfileStyles.head}>{user?.username}</Text>
 
-                    {user?.isTic ? (
+                    {user?.isTic == true ? (
                         <Image source={verfy} style={seeProfileStyles.ver} />
                     ) : null}
                 </TouchableOpacity>

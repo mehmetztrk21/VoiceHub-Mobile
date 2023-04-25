@@ -10,7 +10,7 @@ const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
                 onPress={() => navigation.navigate("SeeProfile", { userId: userId })} >
                 <Image source={{ uri: profilePhotoUrl }} style={seeLikesStyle.profileImage} />
                 <Text style={seeLikesStyle.username}>{username}</Text>
-                {isTic ? (
+                {isTic == true ? (
                     <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                 ) : null}
             </TouchableOpacity>

@@ -118,7 +118,7 @@ const FollowFollower = ({ navigation, route }) => {
 
 
                                         <Text style={followFollowerStyle.username}>{item.username}</Text>
-                                        {item?.isTic ? (
+                                        {item?.isTic==true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>
@@ -151,7 +151,7 @@ const FollowFollower = ({ navigation, route }) => {
                                         }}>
                                         <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />
                                         <Text style={followFollowerStyle.username}>{item.username}</Text>
-                                        {item?.isTic ? (
+                                        {item?.isTic==true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>

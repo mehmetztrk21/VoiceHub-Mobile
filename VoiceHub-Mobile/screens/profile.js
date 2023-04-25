@@ -66,7 +66,6 @@ export default function ProfileScreen({ navigation, route }) {
           userPic: baseURL + user?.profilePhotoUrl,
           likes: item.likes,
           isLikesVisible: item.isLikesVisible,
-          isLiked: true,
         }
       })
       setPosts(temp);
