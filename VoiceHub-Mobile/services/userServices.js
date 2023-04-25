@@ -29,8 +29,11 @@ export const getFollowings = async (data) => {
 }
 
 export const updateUserInfo = async (data) => {
-    return await apiAxios.post("/user/update", data
-    ).then(res => {
+    return await apiAxios.post("/user/update", data, {
+        headers: {
+            "content-type": "multipart/form-data"
+        }
+    }).then(res => {
         return res.data
     }).catch(err => { console.error(err, "Post Services user/update"); return null })
 }
