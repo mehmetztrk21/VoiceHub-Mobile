@@ -6,6 +6,7 @@ import { Icon } from 'react-native-elements'
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 
+import { updateUserInfo } from "../../services/userServices"
 
 import colors from '../../assets/colors'
 import profilePhotoPopUpStyle from '../../assets/styles/bioVoicePopUp.style'
@@ -19,7 +20,6 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
     }
 
     const pickImage = async () => {
-        setOpenProfilePhotoPopUp(false);
 
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -31,8 +31,32 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);
+            save();
         }
     };
+
+    const save = async () => {
+        console.log("save geldi");
+        const formData = new FormData();
+        const info = await FileSystem.getInfoAsync(image);
+        formData.append('profilePhoto', {
+            uri: info.uri,
+            type: 'image/png', // ya da 'image/png'
+            name: 'profilePhoto.png',
+        });
+
+        console.log(formData)
+        console.log(image)
+        const response = await updateUserInfo(formData)
+        if (response && response.success) {
+            console.log(response)
+        }
+        else {
+            console.log("hata")
+        }
+
+        setOpenProfilePhotoPopUp(false);
+    }
 
     return (
         <View style={profilePhotoPopUpStyle.container}>
