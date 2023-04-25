@@ -75,6 +75,7 @@ export default function ProfileScreen({ navigation, route }) {
   }
 
   useEffect(() => {
+    console.log(user);
     setLoading(true);
     getPosts();
 

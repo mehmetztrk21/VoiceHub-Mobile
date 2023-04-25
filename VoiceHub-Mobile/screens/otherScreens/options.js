@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Text, TextInput, View } from 'react-native';
+import { SafeAreaView, Switch, Text, TextInput, View } from 'react-native';
 import colors from '../../assets/colors';
 import OtherHeader from "../components/otherHeader";
 
@@ -7,7 +7,8 @@ import { Dimensions } from "react-native";
 import optionsStyle from '../../assets/styles/options.style';
 import { TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { changePassword } from '../../services/userServices';
+import { changePassword, updateUserInfo } from '../../services/userServices';
+import { user } from "../../utils/userContext"
 const { width } = Dimensions.get("window");
 
 const Options = ({ navigation }) => {
@@ -15,6 +16,19 @@ const Options = ({ navigation }) => {
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const [isSecret, setIsSecret] = useState(false);
+
+    const toggleSwitch = async () => {
+        setIsSecret(previousState => !previousState);
+        if (isSecret == true) {
+            await updateUserInfo({ isSecretAccount: isSecret })
+        }
+        else {
+
+        }
+    }
+
 
     const confirm = async () => {
 
@@ -44,7 +58,19 @@ const Options = ({ navigation }) => {
         <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: '100%' }}>
             <OtherHeader navigation={navigation} HeaderTitle={'Options'} isTic={false} />
 
-            <View style={{ marginTop: "30%" }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignContent: 'center', marginTop: "30%" }}>
+                <Text>Secret Account</Text>
+
+                <Switch
+                    trackColor={{ false: "#767577", true: colors.green }}
+                    thumbColor={"#f4f3f4"}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggleSwitch}
+                    value={isSecret}
+                />
+            </View>
+
+            <View style={{ marginTop: "5%" }}>
                 <Text style={optionsStyle.label}>Old Password</Text>
                 <View style={optionsStyle.passwordbar}>
                     <TextInput

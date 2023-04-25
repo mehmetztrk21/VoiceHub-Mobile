@@ -62,6 +62,7 @@ export default function SeeProfile({ navigation, route }) {
                     likes: item.likes,
                     hasBio: !item.descriptionVoiceUrl ? false : true,
                     descriptionVoiceUrl: item.descriptionVoiceUrl,
+                    isLikesVisible: item.isLikesVisible,
                     isTic: item.isTic,
                     comments: item.comments,
                 }
@@ -105,7 +106,7 @@ export default function SeeProfile({ navigation, route }) {
                 <View style={seeProfileStyles.actView}>
 
                     {user?.profilePhotoUrl ?
-                        <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={seeProfileStyles.userPic} /> : 
+                        <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={seeProfileStyles.userPic} /> :
                         <Image source={require("../../assets/avatar.png")} style={seeProfileStyles.userPic} />
                     }
 
