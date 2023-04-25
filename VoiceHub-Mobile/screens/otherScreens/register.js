@@ -43,6 +43,7 @@ export default function Register({ navigation }) {
             formData.append("phone", phone);
             formData.append("birthDay", birth);
             formData.append("gender", gender)
+            formData.append("isSecretAccount", false)
             const info = await FileSystem.getInfoAsync(image);
             formData.append('profilePhoto', {
                 uri: info.uri,
