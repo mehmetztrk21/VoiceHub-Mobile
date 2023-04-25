@@ -60,7 +60,6 @@ export default function HomeScreen({ navigation }) {
         }
       });
       setPosts(temp);
-      console.log("kaaaan", temp?.isTic)
     }
     setLoading(false);
   }

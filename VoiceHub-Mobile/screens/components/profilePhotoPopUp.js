@@ -48,7 +48,7 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
 
         const response = await updateUserInfo(formData)
         if (response && response.success) {
-            console.log(response)
+            //empty
         }
         else {
             console.log("hata")

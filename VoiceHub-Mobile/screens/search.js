@@ -87,7 +87,6 @@ export default function SearchScreen({ navigation, route }) {
         }
       })
       setPosts(temp);
-      console.log("kaaaan", temp)
     }
     setLoading(false);
   }

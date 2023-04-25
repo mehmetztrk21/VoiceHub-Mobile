@@ -74,7 +74,6 @@ export default function ProfileScreen({ navigation, route }) {
   }
 
   useEffect(() => {
-    console.log("profile",user?.isSecretAccount);
     setLoading(true);
     getPosts();
 

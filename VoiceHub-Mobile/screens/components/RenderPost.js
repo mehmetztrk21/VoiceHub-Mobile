@@ -10,9 +10,7 @@ import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
 
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts, user }) => {
-  useEffect(()=>{
-    console.log(posts)
-});
+
   return posts?.map((item, index) => (
     <View style={{
       width: "90%",
