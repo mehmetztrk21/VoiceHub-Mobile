@@ -13,6 +13,16 @@ export const createPost = async (data) => {
     })
 }
 
+export const updatePost = async (data) => {
+    return await apiAxios.post("/post/updatePost", data
+    ).then(res => {
+        return res.data
+    }).catch(err => {
+        console.error(err, "Post Services post/updatePost");
+        return null
+    })
+}
+
 export const deletePost = async (data) => {
     return await apiAxios.post("/post/deletePost", data
     ).then(res => {

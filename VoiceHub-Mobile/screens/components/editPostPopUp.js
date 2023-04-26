@@ -9,12 +9,17 @@ import editPostPopUpStyle from "../../assets/styles/editPostPopUp.style";
 import { setArchivePost, setSeeLikes, } from "../../services/actionServices";
 import { deletePost, getPostById } from "../../services/postServices.js";
 
-const editPostPopUp = ({ id, setId }) => {
+const editPostPopUp = ({ id, setId, categories }) => {
 
   const [post, setPost] = useState({});
 
   const setArchive = async () => {
     await setArchivePost({ id: id });
+    setId(false);
+  }
+
+  const editPost = async () => {
+    await updatePost({ id: id, categories:categories });
     setId(false);
   }
 
@@ -42,7 +47,7 @@ const editPostPopUp = ({ id, setId }) => {
     <View style={editPostPopUpStyle.container}>
       <View style={editPostPopUpStyle.container2}>
 
-        <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={() => { console.log("Edit") }}>
+        <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={editPost}>
           <Icon type={"font-awesome"} name={"pencil"} size={28} color={colors.white} />
           <Text style={editPostPopUpStyle.button}>Edit</Text>
         </TouchableOpacity>
