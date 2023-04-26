@@ -40,7 +40,7 @@ export const setLikedPost = async (data) => {
 
 
 {/* Follow */ }
-export const setFollowFollower = async () => {
+export const setFollowFollower = async (data) => {
     return await apiAxios.post("/action/follow", data
     ).then(res => {
         return res.data
