@@ -9,7 +9,7 @@ import { baseURL } from "../../utils/constants";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id, isTic }) {
+        date, id, isTic, setOpenEditCategoriesPopUp }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
     const { user } = useUser();
@@ -46,7 +46,9 @@ export default function PostUserInfo(
 
             <View style={{ marginRight: 16 }}>
                 {HeaderTitle == 'ProfileScreen' ? (
-                    <TouchableOpacity onPress={() => { setOpenEditPostPopUp(id ? id : false) }}>
+                    <TouchableOpacity onPress={() => {
+                        setOpenEditPostPopUp(id ? id : false);
+                    }}>
                         <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == 'Archived' ? (
