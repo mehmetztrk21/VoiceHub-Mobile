@@ -10,18 +10,14 @@ import { useUser } from '../../utils/userContext';
 const profileHeader = ({ navigation, pressLogo }) => {
   const { user } = useUser();
 
-  useEffect(() => {
-    console.log(user)
-  }, [])
-
   return (
     <View style={profileHeaderStyle.wrapper}>
       <View style={profileHeaderStyle.aHeadView}>
         <View style={profileHeaderStyle.leftTop}>
-          <TouchableOpacity onPress={pressLogo} style={{ flexDirection: "row" }}>
+          <TouchableOpacity onPress={pressLogo} style={{ flexDirection: "row", alignItems: "center" }}>
             <Text style={profileHeaderStyle.head}>{user?.username}</Text>
 
-            {user?.isTic ? (
+            {user?.isTic == true ? (
               <Image source={verfy} style={profileHeaderStyle.ver} />
             ) : null}
           </TouchableOpacity>

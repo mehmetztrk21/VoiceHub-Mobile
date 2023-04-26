@@ -14,22 +14,24 @@ import RenderPost from "../components/RenderPost";
 import AreYouSure from "../components/areYouSure";
 import Post from "../components/post";
 
+import { setFollowFollower } from "../../services/actionServices";
 import { getMyPosts } from "../../services/postServices";
-import { baseURL } from "../../utils/constants";
-import Loading from "../components/loading";
 import { getUserById } from "../../services/userServices";
+import { baseURL } from "../../utils/constants";
 import { followerCountFormatText } from "../../utils/followerCountFormatText";
+import { useUser } from "../../utils/userContext";
+import Loading from "../components/loading";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
-
+    const { user, setUser } = useUser();
     const scrollViewRef = useRef(null);
 
     const handleLayout = () => {
         scrollViewRef.current.scrollTo({ y: 0, animated: true });
     };
 
-    const [user, setUser] = useState({});
+    const [seeUser, setSeeUser] = useState({});
     const [posts, setPosts] = useState([]);
 
     const [refreshing, setRefreshing] = useState(false);
@@ -62,6 +64,7 @@ export default function SeeProfile({ navigation, route }) {
                     likes: item.likes,
                     hasBio: !item.descriptionVoiceUrl ? false : true,
                     descriptionVoiceUrl: item.descriptionVoiceUrl,
+                    isLikesVisible: item.isLikesVisible,
                     isTic: item.isTic,
                     comments: item.comments,
                 }
@@ -70,14 +73,33 @@ export default function SeeProfile({ navigation, route }) {
         }
         setLoading(false)
     }
-    useEffect(() => {
-        setLoading(true)
+    const followUnfollow = async () => {
+        await setFollowFollower({ userId: seeUser._id }).then(async (res) => {
+            console.log(res);
+            if (res?.success) {
+                let temp = { ...user };
+                if (res.data == "Unfollowed successfully")
+                    temp?.followings?.splice(temp?.followings?.indexOf(seeUser._id), 1);
+                else
+                    temp?.followings?.push(seeUser._id);
+                setUser(temp);
+                await getUser();
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+    const getUser = async () => {
         getUserById({ id: userId }).then(async (res) => {
-            setUser(res?.data);
-            await getPosts();
+            setSeeUser(res?.data);
         }).catch((err) => {
             console.log(err);
         })
+    }
+    useEffect(() => {
+        setLoading(true)
+        getUser();
+        getPosts();
     }, []);
 
     if (loading) return <Loading />
@@ -91,9 +113,9 @@ export default function SeeProfile({ navigation, route }) {
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
-                    <Text style={seeProfileStyles.head}>{user?.username}</Text>
+                    <Text style={seeProfileStyles.head}>{seeUser?.username}</Text>
 
-                    {user?.isTic ? (
+                    {seeUser?.isTic == true ? (
                         <Image source={verfy} style={seeProfileStyles.ver} />
                     ) : null}
                 </TouchableOpacity>
@@ -104,8 +126,8 @@ export default function SeeProfile({ navigation, route }) {
                 {/* PP, Follow Count,  */}
                 <View style={seeProfileStyles.actView}>
 
-                    {user?.profilePhotoUrl ?
-                        <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={seeProfileStyles.userPic} /> : 
+                    {seeUser?.profilePhotoUrl ?
+                        <Image source={{ uri: baseURL + seeUser?.profilePhotoUrl }} style={seeProfileStyles.userPic} /> :
                         <Image source={require("../../assets/avatar.png")} style={seeProfileStyles.userPic} />
                     }
 
@@ -117,17 +139,17 @@ export default function SeeProfile({ navigation, route }) {
                         </View>
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
-                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followers", thisUser: user }); }}>
+                            onPress={() => { seeUser?.isSecretAccount == false ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
-                                {followerCountFormatText(user?.followers?.length)}
+                                {followerCountFormatText(seeUser?.followers?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Followers</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
-                            onPress={() => { navigation.navigate("FollowFollower", { title: "Followings", thisUser: user }); }}>
+                            onPress={() => { seeUser?.isSecretAccount == false ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: seeUser }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
-                                {followerCountFormatText(user?.followings?.length)}
+                                {followerCountFormatText(seeUser?.followings?.length)}
                             </Text>
                             <Text style={seeProfileStyles.fText}>Following</Text>
                         </TouchableOpacity>
@@ -137,11 +159,11 @@ export default function SeeProfile({ navigation, route }) {
 
                 {/* Bio */}
                 <View style={seeProfileStyles.bioContents}>
-                    <Text style={seeProfileStyles.name}>{user?.name + " " + user?.surname}</Text>
-                    {user?.hasBio ? (<Post uri={user?.descriptionVoiceUrl} />) : null}
+                    <Text style={seeProfileStyles.name}>{seeUser?.name + " " + seeUser?.surname}</Text>
+                    {seeUser?.hasBio ? (<Post uri={seeUser?.descriptionVoiceUrl} />) : null}
                 </View>
 
-                {/* Edit Profile Buttons */}
+                {/* Message and Follow Buttons */}
                 <View style={seeProfileStyles.btnHolder}>
                     <TouchableOpacity style={{
                         width: "42.5%",
@@ -151,29 +173,54 @@ export default function SeeProfile({ navigation, route }) {
                         borderRadius: 12.5,
                         marginLeft: "5%"
                     }}
-                        onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: user?._id }); }}>
+                        onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: seeUser?._id }); }}>
                         <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
                             Message
                         </Text>
                     </TouchableOpacity>
+                    {
+                        seeUser?.followers?.includes(user._id) ?
+                            (
+                                <TouchableOpacity style={{
+                                    width: "42.5%",
+                                    alignItems: "center",
+                                    padding: "2%",
+                                    backgroundColor: colors.white,
+                                    borderRadius: 12.5,
+                                    borderWidth: 1.5,
+                                    borderColor: colors.green,
+                                    marginLeft: "5%"
+                                }}
+                                    onPress={() => { followUnfollow() }}
+                                >
+                                    <Text style={{ color: colors.green, fontSize: 16, fontWeight: "600" }}>
+                                        Unfollow
+                                    </Text>
+                                </TouchableOpacity>
+                            ) : (
+                                <TouchableOpacity style={{
+                                    width: "42.5%",
+                                    alignItems: "center",
+                                    padding: "2%",
+                                    backgroundColor: colors.green,
+                                    borderRadius: 12.5,
+                                    marginLeft: "5%"
+                                }}
+                                    onPress={() => { followUnfollow() }}
+                                >
+                                    <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600" }}>
+                                        Follow
+                                    </Text>
+                                </TouchableOpacity>
+                            )
 
-                    <TouchableOpacity style={{
-                        width: "42.5%",
-                        alignItems: "center",
-                        padding: "2%",
-                        backgroundColor: colors.green,
-                        borderRadius: 12.5,
-                        marginLeft: "5%"
-                    }}>
-                        <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                            Follow
-                        </Text>
-                    </TouchableOpacity>
+                    }
                 </View>
             </View>
-
             {/* Posts */}
-            <ScrollView
+
+
+            < ScrollView
                 showsVerticalScrollIndicator={false}
                 style={seeProfileStyles.scroll}
                 ref={scrollViewRef}
@@ -182,20 +229,24 @@ export default function SeeProfile({ navigation, route }) {
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                 }
             >
-                <View style={[seeProfileStyles.postView, { backgroundColor: colors.green }]}>
-                    {true ? (
-                        posts?.length > 0 ? (
-                            <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={user} />
+                {seeUser?.isSecretAccount == false ?
+                    <View style={[seeProfileStyles.postView, { backgroundColor: colors.green }]}>
+                        {true ? (
+                            posts?.length > 0 ? (
+                                <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />
+                            ) :
+                                <Text style={
+                                    { marginTop: "5%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
+                                }>
+                                    {"You have not post anyone yet :("}
+                                </Text>
                         ) :
-                            <Text style={
-                                { marginTop: "5%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
-                            }>
-                                {"You have not post anyone yet :("}
-                            </Text>
-                    ) :
-                        <DontShowPosts />
-                    }
-                </View>
+                            <DontShowPosts />
+                        }
+                    </View>
+                    :
+                    <DontShowPosts />
+                }
             </ScrollView>
 
             {

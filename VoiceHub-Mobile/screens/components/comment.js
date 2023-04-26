@@ -7,8 +7,10 @@ import Post from "../components/post";
 import { Dimensions } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
+import avatar from "../../assets/avatar.png"
 import { timeAgoText } from "../../utils/timeAgoText";
 import { useUser } from "../../utils/userContext";
+import { baseURL } from "../../utils/constants";
 const { width } = Dimensions.get('window');
 
 export default function Comment({ navigation, commentId, contentUrl, userPic, username, setOpenAreYouSurePopUp, userId, createDate }) {
@@ -35,8 +37,11 @@ export default function Comment({ navigation, commentId, contentUrl, userPic, us
                             navigation.navigate("SeeProfile", { userId: userId });
                         }
                     }}>
-                    <Image source={{ uri: userPic }}
-                        style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0675 }} />
+
+                    {userPic ?
+                        <Image source={{ uri: baseURL + userPic }} style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0675 }} /> :
+                        <Image source={avatar} style={{ width: width * 0.125, height: width * 0.125, borderRadius: width * 0.0675 }} />
+                    }
                 </TouchableOpacity>
 
                 <View style={{ width: width * 0.75, flexDirection: "column", paddingLeft: width * 0.03 }}>

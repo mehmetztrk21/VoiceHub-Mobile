@@ -14,7 +14,7 @@ const otherHeader = ({ navigation, HeaderTitle, isTic }) => {
                     <Icon type="ionicon" size={30} name={"arrow-back-outline"} style={otherHeaderStyle.BackButton} />
                 </TouchableOpacity>
                 <Text style={otherHeaderStyle.headerName}>{HeaderTitle}</Text>
-                {isTic ? (
+                {isTic==true ? (
                     <Image source={ver} style={{ width: 24, height: 24, paddingLeft: 8, alignSelf: "center" }} />
                 ) : null}
             </View>

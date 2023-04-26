@@ -65,7 +65,7 @@ const SeeLikes = ({ navigation, route }) => {
                     } >
                     {users?.map((item, index) => {
                         return (
-                            <LikeItem navigation={navigation} key={index} userId={item._id} profilePhotoUrl={baseURL + item.profilePhotoUrl} username={item.username} isTic={item.isTic} />
+                            <LikeItem navigation={navigation} key={index} userId={item._id} profilePhotoUrl={item.profilePhotoUrl} username={item.username} isTic={item.isTic} />
                         )
                     })}
                 </ScrollView>

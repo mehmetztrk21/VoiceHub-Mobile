@@ -48,7 +48,7 @@ export default function OtherComments({ navigation, route }) {
                     {comments?.length > 0 ? (
                         comments?.map((item, index) => {
                             return (
-                                <Comment key={index} commentId={item._id} navigation={navigation} userPic={baseURL + item.createdBy?.profilePhotoUrl}
+                                <Comment key={index} commentId={item._id} navigation={navigation} userPic={item.createdBy?.profilePhotoUrl}
                                     createDate={item.createdAt} contentUrl={item.contentUrl} username={item.createdBy?.username}
                                     setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} userId={item.createdBy._id} />
                             )

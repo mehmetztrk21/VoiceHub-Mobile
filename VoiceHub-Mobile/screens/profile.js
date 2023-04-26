@@ -11,6 +11,7 @@ import profileStyles from "../assets/styles/profile.style";
 import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import EditPostPopUp from "./components/editPostPopUp";
+import EditCategoriesPopUp from "./components/editCategoriesPopUp";
 import PopUp from "./components/ProfileBottomPopUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
@@ -30,6 +31,7 @@ export default function ProfileScreen({ navigation, route }) {
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false);
+  const [openEditCategoriesPopUp, setOpenEditCategoriesPopUp] = useState();
 
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -66,7 +68,6 @@ export default function ProfileScreen({ navigation, route }) {
           userPic: baseURL + user?.profilePhotoUrl,
           likes: item.likes,
           isLikesVisible: item.isLikesVisible,
-          isLiked: true,
         }
       })
       setPosts(temp);
@@ -77,7 +78,6 @@ export default function ProfileScreen({ navigation, route }) {
   useEffect(() => {
     setLoading(true);
     getPosts();
-
   }, [])
 
   if (loading) {
@@ -118,7 +118,16 @@ export default function ProfileScreen({ navigation, route }) {
         visible={openEditPostPopUp ? true : false}
         onRequestClose={() => { setOpenEditPostPopUp(false) }}
       >
-        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} />
+        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} />
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openEditCategoriesPopUp ? true : false}
+        onRequestClose={() => { setOpenEditCategoriesPopUp(false) }}
+      >
+        <EditCategoriesPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} categories={openEditCategoriesPopUp} setCategories={setOpenEditCategoriesPopUp} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>
@@ -188,8 +197,8 @@ export default function ProfileScreen({ navigation, route }) {
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
           {posts?.length > 0 ? (
-            <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"}
-              setOpenEditPostPopUp={setOpenEditPostPopUp} posts={posts} user={user} />
+            <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp}
+              setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} posts={posts} user={user} />
           ) :
             <View style={{ marginTop: "5%", }}>
               <Text style={

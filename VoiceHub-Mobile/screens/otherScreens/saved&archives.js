@@ -55,7 +55,6 @@ export default function SavedArchieves({ navigation, route }) {
             userPic: baseURL + item.createdBy.profilePhotoUrl,
             likes: item.likes,
             isLikesVisible: item.isLikesVisible,
-            isLiked: true,
           }
         })
         setPosts(temp);
@@ -73,10 +72,10 @@ export default function SavedArchieves({ navigation, route }) {
             username: username,
             createdAt: item.createdAt,
             createdBy: item.createdBy,
+            isTic: item.createdBy.isTic,
             userPic: baseURL + item.createdBy.profilePhotoUrl,
             likes: item.likes,
             isLikesVisible: item.isLikesVisible,
-            isLiked: true,
           }
         })
         setPosts(temp);

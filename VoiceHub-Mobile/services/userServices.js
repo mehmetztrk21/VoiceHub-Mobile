@@ -28,9 +28,19 @@ export const getFollowings = async (data) => {
     }).catch(err => { console.error(err, "Post Services user/followings"); return null })
 }
 
-export const updateUserInfo = async (data) => {
-    return await apiAxios.post("/user/update", data
+export const removeUserFiles = async (data) => {
+    return await apiAxios.post("/user/removeUserFiles", data
     ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services user/removeUserFiles"); return null })
+}
+
+export const updateUserInfo = async (data) => {
+    return await apiAxios.post("/user/update", data, {
+        headers: {
+            "content-type": "multipart/form-data"
+        }
+    }).then(res => {
         return res.data
     }).catch(err => { console.error(err, "Post Services user/update"); return null })
 }

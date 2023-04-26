@@ -51,11 +51,11 @@ export default function HomeScreen({ navigation }) {
           comments: item.comments,
           username: item.createdBy.username,
           createdBy: item.createdBy,
+          isTic: item.createdBy.isTic,
           createdAt: item.createdAt,
           userPic: baseURL + item.createdBy.profilePhotoUrl,
           likes: item.likes,
           isLikesVisible: item.isLikesVisible,
-          isLiked: true,
 
         }
       });
@@ -106,7 +106,7 @@ export default function HomeScreen({ navigation }) {
         <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
       }
       >
-        {/* User Posts */}
+        {/* Users Posts */}
         {posts?.length > 0 ? (
           <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} posts={posts} />
         ) :
