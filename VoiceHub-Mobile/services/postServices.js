@@ -4,11 +4,21 @@ export const createPost = async (data) => {
     return await apiAxios.post("/post/createPost", data, {
         headers: {
             'Content-Type': 'multipart/form-data'
-        }//dosya göndereceksen form-data göndermeteceksen apllication/json yazılır. (application/json yazmaya gerek yok)
+        }//dosya göndereceksen form-data göndermeteceksen application/json yazılır. (application/json yazmaya gerek yok)
     }).then(res => {
         return res.data
     }).catch(err => {
         console.error(err, "Post Services post/createPost");
+        return null
+    })
+}
+
+export const deletePost = async (data) => {
+    return await apiAxios.post("/post/deletePost", data
+    ).then(res => {
+        return res.data
+    }).catch(err => {
+        console.error(err, "Post Services post/deletePost");
         return null
     })
 }
