@@ -1,15 +1,15 @@
-import React, { useState } from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import { Icon } from 'react-native-elements'
+import React, { useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-import * as Permissions from 'expo-permissions';
 import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
+import * as Permissions from 'expo-permissions';
 
-import { updateUserInfo, removeUserFiles } from "../../services/userServices"
+import { removeUserFiles, updateUserInfo } from "../../services/userServices";
 
-import colors from '../../assets/colors'
-import profilePhotoPopUpStyle from '../../assets/styles/bioVoicePopUp.style'
+import colors from '../../assets/colors';
+import profilePhotoPopUpStyle from '../../assets/styles/bioVoicePopUp.style';
 
 const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
     const [image, setImage] = useState(null);
@@ -27,13 +27,14 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
             let result = await ImagePicker.launchCameraAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
                 allowsEditing: true,
-                aspect: [4, 3],
+                aspect: [2, 2],
                 quality: 1,
             });
 
+            
             if (!result.cancelled) {
                 setImage(result.uri);
-                save();
+                save(result.uri);
             }
         } else {
             throw new Error('Camera permission not granted');
@@ -48,24 +49,27 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
             allowsEditing: true,
             aspect: [4, 3],
             quality: 1,
+        }).then((res) => {
+            console.log("res", res);
+            if (!res.cancelled) {
+                setImage(res.uri);
+                save(res.uri);
+            }
         });
-
-        if (!result.canceled) {
-            setImage(result.assets[0].uri);
-            save();
-        }
     };
 
-    const save = async () => {
-        console.log("save geldi");
+    const save = async (temp = null) => {
+        console.log("save geldi", image);
+        console.log("save geldi temp:", temp);
         const formData = new FormData();
-        const info = await FileSystem.getInfoAsync(image);
+        const info = await FileSystem.getInfoAsync(image ? image : temp);
+        console.log("info", info);
         formData.append('profilePhoto', {
             uri: info.uri,
             type: 'image/png', // ya da 'image/png'
             name: 'profilePhoto.png',
         });
-
+        console.log("formdata", formData);
         const response = await updateUserInfo(formData)
         if (response && response.success) {
             //empty
