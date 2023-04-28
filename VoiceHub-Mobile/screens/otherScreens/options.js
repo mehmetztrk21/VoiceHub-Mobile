@@ -69,47 +69,13 @@ const Options = ({ navigation }) => {
                 />
             </View>
 
-            <View style={{ marginTop: "5%" }}>
-                <Text style={optionsStyle.label}>Old Password</Text>
-                <View style={optionsStyle.passwordbar}>
-                    <TextInput
-                        style={{ width: "80%" }}
-                        maxLength={18}
-                        value={old}
-                        secureTextEntry={!isPasswordVisible}
-                        onChangeText={old => setOld(old)}
-                    />
-                    <TouchableOpacity onPress={handlePasswordVisibility}>
-                        <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
-                    </TouchableOpacity>
-                </View>
-            </View>
+            <TouchableOpacity>
+                <Text>Change Password</Text>
+            </TouchableOpacity>
 
-            <View style={{ marginTop: "5%" }}>
-                <Text style={optionsStyle.label}>New Password</Text>
-                <TextInput
-                    style={optionsStyle.passwordbar}
-                    maxLength={18}
-                    value={password1}
-                    secureTextEntry={!isPasswordVisible}
-                    onChangeText={password1 => setPassword1(password1)}
-                />
-            </View>
-
-            <View style={{ marginTop: "5%" }}>
-                <Text style={optionsStyle.label}> New Password Repeat</Text>
-                <TextInput
-                    style={optionsStyle.passwordbar}
-                    maxLength={18}
-                    value={password2}
-                    secureTextEntry={!isPasswordVisible}
-                    onChangeText={password2 => setPassword2(password2)}
-                />
-            </View>
-
-            <TouchableOpacity onPress={confirm}
+            <TouchableOpacity onPress={()=>{navigation.navigate("Blockeds")}}
                 style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%" }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600" }}> Confirm</Text>
+                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600" }}> Blocked Accounts</Text>
             </TouchableOpacity>
 
         </SafeAreaView>
