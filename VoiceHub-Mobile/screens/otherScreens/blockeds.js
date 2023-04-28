@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react"
-import { RefreshControl, SafeAreaView, ScrollView } from "react-native"
+import React, { useEffect, useRef, useState } from "react"
+import { RefreshControl, SafeAreaView, ScrollView, Text } from "react-native"
 import BlockedItem from "../components/blockedItem"
-import { useUser } from "../../utils/userContext"
 import colors from "../../assets/colors"
 import OtherHeader from "../components/otherHeader";
+import { getUserById } from "../../services/userServices"
 const Blockeds = ({ navigation }) => {
-    const { user } = useUser();
 
     const [refreshing, setRefreshing] = useState(false);
 
     const scrollViewRef = useRef();
+
     const pullThePage = () => {
         setRefreshing(true);
 
@@ -17,12 +17,23 @@ const Blockeds = ({ navigation }) => {
             setRefreshing(false)
         }, 800)
     }
+
+    const handleLayout = () => {
+        scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    };
+
     const [userIds, setUserIds] = useState([]); //engellediklerimizin id'leri burada gözükecek
     const [users, setUsers] = useState({}); //engellediklerimizin resim username gibi bilgileri burada gözükecek
 
     useEffect(() => {
         /*burada useUser'dan aldığımız id ile birlikte veritabanından engellediğimiz kişilerin id'lerini sorgulayıp bilgilerini çekeceğiz 
         ve aşağıda mapleme yapacağız*/
+
+        getUserById({ id: userIds?._id }).then(async (res) => {
+            setUsers(res?.data);
+        }).catch((err) => {
+            console.log(err);
+        })
 
     }, [])
 
@@ -36,7 +47,6 @@ const Blockeds = ({ navigation }) => {
                 } >
                 {/* mapleme yapacağız */}
                 {userIds.length != 0 ?
-
                     < BlockedItem blockedUser={item} />
 
                     : <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}>
