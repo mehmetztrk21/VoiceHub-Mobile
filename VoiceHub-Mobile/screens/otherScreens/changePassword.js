@@ -123,7 +123,7 @@ const ChangePassword = ({ navigation }) => {
 
             <TouchableOpacity onPress={confirm}
                 style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", marginTop: "5%" }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600" }}> Confirm</Text>
+                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign:"center" }}> Confirm</Text>
             </TouchableOpacity>
         </SafeAreaView>
     )
