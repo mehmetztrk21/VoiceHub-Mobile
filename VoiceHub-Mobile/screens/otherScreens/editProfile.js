@@ -24,12 +24,12 @@ export default function EditProfile({ navigation }) {
 
   const { user, setUser } = useUser();
 
-  const [firstname, setFirstName] = useState("");
-  const [surname, setSurname] = useState("");
-  const [username, setUserName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [birthDay, setBirthDay] = useState("");
-  const [gender, setGender] = useState("");
+  const [firstname, setFirstName] = useState(user?.name);
+  const [surname, setSurname] = useState(user?.surname);
+  const [username, setUserName] = useState(user?.username);
+  const [phone, setPhone] = useState(user?.phone);
+  const [birthDay, setBirthDay] = useState(user?.birthDay);
+  const [gender, setGender] = useState(user?.gender);
 
   const [openAddVoice, setOpenAddVoice] = useState(false);
   const [openBioVoicePopUp, setOpenBioVoicePopUp] = useState(false);
@@ -94,7 +94,6 @@ export default function EditProfile({ navigation }) {
 
           <Text style={editProfileStyle.label}>User Name</Text>
           <TextInput
-            placeholder={user?.username}
             value={username}
             onChangeText={(username) => setUserName(username)}
             style={editProfileStyle.searchBar}
