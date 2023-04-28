@@ -9,7 +9,7 @@ import * as Permissions from 'expo-permissions';
 import { removeUserFiles, updateUserInfo } from "../../services/userServices";
 
 import colors from '../../assets/colors';
-import profilePhotoPopUpStyle from '../../assets/styles/bioVoicePopUp.style';
+import profilePhotoPopUpStyle from '../../assets/styles/profilePhotoPopUp.style';
 
 const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
     const [image, setImage] = useState(null);
@@ -31,7 +31,7 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
                 quality: 1,
             });
 
-            
+
             if (!result.cancelled) {
                 setImage(result.uri);
                 save(result.uri);
