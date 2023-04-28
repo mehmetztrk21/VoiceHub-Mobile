@@ -4,6 +4,7 @@ import BlockedItem from "../components/blockedItem"
 import colors from "../../assets/colors"
 import OtherHeader from "../components/otherHeader";
 import { getUserById } from "../../services/userServices"
+import { View } from "react-native";
 const Blockeds = ({ navigation }) => {
 
     const [refreshing, setRefreshing] = useState(false);
@@ -49,9 +50,11 @@ const Blockeds = ({ navigation }) => {
                 {userIds.length != 0 ?
                     < BlockedItem blockedUser={item} />
 
-                    : <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}>
-                        Engellediğiniz Kullanıcı Yok
-                    </Text>
+                    : <View style={{ marginTop: "20%" }}>
+                        <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16, textAlign: "center" }}>
+                            Engellediğiniz Kullanıcı Yok
+                        </Text>
+                    </View>
                 }
             </ScrollView>
         </SafeAreaView>
