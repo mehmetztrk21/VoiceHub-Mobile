@@ -5,7 +5,6 @@ export default StyleSheet.create({
     paddingVertical: 10,
     flexDirection: "row",
     alignItems: "center",
-    width: "70%",
   },
   lastSearchImage: {
     width: 50,

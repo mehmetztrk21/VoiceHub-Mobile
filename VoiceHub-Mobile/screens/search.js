@@ -121,6 +121,7 @@ export default function SearchScreen({ navigation, route }) {
     }
     else {
       setUsers();
+      //son aratılan kullanıcılar gelecek ve işlemler yapılabilecek
     }
   }
 
@@ -257,8 +258,9 @@ export default function SearchScreen({ navigation, route }) {
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }
       >
-        {focused ? (
-          <RenderLastSearchedUser navigation={navigation} users={users} />
+        {focused ? (searchQuery.length == 0 ?
+          <RenderLastSearchedUser navigation={navigation} users={users} title={"last"} /> :
+          <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} />
         ) :
           <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />
         }

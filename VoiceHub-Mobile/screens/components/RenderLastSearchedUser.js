@@ -7,14 +7,14 @@ import colors from "../../assets/colors"
 import RenderLastSearchedUserStyle from "../../assets/styles/RenderLastSearchedUser.style"
 import { baseURL } from "../../utils/constants"
 import { useUser } from "../../utils/userContext"
-const RenderLastSearchedUser = ({ navigation, users }) => {
+const RenderLastSearchedUser = ({ navigation, users, title }) => {
 
   const { user } = useUser();
 
   return users?.map((item, index) => (
     <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-around" }}>
 
-      <TouchableOpacity style={RenderLastSearchedUserStyle.last} key={index}
+      <TouchableOpacity style={[RenderLastSearchedUserStyle.last, title == "last" ? { width: "70%" } : { width: "90%" }]} key={index}
         onPress={() => {
           item?.id == user?._id ?
             navigation.navigate("ProfileScreen", { username: user?.username }) :
@@ -32,9 +32,11 @@ const RenderLastSearchedUser = ({ navigation, users }) => {
         </View>
       </TouchableOpacity>
 
-      <TouchableOpacity style={{ alignItems: "center" }}>
-        <Icon type={"font-awesome"} size={20} name={"times"} color={colors.gray} />
-      </TouchableOpacity>
+      {title == "last" ?
+        < TouchableOpacity style={{ alignItems: "center" }}>
+          <Icon type={"font-awesome"} size={20} name={"times"} color={colors.gray} />
+        </TouchableOpacity>
+        : null}
     </View >
   ));
 }
