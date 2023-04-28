@@ -102,20 +102,25 @@ export default function SearchScreen({ navigation, route }) {
     setLoading(false);
   }
 
-  const onChangeSearch = async (searchQuery) => {
-    const response = await searchUser({ search: searchQuery });
+  const onChangeSearch = async () => {
+    if (searchQuery != "") {
+      const response = await searchUser({ search: searchQuery });
 
-    if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          username: item.username,
-          userPic: baseURL + item.profilePhotoUrl,
-          isSecretAccount: item.isSecretAccount,
-          isTic: item.isTic,
-        }
-      })
-      setUsers(temp);
+      if (response && response.success) {
+        let temp = response.data.map((item) => {
+          return {
+            id: item._id,
+            username: item.username,
+            userPic: item.profilePhotoUrl,
+            isSecretAccount: item.isSecretAccount,
+            isTic: item.isTic,
+          }
+        })
+        setUsers(temp);
+      }
+    }
+    else {
+      setUsers();
     }
   }
 
@@ -129,7 +134,7 @@ export default function SearchScreen({ navigation, route }) {
   }, [selectedCategory]);
 
   useEffect(() => {
-    onChangeSearch(searchQuery);
+    onChangeSearch();
   }, [searchQuery])
 
 
@@ -185,7 +190,7 @@ export default function SearchScreen({ navigation, route }) {
             />
 
             {/* Close Button */}
-            <TouchableOpacity onPress={() => setFocused(false)}
+            <TouchableOpacity onPress={() => { setFocused(false); setSearchQuery(""); }}
               style={searchStyles.closeButtonTouch}>
               <Icon type="font-awesome" size={20} name={"times"} color={colors.green} />
             </TouchableOpacity>
