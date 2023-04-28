@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SafeAreaView, Switch, Text, View } from "react-native";
 import colors from "../../assets/colors";
 import OtherHeader from "../components/otherHeader";
 
-import { Dimensions, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import optionsStyle from "../../assets/styles/options.style";
 import { updateUserInfo } from "../../services/userServices";
 import { useUser } from "../../utils/userContext";
@@ -18,7 +18,6 @@ const Options = ({ navigation }) => {
         const formData = new FormData();
         formData.append("isSecretAccount", isSecretAccount);
         await updateUserInfo(formData)
-
     }
 
     return (
@@ -39,12 +38,12 @@ const Options = ({ navigation }) => {
 
             <TouchableOpacity onPress={() => { navigation.navigate("ChangePassword") }}
                 style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", marginTop: 20 }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600" }}> Change Password</Text>
+                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign:"center" }}> Change Password</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => { navigation.navigate("Blockeds") }}
                 style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", marginTop: 20 }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600" }}> Blocked Accounts</Text>
+                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign:"center" }}> Blocked Accounts</Text>
             </TouchableOpacity>
 
         </SafeAreaView>
