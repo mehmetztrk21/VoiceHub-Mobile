@@ -105,7 +105,7 @@ export default function SeeProfile({ navigation, route }) {
     if (loading) return <Loading />
 
     return (
-        <SafeAreaView style={[seeProfileStyles.container, { backgroundColor: colors.green }]}>
+        <SafeAreaView style={seeProfileStyles.container}>
 
             <View style={seeProfileStyles.leftTop}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -165,50 +165,27 @@ export default function SeeProfile({ navigation, route }) {
 
                 {/* Message and Follow Buttons */}
                 <View style={seeProfileStyles.btnHolder}>
-                    <TouchableOpacity style={{
-                        width: "42.5%",
-                        alignItems: "center",
-                        padding: "2%",
-                        backgroundColor: colors.green,
-                        borderRadius: 12.5,
-                        marginLeft: "5%"
-                    }}
+                    <TouchableOpacity style={seeProfileStyles.messageButtonHolder}
                         onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: seeUser?._id }); }}>
-                        <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
+                        <Text style={seeProfileStyles.messageButtonText}>
                             Message
                         </Text>
                     </TouchableOpacity>
                     {
                         seeUser?.followers?.includes(user._id) ?
                             (
-                                <TouchableOpacity style={{
-                                    width: "42.5%",
-                                    alignItems: "center",
-                                    padding: "2%",
-                                    backgroundColor: colors.white,
-                                    borderRadius: 12.5,
-                                    borderWidth: 1.5,
-                                    borderColor: colors.green,
-                                    marginLeft: "5%"
-                                }}
+                                <TouchableOpacity style={seeProfileStyles.unfollowButtonHolder}
                                     onPress={() => { followUnfollow() }}
                                 >
-                                    <Text style={{ color: colors.green, fontSize: 16, fontWeight: "600" }}>
+                                    <Text style={seeProfileStyles.unfollowButtonText}>
                                         Unfollow
                                     </Text>
                                 </TouchableOpacity>
                             ) : (
-                                <TouchableOpacity style={{
-                                    width: "42.5%",
-                                    alignItems: "center",
-                                    padding: "2%",
-                                    backgroundColor: colors.green,
-                                    borderRadius: 12.5,
-                                    marginLeft: "5%"
-                                }}
+                                <TouchableOpacity style={seeProfileStyles.followButtonHolder}
                                     onPress={() => { followUnfollow() }}
                                 >
-                                    <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600" }}>
+                                    <Text style={seeProfileStyles.followButtonText}>
                                         Follow
                                     </Text>
                                 </TouchableOpacity>
@@ -230,14 +207,12 @@ export default function SeeProfile({ navigation, route }) {
                 }
             >
                 {seeUser?.isSecretAccount == false ?
-                    <View style={[seeProfileStyles.postView, { backgroundColor: colors.green }]}>
+                    <View style={seeProfileStyles.postView}>
                         {true ? (
                             posts?.length > 0 ? (
                                 <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />
                             ) :
-                                <Text style={
-                                    { marginTop: "5%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
-                                }>
+                                <Text style={seeProfileStyles.notPost}>
                                     {"You have not post anyone yet :("}
                                 </Text>
                         ) :
