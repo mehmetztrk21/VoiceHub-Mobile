@@ -7,14 +7,4 @@ export default StyleSheet.create({
         fontWeight: "500",
         fontSize: 16,
     },
-    passwordbar: {
-        backgroundColor: "lightgray",
-        borderRadius: 25,
-        paddingVertical: 10,
-        paddingHorizontal: "2%",
-        width: "80%",
-        marginLeft: "8%",
-        flexDirection: "row",
-        justifyContent: "space-between",
-    },
 });

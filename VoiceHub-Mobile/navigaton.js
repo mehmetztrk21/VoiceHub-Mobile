@@ -23,6 +23,8 @@ import SeeLikes from "./screens/otherScreens/seeLikes";
 import SeeProfile from "./screens/otherScreens/seeProfile";
 import Options from "./screens/otherScreens/options";
 import { UserProvider } from "./utils/userContext";
+import ChangePassword from "./screens/otherScreens/changePassword";
+import Blockeds from "./screens/otherScreens/blockeds";
 
 const Stack = createStackNavigator();
 
@@ -33,30 +35,32 @@ const screenOptions = {
 const SignedInStack = () => (
   <NavigationContainer>
     <UserProvider>
-    <Stack.Navigator
-      initialRouteName="Login"
-      screenOptions={screenOptions}
-    >
-      <Stack.Screen name="HomeScreen" component={HomeScreen} />
-      <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-      <Stack.Screen name="ActivityScreen" component={ActivityScreen} />
-      <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Navigator
+        initialRouteName="Login"
+        screenOptions={screenOptions}
+      >
+        <Stack.Screen name="HomeScreen" component={HomeScreen} />
+        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        <Stack.Screen name="ActivityScreen" component={ActivityScreen} />
+        <Stack.Screen name="SearchScreen" component={SearchScreen} />
 
-      <Stack.Screen name="EditProfile" component={EditProfile} />
-      <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Message" component={Message} />
-      <Stack.Screen name="OtherComments" component={OtherComments} />
-      <Stack.Screen name="Register" component={Register} />
-      <Stack.Screen name="SavedArchived" component={SavedArchived} />
-      <Stack.Screen name="SeePost" component={SeePost} />
-      <Stack.Screen name="UserMessage" component={UserMessage} />
-      <Stack.Screen name="FollowFollower" component={FollowFollower} />
-      <Stack.Screen name="SeeLikes" component={SeeLikes} />
-      <Stack.Screen name="Upload" component={Upload} />
-      <Stack.Screen name="Options" component={Options} />
-      <Stack.Screen name="SeeProfile" component={SeeProfile} />
-    </Stack.Navigator>
+        <Stack.Screen name="EditProfile" component={EditProfile} />
+        <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="Message" component={Message} />
+        <Stack.Screen name="OtherComments" component={OtherComments} />
+        <Stack.Screen name="Register" component={Register} />
+        <Stack.Screen name="SavedArchived" component={SavedArchived} />
+        <Stack.Screen name="SeePost" component={SeePost} />
+        <Stack.Screen name="UserMessage" component={UserMessage} />
+        <Stack.Screen name="FollowFollower" component={FollowFollower} />
+        <Stack.Screen name="SeeLikes" component={SeeLikes} />
+        <Stack.Screen name="Upload" component={Upload} />
+        <Stack.Screen name="Options" component={Options} />
+        <Stack.Screen name="SeeProfile" component={SeeProfile} />
+        <Stack.Screen name="ChangePassword" component={ChangePassword} />
+        <Stack.Screen name="Blockeds" component={Blockeds} />
+      </Stack.Navigator>
     </UserProvider>
   </NavigationContainer>
 )
