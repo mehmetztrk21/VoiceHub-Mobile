@@ -118,12 +118,12 @@ const FollowFollower = ({ navigation, route }) => {
 
 
                                         <Text style={followFollowerStyle.username}>{item.username}</Text>
-                                        {item?.isTic==true ? (
+                                        {item?.isTic == true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>
 
-                                    {user?._id != thisUser?.id ?
+                                    {user?._id != item?._id ?
                                         <TouchableOpacity style={{
                                             width: "30%",
                                             alignItems: "center",
@@ -151,12 +151,12 @@ const FollowFollower = ({ navigation, route }) => {
                                         }}>
                                         <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />
                                         <Text style={followFollowerStyle.username}>{item.username}</Text>
-                                        {item?.isTic==true ? (
+                                        {item?.isTic == true ? (
                                             <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
                                         ) : null}
                                     </TouchableOpacity>
 
-                                    {user?._id == thisUser?.id ?
+                                    {user?._id != item?._id ?
                                         <TouchableOpacity style={{
                                             width: "30%",
                                             alignItems: "center",
