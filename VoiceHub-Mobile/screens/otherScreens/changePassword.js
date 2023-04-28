@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import React, { useState } from "react";
+import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Icon } from "react-native-elements";
+import colors from "../../assets/colors";
 import OtherHeader from "../../screens/components/otherHeader";
-import { changePassword } from '../../services/userServices';
-import { useUser } from '../../utils/userContext';
-import colors from '../../assets/colors';
+import { changePassword } from "../../services/userServices";
 
 const ChangePassword = ({ navigation }) => {
     const [old, setOld] = useState("");
@@ -38,7 +37,7 @@ const ChangePassword = ({ navigation }) => {
 
     return (
         <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: "100%" }}>
-            <OtherHeader navigation={navigation} HeaderTitle={'Change Password'} isTic={false} />
+            <OtherHeader navigation={navigation} HeaderTitle={"Change Password"} isTic={false} />
             <View style={{ marginTop: "25%" }}>
                 <Text style={{
                     marginBottom: "0.5%",

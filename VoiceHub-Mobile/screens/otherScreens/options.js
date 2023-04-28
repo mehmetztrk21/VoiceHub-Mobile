@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { SafeAreaView, Switch, Text, View } from 'react-native';
-import colors from '../../assets/colors';
+import React, { useState } from "react";
+import { SafeAreaView, Switch, Text, View } from "react-native";
+import colors from "../../assets/colors";
 import OtherHeader from "../components/otherHeader";
 
 import { Dimensions, TouchableOpacity } from "react-native";
-import optionsStyle from '../../assets/styles/options.style';
-import { updateUserInfo } from '../../services/userServices';
+import optionsStyle from "../../assets/styles/options.style";
+import { updateUserInfo } from "../../services/userServices";
 import { useUser } from "../../utils/userContext";
-const { width } = Dimensions.get("window");
 
 const Options = ({ navigation }) => {
 
@@ -23,10 +22,10 @@ const Options = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: '100%' }}>
-            <OtherHeader navigation={navigation} HeaderTitle={'Options'} isTic={false} />
+        <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: "100%" }}>
+            <OtherHeader navigation={navigation} HeaderTitle={"Options"} isTic={false} />
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: 'center', marginTop: "25%", marginRight: "10%" }}>
+            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: "25%", marginRight: "10%" }}>
                 <Text style={optionsStyle.label}>Secret Account</Text>
 
                 <Switch

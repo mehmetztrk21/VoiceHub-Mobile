@@ -24,6 +24,7 @@ import SeeProfile from "./screens/otherScreens/seeProfile";
 import Options from "./screens/otherScreens/options";
 import { UserProvider } from "./utils/userContext";
 import ChangePassword from "./screens/otherScreens/changePassword";
+import Blockeds from "./screens/otherScreens/blockeds";
 
 const Stack = createStackNavigator();
 
@@ -58,6 +59,7 @@ const SignedInStack = () => (
         <Stack.Screen name="Options" component={Options} />
         <Stack.Screen name="SeeProfile" component={SeeProfile} />
         <Stack.Screen name="ChangePassword" component={ChangePassword} />
+        <Stack.Screen name="Blockeds" component={Blockeds} />
       </Stack.Navigator>
     </UserProvider>
   </NavigationContainer>
