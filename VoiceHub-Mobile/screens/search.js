@@ -102,20 +102,26 @@ export default function SearchScreen({ navigation, route }) {
     setLoading(false);
   }
 
-  const onChangeSearch = async (searchQuery) => {
-    const response = await searchUser({ search: searchQuery });
+  const onChangeSearch = async () => {
+    if (searchQuery != "") {
+      const response = await searchUser({ search: searchQuery });
 
-    if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          username: item.username,
-          userPic: baseURL + item.profilePhotoUrl,
-          isSecretAccount: item.isSecretAccount,
-          isTic: item.isTic,
-        }
-      })
-      setUsers(temp);
+      if (response && response.success) {
+        let temp = response.data.map((item) => {
+          return {
+            id: item._id,
+            username: item.username,
+            userPic: item.profilePhotoUrl,
+            isSecretAccount: item.isSecretAccount,
+            isTic: item.isTic,
+          }
+        })
+        setUsers(temp);
+      }
+    }
+    else {
+      setUsers();
+      //son aratılan kullanıcılar gelecek ve işlemler yapılabilecek
     }
   }
 
@@ -129,7 +135,7 @@ export default function SearchScreen({ navigation, route }) {
   }, [selectedCategory]);
 
   useEffect(() => {
-    onChangeSearch(searchQuery);
+    onChangeSearch();
   }, [searchQuery])
 
 
@@ -185,7 +191,7 @@ export default function SearchScreen({ navigation, route }) {
             />
 
             {/* Close Button */}
-            <TouchableOpacity onPress={() => setFocused(false)}
+            <TouchableOpacity onPress={() => { setFocused(false); setSearchQuery(""); }}
               style={searchStyles.closeButtonTouch}>
               <Icon type="font-awesome" size={20} name={"times"} color={colors.green} />
             </TouchableOpacity>
@@ -252,8 +258,9 @@ export default function SearchScreen({ navigation, route }) {
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }
       >
-        {focused ? (
-          <RenderLastSearchedUser navigation={navigation} users={users} />
+        {focused ? (searchQuery.length == 0 ?
+          <RenderLastSearchedUser navigation={navigation} users={users} title={"last"} /> :
+          <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} />
         ) :
           <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />
         }

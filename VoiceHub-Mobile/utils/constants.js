@@ -1,4 +1,4 @@
-export const baseURL = "http://192.168.27.116:5000/"
+export const baseURL = "http://10.0.2.2:5000/"
 
 //kaan http://10.0.2.2:5000/
 //z.burnu kütüphane http://192.168.27.116:5000/

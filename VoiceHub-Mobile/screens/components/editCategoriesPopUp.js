@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import colors from '../../assets/colors';
+import editCategoriesPopUpStyle from '../../assets/styles/editCategoriesPopUp.style';
 
 const editCategoriesPopUp = ({ id, setId, categories, setCategories }) => {
 
@@ -17,60 +18,22 @@ const editCategoriesPopUp = ({ id, setId, categories, setCategories }) => {
     const concatenatedString = categories.map(renderItem).join('').replace(/,\s*$/, '');
 
     return (
-        <View style={{
-            flex: 1,
-            width: "70%",
-            alignSelf: "center",
-            justifyContent: "center",
-        }}>
-            <View style={{
-                width: "100%",
-                alignSelf: "center",
-                justifyContent: "center",
-                paddingHorizontal: 20,
-                paddingVertical: 10,
-                borderRadius: 20,
-                backgroundColor: colors.green,
-                shadowColor: colors.black,
-                shadowOffset: {
-                    width: 0,
-                    height: 8,
-                },
-                shadowOpacity: 1,
-                shadowRadius: 4,
-                elevation: 10,
-            }}>
+        <View style={editCategoriesPopUpStyle.container}>
+            <View style={editCategoriesPopUpStyle.cantainer2}>
 
-                <Text style={{
-                    color: colors.white, fontSize: 20, textAlign: "center", fontWeight: "600",
-                    marginVertical: 10,
-                }}>Edit Categories</Text>
+                <Text style={editCategoriesPopUpStyle.title}>Edit Categories</Text>
 
                 <TextInput value={newCategory}
-                    style={{
-                        backgroundColor: "lightgray",
-                        borderRadius: 25,
-                        paddingHorizontal: 7.5,
-                        paddingVertical: 2.5,
-                        marginVertical: 10,
-                        width: "80%",
-                        marginLeft: "8%"
-                    }}
+                    style={editCategoriesPopUpStyle.input}
                     onChangeText={(newCategory) => setNewCategory(newCategory)}
                 />
 
                 <TouchableOpacity style={{ marginVertical: 10 }} onPress={() => { setCategories(false) }}>
-                    <Text style={{
-                        color: colors.green, fontSize: 16, textAlign: "center", fontWeight: "600",
-                        backgroundColor: colors.white, padding: 10, borderRadius: 10,
-                    }}>Submit</Text>
+                    <Text style={editCategoriesPopUpStyle.submit}>Submit</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{ marginVertical: 10 }} onPress={() => { setCategories(false) }}>
-                    <Text style={{
-                        color: colors.green, fontSize: 16, textAlign: "center", fontWeight: "600",
-                        backgroundColor: colors.white, padding: 10, borderRadius: 10,
-                    }}>Close</Text>
+                    <Text style={editCategoriesPopUpStyle.submit}>Close</Text>
                 </TouchableOpacity>
             </View>
         </View>

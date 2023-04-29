@@ -6,6 +6,7 @@ import ver from "../../assets/ver.png";
 import { timeAgoText } from "../../utils/timeAgoText";
 import { useUser } from "../../utils/userContext";
 import { baseURL } from "../../utils/constants";
+import colors from "../../assets/colors";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
@@ -54,6 +55,12 @@ export default function PostUserInfo(
                 ) : HeaderTitle == 'Archived' ? (
                     <TouchableOpacity onPress={() => { setOpenArchivePopUp(id ? id : false) }}>
                         <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
+                    </TouchableOpacity>
+                ) : HeaderTitle == "SearchScreen" ? (
+                    <TouchableOpacity onPress={() => { }} style={
+                        { backgroundColor: colors.white, borderRadius: 10, paddingHorizontal: 7.5, paddingVertical: 2.5, borderWidth: 2, borderColor: colors.green }
+                    }>
+                        <Text style={{ fontWeight: "700", fontSize: 15, color: colors.green, textAlign: "center" }}>Follow</Text>
                     </TouchableOpacity>
                 ) : null}
             </View>

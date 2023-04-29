@@ -96,7 +96,7 @@ export default function SavedArchieves({ navigation, route }) {
     getPosts();
   }, [openArchivePopUp])
 
-  if (loading) return <Loading />
+  //if (loading) return <Loading />
 
 
   return (

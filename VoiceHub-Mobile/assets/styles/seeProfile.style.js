@@ -7,6 +7,7 @@ export default StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
+    backgroundColor: colors.green,
   },
 
 
@@ -61,7 +62,51 @@ export default StyleSheet.create({
     fontWeight: "700",
     marginBottom: "3%",
   },
+  messageButtonHolder: {
+    width: "42.5%",
+    alignItems: "center",
+    padding: "2%",
+    backgroundColor: colors.green,
+    borderRadius: 12.5,
+    marginLeft: "5%",
+  },
+  messageButtonText: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: "600",
+  },
 
+
+  unfollowButtonHolder: {
+    width: "42.5%",
+    alignItems: "center",
+    padding: "2%",
+    backgroundColor: colors.white,
+    borderRadius: 12.5,
+    borderWidth: 1.5,
+    borderColor: colors.green,
+    marginLeft: "5%",
+  },
+  unfollowButtonText: {
+    color: colors.green,
+    fontSize: 16,
+    fontWeight: "600"
+  },
+
+
+  followButtonHolder: {
+    width: "42.5%",
+    alignItems: "center",
+    padding: "2%",
+    backgroundColor: colors.green,
+    borderRadius: 12.5,
+    marginLeft: "5%"
+  },
+  followButtonText: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: "600"
+  },
 
   btnHolder: {
     marginBottom: "2%",
@@ -94,6 +139,15 @@ export default StyleSheet.create({
     paddingTop: "2%",
     flexDirection: "column",
     width: "100%",
+    backgroundColor: colors.green,
+  },
+  notPost: {
+    marginTop: "5%",
+    textAlign: "center",
+    marginBottom: 20,
+    color: colors.white,
+    fontWeight: "700",
+    fontSize: 16
   },
   leftTop: {
     width: "100%",
