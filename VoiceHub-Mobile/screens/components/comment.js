@@ -11,6 +11,7 @@ import avatar from "../../assets/avatar.png"
 import { timeAgoText } from "../../utils/timeAgoText";
 import { useUser } from "../../utils/userContext";
 import { baseURL } from "../../utils/constants";
+import commentStyle from "../../assets/styles/comment.style";
 const { width } = Dimensions.get('window');
 
 export default function Comment({ navigation, commentId, contentUrl, userPic, username, setOpenAreYouSurePopUp, userId, createDate }) {
@@ -22,12 +23,8 @@ export default function Comment({ navigation, commentId, contentUrl, userPic, us
     }
 
     return (
-        <View style={{
-            justifyContent: "space-around", flexDirection: "row",
-            alignItems: "center", paddingVertical: width * 0.02,
-            paddingHorizontal: width * 0.07
-        }}>
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
+        <View style={commentStyle.container}>
+            <View style={commentStyle.container2}>
                 <TouchableOpacity
                     onPress={() => {
                         if (userId == user?._id) {

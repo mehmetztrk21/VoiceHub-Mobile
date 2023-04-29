@@ -25,6 +25,10 @@ export default StyleSheet.create({
         shadowRadius: 4,
         elevation: 10,
     },
+    buttonHolder: {
+        flexDirection: "row",
+        paddingVertical: 10
+    },
     button: {
         fontSize: 16,
         fontWeight: "700",
@@ -32,4 +36,14 @@ export default StyleSheet.create({
         textAlign: "center",
         color: colors.white,
     },
+    closeButton: {
+        color: colors.green,
+        fontSize: 14,
+        textAlign: "center",
+        fontWeight: "600",
+        backgroundColor: colors.white,
+        padding: 10,
+        borderRadius: 10,
+    },
+
 })

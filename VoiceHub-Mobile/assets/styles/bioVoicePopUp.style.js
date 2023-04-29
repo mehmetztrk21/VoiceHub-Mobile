@@ -32,4 +32,13 @@ export default StyleSheet.create({
         textAlign: "center",
         color: colors.white,
     },
+    closeButton: {
+        color: colors.green,
+        fontSize: 16,
+        textAlign: "center",
+        fontWeight: "600",
+        backgroundColor: colors.white,
+        padding: 10,
+        borderRadius: 10,
+    },
 })
