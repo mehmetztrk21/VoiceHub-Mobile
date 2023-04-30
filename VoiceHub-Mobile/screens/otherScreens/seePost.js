@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import colors from "../../assets/colors";
@@ -14,6 +14,7 @@ import Post from "../components/post";
 import PostActions from "../components/postActions";
 import PostCategories from "../components/postCategories";
 import userPostData from "../components/userPostData";
+import { getUserById } from "../../services/userServices";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
@@ -21,13 +22,14 @@ const { height } = Dimensions.get("window");
 export default function SeePost({ navigation, route }) {
 
     const scrollViewRef = useRef();
-    const { username } = route.params;
+    const { postId } = route.params;
 
     const handleLayout = () => {
         scrollViewRef.current.scrollTo({ y: 0, animated: true });
     };
 
     const [refreshing, setRefreshing] = useState(false);
+    const [user, setUser] = useState({});
     const [openAreYouSurePopUp, setOpenAreYouSurePopUp] = useState(false);
 
     const pullThePage = () => {
@@ -36,6 +38,24 @@ export default function SeePost({ navigation, route }) {
         setTimeout(() => {
             setRefreshing(false)
         }, 800)
+    }
+
+    useEffect(() => {
+        getUsers();
+        getPosts();
+    }, [])
+
+    const getUsers = async () => {
+        getUserById({ id: postId }).then(async (res) => {
+            setUser(res?.data);
+            console.log("son aratılanlar", res?.data);
+        }).catch((err) => {
+            console.log(err, index);
+        })
+    }
+
+    const getPosts = async () => {
+
     }
 
     return (
