@@ -16,17 +16,21 @@ import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
 
 import { getExplorePosts, getTopCategories } from "../services/postServices";
-import { searchUser } from "../services/userServices";
+import { getUserById, searchUser } from "../services/userServices";
 import { baseURL } from "../utils/constants";
 import Loading from "./components/loading";
+import { useUser } from "../utils/userContext";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
   const { username, getCategory, type } = route.params;
 
+  const { last, setLast } = useUser();
+
   const scrollViewRef = useRef();
   const categoryScrollViewRef = useRef();
 
+  const [lastUser, setLastUser] = useState({});
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState({});
   const [posts, setPosts] = useState([]);
@@ -54,14 +58,15 @@ export default function SearchScreen({ navigation, route }) {
   })
 
   const handleScrollToTop = () => {
-    scrollViewRef.current.scrollTo({ y: 0, animated: true })
+    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    categoryScrollViewRef.current.scrollTo({ y: 0, animated: true });
   };
 
   const pullThePage = () => {
     setRefreshing(true);
 
     setTimeout(() => {
-      setRefreshing(false)
+      setRefreshing(false);
     }, 800)
   }
 
@@ -102,7 +107,7 @@ export default function SearchScreen({ navigation, route }) {
   }
 
   const onChangeSearch = async () => {
-    if (searchQuery.length != 0 ) {
+    if (searchQuery.length != 0) {
       const response = await searchUser({ search: searchQuery });
 
       if (response && response.success) {
@@ -117,6 +122,16 @@ export default function SearchScreen({ navigation, route }) {
         })
         setUsers(temp);
       }
+    }
+    else {
+      last?.map((item, index) => {
+        getUserById({ id: item }).then(async (res) => {
+          setLastUser(res?.data)
+          console.log("son aratılanlar", res?.data);
+        }).catch((err) => {
+          console.log(err, index);
+        })
+      })
     }
   }
 
@@ -133,8 +148,6 @@ export default function SearchScreen({ navigation, route }) {
     onChangeSearch();
   }, [searchQuery])
 
-
-
   if (loading) return <Loading />
 
   return (
@@ -147,7 +160,7 @@ export default function SearchScreen({ navigation, route }) {
         animationType="slide"
         transparent={true}
         onRequestClose={() => {
-          setVisiblePopUp(false)
+          setVisiblePopUp(false);
         }}>
         <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
           setVisiblePopUp={setVisiblePopUp} />
@@ -181,7 +194,7 @@ export default function SearchScreen({ navigation, route }) {
             < TextInput
               placeholder="Search"
               style={[searchStyles.searchBar, { width: "90%" }]}
-              onChangeText={searchQuery => setSearchQuery(searchQuery)}
+              onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
               value={searchQuery}
             />
 
@@ -218,8 +231,7 @@ export default function SearchScreen({ navigation, route }) {
                 <Text style={[searchStyles.SecondText,
                 { width: width * 0.3, marginHorizontal: width * 0.0125, },
                 selectedCategory == "all" ? {
-                  borderWidth: 2, borderColor: colors.green,
-                  backgroundColor: colors.white, color: colors.green
+                  borderWidth: 2, borderColor: colors.green, backgroundColor: colors.white, color: colors.green
                 } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#all</Text>
 
               </TouchableOpacity>
@@ -253,15 +265,17 @@ export default function SearchScreen({ navigation, route }) {
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }
       >
-        {focused ? (searchQuery.length == 0 ?
-          <RenderLastSearchedUser navigation={navigation} title={"last"} /> :
-          <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} />
-        ) :
-          <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />
-        }
+        {focused == true && searchQuery.length != 0 ?
+          <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} /> :
+          focused == true && searchQuery.length == 0 ?
+            <RenderLastSearchedUser navigation={navigation} lastUsers={lastUser} title={"last"} /> :
+            focused == false ?
+              <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} /> : null}
+
       </ScrollView>
 
       <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );
 }
+/**/
