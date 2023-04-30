@@ -38,7 +38,7 @@ const BlockedItem = ({ navigation, blockedUser }) => {
 
 
             <TouchableOpacity style={blockedItemStyle.removeButtonHolder}>
-                <Text style={blockedItemStyle.removeButtonText}>Kaldır</Text>
+                <Text style={blockedItemStyle.removeButtonText}>Remove</Text>
             </TouchableOpacity>
         </View >
     )

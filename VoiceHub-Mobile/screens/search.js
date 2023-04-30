@@ -50,7 +50,7 @@ export default function SearchScreen({ navigation, route }) {
     else {
       console.log("screen type error. Search.js")
       setFocused(false);
-    }//çok uzun sürecek siktir e
+    }
   })
 
   const handleScrollToTop = () => {
@@ -83,7 +83,6 @@ export default function SearchScreen({ navigation, route }) {
           likes: item.likes,
           isTic: item.createdBy.isTic,
           isLikesVisible: item.isLikesVisible,
-
         }
       })
       setPosts(temp);
@@ -103,7 +102,7 @@ export default function SearchScreen({ navigation, route }) {
   }
 
   const onChangeSearch = async () => {
-    if (searchQuery != "") {
+    if (searchQuery.length != 0 ) {
       const response = await searchUser({ search: searchQuery });
 
       if (response && response.success) {
@@ -118,10 +117,6 @@ export default function SearchScreen({ navigation, route }) {
         })
         setUsers(temp);
       }
-    }
-    else {
-      setUsers();
-      //son aratılan kullanıcılar gelecek ve işlemler yapılabilecek
     }
   }
 
@@ -259,7 +254,7 @@ export default function SearchScreen({ navigation, route }) {
         }
       >
         {focused ? (searchQuery.length == 0 ?
-          <RenderLastSearchedUser navigation={navigation} users={users} title={"last"} /> :
+          <RenderLastSearchedUser navigation={navigation} title={"last"} /> :
           <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} />
         ) :
           <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />

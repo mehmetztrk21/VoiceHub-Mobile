@@ -5,6 +5,7 @@ const UserContext = createContext({});
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [last, setLast] = useState(null);
 
   useEffect(() => {
     const getUser = async () => {
@@ -12,11 +13,18 @@ export const UserProvider = ({ children }) => {
       const user = jsonValue != null ? JSON.parse(jsonValue) : null;
       setUser(user);
     };
+
+    const getLast = async () => {
+      const last = await AsyncStorage.getItem('lasts');
+      setLast(last);
+    };
+
     getUser();
+    getLast();
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <UserContext.Provider value={{ user, setUser, last, setLast }}>
       {children}
     </UserContext.Provider>
   );
