@@ -9,11 +9,12 @@ import {
 import activityStyles from "../assets/styles/activity.style";
 
 import OtherHeader from "./components/otherHeader";
-
+import ActivityItem from "./components/activityItem";
 import userPostData from "./components/userPostData";
 
 import { Dimensions } from "react-native";
 import colors from "../assets/colors";
+
 const { width } = Dimensions.get("window");
 
 export default function ActivityScreen({ navigation }) {
@@ -45,20 +46,7 @@ export default function ActivityScreen({ navigation }) {
         {
           userPostData.map((item, index) => {
             return (
-              <View key={index}>
-                <TouchableOpacity style={activityStyles.actView} onPress={() => navigation.navigate("SeePost", { postId: "6426dcf9a8166e045ab80f56" })}>
-
-                  <TouchableOpacity onPress={() => navigation.navigate("SeeProfile", { userId: "6426be97c779bd5c88513545" })}>
-                    <Image source={item.userPic} style={activityStyles.userPic} />
-                  </TouchableOpacity>
-
-                  <View style={{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style={activityStyles.actText}>{item.username} liked your Post.</Text>
-                    <Text style={activityStyles.date}>{item.date}</Text>
-                  </View>
-
-                </TouchableOpacity>
-              </View>
+              <ActivityItem userPic={item.userPic} username={item.username} text={item.caption} index={index} />
             )
           })
         }
