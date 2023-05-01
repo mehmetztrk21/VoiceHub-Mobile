@@ -15,7 +15,8 @@ export const UserProvider = ({ children }) => {
     };
 
     const getLast = async () => {
-      const last = await AsyncStorage.getItem('lasts');
+      const jsonValue = await AsyncStorage.getItem('lasts');
+      const user = jsonValue != null ? JSON.parse(jsonValue) : null;
       setLast(last);
     };
 

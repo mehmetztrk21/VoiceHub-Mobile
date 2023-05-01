@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Image, Text, TouchableOpacity, View } from "react-native"
 import { Icon } from "react-native-elements"
 import avatar from "../../assets/avatar.png"
@@ -10,62 +10,84 @@ import { useUser } from "../../utils/userContext"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const RenderLastSearchedUser = ({ navigation, lastUsers, users, title }) => {
+const RenderLastSearchedUser = ({ navigation, users, title }) => {
 
   const { user } = useUser();
   const { last, setLast } = useUser();
 
-  const deleteItem = async (id) => {
-    const temp = [...last];
+  {/*const deleteItem = async (id) => {
+    const temp = { ...last };
     temp.filter(o => o !== id);
     setLast(temp);
     await AsyncStorage.setItem("lasts", temp);
   }
+*/}
+  const touch = async (id, item) => {
+    console.log("touch'a gitti");
 
-  const touch = async (id) => {
-    if (title == "search") {
-      if (!(await AsyncStorage.getItem("lasts").includes(id))) {
-        const temp = [...last];
-        temp.push(id);
+    if (title === "search") {
+      if (JSON.parse(setLast)._id !== id) {
+        const temp = { ...last };
+        temp += item;
         setLast(temp);
-        await AsyncStorage.setItem("lasts", temp);
+        console.log(temp);
       }
-    }
-
-    if (id == user._id) {
-      navigation.navigate("ProfileScreen", { username: user?.username })
-    }
-    else {
-      navigation.navigate("SeeProfile", { userId: id });
     }
   }
 
+  useEffect(() => {
+    console.log("kaaa", users)
+    console.log("kaaa", title)
+    console.log("kaaa", last)
+  }, [title])
 
-  return users?.map((item, index) => (
-    <View style={{ width: "100%", flexDirection: "row", alignItems: "center", justifyContent: "space-around", }} key={index}>
+  const renderUsers = () => {
+    return users?.map((item, index) => (
 
-      <TouchableOpacity style={[RenderLastSearchedUserStyle.last, title == "last" ? { width: "70%" } : { width: "90%" }]}
-        onPress={() => { touch(title == "last" ? item._id : item.id) }}>
-        {title == "last" ? item.profilePhotoUrl : item.userPic ?
-          <Image source={{ uri: title == "last" ? baseURL + item.profilePhotoUrl : baseURL + item.userPic }} style={RenderLastSearchedUserStyle.lastSearchImage} /> :
+      <TouchableOpacity style={[RenderLastSearchedUserStyle.last, { width: "90%" }]}
+        onPress={() => { touch(item._id, item); { item?._id == user._id ? navigation.navigate("ProfileScreen", { username: user?.username }) : navigation.navigate("SeeProfile", { userId: item?._id }); } }}>
+        {item.profilePhotoUrl ?
+          <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={RenderLastSearchedUserStyle.lastSearchImage} /> :
           <Image source={avatar} style={RenderLastSearchedUserStyle.lastSearchImage} />
         }
         <View style={{ flexDirection: "row", alignItems: "center", }}>
-          <Text style={{ fontWeight: "700", fontSize: 16, marginLeft: 3.5, }}>{title == "last" ? item.username : item.username}</Text>
-          {title == "last" ? item.isTic : item?.isTic ? <Image source={ver} style={{ width: 16, height: 16, marginLeft: 3.5, }} /> : null}
+          <Text style={{ fontWeight: "700", fontSize: 16, marginLeft: 3.5, }}>{item.username}</Text>
+          {item?.isTic ? <Image source={ver} style={{ width: 16, height: 16, marginLeft: 3.5, }} /> : null}
         </View>
       </TouchableOpacity>
+    ))
+  }
 
-      {
-        title == "last" ?
-          < TouchableOpacity style={{ alignItems: "center", }} onPress={() => { deleteItem(item) }}>
-            <Icon type={"font-awesome"} size={20} name={"times"} color={colors.gray} />
-          </TouchableOpacity>
-          : null
+  const renderLasts = () => {
+    return last?.map((item, index) => {
+      <View>
+        <TouchableOpacity style={[RenderLastSearchedUserStyle.last, title == "last" ? { width: "70%" } : { width: "90%" }]}
+          onPress={() => { touch(item._id); { item?._id == user._id ? navigation.navigate("ProfileScreen", { username: user?.username }) : navigation.navigate("SeeProfile", { userId: item?._id }); } }}>
+          {item.profilePhotoUrl ?
+            <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={RenderLastSearchedUserStyle.lastSearchImage} /> :
+            <Image source={avatar} style={RenderLastSearchedUserStyle.lastSearchImage} />
+          }
+          <View style={{ flexDirection: "row", alignItems: "center", }}>
+            <Text style={{ fontWeight: "700", fontSize: 16, marginLeft: 3.5, }}>{item.username}</Text>
+            {item?.isTic ? <Image source={ver} style={{ width: 16, height: 16, marginLeft: 3.5, }} /> : null}
+          </View>
+        </TouchableOpacity>
+
+        < TouchableOpacity style={{ alignItems: "center", }} onPress={() => { /*deleteItem(item)*/ }}>
+          <Icon type={"font-awesome"} size={20} name={"times"} color={colors.gray} />
+        </TouchableOpacity>
+      </View>
+    })
+  }
+
+  return (
+    <View style={{ width: "100%", alignItems: "center", justifyContent: "space-around", }}>
+      {title == "search" ?
+        renderUsers() :
+        renderLasts()
       }
-
     </View >
-  ))
+  )
 
 
 }

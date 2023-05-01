@@ -25,15 +25,14 @@ const { width } = Dimensions.get("window");
 export default function SearchScreen({ navigation, route }) {
   const { username, getCategory, type } = route.params;
 
-  const { last, setLast } = useUser();
-
   const scrollViewRef = useRef();
   const categoryScrollViewRef = useRef();
 
-  const [lastUser, setLastUser] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
   const [focused, setFocused] = useState(false);
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
@@ -42,7 +41,7 @@ export default function SearchScreen({ navigation, route }) {
   const [selectedCategory, setSelectedCategory] = useState(getCategory);
   const [categories, setCategories] = useState([]);
 
-  useState(() => {
+  useEffect(() => {
     if (type == "lastSearched") {
       console.log("lastSearched bölümüne geldi");
       setFocused(true);
@@ -55,7 +54,7 @@ export default function SearchScreen({ navigation, route }) {
       console.log("screen type error. Search.js")
       setFocused(false);
     }
-  })
+  }, [])
 
   const handleScrollToTop = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true });
@@ -107,31 +106,15 @@ export default function SearchScreen({ navigation, route }) {
   }
 
   const onChangeSearch = async () => {
-    if (searchQuery.length != 0) {
+    if (searchQuery.trim() !== "") {
       const response = await searchUser({ search: searchQuery });
-
       if (response && response.success) {
-        let temp = response.data.map((item) => {
-          return {
-            id: item._id,
-            username: item.username,
-            userPic: item.profilePhotoUrl,
-            isSecretAccount: item.isSecretAccount,
-            isTic: item.isTic,
-          }
-        })
-        setUsers(temp);
+        console.log(response?.data);
+        setUsers(response?.data);
       }
     }
     else {
-      last?.map((item, index) => {
-        getUserById({ id: item }).then(async (res) => {
-          setLastUser(res?.data)
-          console.log("son aratılanlar", res?.data);
-        }).catch((err) => {
-          console.log(err, index);
-        })
-      })
+      console.log("boş")
     }
   }
 
@@ -265,12 +248,11 @@ export default function SearchScreen({ navigation, route }) {
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }
       >
-        {focused == true && searchQuery.length != 0 ?
-          <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} /> :
-          focused == true && searchQuery.length == 0 ?
-            <RenderLastSearchedUser navigation={navigation} lastUsers={lastUser} title={"last"} /> :
-            focused == false ?
-              <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} /> : null}
+        {focused == true ?
+          (searchQuery.length !== 0 ?
+            <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} /> :
+            <RenderLastSearchedUser navigation={navigation} title={"last"} />)
+          : <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />}
 
       </ScrollView>
 
