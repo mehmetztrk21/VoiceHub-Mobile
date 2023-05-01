@@ -8,7 +8,7 @@ import { setLikedPost, setSavedPost } from '../../services/actionServices'
 import postActionsStyle from "../../assets/styles/postActions.style";
 
 export default function postActions(
-  { navigation, posts, likes, commentCount, postId }) {
+  { navigation, posts, likes, commentCount, postId, title }) {
   const { user } = useUser();
 
   const [liked, setLiked] = useState(false)
@@ -19,19 +19,19 @@ export default function postActions(
     if (likes?.includes(user?._id)) {
       setLiked(true);
     }
-    else{
+    else {
       setLiked(false);
     }
 
     if (user?.savedPosts?.includes(postId)) {
       setSaved(true);
     }
-    else{
+    else {
       setSaved(false);
     }
   }, [])
 
-  
+
 
   const postLiked = async () => {
     setLiked(prev => {
@@ -73,11 +73,11 @@ export default function postActions(
 
           <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { likes: likes })}>
             {posts?.isLikesVisible == true ? (
-              <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
+              <Text style={[title == "seePost" ? { fontWeight: "500", fontSize: 20, marginLeft: 5, color: colors.green, marginRight: 30 } : { fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.green }]}>
                 {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Text>
             ) :
-              <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>See Likes</Text>
+              <Text style={[title == "seePost" ? { fontWeight: "500", fontSize: 20, marginLeft: 5, color: colors.green, marginRight: 30 } : { fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.green }]}>See Likes</Text>
             }
           </TouchableOpacity>
         </View>
@@ -89,22 +89,22 @@ export default function postActions(
 
           <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { likes: likes })}>
             {posts?.isLikesVisible == true ? (
-              <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
+              <Text style={[title == "seePost" ? { fontWeight: "500", fontSize: 20, marginLeft: 5, color: colors.black, marginRight: 30 } : { fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }]}>
                 {likeCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
               </Text>
             ) :
-              <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>See Likes</Text>}
+              <Text style={[title == "seePost" ? { fontWeight: "500", fontSize: 20, marginLeft: 5, color: colors.black, marginRight: 30 } : { fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }]}>See Likes</Text>}
           </TouchableOpacity>
         </View>
       }
 
       {/* Comments */}
-      <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("OtherComments", { postId: postId, comments: posts?.comments })}>
+      {title != "seePost" ? <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("OtherComments", { postId: postId, comments: posts?.comments })}>
         <Icon type="font-awesome" size={20} name={"comment-o"} color={colors.black} />
-        <Text style={{ fontWeight: "700", marginLeft: 5, fontSize: 14, color: colors.black }}>
+        <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
           {commentCount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity> : null}
 
       {/* Save */}
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>

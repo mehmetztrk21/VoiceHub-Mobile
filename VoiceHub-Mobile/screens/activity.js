@@ -46,7 +46,7 @@ export default function ActivityScreen({ navigation }) {
         {
           userPostData.map((item, index) => {
             return (
-              <ActivityItem userPic={item.userPic} username={item.username} text={item.caption} index={index} />
+              <ActivityItem navigation={navigation} userPic={item.userPic} username={item.username} text={item.caption} index={index} />
             )
           })
         }

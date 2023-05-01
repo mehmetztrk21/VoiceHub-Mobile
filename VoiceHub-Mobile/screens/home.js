@@ -56,7 +56,6 @@ export default function HomeScreen({ navigation }) {
           userPic: baseURL + item.createdBy.profilePhotoUrl,
           likes: item.likes,
           isLikesVisible: item.isLikesVisible,
-
         }
       });
       setPosts(temp);
