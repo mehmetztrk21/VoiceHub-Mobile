@@ -4,7 +4,7 @@ import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 import bottomTabsStyle from "../../assets/styles/bottomTabs.style";
 
-const BottomTabs = ({ navigation, username, setVisiblePopUp }) => {
+const BottomTabs = ({ navigation, setVisiblePopUp }) => {
   const [timer, setTimer] = useState(null);
 
   const ProfileButtonPress = () => {
@@ -18,12 +18,12 @@ const BottomTabs = ({ navigation, username, setVisiblePopUp }) => {
     if (page == "SearchScreen") {
       setTimer(0);
       setVisiblePopUp(false)
-      navigation.navigate(page, { username: username, getCategory: "all", type: "discovery" });
+      navigation.navigate(page, { getCategory: "all", type: "discovery" });
     }
     else {
       setTimer(0);
       setVisiblePopUp(false)
-      navigation.navigate(page, { username: username });
+      navigation.navigate(page);
     }
 
   }

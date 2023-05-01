@@ -28,7 +28,7 @@ export default function Comment({ navigation, commentId, contentUrl, userPic, us
                 <TouchableOpacity
                     onPress={() => {
                         if (userId == user?._id) {
-                            navigation.navigate("ProfileScreen", { username: username });
+                            navigation.navigate("ProfileScreen");
                         }
                         else {
                             navigation.navigate("SeeProfile", { userId: userId });

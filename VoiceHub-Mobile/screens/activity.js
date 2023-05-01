@@ -16,8 +16,7 @@ import { Dimensions } from "react-native";
 import colors from "../assets/colors";
 const { width } = Dimensions.get("window");
 
-export default function ActivityScreen({ navigation, route }) {
-  const { username } = route.params;
+export default function ActivityScreen({ navigation }) {
 
   const scrollViewRef = useRef(null);
 

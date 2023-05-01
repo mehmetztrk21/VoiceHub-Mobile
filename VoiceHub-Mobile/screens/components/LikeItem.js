@@ -5,11 +5,20 @@ import ver from "../../assets/ver.png"
 import avatar from "../../assets/avatar.png"
 import colors from '../../assets/colors'
 import { baseURL } from '../../utils/constants'
+import { useUser } from "../../utils/userContext"
+
 const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
+
+    const { user } = useUser();
+
     return (
         <View style={seeLikesStyle.item} >
             <TouchableOpacity style={seeLikesStyle.seeProfile}
-                onPress={() => navigation.navigate("SeeProfile", { userId: userId })} >
+                onPress={() => {
+                    user?._id == userId ?
+                    navigation.navigate("ProfileScreen") :
+                    navigation.navigate("SeeProfile", { userId: userId })
+                }} >
                 {!profilePhotoUrl ?
                     <Image source={avatar} style={seeLikesStyle.profileImage} /> :
                     <Image source={{ uri: baseURL + profilePhotoUrl }} style={seeLikesStyle.profileImage} />

@@ -24,15 +24,15 @@ const profileHeader = ({ navigation, pressLogo }) => {
         </View>
 
         <View style={profileHeaderStyle.rightTop}>
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { username: user?.username, HeaderTitle: 'Archived', id: user?.id })}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { HeaderTitle: 'Archived' })}>
             <Icon type="feather" size={28} name={"archive"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { username: user?.username, HeaderTitle: 'Saved', id: user?.id })}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { HeaderTitle: 'Saved' })}>
             <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("ActivityScreen", { username: user?.username })}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("ActivityScreen")}>
             <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
           </TouchableOpacity>
         </View>

@@ -62,11 +62,11 @@ export default function Register({ navigation }) {
                     navigation.navigate("HomeScreen")
                 }
                 else {
-                    alert("Girdiğiniz Bilgiler Yanlış")
+                    alert("The Information You Entered Is Incorrect")
                 }
             }
             else {
-                alert("Girdiğiniz Bilgiler Yanlış")
+                alert("The Information You Entered Is Incorrect")
             }
         }
     }
@@ -123,7 +123,7 @@ export default function Register({ navigation }) {
                 <Text style={registerStyle.label}>Phone</Text>
                 <TextInput
                     style={registerStyle.sbar}
-                    maxLength={36}
+                    maxLength={20}
                     value={phone}
                     onChangeText={phone => setPhone(phone)}
                 />
@@ -131,7 +131,7 @@ export default function Register({ navigation }) {
                 <Text style={registerStyle.label}>BirthDay</Text>
                 <TextInput
                     style={registerStyle.sbar}
-                    maxLength={36}
+                    maxLength={23}
                     value={birth}
                     onChangeText={birth => setBirth(birth)}
                 />
@@ -139,7 +139,7 @@ export default function Register({ navigation }) {
                 <Text style={registerStyle.label}>Gender</Text>
                 <TextInput
                     style={registerStyle.sbar}
-                    maxLength={36}
+                    maxLength={16}
                     value={gender}
                     onChangeText={gender => setGender(gender)}
                 />

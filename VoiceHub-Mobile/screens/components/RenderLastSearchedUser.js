@@ -35,17 +35,11 @@ const RenderLastSearchedUser = ({ navigation, users, title }) => {
     }
   }
 
-  useEffect(() => {
-    console.log("kaaa", users)
-    console.log("kaaa", title)
-    console.log("kaaa", last)
-  }, [title])
-
   const renderUsers = () => {
     return users?.map((item, index) => (
 
       <TouchableOpacity style={[RenderLastSearchedUserStyle.last, { width: "90%" }]}
-        onPress={() => { touch(item._id, item); { item?._id == user._id ? navigation.navigate("ProfileScreen", { username: user?.username }) : navigation.navigate("SeeProfile", { userId: item?._id }); } }}>
+        onPress={() => { touch(item._id, item); { item?._id == user._id ? navigation.navigate("ProfileScreen") : navigation.navigate("SeeProfile", { userId: item?._id }); } }}>
         {item.profilePhotoUrl ?
           <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={RenderLastSearchedUserStyle.lastSearchImage} /> :
           <Image source={avatar} style={RenderLastSearchedUserStyle.lastSearchImage} />
@@ -62,7 +56,7 @@ const RenderLastSearchedUser = ({ navigation, users, title }) => {
     return last?.map((item, index) => {
       <View>
         <TouchableOpacity style={[RenderLastSearchedUserStyle.last, title == "last" ? { width: "70%" } : { width: "90%" }]}
-          onPress={() => { touch(item._id); { item?._id == user._id ? navigation.navigate("ProfileScreen", { username: user?.username }) : navigation.navigate("SeeProfile", { userId: item?._id }); } }}>
+          onPress={() => { touch(item._id); { item?._id == user._id ? navigation.navigate("ProfileScreen") : navigation.navigate("SeeProfile", { userId: item?._id }); } }}>
           {item.profilePhotoUrl ?
             <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={RenderLastSearchedUserStyle.lastSearchImage} /> :
             <Image source={avatar} style={RenderLastSearchedUserStyle.lastSearchImage} />

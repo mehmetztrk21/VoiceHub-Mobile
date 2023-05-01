@@ -16,14 +16,13 @@ import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
 
 import { getExplorePosts, getTopCategories } from "../services/postServices";
-import { getUserById, searchUser } from "../services/userServices";
+import { searchUser } from "../services/userServices";
 import { baseURL } from "../utils/constants";
 import Loading from "./components/loading";
-import { useUser } from "../utils/userContext";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
-  const { username, getCategory, type } = route.params;
+  const { getCategory, type } = route.params;
 
   const scrollViewRef = useRef();
   const categoryScrollViewRef = useRef();
@@ -112,9 +111,6 @@ export default function SearchScreen({ navigation, route }) {
         console.log(response?.data);
         setUsers(response?.data);
       }
-    }
-    else {
-      console.log("boş")
     }
   }
 
@@ -256,7 +252,7 @@ export default function SearchScreen({ navigation, route }) {
 
       </ScrollView>
 
-      <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
+      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );
 }

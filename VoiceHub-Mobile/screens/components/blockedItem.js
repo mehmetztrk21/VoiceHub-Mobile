@@ -16,7 +16,7 @@ const BlockedItem = ({ navigation, blockedUser }) => {
 
             <TouchableOpacity onPress={() => {
                 if (blockedUser?.id == user?._id) {
-                    navigation.navigate("ProfileScreen", { username: user?.username });
+                    navigation.navigate("ProfileScreen");
                 }
                 else {
                     navigation.navigate("SeeProfile", { userId: blockedUser?.id });

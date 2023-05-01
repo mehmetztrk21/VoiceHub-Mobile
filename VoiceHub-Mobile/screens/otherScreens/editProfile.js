@@ -101,7 +101,6 @@ export default function EditProfile({ navigation }) {
 
           <Text style={editProfileStyle.label}>Name</Text>
           <TextInput
-            placeholder={user?.name}
             value={firstname}
             onChangeText={firstname => setFirstName(firstname)}
             style={editProfileStyle.searchBar}
@@ -109,7 +108,6 @@ export default function EditProfile({ navigation }) {
 
           <Text style={editProfileStyle.label}>Surname</Text>
           <TextInput
-            placeholder={user?.surname}
             value={surname}
             onChangeText={surname => setSurname(surname)}
             style={editProfileStyle.searchBar}
@@ -117,7 +115,6 @@ export default function EditProfile({ navigation }) {
 
           <Text style={editProfileStyle.label}>Phone</Text>
           <TextInput
-            placeholder={user?.phone}
             value={phone}
             onChangeText={phone => setPhone(phone)}
             style={editProfileStyle.searchBar}
@@ -125,7 +122,6 @@ export default function EditProfile({ navigation }) {
 
           <Text style={editProfileStyle.label}>Birth Day</Text>
           <TextInput
-            placeholder={user?.birthDay}
             value={birthDay}
             onChangeText={birthDay => setBirthDay(birthDay)}
             style={editProfileStyle.searchBar}
@@ -133,7 +129,6 @@ export default function EditProfile({ navigation }) {
 
           <Text style={editProfileStyle.label}>Gender</Text>
           <TextInput
-            placeholder={user?.gender}
             value={gender}
             onChangeText={(gender) => setGender(gender)}
             style={editProfileStyle.searchBar}
@@ -148,12 +143,11 @@ export default function EditProfile({ navigation }) {
                 <TouchableOpacity onPress={() => { setOpenBioVoicePopUp(true) }}>
                   <Text style={{ color: colors.green, fontSize: 14, fontWeight: "700", paddingLeft: 10 }}>Edit</Text>
                 </TouchableOpacity>
-
               </View>
             ) :
               <View style={{ justifyContent: "center" }}>
                 <Text style={{ color: colors.darkGray, fontSize: 14, fontWeight: "400", textAlign: "center", marginTop: "5%", marginBottom: "5%" }}>
-                  You Don"t have a biography</Text>
+                  {"You Don't have a biography"}</Text>
 
                 <TouchableOpacity onPress={() => setOpenAddVoice(prev => !prev)}
                   style={{ width: "50%", marginLeft: "25%", backgroundColor: colors.green, borderRadius: 50, padding: 5, }}>

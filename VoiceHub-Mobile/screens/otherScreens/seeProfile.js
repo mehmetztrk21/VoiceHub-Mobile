@@ -190,7 +190,6 @@ export default function SeeProfile({ navigation, route }) {
                                     </Text>
                                 </TouchableOpacity>
                             )
-
                     }
                 </View>
             </View>
@@ -223,7 +222,6 @@ export default function SeeProfile({ navigation, route }) {
                     <DontShowPosts />
                 }
             </ScrollView>
-
             {
                 openAreYouSure == true ? (
                     <AreYouSure process={'LogOut'} navigation={navigation}

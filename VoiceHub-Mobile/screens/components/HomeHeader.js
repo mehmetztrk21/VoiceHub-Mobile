@@ -9,7 +9,7 @@ import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 
-const HomeHeader = ({ navigation, pressLogo, username }) => {
+const HomeHeader = ({ navigation, pressLogo }) => {
 
   return (
     <View style={homeHeaderStyles.wrapper}>
@@ -28,7 +28,7 @@ const HomeHeader = ({ navigation, pressLogo, username }) => {
               <Icon type="font-awesome" size={30} name={"envelope-o"} color={colors.black} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate("ActivityScreen", { username: username })} style={{ marginLeft: 10 }}>
+            <TouchableOpacity onPress={() => navigation.navigate("ActivityScreen")} style={{ marginLeft: 10 }}>
               <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
             </TouchableOpacity>
           </View>

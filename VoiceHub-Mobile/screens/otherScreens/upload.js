@@ -25,8 +25,7 @@ import { createPost } from "../../services/postServices";
 import { recordingOptions } from "../../utils/recordingOptions";
 import { timeFormatText } from "../../utils/timeFormatText";
 
-export default function Upload({ navigation, route }) {
-    const { username } = route.params;
+export default function Upload({ navigation }) {
 
     const [visiblePopUp, setVisiblePopUp] = useState(false);
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
@@ -267,7 +266,7 @@ export default function Upload({ navigation, route }) {
                 </View>
             }
 
-            <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
+            <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} />
         </SafeAreaView>
     );
 }

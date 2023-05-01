@@ -77,7 +77,7 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={homeStyles.container}>
-      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} username={user?.username} />
+      <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} />
 
       <Modal
         visible={visiblePopUp}
@@ -117,7 +117,7 @@ export default function HomeScreen({ navigation }) {
               {"You are not following anyone yet :("}
             </Text>
 
-            <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { username: user?.username, getCategory: "all", type: "discovery" }) }}>
+            <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { getCategory: "all", type: "discovery" }) }}>
               <Text style={
                 { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
                 Discover now!
@@ -127,8 +127,7 @@ export default function HomeScreen({ navigation }) {
         }
       </ScrollView>
 
-      <BottomTabs navigation={navigation} username={user?.username}
-        visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
+      <BottomTabs navigation={navigation} visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
     </SafeAreaView>
   );
 }

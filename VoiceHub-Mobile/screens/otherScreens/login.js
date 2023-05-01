@@ -9,8 +9,11 @@ import colors from "../../assets/colors";
 import { login } from "../../services/authServices";
 import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
+
 export default function Login({ navigation }) {
-    const { user, setUser } = useUser()
+
+    const { user, setUser } = useUser();
+    
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -60,7 +63,9 @@ export default function Login({ navigation }) {
             else setLoading(false)
         }).catch(err => setLoading(false))
     }, [])
+
     if (loading) return <Loading />
+
     return (
         <SafeAreaView style={loginStyle.container}>
             <View style={loginStyle.logoView}>
