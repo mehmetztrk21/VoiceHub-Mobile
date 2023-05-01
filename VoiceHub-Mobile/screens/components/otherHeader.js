@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text, TouchableOpacity, View, Dimensions, Image } from 'react-native';
-import { Divider, Icon } from 'react-native-elements';
+import { Dimensions, Image, Text, TouchableOpacity, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-import ver from "../../assets/ver.png";
 import otherHeaderStyle from "../../assets/styles/otherHeader.style";
+import ver from "../../assets/ver.png";
 
 const { width } = Dimensions.get("window");
 const otherHeader = ({ navigation, HeaderTitle, isTic }) => {

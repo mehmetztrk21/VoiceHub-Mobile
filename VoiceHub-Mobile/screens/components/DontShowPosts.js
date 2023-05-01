@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { colors, Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
+import colors from '../../assets/colors'
 
 const DontShowPosts = () => {
     return (

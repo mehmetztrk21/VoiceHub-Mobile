@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, TouchableOpacity, View } from 'react-native';
-import { Divider, Icon } from "react-native-elements";
+import { Icon } from "react-native-elements";
 
 import colors from '../../assets/colors';
 import logo from "../../assets/images/VoiceHub-1.png";
@@ -13,7 +13,6 @@ const HomeHeader = ({ navigation, pressLogo }) => {
 
   return (
     <View style={homeHeaderStyles.wrapper}>
-      <Divider width={1} orientation='vertical' />
 
       <View style={homeHeaderStyles.head}>
 
