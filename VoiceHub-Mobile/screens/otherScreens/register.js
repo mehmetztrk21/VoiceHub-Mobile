@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as FileSystem from 'expo-file-system';
-//import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from 'expo-image-picker';
 import React, { useState } from "react";
 import { Button, Image, Modal, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
@@ -10,6 +10,7 @@ import RegisterProfilePhotoPopUp from "../../screens/components/registerProfileP
 import { login, register } from "../../services/authServices";
 import { registerCondition } from "../../utils/registerCondition";
 import { useUser } from "../../utils/userContext";
+import { Picker } from '@react-native-picker/picker';
 
 export default function Register({ navigation }) {
     const { setUser } = useUser()
@@ -137,12 +138,22 @@ export default function Register({ navigation }) {
                 />
 
                 <Text style={registerStyle.label}>Gender</Text>
-                <TextInput
-                    style={registerStyle.sbar}
-                    maxLength={16}
+                <Picker
+                    style={{
+                        backgroundColor: colors.lightgray,
+                        borderRadius: 15,
+                        paddingVertical: "2.5%",
+                        paddingHorizontal: "2.5%",
+                        width: "80%",
+                        marginHorizontal: "10%",
+                    }}
                     value={gender}
-                    onChangeText={gender => setGender(gender)}
-                />
+                    selectedValue={gender}
+                    onValueChange={(gender) => setGender(gender)}>
+                    <Picker.Item label="Choose Gender" value="" />
+                    <Picker.Item label={"Male"} value={"male"} />
+                    <Picker.Item label={"Female"} value={"female"} />
+                </Picker>
 
                 <Text style={registerStyle.label}>Password</Text>
 
