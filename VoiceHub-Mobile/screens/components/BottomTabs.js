@@ -13,7 +13,6 @@ const BottomTabs = ({ navigation, setVisiblePopUp }) => {
     }, 1000);
     setTimer(timerId);
   }
-
   const Select = (page) => {
     if (page == "SearchScreen") {
       setTimer(0);
@@ -25,7 +24,6 @@ const BottomTabs = ({ navigation, setVisiblePopUp }) => {
       setVisiblePopUp(false)
       navigation.navigate(page);
     }
-
   }
 
   return (
