@@ -266,7 +266,7 @@ export default function Upload({ navigation }) {
                 </View>
             }
 
-            <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} />
+            <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"upload"} />
         </SafeAreaView>
     );
 }

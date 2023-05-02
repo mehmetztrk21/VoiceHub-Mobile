@@ -252,7 +252,7 @@ export default function SearchScreen({ navigation, route }) {
 
       </ScrollView>
 
-      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} />
+      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"search"}/>
     </SafeAreaView>
   );
 }

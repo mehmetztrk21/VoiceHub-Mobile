@@ -126,7 +126,7 @@ export default function HomeScreen({ navigation }) {
         }
       </ScrollView>
 
-      <BottomTabs navigation={navigation} visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} />
+      <BottomTabs navigation={navigation} visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} title={"home"} />
     </SafeAreaView>
   );
 }
