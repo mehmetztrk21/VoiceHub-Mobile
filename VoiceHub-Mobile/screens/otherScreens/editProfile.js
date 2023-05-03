@@ -7,6 +7,10 @@ import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 import editProfileStyle from "../../assets/styles/editProfile.style";
 
+import * as FileSystem from 'expo-file-system';
+
+import Loading from "../../screens/components/loading";
+
 import AddVoice from "../components/addVoice";
 import BioVoicePopUp from "../components/bioVoicePopUp";
 import OtherHeader from "../components/otherHeader";
@@ -18,11 +22,15 @@ import { baseURL } from "../../utils/constants";
 import { useUser } from "../../utils/userContext";
 import ProfilePhotoPopUp from "../components/profilePhotoPopUp";
 import { Picker } from "@react-native-picker/picker";
+
 const { width } = Dimensions.get("window");
 
 export default function EditProfile({ navigation }) {
 
   const { user, setUser } = useUser();
+
+  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const [firstname, setFirstName] = useState(user?.name);
   const [surname, setSurname] = useState(user?.surname);
@@ -36,27 +44,43 @@ export default function EditProfile({ navigation }) {
   const [openProfilePhotoPopUp, setOpenProfilePhotoPopUp] = useState(false);
 
   const save = async () => {
-    const response = await updateUserInfo({
-      name: (firstname != "" ? firstname : user?.name),
-      surname: (surname != "" ? surname : user?.surname),
-      username: (username != "" ? username : user?.username),
-      phone: (phone != "" ? phone : user?.phone),
-      birthDay: (birthDay != "" ? birthDay : user?.birthDay),
-      gender: (gender != "" ? gender : user?.gender),
-    })
+    setLoading(true);
+    const formData = new FormData();
+
+    const info = await FileSystem.getInfoAsync((image) ? image : user?.profilePhotoUrl);
+
+    formData.append("name", firstname);
+    formData.append("surname", surname);
+    formData.append("username", username);
+    formData.append("phone", phone);
+    formData.append("birthDay", birthDay);
+    formData.append("gender", gender);
+
+    if (image) {
+      formData.append("profilePhoto", {
+        uri: info.uri,
+        type: 'image/jpeg', // ya da 'image/png'
+        name: 'profilePhoto.jpeg',
+      });
+    }
+
+
+    const response = await updateUserInfo(formData);
 
     if (response && response.success) {
-
       getUserById({ id: user?._id }).then(async (res) => {
         setUser(res?.data);
       }).catch((err) => {
         console.log(err);
       })
+      setLoading(false);
     }
-
-    navigation.goBack({ username: user?.username });
+    navigation.goBack();
   }
 
+  if (loading) {
+    return <Loading />
+  }
 
   return (
     <SafeAreaView style={editProfileStyle.container}>
@@ -68,7 +92,7 @@ export default function EditProfile({ navigation }) {
         onRequestClose={() => {
           setOpenProfilePhotoPopUp(false)
         }}>
-        <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} />
+        <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} image={image} setImage={setImage} />
       </Modal>
 
       <Modal visible={openBioVoicePopUp}
@@ -83,9 +107,11 @@ export default function EditProfile({ navigation }) {
       <ScrollView style={{ flexDirection: "column", marginTop: width * 0.07 }}>
         <View>
           <TouchableOpacity style={editProfileStyle.ppView} onPress={() => { setOpenProfilePhotoPopUp(true) }}>
-            {user?.profilePhotoUrl ?
-              <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} /> :
-              <Image source={require('../../assets/avatar.png')} style={editProfileStyle.profilePhoto} />
+            {!image ? (
+              user?.profilePhotoUrl ?
+                <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} /> :
+                <Image source={require('../../assets/avatar.png')} style={editProfileStyle.profilePhoto} />
+            ) : <Image source={{ uri: image }} style={editProfileStyle.profilePhoto} />
             }
             <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
           </TouchableOpacity>
@@ -120,18 +146,11 @@ export default function EditProfile({ navigation }) {
         />
 
         <Text style={editProfileStyle.label}>Birth Day</Text>
-        <DatePicker
-        modal
-        open={open}
-        date={date}
-        onConfirm={(date) => {
-          setOpen(false)
-          setDate(date)
-        }}
-        onCancel={() => {
-          setOpen(false)
-        }}
-      />
+        <TextInput
+          value={birthDay}
+          onChangeText={birthDay => setBirthDay(birthDay)}
+          style={editProfileStyle.searchBar}
+        />
 
         <Text style={editProfileStyle.label}>Gender</Text>
         <Picker
@@ -174,11 +193,9 @@ export default function EditProfile({ navigation }) {
           }
         </View>
 
-        {!((firstname == "") && (surname == "") && (username == "") && (phone == "") && (birthDay == "") && (gender == "")) ?
-          <TouchableOpacity onPress={save}>
-            <Text style={editProfileStyle.saveButtonText}>Save</Text>
-          </TouchableOpacity>
-          : null}
+        <TouchableOpacity onPress={save}>
+          <Text style={editProfileStyle.saveButtonText}>Save</Text>
+        </TouchableOpacity>
 
         {openAddVoice ? (<AddVoice title={"bio"} />) : null}
       </ScrollView>

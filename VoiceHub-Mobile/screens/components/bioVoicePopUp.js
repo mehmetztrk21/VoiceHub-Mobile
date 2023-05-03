@@ -13,7 +13,7 @@ const bioVoicePopUp = ({ setOpenAddVoice, setOpenBioVoicePopUp }) => {
 
     const deleteVoice = async () => {
         await removeUserFiles({ type: "descriptionVoice" })
-
+        
         setOpenBioVoicePopUp(false);
     }
 
