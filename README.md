@@ -27,4 +27,4 @@ At the end of the project, a mobile application called VoiceHub was created, whi
 ![image](https://user-images.githubusercontent.com/59453560/235860149-380632cf-7633-426b-8e72-7e55dffd59e4.png)
 
   </div>
-1
+
