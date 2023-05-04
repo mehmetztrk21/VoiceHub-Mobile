@@ -48,3 +48,10 @@ export const blockAccount = async (data) => {
         return res.data
     }).catch(err => { console.error(err, "Post Services action/block"); return null })
 }
+
+export const deactivateAccount = async (data) => {
+    return await apiAxios.post("/action/deactivateAccount", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services action/deactivateAccount"); return null })
+}
