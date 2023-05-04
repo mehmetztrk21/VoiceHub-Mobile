@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Dimensions, Modal, SafeAreaView, ScrollView, Text } from "react-native";
 
 import AddVoice from "../components/addVoice";
@@ -45,7 +45,7 @@ export default function OtherComments({ navigation, route }) {
                             return (
                                 <Comment key={index} commentId={item._id} navigation={navigation} userPic={item.createdBy?.profilePhotoUrl}
                                     createDate={item.createdAt} contentUrl={item.contentUrl} username={item.createdBy?.username}
-                                    setOpenAreYouSure={setOpenAreYouSure} userId={item.createdBy._id} />
+                                    setOpenAreYouSure={setOpenAreYouSure} userId={item.createdBy._id} postId={postId} />
                             )
                         })
                     ) :

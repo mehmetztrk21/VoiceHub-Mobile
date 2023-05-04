@@ -14,7 +14,7 @@ import { baseURL } from "../../utils/constants";
 import commentStyle from "../../assets/styles/comment.style";
 const { width } = Dimensions.get('window');
 
-export default function Comment({ navigation, commentId, contentUrl, userPic, username, setOpenAreYouSure, userId, createDate }) {
+export default function Comment({ navigation, commentId, contentUrl, userPic, username, setOpenAreYouSure, userId, createDate, postId }) {
 
     const { user } = useUser();
 
@@ -53,9 +53,12 @@ export default function Comment({ navigation, commentId, contentUrl, userPic, us
                 </View>
             </View>
 
-            <TouchableOpacity onPress={deleteComment}>
-                <Icon type="font-awesome" name="trash" size={16} color={colors.green} />
-            </TouchableOpacity>
+            {user?.posts?.includes(postId) || user?._id == userId ? (
+                <TouchableOpacity onPress={deleteComment}>
+                    <Icon type="font-awesome" name="trash" size={16} color={colors.green} />
+                </TouchableOpacity>
+            ) : null}
+
         </View>
     );
 }
