@@ -4071,6 +4071,11 @@
     "@expo/config" "~8.0.0"
     "uuid" "^3.3.2"
 
+"expo-document-picker@^11.2.2":
+  "integrity" "sha512-EeonRKxkK9E20LEAh93IvlwFjNkUCJKnhBEama9PmIDYWW7RyANZ8eP9C2PupThTDbivzRDNp7Ec7dIeyDAWjw=="
+  "resolved" "https://registry.npmjs.org/expo-document-picker/-/expo-document-picker-11.2.2.tgz"
+  "version" "11.2.2"
+
 "expo-file-system@~15.2.0", "expo-file-system@~15.2.2":
   "integrity" "sha512-LFkOLcWwlmnjkURxZ3/0ukS35OswX8iuQknLHRHeyk8mUA8fpRPPelD/a1lS+yclqfqavMJmTXVKM1Nsq5XVMA=="
   "resolved" "https://registry.npmjs.org/expo-file-system/-/expo-file-system-15.2.2.tgz"

@@ -1,13 +1,10 @@
 import { Audio } from "expo-av";
 import * as FileSystem from "expo-file-system";
 import * as Permissions from "expo-permissions";
-
-import DocumentPicker from "react-native-document-picker";
+import * as DocumentPicker from 'expo-document-picker';
 
 import React, { useEffect, useState } from "react";
-import {
-    Image, SafeAreaView, Text, TextInput, TouchableOpacity, View, Dimensions, Modal
-} from "react-native";
+import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View, Dimensions, Modal } from "react-native";
 
 import { Icon } from "react-native-elements";
 
@@ -36,22 +33,6 @@ export default function Upload({ navigation }) {
     const [isRunning, setIsRunning] = useState(false);
     const [recording, setRecording] = useState(null);
     const [seconds, setSeconds] = useState(0);
-
-    async function pickFile() {
-        try {
-            const result = await DocumentPicker.pick({
-                type: [DocumentPicker.types.allFiles],
-            });
-            console.log(
-                "URI : " + result.uri,
-                "Type : " + result.type, // mime type
-                "File Name : " + result.name,
-                "File Size : " + result.size
-            );
-        } catch (error) {
-            console.log("Error picking file: ", error);
-        }
-    }
 
     useEffect(() => {
         let intervalId;
@@ -100,6 +81,8 @@ export default function Upload({ navigation }) {
                 else {
                     if (recording) {
                         await recording.stopAndUnloadAsync();
+
+                        console.log(recording)
                         setOpenReadCategory(true);
                         console.log("Recording stopped");
                     } else {
@@ -125,11 +108,18 @@ export default function Upload({ navigation }) {
         }
     };
 
+    const pickFile = async () => {
+        let result = await DocumentPicker.getDocumentAsync({ type: 'audio/*', copyToCacheDirectory: false });
+        if (!result.cancelled) {
+            setOpenReadCategory(true);
+            setRecording(result);
+        }
+    }
 
     const save = async () => {
         const uri = recording.getURI();
         const info = await FileSystem.getInfoAsync(uri);
-        const formData = new FormData();  //dosya ile veri göndermk için
+        const formData = new FormData();  //dosya ile veri göndermek için
 
         formData.append("content", {
             uri: info.uri,
