@@ -7,21 +7,25 @@ import { blockAccount } from "../../services/actionServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useUser } from "../../utils/userContext";
 
-const seeProfilePopUp = ({ navigation, userId, openSeeProfileOptions, setOpenSeeProfileOptions }) => {
+const seeProfilePopUp = ({ userId, setOpenSeeProfileOptions }) => {
 
     const { user, setUser } = useUser();
 
     const block = async () => {
         blockAccount({ userId: userId })
         setOpenSeeProfileOptions(false);
-        getUserById({ id: userId }).then(async (res) => {
-            await AsyncStorage.setItem("user", res.data);
 
-            setUser(res.data);
-        }).catch((err) => {
-            console.log(err);
-        })
+        let temp = { ...user };
+        
+        if (user?.blockedUsers?.includes(userId)) {
+            temp?.blockedUsers?.splice(temp?.blockedUsers?.indexOf(userId), 1);
+        }
+        else {
+            temp?.blockedUsers?.push(userId);
+        }
 
+        await AsyncStorage.setItem("user", JSON.stringify(temp));
+        setUser(temp);
     }
 
     return (
@@ -31,7 +35,7 @@ const seeProfilePopUp = ({ navigation, userId, openSeeProfileOptions, setOpenSee
                 <TouchableOpacity onPress={block}
                     style={{ flexDirection: "row", alignItems: "center", marginBottom: 12.5, }}>
                     <Icon size={22} type={"font-awesome"} name={"ban"} color={colors.white} />
-                    <Text style={seeProfilePopUpStyles.button}>{user?.blockedUsers.includes(userId) ? "Unblock" : "Block"} Account</Text>
+                    <Text style={seeProfilePopUpStyles.button}>{user?.blockedUsers?.includes(userId) ? "Unblock" : "Block"} Account</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => { }}

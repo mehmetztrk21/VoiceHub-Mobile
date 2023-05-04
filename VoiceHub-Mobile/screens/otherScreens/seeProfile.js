@@ -158,7 +158,7 @@ export default function SeeProfile({ navigation, route }) {
                         </View>
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
-                            onPress={() => { seeUser?.isSecretAccount == false ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null }}>
+                            onPress={() => { seeUser?.isSecretAccount == false || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(seeUser?.followers?.length)}
                             </Text>
@@ -166,7 +166,7 @@ export default function SeeProfile({ navigation, route }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
-                            onPress={() => { seeUser?.isSecretAccount == false ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: seeUser }) : null }}>
+                            onPress={() => { seeUser?.isSecretAccount == false || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: seeUser }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(seeUser?.followings?.length)}
                             </Text>
@@ -214,7 +214,6 @@ export default function SeeProfile({ navigation, route }) {
             </View>
             {/* Posts */}
 
-
             < ScrollView
                 showsVerticalScrollIndicator={false}
                 style={seeProfileStyles.scroll}
@@ -222,23 +221,18 @@ export default function SeeProfile({ navigation, route }) {
                 onLayout={handleLayout}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-                }
-            >
-                {seeUser?.isSecretAccount == false ?
-                    <View style={seeProfileStyles.postView}>
-                        {true ? (
-                            posts?.length > 0 ? (
-                                <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />
-                            ) :
-                                <Text style={seeProfileStyles.notPost}>
-                                    {"You have not post anyone yet :("}
-                                </Text>
-                        ) :
-                            <DontShowPosts />
-                        }
-                    </View>
-                    :
-                    <DontShowPosts />
+                }>
+                {user?.blockedUsers?.includes(userId) ?
+                    <DontShowPosts userId={userId} title={"blocked"} /> : (seeUser?.isSecretAccount == false ?
+                        (posts?.length > 0 ? (
+                            <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />
+                        ) : (
+                            <Text style={seeProfileStyles.notPost}>
+                                {"You have not post anyone yet :("}
+                            </Text>
+                        )) :
+                        <DontShowPosts userId={userId} title={"secret"} />
+                    )
                 }
             </ScrollView>
             {
@@ -250,4 +244,3 @@ export default function SeeProfile({ navigation, route }) {
         </SafeAreaView >
     );
 }
-
