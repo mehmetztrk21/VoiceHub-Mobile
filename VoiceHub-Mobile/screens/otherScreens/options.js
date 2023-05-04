@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, Switch, Text, TextInput, View } from "react-native";
+import { Modal, SafeAreaView, Switch, Text, TextInput, View } from "react-native";
 import colors from "../../assets/colors";
 import OtherHeader from "../components/otherHeader";
 
@@ -8,12 +8,14 @@ import optionsStyle from "../../assets/styles/options.style";
 import { getUserById, updateUserInfo } from "../../services/userServices";
 import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
+import AreYouSure from "../components/areYouSure";
 
 const Options = ({ navigation }) => {
 
     const { user, setUser } = useUser();
 
     const [loading, setLoading] = useState(false);
+    const [openAreYouSure, setOpenAreYouSure] = useState(false);
     const [username, setUserName] = useState(user?.username);
     const [isSecretAccount, setIsSecretAccount] = useState(user?.isSecretAccount);
 
@@ -55,6 +57,17 @@ const Options = ({ navigation }) => {
     return (
         <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: "100%" }}>
             <OtherHeader navigation={navigation} HeaderTitle={"Options"} isTic={false} />
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={openAreYouSure}
+                onRequestClose={() => {
+                    setOpenAreYouSure(false);
+                }}
+            >
+                <AreYouSure process={"Freeze"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} />
+            </Modal>
 
             <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: "25%", marginBottom: "5%", marginRight: "10%" }}>
                 <Text style={optionsStyle.label}>Secret Account</Text>
@@ -105,8 +118,13 @@ const Options = ({ navigation }) => {
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => { navigation.navigate("Blockeds") }}
-                style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", }}>
+                style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", marginBottom: "5%", }}>
                 <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center", }}>Blocked Accounts</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity onPress={() => { setOpenAreYouSure(true); }}
+                style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", }}>
+                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center", }}>Freeze my account</Text>
             </TouchableOpacity>
 
         </SafeAreaView>

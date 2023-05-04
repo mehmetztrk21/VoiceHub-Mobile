@@ -3,6 +3,7 @@ import React from "react"
 import { Text, TouchableOpacity, View } from "react-native"
 import areYouSureStyle from "../../assets/styles/areYouSure.style"
 import { deleteComment } from "../../services/commentServices"
+import { deactivateAccount } from "../../services/actionServices"
 
 const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) => {
 
@@ -17,6 +18,14 @@ const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) 
                 await deleteComment({ id: openAreYouSure });
                 setOpenAreYouSure(false);
                 console.log("Deleted Comment");
+            }
+            else if (process == "Freeze") {
+                await deactivateAccount();
+                setOpenAreYouSure(false);
+                console.log("Freeze Account");
+                console.log("LogOut");
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
             }
             else {
                 //continue
