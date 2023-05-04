@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, Modal, SafeAreaView, ScrollView, Text } from "react-native";
 
 import AddVoice from "../components/addVoice";
@@ -8,8 +8,6 @@ import OtherHeader from "../components/otherHeader";
 
 import { View } from "react-native";
 import colors from "../../assets/colors";
-import { baseURL } from "../../utils/constants";
-import Loading from "../components/loading";
 
 const { width } = Dimensions.get("window");
 
@@ -18,13 +16,10 @@ export default function OtherComments({ navigation, route }) {
     const scrollViewRef = useRef(null);
 
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const handleLayout = () => {
         scrollViewRef.current.scrollToEnd({ animated: true });
     };
-
-    if (loading) return <Loading />
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "column", backgroundColor: colors.white }}>
