@@ -107,17 +107,24 @@ export default function SeeProfile({ navigation, route }) {
     return (
         <SafeAreaView style={seeProfileStyles.container}>
 
-            <View style={seeProfileStyles.leftTop}>
+            {/* SeeProfile's Header */}
+            <View style={seeProfileStyles.SeeProfileHeader}>
+                <View style={seeProfileStyles.nameHolder}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
+                    </TouchableOpacity>
+
+                    <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
+                        <Text style={seeProfileStyles.head}>{seeUser?.username}</Text>
+
+                        {seeUser?.isTic == true ? (
+                            <Image source={verfy} style={seeProfileStyles.ver} />
+                        ) : null}
+                    </TouchableOpacity>
+                </View>
+
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
-                    <Text style={seeProfileStyles.head}>{seeUser?.username}</Text>
-
-                    {seeUser?.isTic == true ? (
-                        <Image source={verfy} style={seeProfileStyles.ver} />
-                    ) : null}
+                    <Icon type={"font-awesome"} size={24} name={"ellipsis-v"} />
                 </TouchableOpacity>
             </View>
 

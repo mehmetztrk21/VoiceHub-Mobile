@@ -149,12 +149,18 @@ export default StyleSheet.create({
     fontWeight: "700",
     fontSize: 16
   },
-  leftTop: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
+  SeeProfileHeader: {
     backgroundColor: colors.white,
+    width: "100%",
+    paddingRight: "5%",
+    paddingLeft: "2%",
     paddingTop: "10%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  nameHolder: {
+    flexDirection: "row",
   },
   BackButton: {
     paddingLeft: "4%",
