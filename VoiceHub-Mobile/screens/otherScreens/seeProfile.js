@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-    Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
+    Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from "react-native";
 
 import colors from "../../assets/colors";
@@ -21,6 +21,7 @@ import { baseURL } from "../../utils/constants";
 import { followerCountFormatText } from "../../utils/followerCountFormatText";
 import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
+import SeeProfilePopUp from "../components/seeProfilePopUp";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -36,6 +37,7 @@ export default function SeeProfile({ navigation, route }) {
 
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [openSeeProfileOptions, setOpenSeeProfileOptions] = useState(false);
 
 
     const pullThePage = () => {
@@ -123,10 +125,20 @@ export default function SeeProfile({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+                <TouchableOpacity onPress={() => { setOpenSeeProfileOptions(true); }}>
                     <Icon type={"font-awesome"} size={24} name={"ellipsis-v"} />
                 </TouchableOpacity>
             </View>
+
+            <Modal
+                visible={openSeeProfileOptions}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={() => {
+                    setOpenSeeProfileOptions(false)
+                }}>
+                <SeeProfilePopUp setOpenSeeProfileOptions={setOpenSeeProfileOptions} />
+            </Modal>
 
             <View style={{ width: "100%", borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white }}>
 
