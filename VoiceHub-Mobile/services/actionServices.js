@@ -41,3 +41,10 @@ export const setSeeLikes = async (data) => {
         return res.data
     }).catch(err => { console.error(err, "Post Services action/seeLikes"); return null })
 }
+
+export const blockAccount = async (data) => {
+    return await apiAxios.post("/action/block", data
+    ).then(res => {
+        return res.data
+    }).catch(err => { console.error(err, "Post Services action/block"); return null })
+}

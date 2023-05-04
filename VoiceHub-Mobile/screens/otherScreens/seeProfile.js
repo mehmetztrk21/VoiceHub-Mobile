@@ -125,7 +125,7 @@ export default function SeeProfile({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={() => { setOpenSeeProfileOptions(true); }} style={{ paddingHorizontal: "5%" }}>
+                <TouchableOpacity onPress={() => { setOpenSeeProfileOptions(true) }} style={{ paddingHorizontal: "5%" }}>
                     <Icon type={"font-awesome"} size={24} name={"ellipsis-v"} />
                 </TouchableOpacity>
             </View>
@@ -137,7 +137,7 @@ export default function SeeProfile({ navigation, route }) {
                 onRequestClose={() => {
                     setOpenSeeProfileOptions(false)
                 }}>
-                <SeeProfilePopUp setOpenSeeProfileOptions={setOpenSeeProfileOptions} />
+                <SeeProfilePopUp navigation={navigation} userId={userId} openSeeProfileOptions={openSeeProfileOptions} setOpenSeeProfileOptions={setOpenSeeProfileOptions} />
             </Modal>
 
             <View style={{ width: "100%", borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white }}>

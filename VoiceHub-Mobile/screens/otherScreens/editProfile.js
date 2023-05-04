@@ -34,7 +34,6 @@ export default function EditProfile({ navigation }) {
 
   const [firstname, setFirstName] = useState(user?.name);
   const [surname, setSurname] = useState(user?.surname);
-  const [username, setUserName] = useState(user?.username);
   const [phone, setPhone] = useState(user?.phone);
   const [birthDay, setBirthDay] = useState(user?.birthDay);
   const [gender, setGender] = useState(user?.gender);
@@ -51,7 +50,6 @@ export default function EditProfile({ navigation }) {
 
     formData.append("name", firstname);
     formData.append("surname", surname);
-    formData.append("username", username);
     formData.append("phone", phone);
     formData.append("birthDay", birthDay);
     formData.append("gender", gender);
@@ -117,12 +115,7 @@ export default function EditProfile({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        <Text style={editProfileStyle.label}>User Name</Text>
-        <TextInput
-          value={username}
-          onChangeText={(username) => setUserName(username)}
-          style={editProfileStyle.searchBar}
-        />
+        
 
         <Text style={editProfileStyle.label}>Name</Text>
         <TextInput
