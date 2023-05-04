@@ -33,7 +33,7 @@ export default function SeePost({ navigation, route }) {
     const [refreshing, setRefreshing] = useState(false);
     const [user, setUser] = useState(null);
     const [post, setPost] = useState({});
-    const [openAreYouSurePopUp, setOpenAreYouSurePopUp] = useState(false);
+    const [openAreYouSure, setOpenAreYouSure] = useState(false);
 
     const pullThePage = () => {
         setRefreshing(true);
@@ -71,12 +71,12 @@ export default function SeePost({ navigation, route }) {
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={openAreYouSurePopUp}
+                visible={openAreYouSure}
                 onRequestClose={() => {
-                    setOpenAreYouSurePopUp(false);
+                    setOpenAreYouSure(false);
                 }}
             >
-                <AreYouSure process={"DeleteComment"} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
+                <AreYouSure process={"DeleteComment"} setOpenAreYouSure={setOpenAreYouSure} />
 
             </Modal>
             <View style={[seePostStyle.top, { marginTop: height * 0.11 }]}>
@@ -118,7 +118,7 @@ export default function SeePost({ navigation, route }) {
                         return (
                             <View key={index} style={seePostStyle.commentHolder}>
                                 <Comment navigation={navigation} userPic={item.userPic}
-                                    username={item.username} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} />
+                                    username={item.username} setOpenAreYouSure={setOpenAreYouSure} />
                             </View>
                         )
                     })

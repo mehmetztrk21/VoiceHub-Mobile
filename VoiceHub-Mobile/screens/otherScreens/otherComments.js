@@ -17,7 +17,7 @@ export default function OtherComments({ navigation, route }) {
     const { postId, comments } = route.params;
     const scrollViewRef = useRef(null);
 
-    const [openAreYouSurePopUp, setOpenAreYouSurePopUp] = useState(false);
+    const [openAreYouSure, setOpenAreYouSure] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const handleLayout = () => {
@@ -33,12 +33,12 @@ export default function OtherComments({ navigation, route }) {
             <Modal
                 animationType="slide"
                 transparent={true}
-                visible={openAreYouSurePopUp ? true : false}
+                visible={openAreYouSure ? true : false}
                 onRequestClose={() => {
-                    setOpenAreYouSurePopUp(false);
+                    setOpenAreYouSure(false);
                 }}
             >
-                <AreYouSure process={"DeleteComment"} setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} openAreYouSurePopUp={openAreYouSurePopUp} />
+                <AreYouSure process={"DeleteComment"} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
             </Modal>
 
             <View style={{ marginTop: width * 0.04 }}>
@@ -50,7 +50,7 @@ export default function OtherComments({ navigation, route }) {
                             return (
                                 <Comment key={index} commentId={item._id} navigation={navigation} userPic={item.createdBy?.profilePhotoUrl}
                                     createDate={item.createdAt} contentUrl={item.contentUrl} username={item.createdBy?.username}
-                                    setOpenAreYouSurePopUp={setOpenAreYouSurePopUp} userId={item.createdBy._id} />
+                                    setOpenAreYouSure={setOpenAreYouSure} userId={item.createdBy._id} />
                             )
                         })
                     ) :

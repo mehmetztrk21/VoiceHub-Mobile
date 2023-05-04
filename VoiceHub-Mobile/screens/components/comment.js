@@ -14,12 +14,12 @@ import { baseURL } from "../../utils/constants";
 import commentStyle from "../../assets/styles/comment.style";
 const { width } = Dimensions.get('window');
 
-export default function Comment({ navigation, commentId, contentUrl, userPic, username, setOpenAreYouSurePopUp, userId, createDate }) {
+export default function Comment({ navigation, commentId, contentUrl, userPic, username, setOpenAreYouSure, userId, createDate }) {
 
     const { user } = useUser();
 
     const deleteComment = async () => {
-        setOpenAreYouSurePopUp(commentId ? commentId : false);
+        setOpenAreYouSure(commentId ? commentId : false);
     }
 
     return (
