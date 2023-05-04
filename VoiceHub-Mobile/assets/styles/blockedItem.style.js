@@ -5,10 +5,10 @@ export default StyleSheet.create({
     container: {
         backgroundColor: colors.white,
         width: "100%",
-        paddingHorizontal: "7.5%",
-        justifyContent: "space-around",
         alignItems: "center",
-        flexDirection: "row"
+        flexDirection: "row",
+        marginBottom: "5%",
+        justifyContent:"space-between",
     },
     profilePhoto: {
         width: 40,

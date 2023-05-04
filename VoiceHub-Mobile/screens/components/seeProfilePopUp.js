@@ -12,7 +12,7 @@ const seeProfilePopUp = ({ userId, setOpenSeeProfileOptions }) => {
     const { user, setUser } = useUser();
 
     const block = async () => {
-        blockAccount({ userId: userId })
+        await blockAccount({ userId: userId })
         setOpenSeeProfileOptions(false);
 
         let temp = { ...user };

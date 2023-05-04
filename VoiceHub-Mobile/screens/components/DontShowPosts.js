@@ -11,7 +11,7 @@ const DontShowPosts = ({ userId, title }) => {
     const { user, setUser } = useUser();
 
     const block = async () => {
-        blockAccount({ userId: userId })
+        await blockAccount({ userId: userId })
 
         let temp = { ...user };
 
