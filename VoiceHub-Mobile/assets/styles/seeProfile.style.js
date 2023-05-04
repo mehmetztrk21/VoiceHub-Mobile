@@ -152,7 +152,6 @@ export default StyleSheet.create({
   SeeProfileHeader: {
     backgroundColor: colors.white,
     width: "100%",
-    paddingRight: "5%",
     paddingLeft: "2%",
     paddingTop: "10%",
     flexDirection: "row",

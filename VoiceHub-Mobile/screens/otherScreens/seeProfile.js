@@ -125,7 +125,7 @@ export default function SeeProfile({ navigation, route }) {
                     </TouchableOpacity>
                 </View>
 
-                <TouchableOpacity onPress={() => { setOpenSeeProfileOptions(true); }}>
+                <TouchableOpacity onPress={() => { setOpenSeeProfileOptions(true); }} style={{ paddingHorizontal: "5%" }}>
                     <Icon type={"font-awesome"} size={24} name={"ellipsis-v"} />
                 </TouchableOpacity>
             </View>
