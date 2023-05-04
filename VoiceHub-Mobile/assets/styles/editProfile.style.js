@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
-import colors from "../colors"
+import colors from "../colors";
+
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -8,8 +9,8 @@ export default StyleSheet.create({
   },
   searchBar: {
     backgroundColor: colors.lightgray,
-    borderRadius: 15,
-    paddingVertical: 10,
+    borderRadius: 45,
+    paddingVertical: "1.5%",
     paddingHorizontal: 10,
     width: "80%",
     marginHorizontal: "10%",
@@ -22,9 +23,9 @@ export default StyleSheet.create({
     paddingBottom: "2%",
   },
   profilePhoto: {
-    width: 140,
-    height: 140,
-    borderRadius: 70,
+    width: 90,
+    height: 90,
+    borderRadius: 45,
   },
   editPhotoText: {
     color: colors.green,
@@ -33,7 +34,7 @@ export default StyleSheet.create({
   },
   saveButtonText: {
     color: colors.white,
-    fontSize: 26,
+    fontSize: 20,
     fontWeight: "700",
     width: "50%",
     padding: 5,
@@ -50,6 +51,6 @@ export default StyleSheet.create({
     marginTop: "3%",
     marginBottom: "1%",
     marginHorizontal: "10%",
-    fontWeight:"500",
+    fontWeight: "500",
   }
 });

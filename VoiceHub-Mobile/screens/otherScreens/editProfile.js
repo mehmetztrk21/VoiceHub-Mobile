@@ -102,59 +102,57 @@ export default function EditProfile({ navigation }) {
         <BioVoicePopUp setOpenAddVoice={setOpenAddVoice} setOpenBioVoicePopUp={setOpenBioVoicePopUp} />
       </Modal>
 
-      <ScrollView style={{ flexDirection: "column", marginTop: width * 0.07 }}>
-        <View>
-          <TouchableOpacity style={editProfileStyle.ppView} onPress={() => { setOpenProfilePhotoPopUp(true) }}>
-            {!image ? (
-              user?.profilePhotoUrl ?
-                <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} /> :
-                <Image source={require('../../assets/avatar.png')} style={editProfileStyle.profilePhoto} />
-            ) : <Image source={{ uri: image }} style={editProfileStyle.profilePhoto} />
-            }
-            <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={{ paddingTop: "5%" }}>
+        <TouchableOpacity style={editProfileStyle.ppView} onPress={() => { setOpenProfilePhotoPopUp(true) }}>
+          {!image ? (
+            user?.profilePhotoUrl ?
+              <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} /> :
+              <Image source={require('../../assets/avatar.png')} style={editProfileStyle.profilePhoto} />
+          ) : <Image source={{ uri: image }} style={editProfileStyle.profilePhoto} />
+          }
+          <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>
+        </TouchableOpacity>
+      </View>
 
-        
 
-        <Text style={editProfileStyle.label}>Name</Text>
-        <TextInput
-          value={firstname}
-          onChangeText={firstname => setFirstName(firstname)}
-          style={editProfileStyle.searchBar}
-        />
 
-        <Text style={editProfileStyle.label}>Surname</Text>
-        <TextInput
-          value={surname}
-          onChangeText={surname => setSurname(surname)}
-          style={editProfileStyle.searchBar}
-        />
+      <Text style={editProfileStyle.label}>Name</Text>
+      <TextInput
+        value={firstname}
+        onChangeText={firstname => setFirstName(firstname)}
+        style={editProfileStyle.searchBar}
+      />
 
-        <Text style={editProfileStyle.label}>Phone</Text>
-        <TextInput
-          value={phone}
-          onChangeText={phone => setPhone(phone)}
-          style={editProfileStyle.searchBar}
-        />
+      <Text style={editProfileStyle.label}>Surname</Text>
+      <TextInput
+        value={surname}
+        onChangeText={surname => setSurname(surname)}
+        style={editProfileStyle.searchBar}
+      />
 
-        <Text style={editProfileStyle.label}>Birth Day</Text>
-        <TextInput
-          value={birthDay}
-          onChangeText={birthDay => setBirthDay(birthDay)}
-          style={editProfileStyle.searchBar}
-        />
+      <Text style={editProfileStyle.label}>Phone</Text>
+      <TextInput
+        value={phone}
+        onChangeText={phone => setPhone(phone)}
+        style={editProfileStyle.searchBar}
+      />
 
-        <Text style={editProfileStyle.label}>Gender</Text>
+      <Text style={editProfileStyle.label}>Birth Day</Text>
+      <TextInput
+        value={birthDay}
+        onChangeText={birthDay => setBirthDay(birthDay)}
+        style={editProfileStyle.searchBar}
+      />
+
+      <Text style={editProfileStyle.label}>Gender</Text>
+      <View style={{
+        backgroundColor: colors.lightgray,
+        borderRadius: 15,
+        paddingHorizontal: "2.5%",
+        marginHorizontal: "10%",
+        width: "80%",
+      }}>
         <Picker
-          style={{
-            backgroundColor: colors.lightgray,
-            borderRadius: 15,
-            paddingVertical: "2.5%",
-            paddingHorizontal: "2.5%",
-            width: "80%",
-            marginHorizontal: "10%",
-          }}
           value={gender}
           selectedValue={gender}
           onValueChange={(gender) => setGender(gender)}>
@@ -162,36 +160,36 @@ export default function EditProfile({ navigation }) {
           <Picker.Item label={"Male"} value={"male"} />
           <Picker.Item label={"Female"} value={"female"} />
         </Picker>
+      </View>
 
 
-        <View style={{ marginVertical: "3%", marginHorizontal: "10%" }}>
-          {user?.descriptionVoiceUrl != null ? (
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-              <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
-              <Slider />
-              <TouchableOpacity onPress={() => { setOpenBioVoicePopUp(true) }}>
-                <Text style={{ color: colors.green, fontSize: 14, fontWeight: "700", paddingLeft: 10 }}>Edit</Text>
-              </TouchableOpacity>
-            </View>
-          ) :
-            <View style={{ justifyContent: "center" }}>
-              <Text style={{ color: colors.darkGray, fontSize: 14, fontWeight: "500", textAlign: "center", marginTop: "5%", marginBottom: "5%" }}>
-                {"You Don't have a biography"}</Text>
+      <View style={{ marginVertical: "3%", marginHorizontal: "10%" }}>
+        {user?.descriptionVoiceUrl != null ? (
+          <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+            <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
+            <Slider />
+            <TouchableOpacity onPress={() => { setOpenBioVoicePopUp(true) }}>
+              <Text style={{ color: colors.green, fontSize: 14, fontWeight: "700", paddingLeft: 10 }}>Edit</Text>
+            </TouchableOpacity>
+          </View>
+        ) :
+          <View style={{ justifyContent: "center" }}>
+            <Text style={{ color: colors.darkGray, fontSize: 14, fontWeight: "500", textAlign: "center", marginTop: "5%", marginBottom: "5%" }}>
+              {"You Don't have a biography"}</Text>
 
-              <TouchableOpacity onPress={() => setOpenAddVoice(prev => !prev)}
-                style={{ width: "50%", marginLeft: "25%", backgroundColor: colors.green, borderRadius: 50, padding: 5, }}>
-                <Text style={{ color: colors.white, fontSize: 14, fontWeight: "700", textAlign: "center", }}>Add Voice</Text>
-              </TouchableOpacity>
-            </View>
-          }
-        </View>
+            <TouchableOpacity onPress={() => setOpenAddVoice(prev => !prev)}
+              style={{ width: "50%", marginLeft: "25%", backgroundColor: colors.green, borderRadius: 50, padding: 5, }}>
+              <Text style={{ color: colors.white, fontSize: 14, fontWeight: "700", textAlign: "center", }}>Add Voice</Text>
+            </TouchableOpacity>
+          </View>
+        }
+      </View>
 
-        <TouchableOpacity onPress={save}>
-          <Text style={editProfileStyle.saveButtonText}>Save</Text>
-        </TouchableOpacity>
+      <TouchableOpacity onPress={save}>
+        <Text style={editProfileStyle.saveButtonText}>Save</Text>
+      </TouchableOpacity>
 
-        {openAddVoice ? (<AddVoice title={"bio"} />) : null}
-      </ScrollView>
+      {openAddVoice ? (<AddVoice title={"bio"} />) : null}
     </SafeAreaView >
   );
 }   
