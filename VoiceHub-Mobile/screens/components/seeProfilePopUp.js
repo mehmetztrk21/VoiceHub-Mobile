@@ -1,4 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
+import { Share } from 'react-native';
+
 import { Icon } from "react-native-elements";
 import React from "react"
 import colors from "../../assets/colors";
@@ -16,7 +18,7 @@ const seeProfilePopUp = ({ userId, setOpenSeeProfileOptions }) => {
         setOpenSeeProfileOptions(false);
 
         let temp = { ...user };
-        
+
         if (user?.blockedUsers?.includes(userId)) {
             temp?.blockedUsers?.splice(temp?.blockedUsers?.indexOf(userId), 1);
         }
@@ -26,6 +28,16 @@ const seeProfilePopUp = ({ userId, setOpenSeeProfileOptions }) => {
 
         await AsyncStorage.setItem("user", JSON.stringify(temp));
         setUser(temp);
+    }
+
+    const shareThisProfile = async () => {
+        try {
+            Share.share({
+                message: "https://github.com/mehmetztrk21/VoiceHub-Mobile/",
+            });
+        } catch (error) {
+            console.error('Paylaşım hatası:', error);
+        }
     }
 
     return (
@@ -38,8 +50,7 @@ const seeProfilePopUp = ({ userId, setOpenSeeProfileOptions }) => {
                     <Text style={seeProfilePopUpStyles.button}>{user?.blockedUsers?.includes(userId) ? "Unblock" : "Block"} Account</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => { }}
-                    style={{ flexDirection: "row", alignItems: "center", }}>
+                <TouchableOpacity onPress={shareThisProfile} style={{ flexDirection: "row", alignItems: "center", }}>
                     <Icon size={22} type={"font-awesome"} name={"share"} color={colors.white} />
                     <Text style={seeProfilePopUpStyles.button}>Share Profile</Text>
                 </TouchableOpacity>

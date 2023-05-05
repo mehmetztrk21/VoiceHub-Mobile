@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View, Share } from "react-native";
 
 import { Icon } from "react-native-elements";
 
@@ -28,6 +28,16 @@ const editPostPopUp = ({ id, setId, setOpenEditCategoriesPopUp }) => {
     setId(false);
   }
 
+  const shareThisPost = async () => {
+    try {
+      Share.share({
+        message: "https://github.com/mehmetztrk21/VoiceHub-Mobile/",
+      });
+    } catch (error) {
+      console.error('Paylaşım hatası:', error);
+    }
+  }
+
   useState(() => {
     getPostById({ postId: id }).then(async (res) => {
       setPost(res?.data);
@@ -47,7 +57,7 @@ const editPostPopUp = ({ id, setId, setOpenEditCategoriesPopUp }) => {
           <Text style={editPostPopUpStyle.button}>Edit</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={() => { console.log("Share") }}>
+        <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={shareThisPost}>
           <Icon type={"font-awesome"} name={"share"} size={28} color={colors.white} />
           <Text style={editPostPopUpStyle.button}>Share</Text>
         </TouchableOpacity>
