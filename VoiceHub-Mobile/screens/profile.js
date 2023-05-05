@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  Dimensions, Image, Modal,
+  Dimensions, Image, Modal, Share,
   RefreshControl, SafeAreaView, ScrollView, Text,
   TouchableOpacity, View,
 } from "react-native";
@@ -72,6 +72,16 @@ export default function ProfileScreen({ navigation }) {
       setPosts(temp);
     }
     setLoading(false);
+  }
+
+  const shareMyProfile = async () => {
+    try {
+      Share.share({
+        message: "https://github.com/mehmetztrk21/VoiceHub-Mobile/",
+      });
+    } catch (error) {
+      console.error('Paylaşım hatası:', error);
+    }
   }
 
   useEffect(() => {
@@ -177,8 +187,13 @@ export default function ProfileScreen({ navigation }) {
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
-          <TouchableOpacity style={[profileStyles.editProfileAndFollow, { backgroundColor: colors.green }]}
-            onPress={() => navigation.navigate("EditProfile", { userInfo: user })}>
+          <TouchableOpacity style={profileStyles.editProfileAndFollow}
+            onPress={shareMyProfile}>
+            <Text style={profileStyles.btnTextF}>Share</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={profileStyles.editProfileAndFollow}
+            onPress={() => navigation.navigate("EditProfile")}>
             <Text style={profileStyles.btnTextF}>Edit Profile</Text>
           </TouchableOpacity>
 

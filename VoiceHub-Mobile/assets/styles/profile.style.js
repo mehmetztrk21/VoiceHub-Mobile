@@ -69,14 +69,17 @@ export default StyleSheet.create({
     paddingBottom: "2%",
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,
-    alignItems: "center"
+    alignItems: "center",
+    flexDirection: "row",
   },
   editProfileAndFollow: {
+    backgroundColor: colors.green,
     borderRadius: 25,
     marginTop: "2%",
     marginBottom: "2%",
     paddingVertical: "1%",
-    width: "80%",
+    marginLeft: "6.6666%",
+    width: "40%",
   },
   btnTextF: {
     fontSize: 16,
