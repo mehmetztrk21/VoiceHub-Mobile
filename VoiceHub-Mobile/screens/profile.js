@@ -4,6 +4,7 @@ import {
   RefreshControl, SafeAreaView, ScrollView, Text,
   TouchableOpacity, View,
 } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 
 import colors from "../assets/colors";
 import profileStyles from "../assets/styles/profile.style";
@@ -26,6 +27,8 @@ import { useUser } from "../utils/userContext";
 const { width } = Dimensions.get("window");
 
 export default function ProfileScreen({ navigation }) {
+
+  const isFocused = useIsFocused();
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
@@ -89,6 +92,11 @@ export default function ProfileScreen({ navigation }) {
     getPosts();
   }, [])
 
+  useEffect(() => {
+    setLoading(true);
+    getPosts();
+  }, [isFocused])
+
   if (loading) {
     return <Loading />
   }
@@ -136,7 +144,7 @@ export default function ProfileScreen({ navigation }) {
         visible={openEditCategoriesPopUp ? true : false}
         onRequestClose={() => { setOpenEditCategoriesPopUp(false) }}
       >
-        <EditCategoriesPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} categories={openEditCategoriesPopUp} setCategories={setOpenEditCategoriesPopUp} />
+        <EditCategoriesPopUp setId={setOpenEditPostPopUp} categories={openEditCategoriesPopUp} setCategories={setOpenEditCategoriesPopUp} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>
@@ -211,8 +219,8 @@ export default function ProfileScreen({ navigation }) {
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
           {posts?.length > 0 ? (
-            <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp}
-              setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} posts={posts} user={user} />
+            <RenderPost navigation={navigation} posts={posts} user={user}
+              HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp} />
           ) :
             <View style={{ marginTop: "5%", }}>
               <Text style={

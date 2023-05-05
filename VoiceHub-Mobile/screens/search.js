@@ -4,6 +4,7 @@ import {
   SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
 import { Icon } from "react-native-elements";
+import { useIsFocused } from "@react-navigation/native";
 
 import colors from "../assets/colors";
 import searchStyles from "../assets/styles/search.style";
@@ -25,6 +26,7 @@ const { width } = Dimensions.get("window");
 export default function SearchScreen({ navigation, route }) {
   const { getCategory, type } = route.params;
 
+  const isFocused = useIsFocused();
   const scrollViewRef = useRef();
   const categoryScrollViewRef = useRef();
 
@@ -55,6 +57,21 @@ export default function SearchScreen({ navigation, route }) {
       setFocused(false);
     }
   }, [])
+
+  useEffect(() => {
+    if (type == "lastSearched") {
+      console.log("lastSearched bölümüne geldi");
+      setFocused(true);
+    }
+    else if (type == "discovery") {
+      console.log("discovery bölümüne geldi");
+      setFocused(false);
+    }
+    else {
+      console.log("screen type error. Search.js")
+      setFocused(false);
+    }
+  }, [isFocused])
 
   const handleScrollToTop = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true });

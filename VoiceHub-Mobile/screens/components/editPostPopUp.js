@@ -51,7 +51,7 @@ const editPostPopUp = ({ id, setId, setOpenEditCategoriesPopUp }) => {
       <View style={editPostPopUpStyle.container2}>
 
         <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={() => {
-          setOpenEditCategoriesPopUp(post?.categories ? post?.categories : false); setId(false);
+          setOpenEditCategoriesPopUp(post?.categories ? [post?.categories,id] : false); setId(false);
         }}>
           <Icon type={"font-awesome"} name={"pencil"} size={28} color={colors.white} />
           <Text style={editPostPopUpStyle.button}>Edit</Text>

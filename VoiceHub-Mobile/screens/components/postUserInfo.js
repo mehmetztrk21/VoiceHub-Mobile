@@ -8,6 +8,7 @@ import { useUser } from "../../utils/userContext";
 import { baseURL } from "../../utils/constants";
 import colors from "../../assets/colors";
 import { setFollowFollower } from "../../services/actionServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
@@ -26,6 +27,7 @@ export default function PostUserInfo(
                     temp?.followings?.splice(temp?.followings?.indexOf(userId), 1);
                 else
                     temp?.followings?.push(userId);
+                await AsyncStorage.setItem("user", JSON.stringify(temp));
                 setUser(temp);
             }
         }).catch((err) => {

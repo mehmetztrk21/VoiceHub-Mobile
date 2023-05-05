@@ -22,6 +22,7 @@ import { followerCountFormatText } from "../../utils/followerCountFormatText";
 import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
 import SeeProfilePopUp from "../components/seeProfilePopUp";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -85,6 +86,7 @@ export default function SeeProfile({ navigation, route }) {
                 else
                     temp?.followings?.push(seeUser._id);
                 setUser(temp);
+                await AsyncStorage.setItem("user", JSON.stringify(temp));
                 await getUser();
             }
         }).catch((err) => {

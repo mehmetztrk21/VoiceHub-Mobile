@@ -6,6 +6,7 @@ import { useUser } from "../../utils/userContext"
 import { setFollowFollower, setLikedPost, setSavedPost, setSeeLikes } from "../../services/actionServices"
 import { getPostById } from "../../services/postServices"
 import { getUserById } from "../../services/userServices"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const PopUpPost = ({ id, setId, uri }) => {
     const { user, setUser } = useUser();
@@ -61,6 +62,7 @@ const PopUpPost = ({ id, setId, uri }) => {
                 else
                     temp?.followings?.push(seeUser._id);
                 setUser(temp);
+                await AsyncStorage.setItem("user", JSON.stringify(temp));
                 await getUser();
                 setId(false);
             }

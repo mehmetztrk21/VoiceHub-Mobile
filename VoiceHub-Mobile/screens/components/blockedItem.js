@@ -7,6 +7,7 @@ import ver from "../../assets/ver.png"
 import { baseURL } from "../../utils/constants"
 import { useUser } from "../../utils/userContext"
 import { blockAccount } from "../../services/actionServices"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 
 const BlockedItem = ({ navigation, blockedUser }) => {
 

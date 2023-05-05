@@ -19,7 +19,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
         navigation={navigation} userPic={HeaderTitle == "OtherProfiles" ? baseURL + user?.profilePhotoUrl : item.userPic}
         userId={item.createdBy._id} username={item.username || user?.username} HeaderTitle={HeaderTitle}
         setOpenArchivePopUp={setOpenArchivePopUp} setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date}
-        id={item.id} isTic={item?.isTic ? item?.isTic : user?.isTic} setOpenEditCategoriesPopUp={item.categories} setOpenPopUpPost={setOpenPopUpPost} />
+        id={item.id} isTic={item?.isTic ? item?.isTic : user?.isTic} setOpenPopUpPost={setOpenPopUpPost} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>

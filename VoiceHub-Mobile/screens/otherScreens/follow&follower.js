@@ -12,6 +12,7 @@ import { baseURL } from "../../utils/constants";
 import Loading from "../components/loading";
 import { useUser } from "../../utils/userContext";
 import { setFollowFollower } from "../../services/actionServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 
@@ -47,6 +48,7 @@ const FollowFollower = ({ navigation, route }) => {
                     temp?.followings?.splice(temp?.followings?.indexOf(id), 1);
                 else
                     temp?.followings?.push(id);
+                await AsyncStorage.setItem("user", JSON.stringify(temp));
                 setUser(temp);
             }
         }).catch((err) => {
@@ -80,6 +82,28 @@ const FollowFollower = ({ navigation, route }) => {
             //empty
         }
     }, [thisUser])
+
+    useEffect(() => {
+        if (title == "Followings") {
+            getFollowings({ userId: thisUser?._id }).then((res) => {
+                setFollowings(res?.data);
+            }).catch((err) => {
+                console.log(err);
+
+            })
+        }
+        else if (title == "Followers") {
+            getFollowers({ userId: thisUser?._id }).then((res) => {
+                setFollowers(res?.data);
+
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+        else {
+            //empty
+        }
+    }, [user])
 
     if (loading) return <Loading />
 
