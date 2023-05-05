@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react"
 import colors from "../../assets/colors"
 import { Icon } from "react-native-elements"
 import { useUser } from "../../utils/userContext"
-import { setLikedPost, setSavedPost, setSeeLikes } from "../../services/actionServices"
+import { setFollowFollower, setLikedPost, setSavedPost, setSeeLikes } from "../../services/actionServices"
 import { getPostById } from "../../services/postServices"
 import { getUserById } from "../../services/userServices"
 
 const PopUpPost = ({ id, setId, uri }) => {
-    const { user } = useUser();
+    const { user, setUser } = useUser();
     const [post, setPost] = useState({});
     const [seeUser, setSeeUser] = useState({});
 
@@ -50,6 +50,31 @@ const PopUpPost = ({ id, setId, uri }) => {
         } catch (error) {
             console.error("Share error:", error);
         }
+    }
+
+    const followUnfollow = async () => {
+        await setFollowFollower({ userId: seeUser._id }).then(async (res) => {
+            if (res?.success) {
+                let temp = { ...user };
+                if (res.data == "Unfollowed successfully")
+                    temp?.followings?.splice(temp?.followings?.indexOf(seeUser._id), 1);
+                else
+                    temp?.followings?.push(seeUser._id);
+                setUser(temp);
+                await getUser();
+                setId(false);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
+
+    const getUser = async () => {
+        getUserById({ id: seeUser._id }).then(async (res) => {
+            setSeeUser(res?.data);
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     return (
@@ -127,7 +152,7 @@ const PopUpPost = ({ id, setId, uri }) => {
                 </TouchableOpacity>
 
                 {user?._id != seeUser._id ?
-                    <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={() => { }}>
+                    <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={followUnfollow}>
                         <Icon type={"feather"} name={user?.followings?.includes(seeUser?._id) ? "user-minus" : "user"} size={28} color={colors.white} />
                         <Text style={{
                             color: colors.red, fontSize: 15,

@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { FollowFollowerButtonText } from "../../utils/followFollowerButtonText";
 import OtherHeader from "../components/otherHeader";
 
 import { getFollowers, getFollowings } from "../../services/userServices";
@@ -12,6 +11,7 @@ import ver from "../../assets/ver.png";
 import { baseURL } from "../../utils/constants";
 import Loading from "../components/loading";
 import { useUser } from "../../utils/userContext";
+import { setFollowFollower } from "../../services/actionServices";
 
 const { width } = Dimensions.get("window");
 
@@ -19,7 +19,7 @@ const FollowFollower = ({ navigation, route }) => {
     const { title, thisUser } = route.params;
     //thisUser is navigation user
 
-    const { user } = useUser();//logined user
+    const { user, setUser } = useUser();//logined user
 
     const scrollViewRef = useRef();
     const handleLayout = () => {
@@ -37,6 +37,21 @@ const FollowFollower = ({ navigation, route }) => {
         setTimeout(() => {
             setRefreshing(false)
         }, 800)
+    }
+
+    const followUnfollow = async (id) => {
+        await setFollowFollower({ userId: id }).then(async (res) => {
+            if (res?.success) {
+                let temp = { ...user };
+                if (res.data == "Unfollowed successfully")
+                    temp?.followings?.splice(temp?.followings?.indexOf(id), 1);
+                else
+                    temp?.followings?.push(id);
+                setUser(temp);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 
     useEffect(() => {
@@ -130,9 +145,9 @@ const FollowFollower = ({ navigation, route }) => {
                                             padding: "2%",
                                             backgroundColor: colors.green,
                                             borderRadius: 12.5,
-                                        }}>
+                                        }} onPress={() => followUnfollow(item?._id)}>
                                             <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                                {FollowFollowerButtonText("FollowFollower", item?._id, item?.followings, thisUser?._id)}
+                                                {user?.followers?.includes(item?._id) ? "Following" : "Follow"}
                                             </Text>
                                         </TouchableOpacity>
                                         : null}
@@ -163,9 +178,9 @@ const FollowFollower = ({ navigation, route }) => {
                                             padding: "2%",
                                             backgroundColor: colors.green,
                                             borderRadius: 12.5,
-                                        }}>
+                                        }} onPress={() => followUnfollow(item?._id)}>
                                             <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600" }}>
-                                                {FollowFollowerButtonText("FollowFollower", item?.followers, item?._id, thisUser?._id)}
+                                                {user?.followings?.includes(item?._id) ? "Following" : "Follow"}
                                             </Text>
                                         </TouchableOpacity>
                                         : null}
