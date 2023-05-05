@@ -39,7 +39,7 @@ export default StyleSheet.create({
   ver: {
     height: 22,
     width: 22,
-    marginLeft: 3,
+    marginLeft: 1,
   },
   pactions: {
     paddingRight: 15,

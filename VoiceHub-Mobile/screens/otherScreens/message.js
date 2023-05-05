@@ -59,11 +59,9 @@ export default function Message({ navigation, title, id }) {
               return (
                 <MessageItem key={index} navigation={navigation} username={item.username} date={item.date} />
               )
-            })
-            :
+            }) :
             <View>
-              <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}
-              >No message yet</Text>
+              <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}>No message yet</Text>
             </View>}
         </ScrollView>
       </View>

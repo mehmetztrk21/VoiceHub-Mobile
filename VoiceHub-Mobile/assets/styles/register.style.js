@@ -13,6 +13,23 @@ export default StyleSheet.create({
         width: 192,
         height: 108,
     },
+    ppView: {
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: 70,
+        marginBottom: "2%",
+        paddingBottom: "2%",
+    },
+    profilePhoto: {
+        width: 140,
+        height: 140,
+        borderRadius: 70,
+    },
+    editPhotoText: {
+        color: colors.green,
+        fontSize: 16,
+        fontWeight: "700",
+    },
     label: {
         marginBottom: "0.5%",
         marginLeft: "8%",
@@ -22,7 +39,7 @@ export default StyleSheet.create({
     sbar: {
         backgroundColor: "lightgray",
         borderRadius: 25,
-        paddingVertical: 10,
+        paddingVertical: "1.5%",
         paddingHorizontal: "2%",
         width: "80%",
         marginLeft: "8%"
@@ -31,7 +48,7 @@ export default StyleSheet.create({
     passwordbar: {
         backgroundColor: "lightgray",
         borderRadius: 25,
-        paddingVertical: 10,
+        paddingVertical: "1.5%",
         paddingHorizontal: "2%",
         width: "80%",
         marginLeft: "8%",

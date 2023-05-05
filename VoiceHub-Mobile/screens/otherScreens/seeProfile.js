@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-    Image, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
+    Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from "react-native";
 
 import colors from "../../assets/colors";
@@ -21,6 +21,7 @@ import { baseURL } from "../../utils/constants";
 import { followerCountFormatText } from "../../utils/followerCountFormatText";
 import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
+import SeeProfilePopUp from "../components/seeProfilePopUp";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -36,6 +37,7 @@ export default function SeeProfile({ navigation, route }) {
 
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [openSeeProfileOptions, setOpenSeeProfileOptions] = useState(false);
 
 
     const pullThePage = () => {
@@ -107,19 +109,36 @@ export default function SeeProfile({ navigation, route }) {
     return (
         <SafeAreaView style={seeProfileStyles.container}>
 
-            <View style={seeProfileStyles.leftTop}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
-                </TouchableOpacity>
+            {/* SeeProfile's Header */}
+            <View style={seeProfileStyles.SeeProfileHeader}>
+                <View style={seeProfileStyles.nameHolder}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
+                    </TouchableOpacity>
 
-                <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
-                    <Text style={seeProfileStyles.head}>{seeUser?.username}</Text>
+                    <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
+                        <Text style={seeProfileStyles.head}>{seeUser?.username}</Text>
 
-                    {seeUser?.isTic == true ? (
-                        <Image source={verfy} style={seeProfileStyles.ver} />
-                    ) : null}
+                        {seeUser?.isTic == true ? (
+                            <Image source={verfy} style={seeProfileStyles.ver} />
+                        ) : null}
+                    </TouchableOpacity>
+                </View>
+
+                <TouchableOpacity onPress={() => { setOpenSeeProfileOptions(true) }} style={{ paddingHorizontal: "5%" }}>
+                    <Icon type={"font-awesome"} size={24} name={"ellipsis-v"} />
                 </TouchableOpacity>
             </View>
+
+            <Modal
+                visible={openSeeProfileOptions}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={() => {
+                    setOpenSeeProfileOptions(false)
+                }}>
+                <SeeProfilePopUp navigation={navigation} userId={userId} openSeeProfileOptions={openSeeProfileOptions} setOpenSeeProfileOptions={setOpenSeeProfileOptions} />
+            </Modal>
 
             <View style={{ width: "100%", borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white }}>
 
@@ -139,7 +158,7 @@ export default function SeeProfile({ navigation, route }) {
                         </View>
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
-                            onPress={() => { seeUser?.isSecretAccount == false ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null }}>
+                            onPress={() => { seeUser?.isSecretAccount == false || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(seeUser?.followers?.length)}
                             </Text>
@@ -147,7 +166,7 @@ export default function SeeProfile({ navigation, route }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
-                            onPress={() => { seeUser?.isSecretAccount == false ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: seeUser }) : null }}>
+                            onPress={() => { seeUser?.isSecretAccount == false || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: seeUser }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(seeUser?.followings?.length)}
                             </Text>
@@ -190,12 +209,10 @@ export default function SeeProfile({ navigation, route }) {
                                     </Text>
                                 </TouchableOpacity>
                             )
-
                     }
                 </View>
             </View>
             {/* Posts */}
-
 
             < ScrollView
                 showsVerticalScrollIndicator={false}
@@ -204,26 +221,20 @@ export default function SeeProfile({ navigation, route }) {
                 onLayout={handleLayout}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-                }
-            >
-                {seeUser?.isSecretAccount == false ?
-                    <View style={seeProfileStyles.postView}>
-                        {true ? (
-                            posts?.length > 0 ? (
-                                <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />
-                            ) :
-                                <Text style={seeProfileStyles.notPost}>
-                                    {"You have not post anyone yet :("}
-                                </Text>
-                        ) :
-                            <DontShowPosts />
-                        }
-                    </View>
-                    :
-                    <DontShowPosts />
+                }>
+                {user?.blockedUsers?.includes(userId) ?
+                    <DontShowPosts userId={userId} title={"blocked"} /> : (seeUser?.isSecretAccount == false ?
+                        (posts?.length > 0 ? (
+                            <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />
+                        ) : (
+                            <Text style={seeProfileStyles.notPost}>
+                                {"You have not post anyone yet :("}
+                            </Text>
+                        )) :
+                        <DontShowPosts userId={userId} title={"secret"} />
+                    )
                 }
             </ScrollView>
-
             {
                 openAreYouSure == true ? (
                     <AreYouSure process={'LogOut'} navigation={navigation}
@@ -233,4 +244,3 @@ export default function SeeProfile({ navigation, route }) {
         </SafeAreaView >
     );
 }
-

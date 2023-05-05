@@ -7,6 +7,7 @@ import { timeAgoText } from "../../utils/timeAgoText";
 import { useUser } from "../../utils/userContext";
 import { baseURL } from "../../utils/constants";
 import colors from "../../assets/colors";
+
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
@@ -25,7 +26,7 @@ export default function PostUserInfo(
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
                 onPress={() => {
                     if (HeaderTitle != 'ProfileScreen')
-                        user._id != userId ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen", { username: username })
+                        user._id != userId ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen")
                 }
                 }>
                 {userPic == null || userPic == baseURL + null || userPic == baseURL ?

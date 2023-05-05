@@ -5,7 +5,7 @@ import colors from '../../assets/colors'
 const Loading = () => {
     return (
         <View style={{
-            flex: 1, backgroundColor: "rgba(255, 255, 255, 0)",
+            flex: 1, backgroundColor: colors.white,
             justifyContent: "center", alignItems: "center"
         }}>
             <ActivityIndicator size="large" color={colors.green} />

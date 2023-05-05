@@ -153,7 +153,7 @@ export default function AddVoice({ title, postId }) {
           {isRunning == true ? (
             <Image
               source={recGif}
-              style={{ width: 50, height: 50, borderRadius: 25, marginRight: "3%" }} />
+              style={addVoiceStyle.gifStyle} />
           ) : null}
 
           <Text style={addVoiceStyle.time}>{timeFormatText(seconds)}</Text>
@@ -161,7 +161,7 @@ export default function AddVoice({ title, postId }) {
           {isRunning == true ? (
             <Image
               source={waweGif}
-              style={{ width: 50, height: 50, borderRadius: 25, marginLeft: "4%" }} />
+              style={addVoiceStyle.gifStyle} />
           ) : null}
         </View>
 

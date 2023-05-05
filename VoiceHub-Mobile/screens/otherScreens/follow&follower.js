@@ -87,7 +87,7 @@ const FollowFollower = ({ navigation, route }) => {
                             {"You are not following anyone yet :("}
                         </Text>
 
-                        <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { username: user?.username, getCategory: "all", type: "discovery" }) }}>
+                        <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { getCategory: "all", type: "discovery" }) }}>
                             <Text style={
                                 { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
                                 Discover now!
@@ -107,7 +107,7 @@ const FollowFollower = ({ navigation, route }) => {
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
                                         onPress={() => {
                                             item?._id == user?._id ?
-                                                navigation.navigate("ProfileScreen", { userId: user?._id }) :
+                                                navigation.navigate("ProfileScreen") :
                                                 navigation.navigate("SeeProfile", { userId: item?._id })
                                         }}>
 
@@ -146,7 +146,7 @@ const FollowFollower = ({ navigation, route }) => {
                                     <TouchableOpacity style={followFollowerStyle.seeProfile}
                                         onPress={() => {
                                             item?._id == user?._id ?
-                                                navigation.navigate("ProfileScreen", { userId: user?._id }) :
+                                                navigation.navigate("ProfileScreen") :
                                                 navigation.navigate("SeeProfile", { userId: item?._id })
                                         }}>
                                         <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />

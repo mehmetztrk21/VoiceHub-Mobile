@@ -6,6 +6,7 @@ import OtherHeader from "../../screens/components/otherHeader";
 import { changePassword } from "../../services/userServices";
 
 const ChangePassword = ({ navigation }) => {
+
     const [old, setOld] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
@@ -16,19 +17,18 @@ const ChangePassword = ({ navigation }) => {
         if (password1 == password2) {
             await changePassword({ password: old, newPassword: password2 }).then(async (res) => {
                 if (res?.success) {
-                    alert("Şifreniz Başarı ile değiştirildi")
+                    alert("Your password has been successfully changed!")
                 }
                 else {
-                    alert("Eski şifrenizi doğru girmediniz")
+                    alert("You did not enter your old password correctly")
                 }
             }).catch((err) => {
                 console.log(err);
             })
         }
         else {
-            alert("Yeni oluşturacağınız şifreler birbiriyle uyuşmuyor")
+            alert("The passwords you will create do not match.")
         }
-
     };
 
     const handlePasswordVisibility = () => {
@@ -123,7 +123,7 @@ const ChangePassword = ({ navigation }) => {
 
             <TouchableOpacity onPress={confirm}
                 style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", marginTop: "5%" }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign:"center" }}> Confirm</Text>
+                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center" }}>Confirm</Text>
             </TouchableOpacity>
         </SafeAreaView>
     )

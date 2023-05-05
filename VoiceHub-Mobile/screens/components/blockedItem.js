@@ -1,52 +1,54 @@
 import React from "react"
 import { Image, Text, TouchableOpacity, View } from "react-native"
-import colors from "../../assets/colors"
 
-import ver from "../../assets/ver.png"
 import avatar from "../../assets/avatar.png"
-import { useUser } from "../../utils/userContext"
+import blockedItemStyle from "../../assets/styles/blockedItem.style"
+import ver from "../../assets/ver.png"
 import { baseURL } from "../../utils/constants"
+import { useUser } from "../../utils/userContext"
+import { blockAccount } from "../../services/actionServices"
 
 const BlockedItem = ({ navigation, blockedUser }) => {
 
-    const { user } = useUser();
+    const { user, setUser } = useUser();
+
+    const block = async () => {
+        await blockAccount({ userId: blockedUser?._id })
+
+        let temp = { ...user };
+        temp?.blockedUsers?.splice(temp?.blockedUsers?.indexOf(blockedUser?._id), 1);
+        await AsyncStorage.setItem("user", JSON.stringify(temp));
+        setUser(temp);
+    }
 
     return (
-        <View style={{ backgroundColor: colors.white, width: "100%", paddingHorizontal: "7.5%", justifyContent: "space-around", alignItems: "center", flexDirection: "row" }}>
+        <View style={blockedItemStyle.container}>
 
             <TouchableOpacity onPress={() => {
-                if (blockedUser?.id == user?._id) {
-                    navigation.navigate("ProfileScreen", { username: user?.username });
+                if (blockedUser?._id == user?._id) {
+                    navigation.navigate("ProfileScreen");
                 }
                 else {
-                    navigation.navigate("SeeProfile", { userId: blockedUser?.id });
+                    navigation.navigate("SeeProfile", { userId: blockedUser?._id });
                 }
-            }}>
+            }} style={{ flexDirection: "row", alignItems: "center", }}>
 
                 {blockedUser?.profilePhotoUrl ?
-                    <Image source={{ uri: baseURL + blockedUser?.profilePhotoUrl }} style={{
-                        width: 40, height: 40, borderRadius: 20, marginRight: "2%",
-                    }} /> :
-                    <Image source={avatar} style={{ width: 40, height: 40, borderRadius: 25, marginRight: "2%", }} />
+                    <Image source={{ uri: baseURL + blockedUser?.profilePhotoUrl }} style={blockedItemStyle.profilePhoto} /> :
+                    <Image source={avatar} style={blockedItemStyle.profilePhoto} />
                 }
 
-                <Text style={{ marginLeft: "4%", marginRight: "3%", fontWeight: "700", fontSize: 16, }}>{blockedUser?.username}</Text>
+                <Text style={blockedItemStyle.username}>{blockedUser?.username}</Text>
 
                 {blockedUser?.isTic == true ? (
-                    <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
+                    <Image source={ver} style={blockedItemStyle.verify} />
                 ) : null}
 
             </TouchableOpacity >
 
 
-            <TouchableOpacity style={{
-                width: "30%",
-                alignItems: "center",
-                padding: "2%",
-                backgroundColor: colors.green,
-                borderRadius: 12.5,
-            }}>
-                <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>Kaldır</Text>
+            <TouchableOpacity style={blockedItemStyle.removeButtonHolder} onPress={block}>
+                <Text style={blockedItemStyle.removeButtonText}>Remove</Text>
             </TouchableOpacity>
         </View >
     )

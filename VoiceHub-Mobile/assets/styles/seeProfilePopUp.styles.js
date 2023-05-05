@@ -11,7 +11,7 @@ export default StyleSheet.create({
         width: "70%",
         alignSelf: "center",
         justifyContent: "center",
-        paddingHorizontal: 40,
+        paddingHorizontal: 30,
         paddingVertical: 25,
         borderRadius: 25,
         backgroundColor: colors.green,
@@ -25,7 +25,7 @@ export default StyleSheet.create({
         elevation: 10,
     },
     button: {
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: "700",
         paddingVertical: 5,
         marginLeft: 10,
@@ -34,7 +34,7 @@ export default StyleSheet.create({
     },
     closeButton: {
         color: colors.green,
-        fontSize: 16,
+        fontSize: 18,
         textAlign: "center",
         fontWeight: "600",
         backgroundColor: colors.white,

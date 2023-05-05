@@ -13,7 +13,7 @@ const bioVoicePopUp = ({ setOpenAddVoice, setOpenBioVoicePopUp }) => {
 
     const deleteVoice = async () => {
         await removeUserFiles({ type: "descriptionVoice" })
-
+        
         setOpenBioVoicePopUp(false);
     }
 
@@ -34,10 +34,7 @@ const bioVoicePopUp = ({ setOpenAddVoice, setOpenBioVoicePopUp }) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity style={{ paddingVertical: 10 }} onPress={() => { setOpenBioVoicePopUp(false) }}>
-                    <Text style={{
-                        color: colors.green, fontSize: 16, textAlign: "center", fontWeight: "600",
-                        backgroundColor: colors.white, padding: 10, borderRadius: 10,
-                    }}>Close</Text>
+                    <Text style={bioVoicePopUpStyle.closeButton}>Close</Text>
                 </TouchableOpacity>
             </View>
         </View>

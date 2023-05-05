@@ -25,8 +25,7 @@ import { useUser } from "../utils/userContext";
 
 const { width } = Dimensions.get("window");
 
-export default function ProfileScreen({ navigation, route }) {
-  const { username } = route.params;
+export default function ProfileScreen({ navigation }) {
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
@@ -207,7 +206,7 @@ export default function ProfileScreen({ navigation, route }) {
                 {"You have not post anyone yet :("}
               </Text>
 
-              <TouchableOpacity onPress={() => { navigation.navigate("Upload", { username: username }) }}>
+              <TouchableOpacity onPress={() => { navigation.navigate("Upload") }}>
                 <Text style={
                   { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16, backgroundColor: colors.white, borderRadius: 15, paddingVertical: 10, }}>
                   Upload Now!
@@ -218,7 +217,7 @@ export default function ProfileScreen({ navigation, route }) {
         </View>
       </ScrollView>
 
-      <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
+      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"profile"} />
     </SafeAreaView>
   );
 }

@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { Icon } from 'react-native-elements';
 
-import * as FileSystem from 'expo-file-system';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
-import { removeUserFiles, updateUserInfo } from "../../services/userServices";
+import { removeUserFiles } from "../../services/userServices";
+
+import { useUser } from '../../utils/userContext';
 
 import colors from '../../assets/colors';
 import profilePhotoPopUpStyle from '../../assets/styles/profilePhotoPopUp.style';
 
-const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
-    const [image, setImage] = useState(null);
+const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp, image, setImage }) => {
+
+    const { user, setUser } = useUser();
 
     const deletePhoto = async () => {
         await removeUserFiles({ type: "profilePhoto" })
-        //continue
+        setImage(null);
         setOpenProfilePhotoPopUp(false);
     }
 
@@ -31,10 +33,9 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
                 quality: 1,
             });
 
-
             if (!result.cancelled) {
                 setImage(result.uri);
-                save(result.uri);
+                setOpenProfilePhotoPopUp(false);
             }
         } else {
             throw new Error('Camera permission not granted');
@@ -50,36 +51,13 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
             aspect: [4, 3],
             quality: 1,
         }).then((res) => {
-            console.log("res", res);
             if (!res.cancelled) {
                 setImage(res.uri);
-                save(res.uri);
+                setOpenProfilePhotoPopUp(false);
             }
         });
+
     };
-
-    const save = async (temp = null) => {
-        console.log("save geldi", image);
-        console.log("save geldi temp:", temp);
-        const formData = new FormData();
-        const info = await FileSystem.getInfoAsync(image ? image : temp);
-        console.log("info", info);
-        formData.append('profilePhoto', {
-            uri: info.uri,
-            type: 'image/png', // ya da 'image/png'
-            name: 'profilePhoto.png',
-        });
-        console.log("formdata", formData);
-        const response = await updateUserInfo(formData)
-        if (response && response.success) {
-            //empty
-        }
-        else {
-            console.log("hata")
-        }
-
-        setOpenProfilePhotoPopUp(false);
-    }
 
     return (
         <View style={profilePhotoPopUpStyle.container}>
@@ -97,11 +75,11 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp }) => {
                     <Text style={profilePhotoPopUpStyle.button}>Take a Photo</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={() => deletePhoto()}
+                {user?.profilePhotoUrl ? <TouchableOpacity onPress={() => deletePhoto()}
                     style={{ flexDirection: "row", alignItems: "center", }}>
                     <Icon size={20} type={"font-awesome"} name={"trash"} color={colors.white} />
                     <Text style={profilePhotoPopUpStyle.button}>Remove Photo</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> : null}
 
                 <TouchableOpacity style={{ paddingVertical: 10 }} onPress={() => { setOpenProfilePhotoPopUp(false) }}>
                     <Text style={{

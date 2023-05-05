@@ -22,20 +22,20 @@ export default function ForgotPassword({ navigation }) {
                         navigation.navigate("HomeScreen")
                     }
                     else {
-                        alert("kullanıcı adı en az 3 karakter olmalı");
+                        alert("Username must be at least 3 characters.");
                     }
                 }
                 else {
-                    alert("şifreniz en az 8 karakter olmalı");
+                    alert("Your password must be at least 8 characters");
                 }
             }
             else {
-                alert("şifreler boş olmamalı");
+                alert("Password cannot be left blank.");
 
             }
         }
         else {
-            alert("şifreler birbirine eşit değil");
+            alert("Passwords are not equal.");
         }
     }
 

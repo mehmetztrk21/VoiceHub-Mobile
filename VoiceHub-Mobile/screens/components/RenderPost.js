@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import colors from "../../assets/colors";
 
@@ -12,21 +12,7 @@ import PostUserInfo from "./postUserInfo";
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, posts, user, setOpenEditCategoriesPopUp }) => {
 
   return posts?.map((item, index) => (
-    <View style={{
-      width: "90%",
-      backgroundColor: colors.white,
-      marginHorizontal: "5%",
-      shadowColor: colors.black,
-      shadowOffset: {
-        width: 0,
-        height: 8,
-      },
-      shadowOpacity: 1,
-      shadowRadius: 4,
-      elevation: 5,
-      borderRadius: 20,
-      marginVertical: 10,
-    }} key={index}>
+    <View style={styles.container} key={index}>
 
       {/* User Informations */}
       <PostUserInfo
@@ -51,5 +37,23 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
     </View>
   ));
 }
+
+const styles = StyleSheet.create({
+  container: {
+    width: "90%",
+    backgroundColor: colors.white,
+    marginHorizontal: "5%",
+    shadowColor: colors.black,
+    shadowOffset: {
+      width: 0,
+      height: 8,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 4,
+    elevation: 5,
+    borderRadius: 20,
+    marginVertical: 10,
+  },
+})
 
 export default RenderPost;

@@ -14,20 +14,17 @@ export default StyleSheet.create({
   actView: {
     flexDirection: "row",
     alignItems: "center",
-    padding: 10,
-    marginTop: 12,
-    width: "96%",
-    marginBottom: 12,
+    paddingVertical: 22,
+    justifyContent: "center"
   },
   userPic: {
     width: 90,
     height: 90,
     borderRadius: 45,
-    margin: 10,
-    marginLeft: "1%",
+    marginLeft: 10,
     marginVertical: -12,
     borderWidth: 3,
-    borderColor: colors.black,
+    borderColor: colors.darkGray,
   },
   followContents: {
     flexDirection: "row",
@@ -61,7 +58,7 @@ export default StyleSheet.create({
     paddingTop: "3%",
   },
   name: {
-    fontSize: 15,
+    fontSize: 16,
     fontWeight: "700",
   },
 

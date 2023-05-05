@@ -18,7 +18,7 @@ export default StyleSheet.create({
     marginHorizontal: "5%",
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems:"center",
+    alignItems: "center",
   },
   content: {
     flexDirection: "row",
@@ -31,11 +31,17 @@ export default StyleSheet.create({
   touch: {
     padding: "1%",
     borderRadius: 25,
-    height:40,
-    width:40,
+    height: 40,
+    width: 40,
     borderColor: colors.black,
     borderWidth: 2,
     backgroundColor: colors.green,
-    justifyContent:"center",
-  }
+    justifyContent: "center",
+  },
+  gifStyle: {
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    marginLeft: "3%"
+  },
 })

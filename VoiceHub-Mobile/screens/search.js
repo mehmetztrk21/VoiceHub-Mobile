@@ -22,14 +22,16 @@ import Loading from "./components/loading";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
-  const { username, getCategory, type } = route.params;
+  const { getCategory, type } = route.params;
 
   const scrollViewRef = useRef();
   const categoryScrollViewRef = useRef();
 
-  const [loading, setLoading] = useState(false);
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
   const [focused, setFocused] = useState(false);
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
@@ -38,7 +40,7 @@ export default function SearchScreen({ navigation, route }) {
   const [selectedCategory, setSelectedCategory] = useState(getCategory);
   const [categories, setCategories] = useState([]);
 
-  useState(() => {
+  useEffect(() => {
     if (type == "lastSearched") {
       console.log("lastSearched bölümüne geldi");
       setFocused(true);
@@ -50,18 +52,19 @@ export default function SearchScreen({ navigation, route }) {
     else {
       console.log("screen type error. Search.js")
       setFocused(false);
-    }//çok uzun sürecek siktir e
-  })
+    }
+  }, [])
 
   const handleScrollToTop = () => {
-    scrollViewRef.current.scrollTo({ y: 0, animated: true })
+    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    categoryScrollViewRef.current.scrollTo({ y: 0, animated: true });
   };
 
   const pullThePage = () => {
     setRefreshing(true);
 
     setTimeout(() => {
-      setRefreshing(false)
+      setRefreshing(false);
     }, 800)
   }
 
@@ -83,7 +86,6 @@ export default function SearchScreen({ navigation, route }) {
           likes: item.likes,
           isTic: item.createdBy.isTic,
           isLikesVisible: item.isLikesVisible,
-
         }
       })
       setPosts(temp);
@@ -103,25 +105,12 @@ export default function SearchScreen({ navigation, route }) {
   }
 
   const onChangeSearch = async () => {
-    if (searchQuery != "") {
+    if (searchQuery.trim() !== "") {
       const response = await searchUser({ search: searchQuery });
-
       if (response && response.success) {
-        let temp = response.data.map((item) => {
-          return {
-            id: item._id,
-            username: item.username,
-            userPic: item.profilePhotoUrl,
-            isSecretAccount: item.isSecretAccount,
-            isTic: item.isTic,
-          }
-        })
-        setUsers(temp);
+        console.log(response?.data);
+        setUsers(response?.data);
       }
-    }
-    else {
-      setUsers();
-      //son aratılan kullanıcılar gelecek ve işlemler yapılabilecek
     }
   }
 
@@ -138,8 +127,6 @@ export default function SearchScreen({ navigation, route }) {
     onChangeSearch();
   }, [searchQuery])
 
-
-
   if (loading) return <Loading />
 
   return (
@@ -152,7 +139,7 @@ export default function SearchScreen({ navigation, route }) {
         animationType="slide"
         transparent={true}
         onRequestClose={() => {
-          setVisiblePopUp(false)
+          setVisiblePopUp(false);
         }}>
         <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
           setVisiblePopUp={setVisiblePopUp} />
@@ -186,7 +173,7 @@ export default function SearchScreen({ navigation, route }) {
             < TextInput
               placeholder="Search"
               style={[searchStyles.searchBar, { width: "90%" }]}
-              onChangeText={searchQuery => setSearchQuery(searchQuery)}
+              onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
               value={searchQuery}
             />
 
@@ -223,8 +210,7 @@ export default function SearchScreen({ navigation, route }) {
                 <Text style={[searchStyles.SecondText,
                 { width: width * 0.3, marginHorizontal: width * 0.0125, },
                 selectedCategory == "all" ? {
-                  borderWidth: 2, borderColor: colors.green,
-                  backgroundColor: colors.white, color: colors.green
+                  borderWidth: 2, borderColor: colors.green, backgroundColor: colors.white, color: colors.green
                 } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#all</Text>
 
               </TouchableOpacity>
@@ -258,15 +244,16 @@ export default function SearchScreen({ navigation, route }) {
           <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
         }
       >
-        {focused ? (searchQuery.length == 0 ?
-          <RenderLastSearchedUser navigation={navigation} users={users} title={"last"} /> :
-          <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} />
-        ) :
-          <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />
-        }
+        {focused == true ?
+          (searchQuery.length !== 0 ?
+            <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} /> :
+            <RenderLastSearchedUser navigation={navigation} title={"last"} />)
+          : <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />}
+
       </ScrollView>
 
-      <BottomTabs navigation={navigation} username={username} setVisiblePopUp={setVisiblePopUp} />
+      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"search"}/>
     </SafeAreaView>
   );
 }
+/**/
