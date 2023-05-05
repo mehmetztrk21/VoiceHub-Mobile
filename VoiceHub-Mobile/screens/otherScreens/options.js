@@ -9,6 +9,7 @@ import { getUserById, updateUserInfo } from "../../services/userServices";
 import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
 import AreYouSure from "../components/areYouSure";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Options = ({ navigation }) => {
 
@@ -21,9 +22,21 @@ const Options = ({ navigation }) => {
 
     const toggleSwitch = async () => {
         setIsSecretAccount(previousState => !previousState);
+
         const formData = new FormData();
         formData.append("isSecretAccount", isSecretAccount);
-        await updateUserInfo(formData)
+
+        const response = await updateUserInfo(formData);
+
+        if (response && response.success) {
+            getUserById({ id: user?._id }).then(async (res) => {
+                setUser(res?.data);
+                await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        }
     }
 
     const changeUsername = async () => {
