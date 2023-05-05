@@ -42,11 +42,11 @@ export default function PostUserInfo(
                             <Image style={{ width: 14, height: 14, marginLeft: 4 }} source={ver} />
                             : null}
 
-                        <TouchableOpacity onPress={() => { }} style={
+                        {HeaderTitle == "SearchScreen" ? <TouchableOpacity onPress={() => { }} style={
                             { marginLeft: "5%", backgroundColor: colors.white, borderRadius: 10, paddingHorizontal: 7.5, paddingVertical: 2.5, borderWidth: 2, borderColor: colors.green }
                         }>
                             <Text style={{ fontWeight: "700", fontSize: 15, color: colors.green, textAlign: "center" }}>Follow</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity> : null}
                     </View>
                     <Text style={postUserInfoStyle.timeAgo}>{differenceInDays}</Text>
                 </View>
