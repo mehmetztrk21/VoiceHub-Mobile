@@ -19,6 +19,7 @@ import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
 import { baseURL } from "../utils/constants";
 import Loading from "./components/loading";
+import PopUpPost from "./components/PopUpPost";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
@@ -29,7 +30,7 @@ export default function SearchScreen({ navigation, route }) {
 
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
-
+  const [openPopUpPost, setOpenPopUpPost] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [focused, setFocused] = useState(false);
@@ -157,6 +158,15 @@ export default function SearchScreen({ navigation, route }) {
           setOpenAreYouSure={setOpenAreYouSure} />
       </Modal>
 
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openPopUpPost ? true : false}
+        onRequestClose={() => { setOpenPopUpPost(false) }}
+      >
+        <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+      </Modal>
+
       <View style={searchStyles.searchBarHolder}>
         {focused ? (
           <View style={{
@@ -248,11 +258,11 @@ export default function SearchScreen({ navigation, route }) {
           (searchQuery.length !== 0 ?
             <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} /> :
             <RenderLastSearchedUser navigation={navigation} title={"last"} />)
-          : <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />}
+          : <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} setOpenPopUpPost={setOpenPopUpPost} />}
 
       </ScrollView>
 
-      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"search"}/>
+      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"search"} />
     </SafeAreaView>
   );
 }

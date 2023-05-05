@@ -11,7 +11,7 @@ import colors from "../../assets/colors";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id, isTic, setOpenHomePopUp }) {
+        date, id, isTic, setOpenPopUpPost }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
     const { user } = useUser();
@@ -37,9 +37,16 @@ export default function PostUserInfo(
                 <View style={{ flexDirection: "column" }}>
                     <View style={{ flexDirection: "row", alignItems: "center" }}>
                         <Text style={postUserInfoStyle.username}>{username}</Text>
+
                         {isTic == true ?
                             <Image style={{ width: 14, height: 14, marginLeft: 4 }} source={ver} />
                             : null}
+
+                        <TouchableOpacity onPress={() => { }} style={
+                            { marginLeft: "5%", backgroundColor: colors.white, borderRadius: 10, paddingHorizontal: 7.5, paddingVertical: 2.5, borderWidth: 2, borderColor: colors.green }
+                        }>
+                            <Text style={{ fontWeight: "700", fontSize: 15, color: colors.green, textAlign: "center" }}>Follow</Text>
+                        </TouchableOpacity>
                     </View>
                     <Text style={postUserInfoStyle.timeAgo}>{differenceInDays}</Text>
                 </View>
@@ -55,14 +62,8 @@ export default function PostUserInfo(
                     <TouchableOpacity onPress={() => { setOpenArchivePopUp(id ? id : false) }}>
                         <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
                     </TouchableOpacity>
-                ) : HeaderTitle == "SearchScreen" ? (
-                    <TouchableOpacity onPress={() => { }} style={
-                        { backgroundColor: colors.white, borderRadius: 10, paddingHorizontal: 7.5, paddingVertical: 2.5, borderWidth: 2, borderColor: colors.green }
-                    }>
-                        <Text style={{ fontWeight: "700", fontSize: 15, color: colors.green, textAlign: "center" }}>Follow</Text>
-                    </TouchableOpacity>
-                ) : HeaderTitle == "HomeScreen" ? (
-                    <TouchableOpacity onPress={() => { setOpenHomePopUp(id ? id : false) }}>
+                ) : HeaderTitle == "HomeScreen" || HeaderTitle == "SearchScreen" ? (
+                    <TouchableOpacity onPress={() => { setOpenPopUpPost(id ? id : false) }}>
                         <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
                     </TouchableOpacity>
                 ) : null}

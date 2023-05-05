@@ -9,7 +9,7 @@ import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
 
-const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, setOpenHomePopUp, posts, user }) => {
+const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, setOpenPopUpPost, posts, user }) => {
 
   return posts?.map((item, index) => (
     <View style={styles.container} key={index}>
@@ -19,7 +19,7 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
         navigation={navigation} userPic={HeaderTitle == "OtherProfiles" ? baseURL + user?.profilePhotoUrl : item.userPic}
         userId={item.createdBy._id} username={item.username || user?.username} HeaderTitle={HeaderTitle}
         setOpenArchivePopUp={setOpenArchivePopUp} setOpenEditPostPopUp={setOpenEditPostPopUp} date={item.createdAt || item.date}
-        id={item.id} isTic={item?.isTic ? item?.isTic : user?.isTic} setOpenEditCategoriesPopUp={item.categories} setOpenHomePopUp={setOpenHomePopUp} />
+        id={item.id} isTic={item?.isTic ? item?.isTic : user?.isTic} setOpenEditCategoriesPopUp={item.categories} setOpenPopUpPost={setOpenPopUpPost} />
 
       {/* Categories */}
       <View style={{ marginHorizontal: "3%" }}>

@@ -6,7 +6,7 @@ import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import HomeHeader from "./components/HomeHeader";
 import PopUp from "./components/ProfileBottomPopUp";
-import HomePopUp from "./components/HomePopUp";
+import PopUpPost from "./components/PopUpPost";
 import RenderPost from "./components/RenderPost";
 
 import { getMainPagePosts } from "../services/postServices";
@@ -24,7 +24,7 @@ export default function HomeScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const [openHomePopUp, setOpenHomePopUp] = useState(false);
+  const [openPopUpPost, setOpenPopUpPost] = useState(false);
 
   const scrollViewRef = useRef();
 
@@ -105,10 +105,10 @@ export default function HomeScreen({ navigation }) {
       <Modal
         animationType="slide"
         transparent={true}
-        visible={openHomePopUp ? true : false}
-        onRequestClose={() => { setOpenHomePopUp(false) }}
+        visible={openPopUpPost ? true : false}
+        onRequestClose={() => { setOpenPopUpPost(false) }}
       >
-        <HomePopUp id={openHomePopUp} setId={setOpenHomePopUp} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+        <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
       <ScrollView style={homeStyles.scroll} ref={scrollViewRef} refreshControl={
@@ -117,7 +117,7 @@ export default function HomeScreen({ navigation }) {
       >
         {/* Users Posts */}
         {posts?.length > 0 ? (
-          <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} posts={posts} setOpenHomePopUp={setOpenHomePopUp} />
+          <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} posts={posts} setOpenPopUpPost={setOpenPopUpPost} />
         ) :
           <View style={{ marginTop: "5%" }}>
             <Text style={

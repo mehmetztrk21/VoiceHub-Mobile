@@ -7,7 +7,7 @@ import { setLikedPost, setSavedPost, setSeeLikes } from "../../services/actionSe
 import { getPostById } from "../../services/postServices"
 import { getUserById } from "../../services/userServices"
 
-const HomePopUp = ({ id, setId, uri }) => {
+const PopUpPost = ({ id, setId, uri }) => {
     const { user } = useUser();
     const [post, setPost] = useState({});
     const [seeUser, setSeeUser] = useState({});
@@ -150,4 +150,4 @@ const HomePopUp = ({ id, setId, uri }) => {
     )
 }
 
-export default HomePopUp
+export default PopUpPost;
