@@ -62,7 +62,7 @@ export default function PostUserInfo(
                     <TouchableOpacity onPress={() => { setOpenArchivePopUp(id ? id : false) }}>
                         <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
                     </TouchableOpacity>
-                ) : HeaderTitle == "HomeScreen" || HeaderTitle == "SearchScreen" ? (
+                ) : HeaderTitle == "HomeScreen" || HeaderTitle == "SearchScreen" || HeaderTitle == "Saved" ? (
                     <TouchableOpacity onPress={() => { setOpenPopUpPost(id ? id : false) }}>
                         <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
                     </TouchableOpacity>
