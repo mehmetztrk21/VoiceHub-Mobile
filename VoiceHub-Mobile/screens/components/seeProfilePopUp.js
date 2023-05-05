@@ -36,7 +36,7 @@ const seeProfilePopUp = ({ userId, setOpenSeeProfileOptions }) => {
                 message: "https://github.com/mehmetztrk21/VoiceHub-Mobile/",
             });
         } catch (error) {
-            console.error('Paylaşım hatası:', error);
+            console.error('Share error:', error);
         }
     }
 

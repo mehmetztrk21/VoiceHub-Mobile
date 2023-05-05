@@ -34,7 +34,7 @@ const editPostPopUp = ({ id, setId, setOpenEditCategoriesPopUp }) => {
         message: "https://github.com/mehmetztrk21/VoiceHub-Mobile/",
       });
     } catch (error) {
-      console.error('Paylaşım hatası:', error);
+      console.error('Share error:', error);
     }
   }
 

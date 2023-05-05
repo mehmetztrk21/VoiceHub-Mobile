@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Header, Icon } from "react-native-elements";
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 import ver from "../../assets/ver.png";
 import { timeAgoText } from "../../utils/timeAgoText";
@@ -11,7 +11,7 @@ import colors from "../../assets/colors";
 export default function PostUserInfo(
     { navigation, userPic, username, HeaderTitle,
         setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id, isTic, setOpenEditCategoriesPopUp }) {
+        date, id, isTic, setOpenHomePopUp }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
     const { user } = useUser();
@@ -25,7 +25,7 @@ export default function PostUserInfo(
 
             <TouchableOpacity style={postUserInfoStyle.clickUserPic}
                 onPress={() => {
-                    if (HeaderTitle != 'ProfileScreen')
+                    if (HeaderTitle != "ProfileScreen")
                         user._id != userId ? navigation.navigate("SeeProfile", { userId: userId }) : navigation.navigate("ProfileScreen")
                 }
                 }>
@@ -47,21 +47,23 @@ export default function PostUserInfo(
             </TouchableOpacity>
 
             <View style={{ marginRight: 16 }}>
-                {HeaderTitle == 'ProfileScreen' ? (
-                    <TouchableOpacity onPress={() => {
-                        setOpenEditPostPopUp(id ? id : false);
-                    }}>
-                        <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
+                {HeaderTitle == "ProfileScreen" ? (
+                    <TouchableOpacity onPress={() => { setOpenEditPostPopUp(id ? id : false); }}>
+                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
                     </TouchableOpacity>
-                ) : HeaderTitle == 'Archived' ? (
+                ) : HeaderTitle == "Archived" ? (
                     <TouchableOpacity onPress={() => { setOpenArchivePopUp(id ? id : false) }}>
-                        <Icon type={'font-awesome'} name={'ellipsis-v'} size={28} />
+                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == "SearchScreen" ? (
                     <TouchableOpacity onPress={() => { }} style={
                         { backgroundColor: colors.white, borderRadius: 10, paddingHorizontal: 7.5, paddingVertical: 2.5, borderWidth: 2, borderColor: colors.green }
                     }>
                         <Text style={{ fontWeight: "700", fontSize: 15, color: colors.green, textAlign: "center" }}>Follow</Text>
+                    </TouchableOpacity>
+                ) : HeaderTitle == "HomeScreen" ? (
+                    <TouchableOpacity onPress={() => { setOpenHomePopUp(id ? id : false) }}>
+                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
                     </TouchableOpacity>
                 ) : null}
             </View>

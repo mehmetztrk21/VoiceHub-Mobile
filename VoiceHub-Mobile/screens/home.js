@@ -6,6 +6,7 @@ import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import HomeHeader from "./components/HomeHeader";
 import PopUp from "./components/ProfileBottomPopUp";
+import HomePopUp from "./components/HomePopUp";
 import RenderPost from "./components/RenderPost";
 
 import { getMainPagePosts } from "../services/postServices";
@@ -15,7 +16,6 @@ import { baseURL } from "../utils/constants";
 import colors from "../assets/colors";
 import homeStyles from "../assets/styles/home.style";
 import Loading from "./components/loading";
-import { useUser } from "../utils/userContext";
 
 export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
@@ -24,7 +24,8 @@ export default function HomeScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
-  const { user } = useUser();
+  const [openHomePopUp, setOpenHomePopUp] = useState(false);
+
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
@@ -101,13 +102,22 @@ export default function HomeScreen({ navigation }) {
           setOpenAreYouSure={setOpenAreYouSure} />
       </Modal>
 
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openHomePopUp ? true : false}
+        onRequestClose={() => { setOpenHomePopUp(false) }}
+      >
+        <HomePopUp id={openHomePopUp} setId={setOpenHomePopUp} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+      </Modal>
+
       <ScrollView style={homeStyles.scroll} ref={scrollViewRef} refreshControl={
         <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
       }
       >
         {/* Users Posts */}
         {posts?.length > 0 ? (
-          <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} posts={posts} />
+          <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} posts={posts} setOpenHomePopUp={setOpenHomePopUp} />
         ) :
           <View style={{ marginTop: "5%" }}>
             <Text style={
