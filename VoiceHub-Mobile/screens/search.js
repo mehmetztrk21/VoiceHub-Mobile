@@ -56,21 +56,6 @@ export default function SearchScreen({ navigation, route }) {
       console.log("screen type error. Search.js")
       setFocused(false);
     }
-  }, [])
-
-  useEffect(() => {
-    if (type == "lastSearched") {
-      console.log("lastSearched bölümüne geldi");
-      setFocused(true);
-    }
-    else if (type == "discovery") {
-      console.log("discovery bölümüne geldi");
-      setFocused(false);
-    }
-    else {
-      console.log("screen type error. Search.js")
-      setFocused(false);
-    }
   }, [isFocused])
 
   const handleScrollToTop = () => {
@@ -104,7 +89,6 @@ export default function SearchScreen({ navigation, route }) {
       setCategories(response.data);  //[{_id:"poem",count:1}]
       await getPosts()
     }
-    setLoading(false);
   }
 
   const onChangeSearch = async () => {
