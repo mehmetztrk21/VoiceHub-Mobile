@@ -21,7 +21,6 @@ const Options = ({ navigation }) => {
     const [isSecretAccount, setIsSecretAccount] = useState(false);
 
     useEffect(() => {
-        console.log(user?.isSecretAccount)
         setIsSecretAccount(newIsSecretAccount);
     }, [])
 

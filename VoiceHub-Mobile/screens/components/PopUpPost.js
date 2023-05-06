@@ -16,10 +16,8 @@ const PopUpPost = ({ id, setId, uri }) => {
     useEffect(() => {
         getPostById({ postId: id }).then(async (res) => {
             setPost(res?.data);
-            console.log(res?.data);
             getUserById({ id: res?.data?.createdBy }).then(async (response) => {
                 setSeeUser(response?.data);
-                console.log(response?.data);
             }).catch((err) => {
 
             });

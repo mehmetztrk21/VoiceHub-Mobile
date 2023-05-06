@@ -163,15 +163,28 @@ const FollowFollower = ({ navigation, route }) => {
                                     </TouchableOpacity>
 
                                     {user?._id != item?._id ?
-                                        <TouchableOpacity style={{
+                                        <TouchableOpacity style={[user?.followings?.includes(item?._id) ? {
+                                            width: "30%",
+                                            alignItems: "center",
+                                            padding: "2%",
+                                            backgroundColor: colors.white,
+                                            borderRadius: 12.5,
+                                            borderWidth: 2,
+                                            borderColor: colors.green,
+                                        } : {
                                             width: "30%",
                                             alignItems: "center",
                                             padding: "2%",
                                             backgroundColor: colors.green,
                                             borderRadius: 12.5,
-                                        }} onPress={() => followUnfollow(item?._id)}>
-                                            <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                                                {user?.followers?.includes(item?._id) ? "Following" : "Follow"}
+                                            borderWidth: 2,
+                                            borderColor: colors.green,
+                                        }]} onPress={() => followUnfollow(item?._id)}>
+                                            <Text style={
+                                                [user?.followings?.includes(item?._id) ?
+                                                    { color: colors.green, fontSize: 16, fontWeight: "600", } :
+                                                    { color: colors.white, fontSize: 16, fontWeight: "600", }]}>
+                                                {user?.followings?.includes(item?._id) ? "Following" : "Follow"}
                                             </Text>
                                         </TouchableOpacity>
                                         : null}
@@ -196,14 +209,27 @@ const FollowFollower = ({ navigation, route }) => {
                                     </TouchableOpacity>
 
                                     {user?._id != item?._id ?
-                                        <TouchableOpacity style={{
+                                        <TouchableOpacity style={[user?.followings?.includes(item?._id) ? {
+                                            width: "30%",
+                                            alignItems: "center",
+                                            padding: "2%",
+                                            backgroundColor: colors.white,
+                                            borderRadius: 12.5,
+                                            borderWidth: 2,
+                                            borderColor: colors.green,
+                                        } : {
                                             width: "30%",
                                             alignItems: "center",
                                             padding: "2%",
                                             backgroundColor: colors.green,
                                             borderRadius: 12.5,
-                                        }} onPress={() => followUnfollow(item?._id)}>
-                                            <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600" }}>
+                                            borderWidth: 2,
+                                            borderColor: colors.green,
+                                        }]} onPress={() => followUnfollow(item?._id)}>
+                                            <Text style={
+                                                [user?.followings?.includes(item?._id) ?
+                                                    { color: colors.green, fontSize: 16, fontWeight: "600", } :
+                                                    { color: colors.white, fontSize: 16, fontWeight: "600", }]}>
                                                 {user?.followings?.includes(item?._id) ? "Following" : "Follow"}
                                             </Text>
                                         </TouchableOpacity>

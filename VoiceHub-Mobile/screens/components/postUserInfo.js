@@ -20,7 +20,6 @@ export default function PostUserInfo(
 
     const followUnfollow = async () => {
         await setFollowFollower({ userId: userId }).then(async (res) => {
-            console.log(res);
             if (res?.success) {
                 let temp = { ...user };
                 if (res.data == "Unfollowed successfully")
