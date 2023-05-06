@@ -15,7 +15,7 @@ import { createComment } from "../../services/commentServices";
 import { recordingOptions } from '../../utils/recordingOptions';
 import { timeFormatText } from "../../utils/timeFormatText";
 
-export default function AddVoice({ title, postId, setIsAddVoice }) {
+export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice }) {
   const [isRunning, setIsRunning] = useState(false);
   const [recording, setRecording] = useState(null);
   const [seconds, setSeconds] = useState(0);
@@ -117,6 +117,7 @@ export default function AddVoice({ title, postId, setIsAddVoice }) {
     }
 
     else if (title == "bio") {
+      setOpenAddVoice(false)
       setIsAddVoice(info);
     }
     else {

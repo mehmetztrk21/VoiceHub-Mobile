@@ -204,7 +204,7 @@ export default function EditProfile({ navigation }) {
         <Text style={editProfileStyle.saveButtonText}>Save</Text>
       </TouchableOpacity>
 
-      {openAddVoice ? (<AddVoice title={"bio"} setIsAddVoice={setIsAddVoice} />) : null}
+      {openAddVoice ? (<AddVoice title={"bio"} setIsAddVoice={setIsAddVoice} setOpenAddVoice={setOpenAddVoice} />) : null}
     </SafeAreaView >
   );
 }   
