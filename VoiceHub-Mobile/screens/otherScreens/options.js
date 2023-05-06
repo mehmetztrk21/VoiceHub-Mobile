@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, SafeAreaView, Switch, Text, TextInput, View } from "react-native";
 import colors from "../../assets/colors";
 import OtherHeader from "../components/otherHeader";
@@ -18,7 +18,12 @@ const Options = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
     const [username, setUserName] = useState(user?.username);
-    const [isSecretAccount, setIsSecretAccount] = useState(user?.isSecretAccount);
+    const [isSecretAccount, setIsSecretAccount] = useState(false);
+
+    useEffect(() => {
+        console.log(user?.isSecretAccount)
+        setIsSecretAccount(newIsSecretAccount);
+    }, [])
 
     const toggleSwitch = async () => {
         setIsSecretAccount(previousState => !previousState);
@@ -66,6 +71,9 @@ const Options = ({ navigation }) => {
     if (loading) {
         return <Loading />
     }
+
+
+    const newIsSecretAccount = user?.isSecretAccount;
 
     return (
         <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: "100%" }}>

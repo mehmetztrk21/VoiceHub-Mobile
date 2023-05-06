@@ -224,17 +224,13 @@ export default function SeeProfile({ navigation, route }) {
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                 }>
-                {user?.blockedUsers?.includes(userId) ?
-                    <DontShowPosts userId={userId} title={"blocked"} /> : (seeUser?.isSecretAccount == false ?
-                        (posts?.length > 0 ? (
-                            <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />
-                        ) : (
-                            <Text style={seeProfileStyles.notPost}>
-                                {"You have not post anyone yet :("}
-                            </Text>
-                        )) :
-                        <DontShowPosts userId={userId} title={"secret"} />
-                    )
+                {(user?.blockedUsers?.includes(userId)) ?
+                    (<DontShowPosts userId={userId} title={"blocked"} />) : (
+                        (seeUser?.isSecretAccount == false) ?
+                            (posts?.length > 0 ?
+                                (<RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />) :
+                                (<Text style={seeProfileStyles.notPost}>Have not post anyone yet</Text>)
+                            ) : <DontShowPosts userId={userId} title={"secret"} />)
                 }
             </ScrollView>
             {
