@@ -1,10 +1,10 @@
+import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions, Modal, RefreshControl,
   SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
 import { Icon } from "react-native-elements";
-import { useIsFocused } from "@react-navigation/native";
 
 import colors from "../assets/colors";
 import searchStyles from "../assets/styles/search.style";
@@ -18,7 +18,6 @@ import SearchHeader from "./components/SearchHeader";
 
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
-import { baseURL } from "../utils/constants";
 import Loading from "./components/loading";
 import PopUpPost from "./components/PopUpPost";
 const { width } = Dimensions.get("window");
