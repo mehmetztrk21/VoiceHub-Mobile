@@ -109,15 +109,31 @@ export default function Upload({ navigation }) {
     };
 
     const pickFile = async () => {
-        let result = await DocumentPicker.getDocumentAsync({ type: 'audio/*', copyToCacheDirectory: false });
-        if (!result.cancelled) {
-            setOpenReadCategory(true);
-            setRecording(result);
+        try {
+            const result = await DocumentPicker.getDocumentAsync({ type: "audio/*", copyToCacheDirectory: true });
+            if (result !== "cancel") {
+                setOpenReadCategory(true);
+                setRecording(result);
+            }
+        } catch (err) {
+            console.log("pick error", err)
         }
-    }
+    };
+
 
     const save = async () => {
-        const uri = recording.getURI();
+        let uri = recording;//create uri variable
+
+        //recording.uri for pick files
+        if (recording.uri) {
+            uri = recording.uri;//pick file's uri
+        }
+        
+        //recording.getURI() for recording voices
+        else {
+            uri = recording.getURI();//recording voice's uri
+        }
+
         const info = await FileSystem.getInfoAsync(uri);
         const formData = new FormData();  //dosya ile veri göndermek için
 
