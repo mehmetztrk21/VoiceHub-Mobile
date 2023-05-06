@@ -55,24 +55,7 @@ export default function SeeProfile({ navigation, route }) {
         setLoading(true)
         const response = await getMyPosts({ isArchived: false, userId: userId });
         if (response && response.success) {
-            let temp = response?.data?.map((item) => {
-                return {
-                    id: item._id,
-                    categories: item.categories,
-                    contentUrl: item.contentUrl,
-                    username: item.username,
-                    createdAt: item.createdAt,
-                    createdBy: item.createdBy,
-                    userPic: baseURL + item.createdBy.profilePhotoUrl,
-                    likes: item.likes,
-                    hasBio: !item.descriptionVoiceUrl ? false : true,
-                    descriptionVoiceUrl: item.descriptionVoiceUrl,
-                    isLikesVisible: item.isLikesVisible,
-                    isTic: item.isTic,
-                    comments: item.comments,
-                }
-            })
-            setPosts(temp);
+            setPosts(response?.data);
         }
         setLoading(false)
     }
@@ -228,7 +211,7 @@ export default function SeeProfile({ navigation, route }) {
                     (<DontShowPosts userId={userId} title={"blocked"} />) : (
                         (seeUser?.isSecretAccount == false) ?
                             (posts?.length > 0 ?
-                                (<RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />) :
+                                (<RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} thisUser={seeUser} />) :
                                 (<Text style={seeProfileStyles.notPost}>Have not post anyone yet</Text>)
                             ) : <DontShowPosts userId={userId} title={"secret"} />)
                 }

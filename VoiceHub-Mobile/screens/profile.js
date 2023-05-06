@@ -58,21 +58,7 @@ export default function ProfileScreen({ navigation }) {
     setLoading(true);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          comments: item.comments,
-          username: user?.username,
-          createdBy: item.createdBy,
-          createdAt: item.createdAt,
-          userPic: baseURL + user?.profilePhotoUrl,
-          likes: item.likes,
-          isLikesVisible: item.isLikesVisible,
-        }
-      })
-      setPosts(temp);
+      setPosts(response?.data);
     }
     setLoading(false);
   }
@@ -219,7 +205,7 @@ export default function ProfileScreen({ navigation }) {
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
           {posts?.length > 0 ? (
-            <RenderPost navigation={navigation} posts={posts} user={user}
+            <RenderPost navigation={navigation} posts={posts} thisUser={user}
               HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp} />
           ) :
             <View style={{ marginTop: "5%", }}>

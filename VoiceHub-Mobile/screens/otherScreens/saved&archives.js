@@ -47,42 +47,13 @@ export default function SavedArchieves({ navigation, route }) {
       const response = await getMyPosts({ isArchived: true, userId: user?._id });
 
       if (response && response.success) {
-        let temp = response.data.map((item) => {
-          return {
-            id: item._id,
-            contentUrl: item.contentUrl,
-            categories: item.categories,
-            comments: item.comments,
-            username: user?.username,
-            createdAt: item.createdAt,
-            createdBy: item.createdBy,
-            userPic: baseURL + user?.profilePhotoUrl,
-            likes: item.likes,
-            isLikesVisible: item.isLikesVisible,
-          }
-        })
-        setPosts(temp);
+        setPosts(response?.data);
       }
     }
     else if (HeaderTitle == "Saved") {
       const response = await getSavedPosts({ page: 1, limit: 20 });
       if (response && response.success) {
-        let temp = response.data.map((item) => {
-          return {
-            id: item._id,
-            contentUrl: item.contentUrl,
-            categories: item.categories,
-            comments: item.comments,
-            username: item.createdBy.username,
-            createdAt: item.createdAt,
-            createdBy: item.createdBy,
-            isTic: item.createdBy.isTic,
-            userPic: baseURL + item.createdBy.profilePhotoUrl,
-            likes: item.likes,
-            isLikesVisible: item.isLikesVisible,
-          }
-        })
-        setPosts(temp);
+        setPosts(response?.data);
       }
     }
     else {

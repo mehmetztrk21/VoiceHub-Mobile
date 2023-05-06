@@ -1,16 +1,15 @@
+import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
-import { useIsFocused } from "@react-navigation/native";
 //importing components
-import AreYouSure from "./components/areYouSure";
 import BottomTabs from "./components/BottomTabs";
 import HomeHeader from "./components/HomeHeader";
-import PopUp from "./components/ProfileBottomPopUp";
 import PopUpPost from "./components/PopUpPost";
+import PopUp from "./components/ProfileBottomPopUp";
 import RenderPost from "./components/RenderPost";
+import AreYouSure from "./components/areYouSure";
 
 import { getMainPagePosts } from "../services/postServices";
-import { baseURL } from "../utils/constants";
 
 //importing styles
 import colors from "../assets/colors";
@@ -44,22 +43,7 @@ export default function HomeScreen({ navigation }) {
     setLoading(true);
     const response = await getMainPagePosts({ page: 1, limit: 20 });
     if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          comments: item.comments,
-          username: item.createdBy.username,
-          createdBy: item.createdBy,
-          isTic: item.createdBy.isTic,
-          createdAt: item.createdAt,
-          userPic: baseURL + item.createdBy.profilePhotoUrl,
-          likes: item.likes,
-          isLikesVisible: item.isLikesVisible,
-        }
-      });
-      setPosts(temp);
+      setPosts(response?.data);
     }
     setLoading(false);
   }

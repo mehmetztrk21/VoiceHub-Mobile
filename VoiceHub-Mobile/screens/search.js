@@ -91,22 +91,7 @@ export default function SearchScreen({ navigation, route }) {
     const response = await getExplorePosts({ page: 1, limit: 30, category: selectedCategory });
 
     if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          comments: item.comments,
-          username: item.createdBy.username,
-          createdBy: item.createdBy,
-          createdAt: item.createdAt,
-          userPic: baseURL + item.createdBy.profilePhotoUrl,
-          likes: item.likes,
-          isTic: item.createdBy.isTic,
-          isLikesVisible: item.isLikesVisible,
-        }
-      })
-      setPosts(temp);
+      setPosts(response?.data);
     }
     setLoading(false);
   }
