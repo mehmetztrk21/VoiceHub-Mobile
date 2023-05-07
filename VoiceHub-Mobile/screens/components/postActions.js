@@ -9,7 +9,7 @@ import postActionsStyle from "../../assets/styles/postActions.style";
 
 export default function postActions(
   { navigation, post, likes, postId, title }) {
-  const { user } = useUser();
+  const { user, setUser } = useUser();
 
   const [liked, setLiked] = useState(false)
   const [likeCount, setLikeCount] = useState(likes?.length);
@@ -53,9 +53,15 @@ export default function postActions(
     setSaved(prev => {
       if (!prev == true) {
         console.log("kaydedildi");
+        let temp = { ...user };
+        temp?.savedPosts?.push(postId);
+        setUser(temp);
       }
       else {
         console.log("kaydetme geri çekildi");
+        let temp = { ...user };
+        temp?.savedPosts?.splice(temp?.savedPosts?.indexOf(postId), 1);
+        setUser(temp);
       }
       return !prev;
     })
