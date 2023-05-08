@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  Dimensions, Image, Modal,
+  Dimensions, Image, Modal, Share,
   RefreshControl, SafeAreaView, ScrollView, Text,
   TouchableOpacity, View,
 } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 
 import colors from "../assets/colors";
 import profileStyles from "../assets/styles/profile.style";
@@ -26,6 +27,8 @@ import { useUser } from "../utils/userContext";
 const { width } = Dimensions.get("window");
 
 export default function ProfileScreen({ navigation }) {
+
+  const isFocused = useIsFocused();
 
   const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
@@ -55,29 +58,30 @@ export default function ProfileScreen({ navigation }) {
     setLoading(true);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          comments: item.comments,
-          username: user?.username,
-          createdBy: item.createdBy,
-          createdAt: item.createdAt,
-          userPic: baseURL + user?.profilePhotoUrl,
-          likes: item.likes,
-          isLikesVisible: item.isLikesVisible,
-        }
-      })
-      setPosts(temp);
+      setPosts(response?.data);
     }
     setLoading(false);
+  }
+
+  const shareMyProfile = async () => {
+    try {
+      Share.share({
+        message: "https://github.com/mehmetztrk21/VoiceHub-Mobile/",
+      });
+    } catch (error) {
+      console.error('Share error:', error);
+    }
   }
 
   useEffect(() => {
     setLoading(true);
     getPosts();
   }, [])
+
+  useEffect(() => {
+    setLoading(true);
+    getPosts();
+  }, [isFocused])
 
   if (loading) {
     return <Loading />
@@ -126,7 +130,7 @@ export default function ProfileScreen({ navigation }) {
         visible={openEditCategoriesPopUp ? true : false}
         onRequestClose={() => { setOpenEditCategoriesPopUp(false) }}
       >
-        <EditCategoriesPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} categories={openEditCategoriesPopUp} setCategories={setOpenEditCategoriesPopUp} />
+        <EditCategoriesPopUp setId={setOpenEditPostPopUp} categories={openEditCategoriesPopUp} setCategories={setOpenEditCategoriesPopUp} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>
@@ -177,8 +181,13 @@ export default function ProfileScreen({ navigation }) {
 
         {/* Edit Profile Buttons */}
         <View style={profileStyles.btnHolder}>
-          <TouchableOpacity style={[profileStyles.editProfileAndFollow, { backgroundColor: colors.green }]}
-            onPress={() => navigation.navigate("EditProfile", { userInfo: user })}>
+          <TouchableOpacity style={profileStyles.editProfileAndFollow}
+            onPress={shareMyProfile}>
+            <Text style={profileStyles.btnTextF}>Share</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={profileStyles.editProfileAndFollow}
+            onPress={() => navigation.navigate("EditProfile")}>
             <Text style={profileStyles.btnTextF}>Edit Profile</Text>
           </TouchableOpacity>
 
@@ -196,8 +205,8 @@ export default function ProfileScreen({ navigation }) {
       >
         <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
           {posts?.length > 0 ? (
-            <RenderPost navigation={navigation} HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp}
-              setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} posts={posts} user={user} />
+            <RenderPost navigation={navigation} posts={posts} thisUser={user}
+              HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp} />
           ) :
             <View style={{ marginTop: "5%", }}>
               <Text style={

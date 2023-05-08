@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, SafeAreaView, Switch, Text, TextInput, View } from "react-native";
 import colors from "../../assets/colors";
 import OtherHeader from "../components/otherHeader";
@@ -9,6 +9,7 @@ import { getUserById, updateUserInfo } from "../../services/userServices";
 import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
 import AreYouSure from "../components/areYouSure";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Options = ({ navigation }) => {
 
@@ -17,13 +18,29 @@ const Options = ({ navigation }) => {
     const [loading, setLoading] = useState(false);
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
     const [username, setUserName] = useState(user?.username);
-    const [isSecretAccount, setIsSecretAccount] = useState(user?.isSecretAccount);
+    const [isSecretAccount, setIsSecretAccount] = useState(false);
+
+    useEffect(() => {
+        setIsSecretAccount(newIsSecretAccount);
+    }, [])
 
     const toggleSwitch = async () => {
         setIsSecretAccount(previousState => !previousState);
+
         const formData = new FormData();
         formData.append("isSecretAccount", isSecretAccount);
-        await updateUserInfo(formData)
+
+        const response = await updateUserInfo(formData);
+
+        if (response && response.success) {
+            getUserById({ id: user?._id }).then(async (res) => {
+                setUser(res?.data);
+                await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+            }).catch((err) => {
+                console.log(err);
+            })
+
+        }
     }
 
     const changeUsername = async () => {
@@ -53,6 +70,9 @@ const Options = ({ navigation }) => {
     if (loading) {
         return <Loading />
     }
+
+
+    const newIsSecretAccount = user?.isSecretAccount;
 
     return (
         <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: "100%" }}>

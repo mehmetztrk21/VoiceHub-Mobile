@@ -69,6 +69,8 @@ export default StyleSheet.create({
     backgroundColor: colors.green,
     borderRadius: 12.5,
     marginLeft: "5%",
+    borderWidth: 2.5,
+    borderColor: colors.green,
   },
   messageButtonText: {
     color: colors.white,
@@ -83,7 +85,7 @@ export default StyleSheet.create({
     padding: "2%",
     backgroundColor: colors.white,
     borderRadius: 12.5,
-    borderWidth: 1.5,
+    borderWidth: 2.5,
     borderColor: colors.green,
     marginLeft: "5%",
   },
@@ -100,7 +102,9 @@ export default StyleSheet.create({
     padding: "2%",
     backgroundColor: colors.green,
     borderRadius: 12.5,
-    marginLeft: "5%"
+    marginLeft: "5%",
+    borderWidth: 2.5,
+    borderColor: colors.green,
   },
   followButtonText: {
     color: colors.white,

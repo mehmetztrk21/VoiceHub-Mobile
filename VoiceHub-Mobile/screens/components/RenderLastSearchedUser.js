@@ -38,7 +38,7 @@ const RenderLastSearchedUser = ({ navigation, users, title }) => {
   const renderUsers = () => {
     return users?.map((item, index) => (
 
-      <TouchableOpacity style={[RenderLastSearchedUserStyle.last, { width: "90%" }]}
+      <TouchableOpacity style={[RenderLastSearchedUserStyle.last, { width: "90%" }]} key={index}
         onPress={() => { touch(item._id, item); { item?._id == user._id ? navigation.navigate("ProfileScreen") : navigation.navigate("SeeProfile", { userId: item?._id }); } }}>
         {item.profilePhotoUrl ?
           <Image source={{ uri: baseURL + item.profilePhotoUrl }} style={RenderLastSearchedUserStyle.lastSearchImage} /> :

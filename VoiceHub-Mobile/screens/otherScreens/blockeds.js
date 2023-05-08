@@ -29,7 +29,6 @@ const Blockeds = ({ navigation }) => {
     useEffect(() => {
         setLoading(true);
         blockedUsers().then(async (res) => {
-            console.log(res?.data)
             setUsers(res?.data);
         }).catch((err) => {
             console.log(err);

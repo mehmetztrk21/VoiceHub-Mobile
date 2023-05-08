@@ -22,6 +22,7 @@ import { followerCountFormatText } from "../../utils/followerCountFormatText";
 import { useUser } from "../../utils/userContext";
 import Loading from "../components/loading";
 import SeeProfilePopUp from "../components/seeProfilePopUp";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -54,24 +55,7 @@ export default function SeeProfile({ navigation, route }) {
         setLoading(true)
         const response = await getMyPosts({ isArchived: false, userId: userId });
         if (response && response.success) {
-            let temp = response?.data?.map((item) => {
-                return {
-                    id: item._id,
-                    categories: item.categories,
-                    contentUrl: item.contentUrl,
-                    username: item.username,
-                    createdAt: item.createdAt,
-                    createdBy: item.createdBy,
-                    userPic: baseURL + item.createdBy.profilePhotoUrl,
-                    likes: item.likes,
-                    hasBio: !item.descriptionVoiceUrl ? false : true,
-                    descriptionVoiceUrl: item.descriptionVoiceUrl,
-                    isLikesVisible: item.isLikesVisible,
-                    isTic: item.isTic,
-                    comments: item.comments,
-                }
-            })
-            setPosts(temp);
+            setPosts(response?.data);
         }
         setLoading(false)
     }
@@ -85,6 +69,7 @@ export default function SeeProfile({ navigation, route }) {
                 else
                     temp?.followings?.push(seeUser._id);
                 setUser(temp);
+                await AsyncStorage.setItem("user", JSON.stringify(temp));
                 await getUser();
             }
         }).catch((err) => {
@@ -222,17 +207,13 @@ export default function SeeProfile({ navigation, route }) {
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                 }>
-                {user?.blockedUsers?.includes(userId) ?
-                    <DontShowPosts userId={userId} title={"blocked"} /> : (seeUser?.isSecretAccount == false ?
-                        (posts?.length > 0 ? (
-                            <RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} user={seeUser} />
-                        ) : (
-                            <Text style={seeProfileStyles.notPost}>
-                                {"You have not post anyone yet :("}
-                            </Text>
-                        )) :
-                        <DontShowPosts userId={userId} title={"secret"} />
-                    )
+                {(user?.blockedUsers?.includes(userId)) ?
+                    (<DontShowPosts userId={userId} title={"blocked"} />) : (
+                        (seeUser?.isSecretAccount == false) ?
+                            (posts?.length > 0 ?
+                                (<RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} thisUser={seeUser} />) :
+                                (<Text style={seeProfileStyles.notPost}>Have not post anyone yet</Text>)
+                            ) : <DontShowPosts userId={userId} title={"secret"} />)
                 }
             </ScrollView>
             {

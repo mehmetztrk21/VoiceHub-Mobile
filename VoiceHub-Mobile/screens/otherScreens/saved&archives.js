@@ -13,6 +13,7 @@ import { Dimensions } from "react-native";
 import colors from '../../assets/colors';
 import { baseURL } from '../../utils/constants';
 import { useUser } from '../../utils/userContext';
+import PopUpPost from '../components/PopUpPost';
 const { width } = Dimensions.get("window");
 
 export default function SavedArchieves({ navigation, route }) {
@@ -30,6 +31,8 @@ export default function SavedArchieves({ navigation, route }) {
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
+  const [openPopUpPost, setOpenPopUpPost] = useState(false);
+
   const pullThePage = () => {
     setRefreshing(true);
 
@@ -44,42 +47,13 @@ export default function SavedArchieves({ navigation, route }) {
       const response = await getMyPosts({ isArchived: true, userId: user?._id });
 
       if (response && response.success) {
-        let temp = response.data.map((item) => {
-          return {
-            id: item._id,
-            contentUrl: item.contentUrl,
-            categories: item.categories,
-            comments: item.comments,
-            username: user?.username,
-            createdAt: item.createdAt,
-            createdBy: item.createdBy,
-            userPic: baseURL + user?.profilePhotoUrl,
-            likes: item.likes,
-            isLikesVisible: item.isLikesVisible,
-          }
-        })
-        setPosts(temp);
+        setPosts(response?.data);
       }
     }
     else if (HeaderTitle == "Saved") {
       const response = await getSavedPosts({ page: 1, limit: 20 });
       if (response && response.success) {
-        let temp = response.data.map((item) => {
-          return {
-            id: item._id,
-            contentUrl: item.contentUrl,
-            categories: item.categories,
-            comments: item.comments,
-            username: item.createdBy.username,
-            createdAt: item.createdAt,
-            createdBy: item.createdBy,
-            isTic: item.createdBy.isTic,
-            userPic: baseURL + item.createdBy.profilePhotoUrl,
-            likes: item.likes,
-            isLikesVisible: item.isLikesVisible,
-          }
-        })
-        setPosts(temp);
+        setPosts(response?.data);
       }
     }
     else {
@@ -115,6 +89,15 @@ export default function SavedArchieves({ navigation, route }) {
         <ArchivePopUp id={openArchivePopUp} setId={setOpenArchivePopUp} />
       </Modal>
 
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openPopUpPost ? true : false}
+        onRequestClose={() => { setOpenPopUpPost(false) }}
+      >
+        <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+      </Modal>
+
       {(HeaderTitle == "Archived" && posts?.length == 0) ? (
         <View style={{ marginTop: 200 }}>
           <Text style={
@@ -145,8 +128,13 @@ export default function SavedArchieves({ navigation, route }) {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
           } >
-          <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
-            setOpenArchivePopUp={setOpenArchivePopUp} posts={posts} />
+          {HeaderTitle == "Saved" ?
+            <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
+              setOpenArchivePopUp={setOpenArchivePopUp} posts={posts} setOpenPopUpPost={setOpenPopUpPost} /> :
+
+            <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
+              setOpenArchivePopUp={setOpenArchivePopUp} posts={posts} />
+          }
         </ScrollView>
       </View>
     </SafeAreaView>

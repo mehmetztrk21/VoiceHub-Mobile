@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Modal, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, KeyboardAvoidingView, Modal, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { Icon } from "react-native-elements";
 
@@ -16,12 +16,12 @@ import BioVoicePopUp from "../components/bioVoicePopUp";
 import OtherHeader from "../components/otherHeader";
 import Slider from "../components/slider";
 
+import { Picker } from "@react-native-picker/picker";
 import { Dimensions } from "react-native";
-import { getUserById, updateUserInfo } from "../../services/userServices";
+import { getUserById, removeUserFiles, updateUserInfo } from '../../services/userServices';
 import { baseURL } from "../../utils/constants";
 import { useUser } from "../../utils/userContext";
 import ProfilePhotoPopUp from "../components/profilePhotoPopUp";
-import { Picker } from "@react-native-picker/picker";
 
 const { width } = Dimensions.get("window");
 
@@ -39,12 +39,25 @@ export default function EditProfile({ navigation }) {
   const [gender, setGender] = useState(user?.gender);
 
   const [openAddVoice, setOpenAddVoice] = useState(false);
+  const [isDeleteVoice, setIsDeleteVoice] = useState(false);
+  const [isAddVoice, setIsAddVoice] = useState(false);
   const [openBioVoicePopUp, setOpenBioVoicePopUp] = useState(false);
   const [openProfilePhotoPopUp, setOpenProfilePhotoPopUp] = useState(false);
 
   const save = async () => {
     setLoading(true);
+
     const formData = new FormData();
+    if (isDeleteVoice == true) {
+      await removeUserFiles({ type: "descriptionVoice" });
+    }
+    else if (isAddVoice) {
+      formData.append("descriptionVoice", {
+        uri: isAddVoice.uri,
+        name: `recording-${Date.now()}.mpeg`,
+        type: 'audio/mpeg',
+      });
+    }
 
     const info = await FileSystem.getInfoAsync((image) ? image : user?.profilePhotoUrl);
 
@@ -81,7 +94,7 @@ export default function EditProfile({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={editProfileStyle.container}>
+    <KeyboardAvoidingView style={editProfileStyle.container}>
       <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} isTic={false} />
 
       <Modal visible={openProfilePhotoPopUp}
@@ -99,7 +112,7 @@ export default function EditProfile({ navigation }) {
         onRequestClose={() => {
           setOpenBioVoicePopUp(false)
         }}>
-        <BioVoicePopUp setOpenAddVoice={setOpenAddVoice} setOpenBioVoicePopUp={setOpenBioVoicePopUp} />
+        <BioVoicePopUp setIsDeleteVoice={setIsDeleteVoice} setOpenAddVoice={setOpenAddVoice} setOpenBioVoicePopUp={setOpenBioVoicePopUp} />
       </Modal>
 
       <View style={{ paddingTop: "5%" }}>
@@ -147,7 +160,7 @@ export default function EditProfile({ navigation }) {
       <Text style={editProfileStyle.label}>Gender</Text>
       <View style={{
         backgroundColor: colors.lightgray,
-        borderRadius: 15,
+        borderRadius: 45,
         paddingHorizontal: "2.5%",
         marginHorizontal: "10%",
         width: "80%",
@@ -162,10 +175,11 @@ export default function EditProfile({ navigation }) {
         </Picker>
       </View>
 
-
+      {isDeleteVoice ? <Text style={{ color: colors.red, fontWeight: "600", marginLeft: "10%", marginTop: "2%" }}>Is delete?</Text> : null}
       <View style={{ marginVertical: "3%", marginHorizontal: "10%" }}>
         {user?.descriptionVoiceUrl != null ? (
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
+
             <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
             <Slider />
             <TouchableOpacity onPress={() => { setOpenBioVoicePopUp(true) }}>
@@ -189,7 +203,7 @@ export default function EditProfile({ navigation }) {
         <Text style={editProfileStyle.saveButtonText}>Save</Text>
       </TouchableOpacity>
 
-      {openAddVoice ? (<AddVoice title={"bio"} />) : null}
-    </SafeAreaView >
+      {openAddVoice ? (<AddVoice title={"bio"} setIsAddVoice={setIsAddVoice} setOpenAddVoice={setOpenAddVoice} />) : null}
+    </KeyboardAvoidingView >
   );
 }   

@@ -1,7 +1,10 @@
+import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Dimensions, Modal, RefreshControl,
-  SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View
+  Dimensions,
+  Modal,
+  RefreshControl,
+  ScrollView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
 import { Icon } from "react-native-elements";
 
@@ -17,19 +20,20 @@ import SearchHeader from "./components/SearchHeader";
 
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
-import { baseURL } from "../utils/constants";
 import Loading from "./components/loading";
+import PopUpPost from "./components/PopUpPost";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
   const { getCategory, type } = route.params;
 
+  const isFocused = useIsFocused();
   const scrollViewRef = useRef();
   const categoryScrollViewRef = useRef();
 
   const [users, setUsers] = useState([]);
   const [posts, setPosts] = useState([]);
-
+  const [openPopUpPost, setOpenPopUpPost] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const [focused, setFocused] = useState(false);
@@ -53,7 +57,7 @@ export default function SearchScreen({ navigation, route }) {
       console.log("screen type error. Search.js")
       setFocused(false);
     }
-  }, [])
+  }, [isFocused])
 
   const handleScrollToTop = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true });
@@ -73,22 +77,7 @@ export default function SearchScreen({ navigation, route }) {
     const response = await getExplorePosts({ page: 1, limit: 30, category: selectedCategory });
 
     if (response && response.success) {
-      let temp = response.data.map((item) => {
-        return {
-          id: item._id,
-          contentUrl: item.contentUrl,
-          categories: item.categories,
-          comments: item.comments,
-          username: item.createdBy.username,
-          createdBy: item.createdBy,
-          createdAt: item.createdAt,
-          userPic: baseURL + item.createdBy.profilePhotoUrl,
-          likes: item.likes,
-          isTic: item.createdBy.isTic,
-          isLikesVisible: item.isLikesVisible,
-        }
-      })
-      setPosts(temp);
+      setPosts(response?.data);
     }
     setLoading(false);
   }
@@ -101,7 +90,6 @@ export default function SearchScreen({ navigation, route }) {
       setCategories(response.data);  //[{_id:"poem",count:1}]
       await getPosts()
     }
-    setLoading(false);
   }
 
   const onChangeSearch = async () => {
@@ -130,10 +118,8 @@ export default function SearchScreen({ navigation, route }) {
   if (loading) return <Loading />
 
   return (
-    <SafeAreaView style={searchStyles.container}>
-
+    <View style={searchStyles.container}>
       <SearchHeader pressLogo={handleScrollToTop} />
-
       <Modal
         visible={visiblePopUp}
         animationType="slide"
@@ -155,6 +141,15 @@ export default function SearchScreen({ navigation, route }) {
       >
         <AreYouSure process={"LogOut"} navigation={navigation}
           setOpenAreYouSure={setOpenAreYouSure} />
+      </Modal>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={openPopUpPost ? true : false}
+        onRequestClose={() => { setOpenPopUpPost(false) }}
+      >
+        <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
       <View style={searchStyles.searchBarHolder}>
@@ -248,12 +243,12 @@ export default function SearchScreen({ navigation, route }) {
           (searchQuery.length !== 0 ?
             <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} /> :
             <RenderLastSearchedUser navigation={navigation} title={"last"} />)
-          : <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} />}
+          : <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} setOpenPopUpPost={setOpenPopUpPost} />}
 
       </ScrollView>
 
-      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"search"}/>
-    </SafeAreaView>
+      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"search"} />
+    </View>
   );
 }
 /**/
