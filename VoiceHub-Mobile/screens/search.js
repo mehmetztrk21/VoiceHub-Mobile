@@ -4,7 +4,7 @@ import {
   Dimensions,
   Modal,
   RefreshControl,
-  SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View
+  ScrollView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
 import { Icon } from "react-native-elements";
 
