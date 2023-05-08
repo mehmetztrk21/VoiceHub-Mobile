@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from "react";
-import { Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Modal, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import colors from "../../assets/colors";
 import registerStyle from "../../assets/styles/register.style";
@@ -62,7 +62,7 @@ export default function Register({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={registerStyle.container}>
+        <KeyboardAvoidingView style={registerStyle.container}>
 
             <Modal
                 visible={openRegisterProfilePhotoPopUp}
@@ -148,6 +148,6 @@ export default function Register({ navigation }) {
             <TouchableOpacity style={registerStyle.touch} onPress={() => navigation.goBack()}>
                 <Text style={registerStyle.textButton}>Do you have accont? Go Log in</Text>
             </TouchableOpacity>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }

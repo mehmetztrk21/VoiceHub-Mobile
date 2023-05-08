@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import loginStyle from "../../assets/styles/login.style";
 
@@ -13,7 +13,7 @@ import Loading from "../components/loading";
 export default function Login({ navigation }) {
 
     const { user, setUser } = useUser();
-    
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -67,7 +67,7 @@ export default function Login({ navigation }) {
     if (loading) return <Loading />
 
     return (
-        <SafeAreaView style={loginStyle.container}>
+        <KeyboardAvoidingView style={loginStyle.container}>
             <View style={loginStyle.logoView}>
                 <Image source={require("../../assets/images/VoiceHub-1.png")} style={loginStyle.logo} />
             </View>
@@ -104,6 +104,6 @@ export default function Login({ navigation }) {
             <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.navigate("Register")}>
                 <Text style={loginStyle.textButton}>Do you have not account?</Text>
             </TouchableOpacity>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }

@@ -1,7 +1,9 @@
 import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Dimensions, Modal, RefreshControl,
+  Dimensions,
+  Modal,
+  RefreshControl,
   SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
 import { Icon } from "react-native-elements";
@@ -116,10 +118,8 @@ export default function SearchScreen({ navigation, route }) {
   if (loading) return <Loading />
 
   return (
-    <SafeAreaView style={searchStyles.container}>
-
+    <View style={searchStyles.container}>
       <SearchHeader pressLogo={handleScrollToTop} />
-
       <Modal
         visible={visiblePopUp}
         animationType="slide"
@@ -248,7 +248,7 @@ export default function SearchScreen({ navigation, route }) {
       </ScrollView>
 
       <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"search"} />
-    </SafeAreaView>
+    </View>
   );
 }
 /**/

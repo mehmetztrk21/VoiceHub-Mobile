@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Image, Modal, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, KeyboardAvoidingView, Modal, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { Icon } from "react-native-elements";
 
@@ -16,13 +16,12 @@ import BioVoicePopUp from "../components/bioVoicePopUp";
 import OtherHeader from "../components/otherHeader";
 import Slider from "../components/slider";
 
-import { removeUserFiles } from '../../services/userServices'
+import { Picker } from "@react-native-picker/picker";
 import { Dimensions } from "react-native";
-import { getUserById, updateUserInfo } from "../../services/userServices";
+import { getUserById, removeUserFiles, updateUserInfo } from '../../services/userServices';
 import { baseURL } from "../../utils/constants";
 import { useUser } from "../../utils/userContext";
 import ProfilePhotoPopUp from "../components/profilePhotoPopUp";
-import { Picker } from "@react-native-picker/picker";
 
 const { width } = Dimensions.get("window");
 
@@ -95,7 +94,7 @@ export default function EditProfile({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={editProfileStyle.container}>
+    <KeyboardAvoidingView style={editProfileStyle.container}>
       <OtherHeader HeaderTitle="Edit Profile" navigation={navigation} isTic={false} />
 
       <Modal visible={openProfilePhotoPopUp}
@@ -205,6 +204,6 @@ export default function EditProfile({ navigation }) {
       </TouchableOpacity>
 
       {openAddVoice ? (<AddVoice title={"bio"} setIsAddVoice={setIsAddVoice} setOpenAddVoice={setOpenAddVoice} />) : null}
-    </SafeAreaView >
+    </KeyboardAvoidingView >
   );
 }   
