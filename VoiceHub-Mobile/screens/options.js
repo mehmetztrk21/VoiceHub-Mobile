@@ -75,7 +75,7 @@ const Options = ({ navigation }) => {
     const newIsSecretAccount = user?.isSecretAccount;
 
     return (
-        <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: "100%" }}>
+        <SafeAreaView style={optionsStyle.container}>
             <OtherHeader navigation={navigation} HeaderTitle={"Options"} isTic={false} />
 
             <Modal
@@ -89,7 +89,7 @@ const Options = ({ navigation }) => {
                 <AreYouSure process={"Freeze"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} />
             </Modal>
 
-            <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginTop: "25%", marginBottom: "5%", marginRight: "10%" }}>
+            <View style={optionsStyle.isSecretAccount}>
                 <Text style={optionsStyle.label}>Secret Account</Text>
 
                 <Switch
@@ -101,7 +101,7 @@ const Options = ({ navigation }) => {
                 />
             </View>
 
-            <View style={{ flexDirection: "row", alignItems: "center", marginBottom: "7.5%", }}>
+            <View style={optionsStyle.changeUsernameHolder}>
                 <View style={{ flexDirection: "column", width: "70%" }}>
                     <Text style={{
                         marginBottom: "1%",
@@ -111,40 +111,34 @@ const Options = ({ navigation }) => {
                     <TextInput
                         value={username}
                         onChangeText={(username) => setUserName(username)}
-                        style={{
-                            backgroundColor: colors.lightgray,
-                            borderRadius: 15,
-                            paddingVertical: 10,
-                            paddingHorizontal: 10,
-                            marginHorizontal: "10%",
-                        }}
+                        style={optionsStyle.changeUsernameInput}
                     />
                 </View>
 
                 {username == user?.username ?
                     <TouchableOpacity disabled
-                        style={{ backgroundColor: colors.green, borderRadius: 40, padding: 10, alignSelf: "flex-end", marginBottom: "1%", opacity: 0.5 }}>
-                        <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center", }}>Change</Text>
+                        style={[optionsStyle.changeUsernameButton, { opacity: 0.5 }]}>
+                        <Text style={optionsStyle.changeUsernameButtonText}>Change</Text>
                     </TouchableOpacity> :
                     <TouchableOpacity onPress={changeUsername}
-                        style={{ backgroundColor: colors.green, borderRadius: 40, padding: 10, alignSelf: "flex-end", marginBottom: "1%", }}>
-                        <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center", }}>Change</Text>
+                        style={optionsStyle.changeUsernameButton}>
+                        <Text style={optionsStyle.changeUsernameButtonText}>Change</Text>
                     </TouchableOpacity>}
             </View>
 
             <TouchableOpacity onPress={() => { navigation.navigate("ChangePassword") }}
-                style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", marginBottom: "5%", }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center", }}>Change Password</Text>
+                style={optionsStyle.Button}>
+                <Text style={optionsStyle.buttonTexts}>Change Password</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => { navigation.navigate("Blockeds") }}
-                style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", marginBottom: "5%", }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center", }}>Blocked Accounts</Text>
+                style={optionsStyle.Button}>
+                <Text style={optionsStyle.buttonTexts}>Blocked Accounts</Text>
             </TouchableOpacity>
 
             <TouchableOpacity onPress={() => { setOpenAreYouSure(true); }}
-                style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center", }}>Freeze my account</Text>
+                style={optionsStyle.Button}>
+                <Text style={optionsStyle.buttonTexts}>Freeze my account</Text>
             </TouchableOpacity>
 
         </SafeAreaView>
