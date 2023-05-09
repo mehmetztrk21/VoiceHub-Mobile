@@ -52,5 +52,46 @@ export default StyleSheet.create({
     marginBottom: "1%",
     marginHorizontal: "10%",
     fontWeight: "500",
-  }
+  },
+  genderInput: {
+    backgroundColor: colors.lightgray,
+    borderRadius: 45,
+    paddingHorizontal: "2.5%",
+    marginHorizontal: "10%",
+    width: "80%",
+  },
+  isDeleteVoice: {
+    color: colors.red,
+    fontWeight: "600",
+    marginLeft: "10%",
+    marginTop: "2%"
+  },
+  editButtonText: {
+    color: colors.green,
+    fontSize: 14,
+    fontWeight: "700",
+    paddingLeft: 10
+  },
+  dontHave: {
+    color: colors.darkGray,
+    fontSize: 14,
+    fontWeight: "500",
+    textAlign: "center",
+    marginTop: "5%",
+    marginBottom: "5%"
+  },
+  addVoiceHolder: {
+    width: "50%",
+    marginLeft: "25%",
+    backgroundColor: colors.green,
+    borderRadius: 50,
+    padding: 5,
+  },
+  addVoiceHolderText: {
+    color: colors.white,
+    fontSize: 14,
+    fontWeight: "700",
+    textAlign: "center",
+  },
+
 });

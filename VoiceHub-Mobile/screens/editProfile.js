@@ -23,8 +23,6 @@ import { baseURL } from "../utils/constants";
 import { useUser } from "../utils/userContext";
 import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 
-const { width } = Dimensions.get("window");
-
 export default function EditProfile({ navigation }) {
 
   const { user, setUser } = useUser();
@@ -158,13 +156,7 @@ export default function EditProfile({ navigation }) {
       />
 
       <Text style={editProfileStyle.label}>Gender</Text>
-      <View style={{
-        backgroundColor: colors.lightgray,
-        borderRadius: 45,
-        paddingHorizontal: "2.5%",
-        marginHorizontal: "10%",
-        width: "80%",
-      }}>
+      <View style={editProfileStyle.genderInput}>
         <Picker
           value={gender}
           selectedValue={gender}
@@ -175,7 +167,7 @@ export default function EditProfile({ navigation }) {
         </Picker>
       </View>
 
-      {isDeleteVoice ? <Text style={{ color: colors.red, fontWeight: "600", marginLeft: "10%", marginTop: "2%" }}>Is delete?</Text> : null}
+      {isDeleteVoice ? <Text style={editProfileStyle.isDeleteVoice}>Is delete?</Text> : null}
       <View style={{ marginVertical: "3%", marginHorizontal: "10%" }}>
         {user?.descriptionVoiceUrl != null ? (
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
@@ -183,17 +175,17 @@ export default function EditProfile({ navigation }) {
             <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
             <Slider />
             <TouchableOpacity onPress={() => { setOpenBioVoicePopUp(true) }}>
-              <Text style={{ color: colors.green, fontSize: 14, fontWeight: "700", paddingLeft: 10 }}>Edit</Text>
+              <Text style={editProfileStyle.editButtonText}>Edit</Text>
             </TouchableOpacity>
           </View>
         ) :
           <View style={{ justifyContent: "center" }}>
-            <Text style={{ color: colors.darkGray, fontSize: 14, fontWeight: "500", textAlign: "center", marginTop: "5%", marginBottom: "5%" }}>
+            <Text style={editProfileStyle.dontHave}>
               {"You Don't have a biography"}</Text>
 
             <TouchableOpacity onPress={() => setOpenAddVoice(prev => !prev)}
-              style={{ width: "50%", marginLeft: "25%", backgroundColor: colors.green, borderRadius: 50, padding: 5, }}>
-              <Text style={{ color: colors.white, fontSize: 14, fontWeight: "700", textAlign: "center", }}>Add Voice</Text>
+              style={editProfileStyle.addVoiceHolder}>
+              <Text style={editProfileStyle.addVoiceHolderText}>Add Voice</Text>
             </TouchableOpacity>
           </View>
         }
