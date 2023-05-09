@@ -45,10 +45,7 @@ const SignedInStack = () => {
   return (
     <NavigationContainer onStateChange={handleNavigationStateChange}>
       <UserProvider>
-        <Stack.Navigator
-          initialRouteName="Login"
-          screenOptions={screenOptions}
-        >
+        <Stack.Navigator initialRouteName="Login" screenOptions={screenOptions} >
           <Stack.Screen name="HomeScreen" component={HomeScreen} />
           <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
           <Stack.Screen name="ActivityScreen" component={ActivityScreen} />
@@ -70,7 +67,9 @@ const SignedInStack = () => {
           <Stack.Screen name="ChangePassword" component={ChangePassword} />
           <Stack.Screen name="Blockeds" component={Blockeds} />
         </Stack.Navigator>
-        {(!(["EditProfile", "ForgotPassword", "EditProfile", "ForgotPassword", "Login", "OtherComments", "Register", "UserMessage", "Options", "ChangePassword"].includes(currentRoute))) ?
+        {(!(["EditProfile", "ForgotPassword", "EditProfile",
+          "Blockeds", "Login", "OtherComments", "Register",
+          "UserMessage", "Options", "ChangePassword"].includes(currentRoute))) ?
           <BottomTabs /> : null}
       </UserProvider>
     </NavigationContainer>
