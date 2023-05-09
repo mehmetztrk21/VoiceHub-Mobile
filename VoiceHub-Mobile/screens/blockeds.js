@@ -1,12 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
+
 import colors from "../assets/colors";
+
+import { useUser } from "../utils/userContext";
+
 import { blockedUsers } from "../services/userServices";
+
 import BlockedItem from "./components/blockedItem";
 import OtherHeader from "./components/otherHeader";
 import Loading from "./components/loading";
 
 const Blockeds = ({ navigation }) => {
+    const { user } = useUser();
 
     const [users, setUsers] = useState([]); //engellediklerimizin id'leri burada gözükecek
     const [refreshing, setRefreshing] = useState(false);
@@ -36,6 +42,16 @@ const Blockeds = ({ navigation }) => {
         setLoading(false);
     }, [])
 
+    useEffect(() => {
+        setLoading(true);
+        blockedUsers().then(async (res) => {
+            setUsers(res?.data);
+        }).catch((err) => {
+            console.log(err);
+        })
+        setLoading(false);
+    }, [user])
+
 
     if (loading) {
         return <Loading />
@@ -54,7 +70,7 @@ const Blockeds = ({ navigation }) => {
 
                     users?.map((item, index) => {
 
-                        return < BlockedItem navigation={navigation} blockedUser={item} index={index}/>
+                        return < BlockedItem navigation={navigation} blockedUser={item} index={index} />
 
                     }) :
 

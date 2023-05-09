@@ -23,9 +23,8 @@ const BottomTabs = () => {
     }
     else if (page == "ProfileScreen") {
       setTimer(0);
-      navigation.navigate(page)
+      navigation.navigate(page);
     }
-
     else {
       setTimer(0);
       navigation.navigate(page);
@@ -36,7 +35,7 @@ const BottomTabs = () => {
     <View style={bottomTabsStyle.wrapper}>
       <View style={bottomTabsStyle.container}>
 
-        <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
+        <TouchableOpacity onPress={() => Select("HomeScreen")}>
           <Icon size={25} type="font-awesome" name={"home"} color={colors.white} />
         </TouchableOpacity>
 

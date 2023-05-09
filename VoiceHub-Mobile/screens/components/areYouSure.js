@@ -4,6 +4,7 @@ import { Text, TouchableOpacity, View } from "react-native"
 import areYouSureStyle from "../../assets/styles/areYouSure.style"
 import { deleteComment } from "../../services/commentServices"
 import { deactivateAccount } from "../../services/actionServices"
+import { logout } from "../../services/authServices"
 
 const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) => {
 
@@ -11,6 +12,8 @@ const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) 
         if (status) {
             if (process == "LogOut") {
                 console.log("LogOut");
+                await logout();
+                setOpenAreYouSure(false);
                 await AsyncStorage.clear();
                 navigation.navigate("Login");
             }

@@ -7,7 +7,7 @@ import profileHeaderStyle from "../../assets/styles/profileHeader.style";
 import verfy from "../../assets/ver.png";
 import { useUser } from '../../utils/userContext';
 
-const profileHeader = ({ navigation, pressLogo }) => {
+const profileHeader = ({ navigation, pressLogo, setVisiblePopUp }) => {
   const { user } = useUser();
 
   return (
@@ -32,8 +32,8 @@ const profileHeader = ({ navigation, pressLogo }) => {
             <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("Notifications")}>
-            <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => setVisiblePopUp(true)}>
+            <Icon type="font-awesome" size={30} name={'bars'} color={colors.black} />
           </TouchableOpacity>
         </View>
 

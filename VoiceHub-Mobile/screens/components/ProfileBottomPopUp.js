@@ -4,7 +4,7 @@ import { Icon } from 'react-native-elements';
 import colors from '../../assets/colors';
 import popUpStyle from '../../assets/styles/ProfileBottomPopUp.style';
 
-const ProfileBottomPopUp = ({ navigation }) => {
+const ProfileBottomPopUp = ({ navigation, setOpenAreYouSure, setVisiblePopUp }) => {
 
   return (
     <View style={popUpStyle.wrapper}>
@@ -22,7 +22,7 @@ const ProfileBottomPopUp = ({ navigation }) => {
           <Text style={popUpStyle.text}>Log out</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ paddingVertical: 10 }} onPress={setVisiblePopUp(false)}>
+        <TouchableOpacity style={{ paddingVertical: 10 }} onPress={() => { setVisiblePopUp(false) }}>
           <Text style={popUpStyle.close}>Close</Text>
         </TouchableOpacity>
 

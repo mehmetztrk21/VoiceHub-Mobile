@@ -33,6 +33,7 @@ export default function ProfileScreen({ navigation }) {
 
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false);
+  const [visiblePopUp, setVisiblePopUp] = useState(false);
   const [openEditCategoriesPopUp, setOpenEditCategoriesPopUp] = useState();
 
   const [refreshing, setRefreshing] = useState(false);
@@ -91,18 +92,18 @@ export default function ProfileScreen({ navigation }) {
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} />
+      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} setVisiblePopUp={setVisiblePopUp} />
 
-      {/*<Modal
-        visible={visible}
+      <Modal
+        visible={visiblePopUp}
         animationType="slide"
         transparent={true}
         onRequestClose={() => {
-          setVisible(false)
+          setVisiblePopUp(false)
         }}>
         <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
-          setVisiblePopUp={setVisible} />
-      </Modal>*/}
+          setVisiblePopUp={setVisiblePopUp} />
+      </Modal>
 
       <Modal
         animationType="slide"
