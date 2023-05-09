@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Modal, SafeAreaView, Switch, Text, TextInput, View } from "react-native";
-import colors from "../../assets/colors";
-import OtherHeader from "../components/otherHeader";
+import colors from "../assets/colors";
+import OtherHeader from "./components/otherHeader";
 
 import { TouchableOpacity } from "react-native";
-import optionsStyle from "../../assets/styles/options.style";
-import { getUserById, updateUserInfo } from "../../services/userServices";
-import { useUser } from "../../utils/userContext";
-import Loading from "../components/loading";
-import AreYouSure from "../components/areYouSure";
+import optionsStyle from "../assets/styles/options.style";
+import { getUserById, updateUserInfo } from "../services/userServices";
+import { useUser } from "../utils/userContext";
+import Loading from "./components/loading";
+import AreYouSure from "./components/areYouSure";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Options = ({ navigation }) => {

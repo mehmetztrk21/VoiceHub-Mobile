@@ -1,4 +1,5 @@
 import { useIsFocused } from "@react-navigation/native";
+
 import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
@@ -11,17 +12,16 @@ import { Icon } from "react-native-elements";
 import colors from "../assets/colors";
 import searchStyles from "../assets/styles/search.style";
 
-import AreYouSure from "./components/areYouSure";
-import BottomTabs from "./components/BottomTabs";
+import PopUpPost from "./components/PopUpPost";
 import PopUp from "./components/ProfileBottomPopUp";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
+import AreYouSure from "./components/areYouSure";
+import Loading from "./components/loading";
 
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
-import Loading from "./components/loading";
-import PopUpPost from "./components/PopUpPost";
 const { width } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
@@ -246,8 +246,6 @@ export default function SearchScreen({ navigation, route }) {
           : <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} setOpenPopUpPost={setOpenPopUpPost} />}
 
       </ScrollView>
-
-      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"search"} />
     </View>
   );
 }

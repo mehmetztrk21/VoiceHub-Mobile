@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
-import colors from "../../assets/colors";
-import OtherHeader from "../../screens/components/otherHeader";
-import { changePassword } from "../../services/userServices";
+import colors from "../assets/colors";
+import OtherHeader from "../screens/components/otherHeader";
+import { changePassword } from "../services/userServices";
 
 const ChangePassword = ({ navigation }) => {
 

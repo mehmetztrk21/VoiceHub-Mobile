@@ -1,19 +1,19 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
-import ArchivePopUp from "../components/archivePopUp";
-import OtherHeader from '../components/otherHeader';
-import RenderPost from "../components/RenderPost";
+import ArchivePopUp from "./components/archivePopUp";
+import OtherHeader from './components/otherHeader';
+import RenderPost from "./components/RenderPost";
 
-import savedStyle from "../../assets/styles/saved.style";
+import savedStyle from "../assets/styles/saved.style";
 
-import { getMyPosts, getSavedPosts } from "../../services/postServices";
+import { getMyPosts, getSavedPosts } from "../services/postServices";
 
 import { Dimensions } from "react-native";
-import colors from '../../assets/colors';
-import { baseURL } from '../../utils/constants';
-import { useUser } from '../../utils/userContext';
-import PopUpPost from '../components/PopUpPost';
+import colors from '../assets/colors';
+import { baseURL } from '../utils/constants';
+import { useUser } from '../utils/userContext';
+import PopUpPost from './components/PopUpPost';
 const { width } = Dimensions.get("window");
 
 export default function SavedArchieves({ navigation, route }) {

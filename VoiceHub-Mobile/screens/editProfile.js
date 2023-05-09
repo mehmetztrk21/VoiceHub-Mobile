@@ -4,24 +4,24 @@ import { Image, KeyboardAvoidingView, Modal, Text, TextInput, TouchableOpacity, 
 import { Icon } from "react-native-elements";
 
 
-import colors from "../../assets/colors";
-import editProfileStyle from "../../assets/styles/editProfile.style";
+import colors from "../assets/colors";
+import editProfileStyle from "../assets/styles/editProfile.style";
 
 import * as FileSystem from 'expo-file-system';
 
-import Loading from "../../screens/components/loading";
+import Loading from "../screens/components/loading";
 
-import AddVoice from "../components/addVoice";
-import BioVoicePopUp from "../components/bioVoicePopUp";
-import OtherHeader from "../components/otherHeader";
-import Slider from "../components/slider";
+import AddVoice from "./components/addVoice";
+import BioVoicePopUp from "./components/bioVoicePopUp";
+import OtherHeader from "./components/otherHeader";
+import Slider from "./components/slider";
 
 import { Picker } from "@react-native-picker/picker";
 import { Dimensions } from "react-native";
-import { getUserById, removeUserFiles, updateUserInfo } from '../../services/userServices';
-import { baseURL } from "../../utils/constants";
-import { useUser } from "../../utils/userContext";
-import ProfilePhotoPopUp from "../components/profilePhotoPopUp";
+import { getUserById, removeUserFiles, updateUserInfo } from '../services/userServices';
+import { baseURL } from "../utils/constants";
+import { useUser } from "../utils/userContext";
+import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 
 const { width } = Dimensions.get("window");
 
@@ -120,7 +120,7 @@ export default function EditProfile({ navigation }) {
           {!image ? (
             user?.profilePhotoUrl ?
               <Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={editProfileStyle.profilePhoto} /> :
-              <Image source={require('../../assets/avatar.png')} style={editProfileStyle.profilePhoto} />
+              <Image source={require('../assets/avatar.png')} style={editProfileStyle.profilePhoto} />
           ) : <Image source={{ uri: image }} style={editProfileStyle.profilePhoto} />
           }
           <Text style={editProfileStyle.editPhotoText}>Edit Profile Photo</Text>

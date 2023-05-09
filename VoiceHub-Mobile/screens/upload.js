@@ -1,26 +1,26 @@
 import { Audio } from "expo-av";
+import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from "expo-file-system";
 import * as Permissions from "expo-permissions";
-import * as DocumentPicker from 'expo-document-picker';
 
 import React, { useEffect, useState } from "react";
-import { Image, SafeAreaView, Text, TextInput, TouchableOpacity, View, Dimensions, Modal } from "react-native";
+import { Dimensions, Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import { Icon } from "react-native-elements";
 
-import colors from "../../assets/colors";
-import holoGif from "../../assets/images/holo.gif";
+import colors from "../assets/colors";
+import holoGif from "../assets/images/holo.gif";
 
-import AreYouSure from "../components/areYouSure";
-import BottomTabs from "../components/BottomTabs";
-import PopUp from "../components/ProfileBottomPopUp";
+import AreYouSure from "./components/areYouSure";
+import PopUp from "./components/ProfileBottomPopUp";
+
+import { createPost } from "../services/postServices";
+
+import { recordingOptions } from "../utils/recordingOptions";
+import { timeFormatText } from "../utils/timeFormatText";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
-
-import { createPost } from "../../services/postServices";
-import { recordingOptions } from "../../utils/recordingOptions";
-import { timeFormatText } from "../../utils/timeFormatText";
 
 export default function Upload({ navigation }) {
 
@@ -128,7 +128,7 @@ export default function Upload({ navigation }) {
         if (recording.uri) {
             uri = recording.uri;//pick file's uri
         }
-        
+
         //recording.getURI() for recording voices
         else {
             uri = recording.getURI();//recording voice's uri
@@ -271,8 +271,6 @@ export default function Upload({ navigation }) {
                     </TouchableOpacity>
                 </View>
             }
-
-            <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"upload"} />
         </SafeAreaView>
     );
 }

@@ -1,20 +1,20 @@
 import { useIsFocused } from "@react-navigation/native";
+
 import React, { useEffect, useRef, useState } from "react";
 import { Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 //importing components
-import BottomTabs from "./components/BottomTabs";
 import HomeHeader from "./components/HomeHeader";
 import PopUpPost from "./components/PopUpPost";
 import PopUp from "./components/ProfileBottomPopUp";
 import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
+import Loading from "./components/loading";
 
 import { getMainPagePosts } from "../services/postServices";
 
 //importing styles
 import colors from "../assets/colors";
 import homeStyles from "../assets/styles/home.style";
-import Loading from "./components/loading";
 
 export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
@@ -119,8 +119,6 @@ export default function HomeScreen({ navigation }) {
           </View>
         }
       </ScrollView>
-
-      <BottomTabs navigation={navigation} visiblePopUp={visiblePopUp} setVisiblePopUp={setVisiblePopUp} title={"home"} />
     </SafeAreaView>
   );
 }

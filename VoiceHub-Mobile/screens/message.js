@@ -1,15 +1,15 @@
 import React, { useRef, useState } from "react";
 import { RefreshControl, SafeAreaView, ScrollView, TextInput, View } from "react-native";
 
-import messageStyle from "../../assets/styles/message.style";
-import OtherHeader from "../components/otherHeader";
-import userPostData from "../components/userPostData";
+import messageStyle from "../assets/styles/message.style";
+import OtherHeader from "./components/otherHeader";
+import userPostData from "./components/userPostData";
 
-import MessageItem from "../components/messageItem";
+import MessageItem from "./components/messageItem";
 
 import { Dimensions } from "react-native";
-import colors from "../../assets/colors";
-import { useUser } from "../../utils/userContext";
+import colors from "../assets/colors";
+import { useUser } from "../utils/userContext";
 const { width } = Dimensions.get("window");
 
 export default function Message({ navigation, title, id }) {

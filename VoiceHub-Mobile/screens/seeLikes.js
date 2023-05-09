@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import {
     Dimensions, RefreshControl, SafeAreaView, ScrollView, TextInput, View
 } from "react-native";
-import OtherHeader from "../components/otherHeader";
-import LikeItem from "../components/LikeItem";
+import OtherHeader from "./components/otherHeader";
+import LikeItem from "./components/LikeItem";
 
-import { getUserById } from "../../services/userServices";
+import { getUserById } from "../services/userServices";
 
-import colors from "../../assets/colors";
-import seeLikesStyle from "../../assets/styles/seeLikes.style";
-import { baseURL } from "../../utils/constants";
+import colors from "../assets/colors";
+import seeLikesStyle from "../assets/styles/seeLikes.style";
+import { baseURL } from "../utils/constants";
 
 const { width } = Dimensions.get("window");
 

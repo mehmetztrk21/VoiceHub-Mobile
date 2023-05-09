@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
-import forgotPasswordStyle from "../../assets/styles/forgotPassword.style";
+import forgotPasswordStyle from "../assets/styles/forgotPassword.style";
 
 import { Dimensions } from "react-native";
-import colors from '../../assets/colors';
+import colors from '../assets/colors';
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 

@@ -1,13 +1,13 @@
 import React, { useRef, useState } from "react";
 import { Dimensions, Modal, SafeAreaView, ScrollView, Text } from "react-native";
 
-import AddVoice from "../components/addVoice";
-import AreYouSure from "../components/areYouSure";
-import Comment from "../components/comment";
-import OtherHeader from "../components/otherHeader";
+import AddVoice from "./components/addVoice";
+import AreYouSure from "./components/areYouSure";
+import Comment from "./components/comment";
+import OtherHeader from "./components/otherHeader";
 
 import { View } from "react-native";
-import colors from "../../assets/colors";
+import colors from "../assets/colors";
 
 const { width } = Dimensions.get("window");
 

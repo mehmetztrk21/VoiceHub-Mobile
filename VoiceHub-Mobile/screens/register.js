@@ -2,12 +2,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from "react";
 import { Image, Modal, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
-import colors from "../../assets/colors";
-import registerStyle from "../../assets/styles/register.style";
-import RegisterProfilePhotoPopUp from "../../screens/components/registerProfilePhotoPopUp";
-import { login, register } from "../../services/authServices";
-import { registerCondition } from "../../utils/registerCondition";
-import { useUser } from "../../utils/userContext";
+import colors from "../assets/colors";
+import registerStyle from "../assets/styles/register.style";
+import RegisterProfilePhotoPopUp from "../screens/components/registerProfilePhotoPopUp";
+import { login, register } from "../services/authServices";
+import { registerCondition } from "../utils/registerCondition";
+import { useUser } from "../utils/userContext";
 
 export default function Register({ navigation }) {
     const { user, setUser } = useUser()
@@ -75,7 +75,7 @@ export default function Register({ navigation }) {
             </Modal>
 
             <View style={registerStyle.logoView}>
-                <Image source={require("../../assets/images/VoiceHub-1.png")} style={registerStyle.logo} />
+                <Image source={require("../assets/images/VoiceHub-1.png")} style={registerStyle.logo} />
             </View>
 
             <Text style={registerStyle.label}>Name</Text>

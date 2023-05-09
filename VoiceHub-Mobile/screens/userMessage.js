@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import { SafeAreaView, ScrollView, View, Dimensions } from 'react-native';
 
-import userMessageStyle from "../../assets/styles/userMessage.style";
-import AddVoice from '../components/addVoice';
+import userMessageStyle from "../assets/styles/userMessage.style";
+import AddVoice from './components/addVoice';
 
-import OtherHeader from '../components/otherHeader';
-import UserMessageItem from "../components/userMessageItem";
-import userPostData from '../components/userPostData';
+import OtherHeader from './components/otherHeader';
+import UserMessageItem from "./components/userMessageItem";
+import userPostData from './components/userPostData';
 
 const { width } = Dimensions.get("window");
 

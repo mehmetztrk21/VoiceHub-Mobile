@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
-import colors from "../../assets/colors";
-import seePostStyle from "../../assets/styles/seePost.style";
-import avatar from "../../assets/avatar.png";
-import ver from "../../assets/ver.png";
+import colors from "../assets/colors";
+import seePostStyle from "../assets/styles/seePost.style";
+import avatar from "../assets/avatar.png";
+import ver from "../assets/ver.png";
 
-import AddVoice from "../components/addVoice";
-import AreYouSure from "../components/areYouSure";
-import Comment from "../components/comment";
-import OtherHeader from "../components/otherHeader";
-import Post from "../components/post";
-import PostActions from "../components/postActions";
-import PostCategories from "../components/postCategories";
-import userPostData from "../components/userPostData";
+import AddVoice from "./components/addVoice";
+import AreYouSure from "./components/areYouSure";
+import Comment from "./components/comment";
+import OtherHeader from "./components/otherHeader";
+import Post from "./components/post";
+import PostActions from "./components/postActions";
+import PostCategories from "./components/postCategories";
+import userPostData from "./components/userPostData";
 
-import { getUserById } from "../../services/userServices";
-import { getPostById } from "../../services/postServices";
-import { baseURL } from "../../utils/constants";
+import { getUserById } from "../services/userServices";
+import { getPostById } from "../services/postServices";
+import { baseURL } from "../utils/constants";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 

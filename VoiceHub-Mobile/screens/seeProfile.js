@@ -3,25 +3,25 @@ import {
     Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from "react-native";
 
-import colors from "../../assets/colors";
-import seeProfileStyles from '../../assets/styles/seeProfile.style';
-import verfy from "../../assets/ver.png";
+import colors from "../assets/colors";
+import seeProfileStyles from '../assets/styles/seeProfile.style';
+import verfy from "../assets/ver.png";
 
 import { Icon } from "react-native-elements";
 
-import DontShowPosts from "../components/DontShowPosts";
-import RenderPost from "../components/RenderPost";
-import AreYouSure from "../components/areYouSure";
-import Post from "../components/post";
+import DontShowPosts from "./components/DontShowPosts";
+import RenderPost from "./components/RenderPost";
+import AreYouSure from "./components/areYouSure";
+import Post from "./components/post";
 
-import { setFollowFollower } from "../../services/actionServices";
-import { getMyPosts } from "../../services/postServices";
-import { getUserById } from "../../services/userServices";
-import { baseURL } from "../../utils/constants";
-import { followerCountFormatText } from "../../utils/followerCountFormatText";
-import { useUser } from "../../utils/userContext";
-import Loading from "../components/loading";
-import SeeProfilePopUp from "../components/seeProfilePopUp";
+import { setFollowFollower } from "../services/actionServices";
+import { getMyPosts } from "../services/postServices";
+import { getUserById } from "../services/userServices";
+import { baseURL } from "../utils/constants";
+import { followerCountFormatText } from "../utils/followerCountFormatText";
+import { useUser } from "../utils/userContext";
+import Loading from "./components/loading";
+import SeeProfilePopUp from "./components/seeProfilePopUp";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SeeProfile({ navigation, route }) {
@@ -132,7 +132,7 @@ export default function SeeProfile({ navigation, route }) {
 
                     {seeUser?.profilePhotoUrl ?
                         <Image source={{ uri: baseURL + seeUser?.profilePhotoUrl }} style={seeProfileStyles.userPic} /> :
-                        <Image source={require("../../assets/avatar.png")} style={seeProfileStyles.userPic} />
+                        <Image source={require("../assets/avatar.png")} style={seeProfileStyles.userPic} />
                     }
 
                     <View style={seeProfileStyles.followContents}>

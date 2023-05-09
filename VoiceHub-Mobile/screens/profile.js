@@ -4,23 +4,24 @@ import {
   RefreshControl, SafeAreaView, ScrollView, Text,
   TouchableOpacity, View,
 } from "react-native";
+
 import { useIsFocused } from "@react-navigation/native";
 
 import colors from "../assets/colors";
 import profileStyles from "../assets/styles/profile.style";
 
 import AreYouSure from "./components/areYouSure";
-import BottomTabs from "./components/BottomTabs";
 import EditPostPopUp from "./components/editPostPopUp";
 import EditCategoriesPopUp from "./components/editCategoriesPopUp";
 import PopUp from "./components/ProfileBottomPopUp";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import RenderPost from "./components/RenderPost";
+import Loading from "./components/loading";
 
 import { getMyPosts } from "../services/postServices";
+
 import { baseURL } from "../utils/constants";
-import Loading from "./components/loading";
 import { followerCountFormatText } from "../utils/followerCountFormatText";
 import { useUser } from "../utils/userContext";
 
@@ -225,8 +226,6 @@ export default function ProfileScreen({ navigation }) {
           }
         </View>
       </ScrollView>
-
-      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"profile"} />
     </SafeAreaView>
   );
 }

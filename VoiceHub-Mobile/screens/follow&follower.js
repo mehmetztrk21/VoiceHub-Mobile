@@ -1,17 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import OtherHeader from "../components/otherHeader";
+import OtherHeader from "./components/otherHeader";
 
-import { getFollowers, getFollowings } from "../../services/userServices";
+import { getFollowers, getFollowings } from "../services/userServices";
 
-import colors from "../../assets/colors";
-import followFollowerStyle from "../../assets/styles/follow&follower.style";
-import ver from "../../assets/ver.png";
-import { baseURL } from "../../utils/constants";
-import Loading from "../components/loading";
-import { useUser } from "../../utils/userContext";
-import { setFollowFollower } from "../../services/actionServices";
+import colors from "../assets/colors";
+import followFollowerStyle from "../assets/styles/follow&follower.style";
+import ver from "../assets/ver.png";
+import { baseURL } from "../utils/constants";
+import Loading from "./components/loading";
+import { useUser } from "../utils/userContext";
+import { setFollowFollower } from "../services/actionServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
@@ -152,7 +152,7 @@ const FollowFollower = ({ navigation, route }) => {
 
                                         {item?.profilePhotoUrl ?
                                             <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} /> :
-                                            <Image source={require("../../assets/avatar.png")} style={followFollowerStyle.profileImage} />
+                                            <Image source={require("../assets/avatar.png")} style={followFollowerStyle.profileImage} />
                                         }
 
 

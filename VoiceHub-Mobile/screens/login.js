@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import loginStyle from "../../assets/styles/login.style";
+import loginStyle from "../assets/styles/login.style";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Icon } from "react-native-elements";
-import colors from "../../assets/colors";
-import { login } from "../../services/authServices";
-import { useUser } from "../../utils/userContext";
-import Loading from "../components/loading";
+import colors from "../assets/colors";
+import { login } from "../services/authServices";
+import { useUser } from "../utils/userContext";
+import Loading from "./components/loading";
 
 export default function Login({ navigation }) {
 
@@ -69,7 +69,7 @@ export default function Login({ navigation }) {
     return (
         <KeyboardAvoidingView style={loginStyle.container}>
             <View style={loginStyle.logoView}>
-                <Image source={require("../../assets/images/VoiceHub-1.png")} style={loginStyle.logo} />
+                <Image source={require("../assets/images/VoiceHub-1.png")} style={loginStyle.logo} />
             </View>
 
             <Text style={loginStyle.label}>User Name</Text>

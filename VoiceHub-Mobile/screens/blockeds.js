@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
-import colors from "../../assets/colors";
-import { blockedUsers } from "../../services/userServices";
-import BlockedItem from "../components/blockedItem";
-import OtherHeader from "../components/otherHeader";
-import Loading from "../components/loading";
+import colors from "../assets/colors";
+import { blockedUsers } from "../services/userServices";
+import BlockedItem from "./components/blockedItem";
+import OtherHeader from "./components/otherHeader";
+import Loading from "./components/loading";
 
 const Blockeds = ({ navigation }) => {
 
