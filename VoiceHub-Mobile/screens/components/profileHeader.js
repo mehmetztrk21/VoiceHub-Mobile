@@ -32,7 +32,7 @@ const profileHeader = ({ navigation, pressLogo }) => {
             <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("ActivityScreen")}>
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("Notifications")}>
             <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
           </TouchableOpacity>
         </View>

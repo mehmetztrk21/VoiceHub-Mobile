@@ -6,10 +6,10 @@ import {
   ScrollView, Text, TouchableOpacity, View
 } from "react-native";
 
-import activityStyles from "../assets/styles/activity.style";
+import activityStyles from "../assets/styles/notifications.style";
 
 import OtherHeader from "./components/otherHeader";
-import ActivityItem from "./components/activityItem";
+import ActivityItem from "./components/notificationsItem";
 import userPostData from "./components/userPostData";
 
 import { Dimensions } from "react-native";
