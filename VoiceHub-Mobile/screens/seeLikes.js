@@ -2,14 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import {
     Dimensions, RefreshControl, SafeAreaView, ScrollView, TextInput, View
 } from "react-native";
-import OtherHeader from "./components/otherHeader";
 import LikeItem from "./components/LikeItem";
+import OtherHeader from "./components/otherHeader";
 
 import { getUserById } from "../services/userServices";
 
 import colors from "../assets/colors";
 import seeLikesStyle from "../assets/styles/seeLikes.style";
-import { baseURL } from "../utils/constants";
 
 const { width } = Dimensions.get("window");
 
@@ -49,9 +48,9 @@ const SeeLikes = ({ navigation, route }) => {
     }, []);
 
     return (
-        <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: width }}>
+        <SafeAreaView style={seeLikesStyle.container}>
             <OtherHeader HeaderTitle={"Likes"} navigation={navigation} isTic={false} />
-            <View style={{ marginTop: width * 0.05, backgroundColor: colors.white }}>
+            <View style={seeLikesStyle.content}>
                 <View style={[seeLikesStyle.searchBarHolder, { marginBottom: width * 0.07 }]}>
                     <TextInput
                         placeholder="Search"

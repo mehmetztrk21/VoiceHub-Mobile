@@ -2,7 +2,13 @@ import { StyleSheet } from "react-native";
 import colors from "../colors"
 export default StyleSheet.create({
   container: {
+    backgroundColor: colors.white,
     flex: 1,
+    width: "100%",
+  },
+  content: {
+    marginTop: "5%",
+    backgroundColor: colors.white
   },
   searchBarHolder: {
     top: 50,
