@@ -30,7 +30,6 @@ const RenderLastSearchedUser = ({ navigation, users, title }) => {
         const temp = { ...last };
         temp += item;
         setLast(temp);
-        console.log(temp);
       }
     }
   }

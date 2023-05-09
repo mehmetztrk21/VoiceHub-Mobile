@@ -5,7 +5,6 @@ import { Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity
 //importing components
 import HomeHeader from "./components/HomeHeader";
 import PopUpPost from "./components/PopUpPost";
-import PopUp from "./components/ProfileBottomPopUp";
 import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
 import Loading from "./components/loading";
@@ -18,7 +17,6 @@ import homeStyles from "../assets/styles/home.style";
 
 export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
-  const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -53,26 +51,11 @@ export default function HomeScreen({ navigation }) {
     getPosts();
   }, [isFocused])
 
-  useEffect(() => {
-    setVisiblePopUp(false);
-  }, [])
-
   if (loading) return <Loading />
 
   return (
     <SafeAreaView style={homeStyles.container}>
       <HomeHeader navigation={navigation} pressLogo={handleScrollToTop} />
-
-      <Modal
-        visible={visiblePopUp}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => {
-          setVisiblePopUp(false)
-        }}>
-        <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
-          setVisiblePopUp={setVisiblePopUp} />
-      </Modal>
 
       <Modal
         animationType="slide"

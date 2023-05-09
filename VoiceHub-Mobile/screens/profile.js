@@ -31,7 +31,6 @@ export default function ProfileScreen({ navigation }) {
 
   const isFocused = useIsFocused();
 
-  const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false);
   const [openEditCategoriesPopUp, setOpenEditCategoriesPopUp] = useState();
@@ -49,6 +48,7 @@ export default function ProfileScreen({ navigation }) {
       setRefreshing(false);
     }, 800)
   }
+
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
@@ -93,16 +93,16 @@ export default function ProfileScreen({ navigation }) {
 
       <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} />
 
-      <Modal
-        visible={visiblePopUp}
+      {/*<Modal
+        visible={visible}
         animationType="slide"
         transparent={true}
         onRequestClose={() => {
-          setVisiblePopUp(false)
+          setVisible(false)
         }}>
         <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
-          setVisiblePopUp={setVisiblePopUp} />
-      </Modal>
+          setVisiblePopUp={setVisible} />
+      </Modal>*/}
 
       <Modal
         animationType="slide"
@@ -110,8 +110,7 @@ export default function ProfileScreen({ navigation }) {
         visible={openAreYouSure}
         onRequestClose={() => {
           setOpenAreYouSure(false);
-        }}
-      >
+        }}>
         <AreYouSure process={"LogOut"} navigation={navigation}
           setOpenAreYouSure={setOpenAreYouSure} />
       </Modal>

@@ -2,13 +2,13 @@ import { StyleSheet } from "react-native";
 import colors from "../colors";
 
 export default StyleSheet.create({
-    container: {
+    wrapper: {
         flex: 1,
         width: "70%",
         alignSelf: "center",
         justifyContent: "center",
     },
-    container2: {
+    container: {
         width: "100%",
         alignSelf: "center",
         justifyContent: "center",
@@ -33,5 +33,13 @@ export default StyleSheet.create({
         textAlign: "center",
         color: colors.white,
     },
-
+    close: {
+        color: colors.green,
+        fontSize: 14,
+        textAlign: "center",
+        fontWeight: "600",
+        backgroundColor: colors.white,
+        padding: 10,
+        borderRadius: 10,
+    },
 })

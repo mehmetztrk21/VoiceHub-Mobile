@@ -4,11 +4,11 @@ import { Icon } from 'react-native-elements';
 import colors from '../../assets/colors';
 import popUpStyle from '../../assets/styles/ProfileBottomPopUp.style';
 
-const ProfileBottomPopUp = ({ navigation, setOpenAreYouSure, setVisiblePopUp }) => {
+const ProfileBottomPopUp = ({ navigation }) => {
 
   return (
-    <View style={popUpStyle.container}>
-      <View style={popUpStyle.container2}>
+    <View style={popUpStyle.wrapper}>
+      <View style={popUpStyle.container}>
 
         <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }}
           onPress={() => { navigation.navigate("Options"); setVisiblePopUp(false); }}>
@@ -22,11 +22,8 @@ const ProfileBottomPopUp = ({ navigation, setOpenAreYouSure, setVisiblePopUp }) 
           <Text style={popUpStyle.text}>Log out</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={{ paddingVertical: 10 }} onPress={() => { setVisiblePopUp(false) }}>
-          <Text style={{
-            color: colors.green, fontSize: 14, textAlign: "center", fontWeight: "600",
-            backgroundColor: colors.white, padding: 10, borderRadius: 10,
-          }}>Close</Text>
+        <TouchableOpacity style={{ paddingVertical: 10 }} onPress={setVisiblePopUp(false)}>
+          <Text style={popUpStyle.close}>Close</Text>
         </TouchableOpacity>
 
       </View>

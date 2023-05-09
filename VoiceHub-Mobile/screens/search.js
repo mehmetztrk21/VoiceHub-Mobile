@@ -13,7 +13,6 @@ import colors from "../assets/colors";
 import searchStyles from "../assets/styles/search.style";
 
 import PopUpPost from "./components/PopUpPost";
-import PopUp from "./components/ProfileBottomPopUp";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
@@ -37,7 +36,6 @@ export default function SearchScreen({ navigation, route }) {
   const [loading, setLoading] = useState(false);
 
   const [focused, setFocused] = useState(false);
-  const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [refreshing, setRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -96,7 +94,6 @@ export default function SearchScreen({ navigation, route }) {
     if (searchQuery.trim() !== "") {
       const response = await searchUser({ search: searchQuery });
       if (response && response.success) {
-        console.log(response?.data);
         setUsers(response?.data);
       }
     }
@@ -104,7 +101,6 @@ export default function SearchScreen({ navigation, route }) {
 
   useEffect(() => {
     getCategories();
-    setVisiblePopUp(false);
   }, []);
 
   useEffect(() => {
@@ -120,16 +116,6 @@ export default function SearchScreen({ navigation, route }) {
   return (
     <View style={searchStyles.container}>
       <SearchHeader pressLogo={handleScrollToTop} />
-      <Modal
-        visible={visiblePopUp}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => {
-          setVisiblePopUp(false);
-        }}>
-        <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
-          setVisiblePopUp={setVisiblePopUp} />
-      </Modal>
 
       <Modal
         animationType="slide"

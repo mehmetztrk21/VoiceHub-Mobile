@@ -12,7 +12,6 @@ import colors from "../assets/colors";
 import holoGif from "../assets/images/holo.gif";
 
 import AreYouSure from "./components/areYouSure";
-import PopUp from "./components/ProfileBottomPopUp";
 
 import { createPost } from "../services/postServices";
 
@@ -23,8 +22,6 @@ const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
 export default function Upload({ navigation }) {
-
-    const [visiblePopUp, setVisiblePopUp] = useState(false);
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
     const [categories, setCategories] = useState("");
 
@@ -43,10 +40,6 @@ export default function Upload({ navigation }) {
         }
         return () => clearInterval(intervalId);
     }, [isRunning]);
-
-    useEffect(() => {
-        setVisiblePopUp(false);
-    }, [])
 
     const toggleRecord = async () => {
         const filename = "test.mp3";
@@ -176,17 +169,6 @@ export default function Upload({ navigation }) {
             flex: 1, width: width, flexDirection: "column",
             alignItems: "center", backgroundColor: colors.green,
         }}>
-
-            <Modal
-                visible={visiblePopUp}
-                animationType="slide"
-                transparent={true}
-                onRequestClose={() => {
-                    setVisiblePopUp(false)
-                }}>
-                <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
-                    setVisiblePopUp={setVisiblePopUp} />
-            </Modal>
 
             <Modal
                 animationType="slide"

@@ -11,7 +11,7 @@ const BottomTabs = () => {
 
   const ProfileButtonPress = () => {
     let timerId = setTimeout(() => {
-      //setVisiblePopUp(prev => !prev)
+      //setVisiblePopUp(true);
     }, 1000);
     setTimer(timerId);
   }
@@ -19,13 +19,15 @@ const BottomTabs = () => {
   const Select = (page) => {
     if (page == "SearchScreen") {
       setTimer(0);
-      //setVisiblePopUp(false)
       navigation.navigate(page, { getCategory: "all", type: "discovery" });
+    }
+    else if (page == "ProfileScreen") {
+      setTimer(0);
+      navigation.navigate(page)
     }
 
     else {
       setTimer(0);
-      //setVisiblePopUp(false)
       navigation.navigate(page);
     }
   }
