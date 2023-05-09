@@ -11,7 +11,7 @@ import userPostData from './components/userPostData';
 const { width } = Dimensions.get("window");
 
 export default function UserMessage({ navigation, route }) {
-  const { id } = route.params;
+  const { username, date } = route.params;
 
   const scrollViewRef = useRef(null);
 

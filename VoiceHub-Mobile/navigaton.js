@@ -26,6 +26,7 @@ import { UserProvider } from "./utils/userContext";
 import ChangePassword from "./screens/changePassword";
 import Blockeds from "./screens/blockeds";
 import BottomTabs from "./screens/components/BottomTabs";
+import { notBottomTabScreens } from "./utils/notBottomTabScreens";
 
 const SignedInStack = () => {
   const Stack = createStackNavigator();
@@ -67,9 +68,7 @@ const SignedInStack = () => {
           <Stack.Screen name="ChangePassword" component={ChangePassword} />
           <Stack.Screen name="Blockeds" component={Blockeds} />
         </Stack.Navigator>
-        {(!(["EditProfile", "ForgotPassword", "EditProfile",
-          "Blockeds", "Login", "OtherComments", "Register",
-          "UserMessage", "Options", "ChangePassword"].includes(currentRoute))) ?
+        {(!(notBottomTabScreens.includes(currentRoute))) ?
           <BottomTabs /> : null}
       </UserProvider>
     </NavigationContainer>
