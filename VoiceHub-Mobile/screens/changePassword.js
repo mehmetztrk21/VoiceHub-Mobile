@@ -4,6 +4,7 @@ import { Icon } from "react-native-elements";
 import colors from "../assets/colors";
 import OtherHeader from "../screens/components/otherHeader";
 import { changePassword } from "../services/userServices";
+import changePasswordStyle from "../assets/styles/changePassword.style";
 
 const ChangePassword = ({ navigation }) => {
 
@@ -36,26 +37,11 @@ const ChangePassword = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView style={{ backgroundColor: colors.white, flex: 1, width: "100%" }}>
+        <SafeAreaView style={changePasswordStyle.container}>
             <OtherHeader navigation={navigation} HeaderTitle={"Change Password"} isTic={false} />
             <View style={{ marginTop: "25%" }}>
-                <Text style={{
-                    marginBottom: "0.5%",
-                    marginTop: "1.5%",
-                    marginLeft: "8%",
-                    fontWeight: "500",
-                    fontSize: 16,
-                }}>Old Password</Text>
-                <View style={{
-                    backgroundColor: "lightgray",
-                    borderRadius: 25,
-                    paddingVertical: 10,
-                    paddingHorizontal: "2%",
-                    width: "80%",
-                    marginLeft: "8%",
-                    flexDirection: "row",
-                    justifyContent: "space-between",
-                }}>
+                <Text style={changePasswordStyle.oldPasswordHeader}>Old Password</Text>
+                <View style={changePasswordStyle.oldPasswordInput}>
                     <TextInput
                         style={{ width: "80%" }}
                         maxLength={18}
@@ -70,24 +56,9 @@ const ChangePassword = ({ navigation }) => {
             </View>
 
             <View style={{ marginTop: "5%" }}>
-                <Text style={{
-                    marginBottom: "0.5%",
-                    marginTop: "1.5%",
-                    marginLeft: "8%",
-                    fontWeight: "500",
-                    fontSize: 16,
-                }}>New Password</Text>
+                <Text style={changePasswordStyle.newPasswordHeader}>New Password</Text>
                 <TextInput
-                    style={{
-                        backgroundColor: "lightgray",
-                        borderRadius: 25,
-                        paddingVertical: 10,
-                        paddingHorizontal: "2%",
-                        width: "80%",
-                        marginLeft: "8%",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                    }}
+                    style={changePasswordStyle.newPasswordInput}
                     maxLength={18}
                     value={password1}
                     secureTextEntry={!isPasswordVisible}
@@ -96,24 +67,9 @@ const ChangePassword = ({ navigation }) => {
             </View>
 
             <View style={{ marginTop: "5%" }}>
-                <Text style={{
-                    marginBottom: "0.5%",
-                    marginTop: "1.5%",
-                    marginLeft: "8%",
-                    fontWeight: "500",
-                    fontSize: 16,
-                }}> New Password Repeat</Text>
+                <Text style={changePasswordStyle.repeatHeader}> New Password Repeat</Text>
                 <TextInput
-                    style={{
-                        backgroundColor: "lightgray",
-                        borderRadius: 25,
-                        paddingVertical: 10,
-                        paddingHorizontal: "2%",
-                        width: "80%",
-                        marginLeft: "8%",
-                        flexDirection: "row",
-                        justifyContent: "space-between",
-                    }}
+                    style={changePasswordStyle.newPasswordInput}
                     maxLength={18}
                     value={password2}
                     secureTextEntry={!isPasswordVisible}
@@ -122,8 +78,8 @@ const ChangePassword = ({ navigation }) => {
             </View>
 
             <TouchableOpacity onPress={confirm}
-                style={{ backgroundColor: colors.green, paddingHorizontal: 20, paddingVertical: 10, borderRadius: 40, width: "50%", marginLeft: "25%", marginTop: "5%" }}>
-                <Text style={{ fontSize: 16, color: colors.white, fontWeight: "600", textAlign: "center" }}>Confirm</Text>
+                style={changePasswordStyle.confirmButton}>
+                <Text style={changePasswordStyle.confirmButtonText}>Confirm</Text>
             </TouchableOpacity>
         </SafeAreaView>
     )
