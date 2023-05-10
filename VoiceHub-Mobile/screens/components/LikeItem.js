@@ -29,17 +29,34 @@ const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
                 ) : null}
             </TouchableOpacity>
 
-            <TouchableOpacity style={{
-                width: "30%",
-                alignItems: "center",
-                padding: "2%",
-                backgroundColor: colors.green,
-                borderRadius: 12.5,
-            }}>
-                <Text style={{ color: colors.white, fontSize: 16, fontWeight: "600", }}>
-                    Follow
-                </Text>
-            </TouchableOpacity>
+            {user?._id != userId ?
+                <TouchableOpacity style={[
+                    user?.followings?.includes(userId) ?
+                        {
+                            width: "30%",
+                            alignItems: "center",
+                            padding: "2%",
+                            backgroundColor: colors.white,
+                            borderRadius: 12.5,
+                            borderWidth: 2,
+                            borderColor: colors.green,
+                        }
+                        : {
+                            width: "30%",
+                            alignItems: "center",
+                            padding: "2%",
+                            backgroundColor: colors.green,
+                            borderRadius: 12.5,
+                            borderWidth: 2,
+                            borderColor: colors.green,
+                        },
+                ]}>
+                    <Text
+                        style={[user?.followings?.includes(userId) ? { color: colors.green, fontSize: 16, fontWeight: "600" } : { color: colors.white, fontSize: 16, fontWeight: "600" },]}
+                    >
+                        {user?.followings?.includes(userId) ? "Following" : "Follow"}
+                    </Text>
+                </TouchableOpacity> : null}
         </View>
     )
 }
