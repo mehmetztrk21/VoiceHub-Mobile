@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 //importing components
 import HomeHeader from "./components/HomeHeader";
 import PopUpPost from "./components/PopUpPost";
@@ -78,30 +78,69 @@ export default function HomeScreen({ navigation }) {
         <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
-      <ScrollView style={homeStyles.scroll} ref={scrollViewRef} refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-      }
-      >
-        {/* Users Posts */}
-        {posts?.length > 0 ? (
-          <RenderPost navigation={navigation} HeaderTitle={"HomeScreen"} posts={posts} setOpenPopUpPost={setOpenPopUpPost} />
-        ) :
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => pullThePage()}
+            colors={[colors.green]}
+          />
+        }
+        ListEmptyComponent={
           <View style={{ marginTop: "5%" }}>
-            <Text style={
-              { textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
-            }>
+            <Text
+              style={{
+                textAlign: "center",
+                marginBottom: 20,
+                color: colors.green,
+                fontWeight: "700",
+                fontSize: 16,
+              }}
+            >
               {"You are not following anyone yet :("}
             </Text>
 
-            <TouchableOpacity onPress={() => { navigation.navigate("SearchScreen", { getCategory: "all", type: "discovery" }) }}>
-              <Text style={
-                { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16, backgroundColor: colors.green, borderRadius: 15, paddingVertical: 10, }}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("SearchScreen", {
+                  getCategory: "all",
+                  type: "discovery",
+                });
+              }}
+            >
+              <Text
+                style={{
+                  width: "60%",
+                  marginLeft: "20%",
+                  textAlign: "center",
+                  marginBottom: 20,
+                  color: colors.white,
+                  fontWeight: "700",
+                  fontSize: 16,
+                  backgroundColor: colors.green,
+                  borderRadius: 15,
+                  paddingVertical: 10,
+                }}
+              >
                 Discover now!
               </Text>
             </TouchableOpacity>
           </View>
         }
-      </ScrollView>
+        renderItem={({ item }) => (
+          <RenderPost
+            navigation={navigation}
+            HeaderTitle={"HomeScreen"}
+            post={item}
+            setOpenPopUpPost={setOpenPopUpPost}
+          />
+        )}
+        contentContainerStyle={homeStyles.scroll}
+      />
+
     </SafeAreaView>
   );
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import {
   Dimensions, Image, Modal, Share,
   RefreshControl, SafeAreaView, ScrollView, Text,
-  TouchableOpacity, View,
+  TouchableOpacity, View, FlatList,
 } from "react-native";
 
 import { useIsFocused } from "@react-navigation/native";
@@ -196,36 +196,31 @@ export default function ProfileScreen({ navigation }) {
       </View>
 
       {/* Posts */}
-      <ScrollView
+      <FlatList
+        data={posts}
+        keyExtractor={(item) => item._id}
+        refreshing={refreshing}
+        onRefresh={pullThePage}
         showsVerticalScrollIndicator={false}
-        ref={scrollViewRef}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-        }
-        style={profileStyles.scroll}
-      >
-        <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
-          {posts?.length > 0 ? (
-            <RenderPost navigation={navigation} posts={posts} thisUser={user}
-              HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp} />
-          ) :
-            <View style={{ marginTop: "5%", }}>
-              <Text style={
-                { textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
-              }>
-                {"You have not post anyone yet :("}
+        contentContainerStyle={profileStyles.scroll}
+        ListEmptyComponent={() => (
+          <View style={{ marginTop: "5%" }}>
+            <Text style={{ textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }}>
+              {"You have not posted anything yet :("}
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Upload")}>
+              <Text style={{ width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16, backgroundColor: colors.white, borderRadius: 15, paddingVertical: 10 }}>
+                Upload Now!
               </Text>
-
-              <TouchableOpacity onPress={() => { navigation.navigate("Upload") }}>
-                <Text style={
-                  { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16, backgroundColor: colors.white, borderRadius: 15, paddingVertical: 10, }}>
-                  Upload Now!
-                </Text>
-              </TouchableOpacity>
-            </View>
-          }
-        </View>
-      </ScrollView>
+            </TouchableOpacity>
+          </View>
+        )}
+        renderItem={({ item }) => (
+          <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
+            <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} />
+          </View>
+        )}
+      />
     </SafeAreaView>
   );
 }

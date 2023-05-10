@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 import ArchivePopUp from "./components/archivePopUp";
 import OtherHeader from './components/otherHeader';
@@ -124,19 +124,23 @@ export default function SavedArchieves({ navigation, route }) {
       ) : null}
 
       <View style={{ marginTop: width * 0.04 }}>
-        <ScrollView style={savedStyle.savedPostContainer} ref={scrollViewRef} onLayout={handleLayout}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-          } >
-          {HeaderTitle == "Saved" ?
-            <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
-              setOpenArchivePopUp={setOpenArchivePopUp} posts={posts} setOpenPopUpPost={setOpenPopUpPost} /> :
+        <FlatList
+          data={posts}
+          keyExtractor={(item) => item.id}
+          refreshing={refreshing}
+          onRefresh={() => pullThePage()}
+          renderItem={({ item }) => (
+            HeaderTitle == "Saved" ?
+              <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
+                setOpenArchivePopUp={setOpenArchivePopUp} post={item} setOpenPopUpPost={setOpenPopUpPost} /> :
 
-            <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
-              setOpenArchivePopUp={setOpenArchivePopUp} posts={posts} />
-          }
-        </ScrollView>
+              <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
+                setOpenArchivePopUp={setOpenArchivePopUp} post={item} />
+
+          )}
+        />
       </View>
+
     </SafeAreaView>
   );
 }

@@ -223,21 +223,39 @@ export default function SearchScreen({ navigation, route }) {
       </View>
 
       {/* POSTS */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        style={searchStyles.scrollContainer}
-        ref={scrollViewRef}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-        }
-      >
-        {focused == true ?
-          (searchQuery.length !== 0 ?
-            <RenderLastSearchedUser navigation={navigation} users={users} title={"search"} /> :
-            <RenderLastSearchedUser navigation={navigation} title={"last"} />)
-          : <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} posts={posts} setOpenPopUpPost={setOpenPopUpPost} />}
 
-      </ScrollView>
+      {focused == true ?
+        (searchQuery.length !== 0 ?
+          (<FlatList
+            data={users}
+            keyExtractor={(item) => item._id}
+            showsVerticalScrollIndicator={false}
+            style={searchStyles.scrollContainer}
+            ref={scrollViewRef}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
+            }
+            renderItem={({ item }) => (
+              <RenderLastSearchedUser navigation={navigation} thisUser={item} title={"search"} />
+            )}
+          />) :
+          (<RenderLastSearchedUser navigation={navigation} title={"last"} />)
+        ) :
+        <FlatList
+          data={posts}
+          keyExtractor={(item) => item._id}
+          showsVerticalScrollIndicator={false}
+          style={searchStyles.scrollContainer}
+          ref={scrollViewRef}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
+          }
+          renderItem={({ item }) => (
+            <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} post={item} setOpenPopUpPost={setOpenPopUpPost} />
+          )}
+        />
+
+      }
     </View>
   );
 }

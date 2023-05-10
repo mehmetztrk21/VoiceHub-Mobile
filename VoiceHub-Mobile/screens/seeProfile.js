@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+    FlatList,
     Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from "react-native";
 
@@ -56,6 +57,7 @@ export default function SeeProfile({ navigation, route }) {
         const response = await getMyPosts({ isArchived: false, userId: userId });
         if (response && response.success) {
             setPosts(response?.data);
+            console.log(response?.data)
         }
         setLoading(false)
     }
@@ -199,23 +201,31 @@ export default function SeeProfile({ navigation, route }) {
             </View>
             {/* Posts */}
 
-            < ScrollView
+
+            <FlatList
+                data={posts}
                 showsVerticalScrollIndicator={false}
-                style={seeProfileStyles.scroll}
-                ref={scrollViewRef}
-                onLayout={handleLayout}
+                contentContainerStyle={seeProfileStyles.scroll}
+                refreshing={refreshing}
+                onRefresh={pullThePage}
+                keyExtractor={(item) => item._id}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-                }>
-                {(user?.blockedUsers?.includes(userId)) ?
-                    (<DontShowPosts userId={userId} title={"blocked"} />) : (
-                        (seeUser?.isSecretAccount == false) ?
-                            (posts?.length > 0 ?
-                                (<RenderPost navigation={navigation} HeaderTitle={"OtherProfiles"} posts={posts} thisUser={seeUser} />) :
-                                (<Text style={seeProfileStyles.notPost}>Have not post anyone yet</Text>)
-                            ) : <DontShowPosts userId={userId} title={"secret"} />)
                 }
-            </ScrollView>
+                ListEmptyComponent={() => (
+                    <Text style={seeProfileStyles.notPost}>Have not post anyone yet</Text>
+                )}
+                renderItem={({ item }) => (
+                    <RenderPost
+                        navigation={navigation}
+                        HeaderTitle={"OtherProfiles"}
+                        post={item}
+                        thisUser={seeUser}
+                    />
+                )}
+            />
+
+
             {
                 openAreYouSure == true ? (
                     <AreYouSure process={'LogOut'} navigation={navigation}

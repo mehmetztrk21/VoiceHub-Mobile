@@ -39,7 +39,7 @@ export default function OtherComments({ navigation, route }) {
             <View style={{ marginTop: width * 0.04 }}>
                 <FlatList
                     data={comments}
-                    keyExtractor={(item) => item._id.toString()}
+                    keyExtractor={(item) => item._id}
                     renderItem={({ item, index }) => (
                         <Comment
                             commentId={item._id}
