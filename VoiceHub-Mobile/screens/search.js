@@ -183,7 +183,8 @@ export default function SearchScreen({ navigation, route }) {
       </View>
 
       {/* CATEGORIES */}
-      <FlatList
+
+      {focused == false ? <FlatList
         ref={categoryScrollViewRef}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -217,7 +218,7 @@ export default function SearchScreen({ navigation, route }) {
             </Text>
           </TouchableOpacity>
         )}
-      />
+      /> : null}
 
 
       {/* POSTS */}
