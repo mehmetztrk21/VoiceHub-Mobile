@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import OtherHeader from "./components/otherHeader";
 
@@ -135,110 +135,102 @@ const FollowFollower = ({ navigation, route }) => {
                     </View>
                 ) : null}
 
-                <ScrollView style={followFollowerStyle.scroll} ref={scrollViewRef}
-                    onLayout={handleLayout} refreshControl={
-                        <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-                    } >
-                    {title == "Followers" ? (
-                        followers?.map((item, index) => {
-                            return (
-                                <View style={followFollowerStyle.item} key={index} >
-                                    <TouchableOpacity style={followFollowerStyle.seeProfile}
-                                        onPress={() => {
-                                            item?._id == user?._id ?
-                                                navigation.navigate("ProfileScreen") :
-                                                navigation.navigate("SeeProfile", { userId: item?._id })
-                                        }}>
+                <FlatList
+                    style={followFollowerStyle.scroll}
+                    data={title == "Followers" ? followers : followings}
+                    keyExtractor={(item, index) => index.toString()}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={() => pullThePage()}
+                            colors={[colors.green]}
+                        />
+                    }
+                    renderItem={({ item }) => (
+                        <View style={followFollowerStyle.item}>
+                            <TouchableOpacity
+                                style={followFollowerStyle.seeProfile}
+                                onPress={() => {
+                                    item?._id == user?._id
+                                        ? navigation.navigate("ProfileScreen")
+                                        : navigation.navigate("SeeProfile", { userId: item?._id });
+                                }}
+                            >
+                                {item?.profilePhotoUrl ? (
+                                    <Image
+                                        source={{ uri: baseURL + item?.profilePhotoUrl || "" }}
+                                        style={followFollowerStyle.profileImage}
+                                    />
+                                ) : (
+                                    <Image
+                                        source={require("../assets/avatar.png")}
+                                        style={followFollowerStyle.profileImage}
+                                    />
+                                )}
 
-                                        {item?.profilePhotoUrl ?
-                                            <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} /> :
-                                            <Image source={require("../assets/avatar.png")} style={followFollowerStyle.profileImage} />
-                                        }
+                                <Text style={followFollowerStyle.username}>{item.username}</Text>
+                                {item?.isTic == true ? (
+                                    <Image
+                                        source={ver}
+                                        style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }}
+                                    />
+                                ) : null}
+                            </TouchableOpacity>
 
+                            {user?._id != item?._id ? (
+                                <TouchableOpacity
+                                    style={[
+                                        user?.followings?.includes(item?._id)
+                                            ? {
+                                                width: "30%",
+                                                alignItems: "center",
+                                                padding: "2%",
+                                                backgroundColor: colors.white,
+                                                borderRadius: 12.5,
+                                                borderWidth: 2,
+                                                borderColor: colors.green,
+                                            }
+                                            : {
+                                                width: "30%",
+                                                alignItems: "center",
+                                                padding: "2%",
+                                                backgroundColor: colors.green,
+                                                borderRadius: 12.5,
+                                                borderWidth: 2,
+                                                borderColor: colors.green,
+                                            },
+                                    ]}
+                                    onPress={() => followUnfollow(item?._id)}
+                                >
+                                    <Text
+                                        style={[user?.followings?.includes(item?._id) ? { color: colors.green, fontSize: 16, fontWeight: "600" } : { color: colors.white, fontSize: 16, fontWeight: "600" },]}
+                                    >
+                                        {user?.followings?.includes(item?._id) ? "Following" : "Follow"}
+                                    </Text>
+                                </TouchableOpacity>
+                            ) : null}
+                        </View>
+                    )}
+                    ListEmptyComponent={
+                        <View style={{ marginTop: "20%" }}>
+                            <Text
+                                style={{
+                                    textAlign: "center",
+                                    marginBottom: 20,
+                                    color: colors.green,
+                                    fontWeight: "700",
+                                    fontSize: 16,
+                                    textAlign: "center",
+                                }}
+                            >
+                                {title == "Followers"
+                                    ? "There are no followers"
+                                    : "There are no followings"}
+                            </Text>
+                        </View>
+                    }
+                />
 
-                                        <Text style={followFollowerStyle.username}>{item.username}</Text>
-                                        {item?.isTic == true ? (
-                                            <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
-                                        ) : null}
-                                    </TouchableOpacity>
-
-                                    {user?._id != item?._id ?
-                                        <TouchableOpacity style={[user?.followings?.includes(item?._id) ? {
-                                            width: "30%",
-                                            alignItems: "center",
-                                            padding: "2%",
-                                            backgroundColor: colors.white,
-                                            borderRadius: 12.5,
-                                            borderWidth: 2,
-                                            borderColor: colors.green,
-                                        } : {
-                                            width: "30%",
-                                            alignItems: "center",
-                                            padding: "2%",
-                                            backgroundColor: colors.green,
-                                            borderRadius: 12.5,
-                                            borderWidth: 2,
-                                            borderColor: colors.green,
-                                        }]} onPress={() => followUnfollow(item?._id)}>
-                                            <Text style={
-                                                [user?.followings?.includes(item?._id) ?
-                                                    { color: colors.green, fontSize: 16, fontWeight: "600", } :
-                                                    { color: colors.white, fontSize: 16, fontWeight: "600", }]}>
-                                                {user?.followings?.includes(item?._id) ? "Following" : "Follow"}
-                                            </Text>
-                                        </TouchableOpacity>
-                                        : null}
-                                </View>
-                            )
-                        })
-                    ) : title == "Followings" ? (
-                        followings?.map((item, index) => {
-                            return (
-                                <View style={followFollowerStyle.item} key={index} >
-                                    <TouchableOpacity style={followFollowerStyle.seeProfile}
-                                        onPress={() => {
-                                            item?._id == user?._id ?
-                                                navigation.navigate("ProfileScreen") :
-                                                navigation.navigate("SeeProfile", { userId: item?._id })
-                                        }}>
-                                        <Image source={{ uri: baseURL + item?.profilePhotoUrl || "" }} style={followFollowerStyle.profileImage} />
-                                        <Text style={followFollowerStyle.username}>{item.username}</Text>
-                                        {item?.isTic == true ? (
-                                            <Image source={ver} style={{ width: 14, height: 14, paddingLeft: 4, alignSelf: "center" }} />
-                                        ) : null}
-                                    </TouchableOpacity>
-
-                                    {user?._id != item?._id ?
-                                        <TouchableOpacity style={[user?.followings?.includes(item?._id) ? {
-                                            width: "30%",
-                                            alignItems: "center",
-                                            padding: "2%",
-                                            backgroundColor: colors.white,
-                                            borderRadius: 12.5,
-                                            borderWidth: 2,
-                                            borderColor: colors.green,
-                                        } : {
-                                            width: "30%",
-                                            alignItems: "center",
-                                            padding: "2%",
-                                            backgroundColor: colors.green,
-                                            borderRadius: 12.5,
-                                            borderWidth: 2,
-                                            borderColor: colors.green,
-                                        }]} onPress={() => followUnfollow(item?._id)}>
-                                            <Text style={
-                                                [user?.followings?.includes(item?._id) ?
-                                                    { color: colors.green, fontSize: 16, fontWeight: "600", } :
-                                                    { color: colors.white, fontSize: 16, fontWeight: "600", }]}>
-                                                {user?.followings?.includes(item?._id) ? "Following" : "Follow"}
-                                            </Text>
-                                        </TouchableOpacity>
-                                        : null}
-                                </View>
-                            )
-                        })
-                    ) : null}
-                </ScrollView>
             </View>
         </SafeAreaView>
     )
