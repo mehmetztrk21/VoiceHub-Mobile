@@ -30,6 +30,7 @@ export default function SearchScreen({ navigation, route }) {
 
   const isFocused = useIsFocused();
   const scrollViewRef = useRef();
+  const inputRef = useRef();
   const categoryScrollViewRef = useRef();
 
   const [users, setUsers] = useState([]);
@@ -156,7 +157,8 @@ export default function SearchScreen({ navigation, route }) {
         {/* Search Bar */}
         < TextInput
           placeholder="Search"
-          style={[isFocused == true ? {
+          ref={inputRef}
+          style={[focused == true ? {
             width: "81%", backgroundColor: colors.lightgray,
             borderRadius: 22.5,
             paddingVertical: 10,
@@ -173,8 +175,8 @@ export default function SearchScreen({ navigation, route }) {
         />
 
         {/* Close Button */}
-        {isFocused == true ?
-          <TouchableOpacity onPress={() => { setFocused(false); setSearchQuery(""); }}
+        {focused == true ?
+          <TouchableOpacity onPress={() => { setFocused(false); setSearchQuery(""); inputRef.current.blur(); }}
             style={searchStyles.closeButtonTouch}>
             <Icon type="font-awesome" size={20} name={"times"} color={colors.green} />
           </TouchableOpacity> : null}
@@ -226,7 +228,6 @@ export default function SearchScreen({ navigation, route }) {
             keyExtractor={(item) => item._id}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={searchStyles.scrollContainer}
-            initialNumToRender={15}
             ref={scrollViewRef}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
@@ -241,8 +242,7 @@ export default function SearchScreen({ navigation, route }) {
           data={posts}
           keyExtractor={(item) => item._id}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={searchStyles.scrollContainer}
-          initialNumToRender={50}
+          contentContainerStyle={[searchStyles.scrollContainer, { paddingBottom: height * 0.35 }]}
           ref={scrollViewRef}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
