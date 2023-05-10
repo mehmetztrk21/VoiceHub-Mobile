@@ -3,6 +3,7 @@ import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import {
   Dimensions,
+  FlatList,
   Modal,
   RefreshControl,
   ScrollView, Text, TextInput, TouchableOpacity, View
@@ -59,7 +60,7 @@ export default function SearchScreen({ navigation, route }) {
 
   const handleScrollToTop = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true });
-    categoryScrollViewRef.current.scrollTo({ y: 0, animated: true });
+    categoryScrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
   const pullThePage = () => {
@@ -183,35 +184,40 @@ export default function SearchScreen({ navigation, route }) {
             </View>
 
             {/* CATEGORIES */}
-            <ScrollView ref={categoryScrollViewRef}
-              horizontal showsHorizontalScrollIndicator={false}
-              style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, paddingVertical: 10 }}>
+            <FlatList
+              ref={categoryScrollViewRef}
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, paddingVertical: 10 }}
+              data={[{ _id: "all" }, ...categories]}
+              keyExtractor={(item, index) => index.toString()}
+              renderItem={({ item }) => (
+                <TouchableOpacity onPress={() => setSelectedCategory(item._id)}>
+                  <Text
+                    style={[
+                      searchStyles.SecondText,
+                      { width: width * 0.3, marginHorizontal: width * 0.0125 },
+                      selectedCategory == item._id
+                        ? {
+                          borderWidth: 2,
+                          borderColor: colors.green,
+                          backgroundColor: colors.white,
+                          color: colors.green,
+                        }
+                        : {
+                          borderWidth: 2,
+                          borderColor: colors.green,
+                          backgroundColor: colors.green,
+                          color: colors.white,
+                        },
+                    ]}
+                  >
+                    #{item._id}
+                  </Text>
+                </TouchableOpacity>
+              )}
+            />
 
-              <TouchableOpacity onPress={() => setSelectedCategory("all")} key={"all"}>
-                <Text style={[searchStyles.SecondText,
-                { width: width * 0.3, marginHorizontal: width * 0.0125, },
-                selectedCategory == "all" ? {
-                  borderWidth: 2, borderColor: colors.green, backgroundColor: colors.white, color: colors.green
-                } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#all</Text>
-
-              </TouchableOpacity>
-
-              {
-                categories.map((item, index) => {
-                  return (
-                    <TouchableOpacity onPress={() => setSelectedCategory(item._id)} key={index}>
-                      <Text style={[searchStyles.SecondText,
-                      { width: width * 0.3, marginHorizontal: width * 0.0125, },
-                      selectedCategory == item._id ? {
-                        borderWidth: 2, borderColor: colors.green,
-                        backgroundColor: colors.white, color: colors.green
-                      } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#{item._id}</Text>
-
-                    </TouchableOpacity>
-                  )
-                })
-              }
-            </ScrollView>
           </View>
         }
       </View>
