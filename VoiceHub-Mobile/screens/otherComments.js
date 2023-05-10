@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Dimensions, Modal, SafeAreaView, ScrollView, Text } from "react-native";
+import { Dimensions, FlatList, Modal, SafeAreaView, ScrollView, Text } from "react-native";
 
 import AddVoice from "./components/addVoice";
 import AreYouSure from "./components/areYouSure";
@@ -37,24 +37,30 @@ export default function OtherComments({ navigation, route }) {
             </Modal>
 
             <View style={{ marginTop: width * 0.04 }}>
-
-                <ScrollView ref={scrollViewRef} onLayout={handleLayout}
-                    showsVerticalScrollIndicator={false} style={{ marginTop: width * 0.2, marginBottom: width * 0.15 }}>
-                    {comments?.length > 0 ? (
-                        comments?.map((item, index) => {
-                            return (
-                                <Comment key={index} commentId={item._id} navigation={navigation} userPic={item.createdBy?.profilePhotoUrl}
-                                    createDate={item.createdAt} contentUrl={item.contentUrl} username={item.createdBy?.username}
-                                    setOpenAreYouSure={setOpenAreYouSure} userId={item.createdBy._id} postId={postId} />
-                            )
-                        })
-                    ) :
-                        <Text style={{ textAlign: "center", fontWeight: "600", color: colors.green, fontSize: 16, }}>No Comments Yet.</Text>
+                <FlatList
+                    data={comments}
+                    keyExtractor={(item) => item._id.toString()}
+                    renderItem={({ item, index }) => (
+                        <Comment
+                            commentId={item._id}
+                            navigation={navigation}
+                            userPic={item.createdBy?.profilePhotoUrl}
+                            createDate={item.createdAt}
+                            contentUrl={item.contentUrl}
+                            username={item.createdBy?.username}
+                            setOpenAreYouSure={setOpenAreYouSure}
+                            userId={item.createdBy._id}
+                            postId={postId}
+                        />
+                    )}
+                    ListEmptyComponent={
+                        <Text style={{ textAlign: "center", fontWeight: "600", color: colors.green, fontSize: 16 }}>No Comments Yet.</Text>
                     }
-                </ScrollView>
-
-
+                    showsVerticalScrollIndicator={false}
+                    style={{ marginTop: width * 0.2, marginBottom: width * 0.15 }}
+                />
             </View>
+
             <AddVoice title={"comments"} postId={postId} />
 
         </SafeAreaView >
