@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
-import { SafeAreaView, ScrollView, View, Dimensions } from 'react-native';
+import { Dimensions, FlatList, SafeAreaView, Text, View } from 'react-native';
 
 import userMessageStyle from "../assets/styles/userMessage.style";
 import AddVoice from './components/addVoice';
 
+import colors from '../assets/colors';
 import OtherHeader from './components/otherHeader';
 import UserMessageItem from "./components/userMessageItem";
 import userPostData from './components/userPostData';
@@ -23,24 +24,23 @@ export default function UserMessage({ navigation, route }) {
     <SafeAreaView style={userMessageStyle.container}>
       <OtherHeader navigation={navigation} HeaderTitle={username} />
       <View style={{ marginTop: width * 0.04 }}>
-        <ScrollView style={userMessageStyle.scroll} ref={scrollViewRef} onLayout={handleLayout}>
-          {userPostData.length != 0 ?
-            userPostData.map((item, index) => {
-              return (
-                <View key={index} style={{ marginBottom: 20 }}>
-                  <UserMessageItem navigation={navigation} userPic={item.userPic} who={item.type} />
-                </View>
-              )
-            })
-            :
+        <FlatList
+          style={userMessageStyle.scroll}
+          data={userPostData}
+          ref={scrollViewRef}
+          onLayout={handleLayout}
+          renderItem={({ item, index }) => (
+            <View style={{ marginBottom: 20 }} key={index}>
+              <UserMessageItem navigation={navigation} userPic={item.userPic} who={item.type} />
+            </View>
+          )}
+          ListEmptyComponent={
             <View>
-              <Text style={
-                { textAlign: "center", marginTop: 20, color: colors.green, fontWeight: "700", fontSize: 16 }
-              }>You take the first step!</Text>
+              <Text style={{ textAlign: "center", marginTop: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}>You take the first step!</Text>
             </View>
           }
+        />
 
-        </ScrollView>
 
         <AddVoice title={"messages"} />
       </View>

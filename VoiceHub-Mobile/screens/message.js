@@ -60,7 +60,6 @@ export default function Message({ navigation, title, id }) {
               key={index}
               navigation={navigation}
               username={item.username}
-              date={item.date}
             />
           )}
           refreshControl={
