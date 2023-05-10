@@ -88,7 +88,7 @@ export default StyleSheet.create({
 
   scroll: {
     width: "100%",
-    marginBottom: 65,
+    paddingBottom: "16%",
   },
   uploadMargin: {
     marginBottom: 120,

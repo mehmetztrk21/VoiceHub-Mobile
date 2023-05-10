@@ -231,7 +231,7 @@ export default function SearchScreen({ navigation, route }) {
             data={users}
             keyExtractor={(item) => item._id}
             showsVerticalScrollIndicator={false}
-            style={searchStyles.scrollContainer}
+            contentContainerStyle={searchStyles.scrollContainer}
             ref={scrollViewRef}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
