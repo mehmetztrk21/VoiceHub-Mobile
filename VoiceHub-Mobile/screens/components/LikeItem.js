@@ -6,10 +6,28 @@ import avatar from "../../assets/avatar.png"
 import colors from '../../assets/colors'
 import { baseURL } from '../../utils/constants'
 import { useUser } from "../../utils/userContext"
+import { setFollowFollower } from "../../services/actionServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
 
-    const { user } = useUser();
+    const { user, setUser } = useUser();
+
+    const followUnfollow = async () => {
+        await setFollowFollower({ userId: id }).then(async (res) => {
+            if (res?.success) {
+                let temp = { ...user };
+                if (res.data == "Unfollowed successfully")
+                    temp?.followings?.splice(temp?.followings?.indexOf(id), 1);
+                else
+                    temp?.followings?.push(id);
+                await AsyncStorage.setItem("user", JSON.stringify(temp));
+                setUser(temp);
+            }
+        }).catch((err) => {
+            console.log(err);
+        });
+    }
 
     return (
         <View style={likeItemStyle.item} >
@@ -30,8 +48,8 @@ const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
             </TouchableOpacity>
 
             {user?._id != userId ?
-                <TouchableOpacity style={[
-                    user?.followings?.includes(userId) ?
+                <TouchableOpacity onPress={followUnfollow}
+                    style={[user?.followings?.includes(userId) ?
                         {
                             width: "30%",
                             alignItems: "center",
@@ -50,7 +68,7 @@ const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
                             borderWidth: 2,
                             borderColor: colors.green,
                         },
-                ]}>
+                    ]}>
                     <Text
                         style={[user?.followings?.includes(userId) ? { color: colors.green, fontSize: 16, fontWeight: "600" } : { color: colors.white, fontSize: 16, fontWeight: "600" },]}
                     >
