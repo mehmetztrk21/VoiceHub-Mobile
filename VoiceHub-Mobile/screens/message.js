@@ -9,13 +9,10 @@ import MessageItem from "./components/messageItem";
 
 import { Dimensions } from "react-native";
 import colors from "../assets/colors";
-import { useUser } from "../utils/userContext";
 const { width } = Dimensions.get("window");
 
-export default function Message({ navigation, title, id }) {
+export default function Message({ navigation }) {
   const scrollViewRef = useRef(null);
-
-  const { user } = useUser();
 
   const handleLayout = () => {
     scrollViewRef.current.scrollTo({ y: 0, animated: true });
@@ -30,15 +27,6 @@ export default function Message({ navigation, title, id }) {
       setRefreshing(false)
     }, 800)
   }
-
-  useState(() => {
-    if (title == "UserMessage") {
-      //kişiler ile olan mesajları göster
-    }
-    else {
-      //mesajlaşılan kişileri getir
-    }
-  }, [])
 
   return (
     <SafeAreaView style={messageStyle.container}>
@@ -55,9 +43,8 @@ export default function Message({ navigation, title, id }) {
           ref={scrollViewRef}
           onLayout={handleLayout}
           data={userPostData}
-          renderItem={({ item, index }) => (
+          renderItem={({ item }) => (
             <MessageItem
-              key={index}
               navigation={navigation}
               username={item.username}
             />
@@ -70,9 +57,7 @@ export default function Message({ navigation, title, id }) {
             />
           }
           ListEmptyComponent={
-            <View>
-              <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}>No message yet</Text>
-            </View>
+            <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}>No message yet</Text>
           }
         />
 

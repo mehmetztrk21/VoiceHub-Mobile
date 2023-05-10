@@ -5,12 +5,10 @@ import messageItemStyle from "../../assets/styles/messageItem.style";
 import user1 from "../../assets/userImages/user1.jpg";
 import ver from "../../assets/ver.png";
 
-//import { deleteComment } from "../../services/commentServices";
-
 import { Dimensions } from "react-native";
 const { width } = Dimensions.get("window");
 
-export default function MessageItemScreen({ navigation, username, date }) {
+export default function MessageItemScreen({ navigation, username }) {
     return (
         <View>
             <TouchableOpacity style={messageItemStyle.container}
@@ -26,7 +24,7 @@ export default function MessageItemScreen({ navigation, username, date }) {
                     </View>
                     <View style={messageItemStyle.messageText}>
                         <Text style={messageItemStyle.voiceLenght}>1:28</Text>
-                        <Text style={messageItemStyle.time}>{date}</Text>
+                        <Text style={messageItemStyle.time}>2d</Text>
                     </View>
                 </View>
             </TouchableOpacity>

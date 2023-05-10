@@ -18,6 +18,7 @@ import userPostData from "./components/userPostData";
 import { getUserById } from "../services/userServices";
 import { getPostById } from "../services/postServices";
 import { baseURL } from "../utils/constants";
+import { FlatList } from "react-native";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
@@ -101,7 +102,7 @@ export default function SeePost({ navigation, route }) {
 
                 {/* CATEGORIES */}
                 <View style={seePostStyle.categoryHolder}>
-                    <PostCategories navigation={navigation} categories={post?.categories} title={"seePost"}/>
+                    <PostCategories navigation={navigation} categories={post?.categories} title={"seePost"} />
                 </View>
 
                 <View style={seePostStyle.postActionsHolder}>
@@ -109,21 +110,29 @@ export default function SeePost({ navigation, route }) {
                 </View>
             </View>
 
-            <ScrollView showsVerticalScrollIndicator={false} style={seePostStyle.comments} ref={scrollViewRef}
-                onLayout={handleLayout} refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-                } >
-                {
-                    userPostData.map((item, index) => {
-                        return (
-                            <View key={index} style={seePostStyle.commentHolder}>
-                                <Comment navigation={navigation} userPic={item.userPic}
-                                    username={item.username} setOpenAreYouSure={setOpenAreYouSure} />
-                            </View>
-                        )
-                    })
+            <FlatList
+                showsVerticalScrollIndicator={false}
+                style={seePostStyle.comments}
+                data={userPostData}
+                renderItem={({ item, index }) => (
+                    <View style={seePostStyle.commentHolder} key={index}>
+                        <Comment
+                            navigation={navigation}
+                            userPic={item.userPic}
+                            username={item.username}
+                            setOpenAreYouSure={setOpenAreYouSure}
+                        />
+                    </View>
+                )}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={() => pullThePage()}
+                        colors={[colors.green]}
+                    />
                 }
-            </ScrollView>
+            />
+
 
             <AddVoice title={"comments"} />
         </SafeAreaView>

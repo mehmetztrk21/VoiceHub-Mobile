@@ -16,7 +16,7 @@ const userPostData = [
 
   },
   {
-    id: "25",
+    id: "2",
     username: "Rohit",
     userPic: user1,
     likesCount: 0,
@@ -31,7 +31,7 @@ const userPostData = [
 
   },
   {
-    id: "26",
+    id: "3",
     username: "Rohit",
     userPic: user1,
     likesCount: 1881,
@@ -46,7 +46,7 @@ const userPostData = [
 
   },
   {
-    id: "27",
+    id: "4",
     username: "Suyash",
     userPic: user1,
     likesCount: 1,
@@ -60,7 +60,7 @@ const userPostData = [
     commentCount: 258,
   },
   {
-    id: "1",
+    id: "5",
     username: "Alex",
     userPic: user1,
     likesCount: 1451,
@@ -75,7 +75,7 @@ const userPostData = [
 
   },
   {
-    id: "25",
+    id: "6",
     username: "Rohit",
     userPic: user1,
     likesCount: 0,
@@ -90,7 +90,7 @@ const userPostData = [
 
   },
   {
-    id: "26",
+    id: "7",
     username: "Rohit",
     userPic: user1,
     likesCount: 1881,
@@ -105,7 +105,7 @@ const userPostData = [
 
   },
   {
-    id: "27",
+    id: "8",
     username: "Suyash",
     userPic: user1,
     likesCount: 1,
@@ -119,7 +119,7 @@ const userPostData = [
     commentCount: 258,
   },
   {
-    id: "1",
+    id: "9",
     username: "Alex",
     userPic: user1,
     likesCount: 1451,
@@ -134,7 +134,7 @@ const userPostData = [
 
   },
   {
-    id: "25",
+    id: "10",
     username: "Rohit",
     userPic: user1,
     likesCount: 0,
@@ -149,7 +149,7 @@ const userPostData = [
 
   },
   {
-    id: "26",
+    id: "11",
     username: "Rohit",
     userPic: user1,
     likesCount: 1881,
@@ -164,7 +164,7 @@ const userPostData = [
 
   },
   {
-    id: "27",
+    id: "12",
     username: "Suyash",
     userPic: user1,
     likesCount: 1,
