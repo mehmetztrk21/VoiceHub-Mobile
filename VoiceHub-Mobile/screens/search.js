@@ -7,7 +7,7 @@ import {
   Modal,
   RefreshControl,
   SafeAreaView,
-  ScrollView, Text, TextInput, TouchableOpacity, View
+  Text, TextInput, TouchableOpacity, View
 } from "react-native";
 import { Icon } from "react-native-elements";
 
@@ -23,7 +23,7 @@ import Loading from "./components/loading";
 
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
   const { getCategory, type } = route.params;
@@ -60,7 +60,7 @@ export default function SearchScreen({ navigation, route }) {
   }, [isFocused])
 
   const handleScrollToTop = () => {
-    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
     categoryScrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
@@ -140,91 +140,85 @@ export default function SearchScreen({ navigation, route }) {
         <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
-      <View style={searchStyles.searchBarHolder}>
-        {focused ? (
-          <View style={{
-            backgroundColor: "lightgray",
-            borderRadius: 25,
-            paddingHorizontal: "3%",
-            width: "90%",
-            marginLeft: "5%",
-            flexDirection: "row",
-            justifyContent: "space-between",
-          }}>
+      {/* SEARCHBAR */}
+      <View style={{
+        backgroundColor: "lightgray",
+        borderRadius: 25,
+        paddingHorizontal: "3%",
+        width: "90%",
+        marginLeft: "5%",
+        flexDirection: "row",
+        justifyContent: "space-between",
+        marginTop: height * 0.1,
+        marginBottom: height * 0.015,
+      }}>
 
-            {/* Search Bar */}
-            < TextInput
-              placeholder="Search"
-              style={[searchStyles.searchBar, { width: "90%" }]}
-              onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
-              value={searchQuery}
-            />
+        {/* Search Bar */}
+        < TextInput
+          placeholder="Search"
+          style={[isFocused == true ? {
+            width: "81%", backgroundColor: colors.lightgray,
+            borderRadius: 22.5,
+            paddingVertical: 10,
+            paddingHorizontal: 12.5,
+          } : {
+            width: "90%", backgroundColor: colors.lightgray,
+            borderRadius: 22.5,
+            paddingVertical: 10,
+            paddingHorizontal: 12.5,
+          }]}
+          onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
+          value={searchQuery}
+          onFocus={() => setFocused(true)}
+        />
 
-            {/* Close Button */}
-            <TouchableOpacity onPress={() => { setFocused(false); setSearchQuery(""); }}
-              style={searchStyles.closeButtonTouch}>
-              <Icon type="font-awesome" size={20} name={"times"} color={colors.green} />
-            </TouchableOpacity>
-          </View>
-        ) :
-          <View style={{ flexDirection: "column" }}>
-            <View style={{
-              backgroundColor: "lightgray",
-              borderRadius: 25,
-              paddingHorizontal: "3%",
-              width: "90%",
-              marginLeft: "5%",
-            }}>
-              < TextInput
-                placeholder="Search"
-                style={[searchStyles.searchBar, { width: "90%", }]}
-                onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
-                value={searchQuery}
-                onFocus={() => setFocused(true)}
-              />
-            </View>
-
-            {/* CATEGORIES */}
-            <FlatList
-              ref={categoryScrollViewRef}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, paddingVertical: 10 }}
-              data={[{ _id: "all" }, ...categories]}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item }) => (
-                <TouchableOpacity onPress={() => setSelectedCategory(item._id)}>
-                  <Text
-                    style={[
-                      searchStyles.SecondText,
-                      { width: width * 0.3, marginHorizontal: width * 0.0125 },
-                      selectedCategory == item._id
-                        ? {
-                          borderWidth: 2,
-                          borderColor: colors.green,
-                          backgroundColor: colors.white,
-                          color: colors.green,
-                        }
-                        : {
-                          borderWidth: 2,
-                          borderColor: colors.green,
-                          backgroundColor: colors.green,
-                          color: colors.white,
-                        },
-                    ]}
-                  >
-                    #{item._id}
-                  </Text>
-                </TouchableOpacity>
-              )}
-            />
-
-          </View>
-        }
+        {/* Close Button */}
+        {isFocused == true ?
+          <TouchableOpacity onPress={() => { setFocused(false); setSearchQuery(""); }}
+            style={searchStyles.closeButtonTouch}>
+            <Icon type="font-awesome" size={20} name={"times"} color={colors.green} />
+          </TouchableOpacity> : null}
       </View>
 
-      {/* POSTS */}
+      {/* CATEGORIES */}
+      <FlatList
+        ref={categoryScrollViewRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, paddingBottom: height * 0.025 }}
+        data={[{ _id: "all" }, ...categories]}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <TouchableOpacity onPress={() => setSelectedCategory(item._id)}>
+            <Text
+              style={[
+                searchStyles.SecondText,
+                { width: width * 0.3, marginHorizontal: width * 0.0125 },
+                selectedCategory == item._id
+                  ? {
+                    borderWidth: 2,
+                    borderColor: colors.green,
+                    backgroundColor: colors.white,
+                    color: colors.green,
+                    paddingVertical: "15%"
+                  }
+                  : {
+                    borderWidth: 2,
+                    borderColor: colors.green,
+                    backgroundColor: colors.green,
+                    color: colors.white,
+                    paddingVertical: "15%"
+                  },
+              ]}
+            >
+              #{item._id}
+            </Text>
+          </TouchableOpacity>
+        )}
+      />
 
+
+      {/* POSTS */}
       {focused == true ?
         (searchQuery.length !== 0 ?
           (<FlatList
@@ -232,6 +226,7 @@ export default function SearchScreen({ navigation, route }) {
             keyExtractor={(item) => item._id}
             showsVerticalScrollIndicator={false}
             contentContainerStyle={searchStyles.scrollContainer}
+            initialNumToRender={15}
             ref={scrollViewRef}
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
@@ -247,6 +242,7 @@ export default function SearchScreen({ navigation, route }) {
           keyExtractor={(item) => item._id}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={searchStyles.scrollContainer}
+          initialNumToRender={50}
           ref={scrollViewRef}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />

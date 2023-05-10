@@ -31,7 +31,7 @@ export default function SeeProfile({ navigation, route }) {
     const scrollViewRef = useRef(null);
 
     const handleLayout = () => {
-        scrollViewRef.current.scrollTo({ y: 0, animated: true });
+        scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
     };
 
     const [seeUser, setSeeUser] = useState({});

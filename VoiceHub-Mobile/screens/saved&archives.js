@@ -23,7 +23,7 @@ export default function SavedArchieves({ navigation, route }) {
   const scrollViewRef = useRef();
 
   const handleLayout = () => {
-    scrollViewRef.current.scrollTo({ y: 0, animated: true });
+    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
   const [openArchivePopUp, setOpenArchivePopUp] = useState(false)

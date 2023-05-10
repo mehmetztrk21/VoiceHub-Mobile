@@ -28,7 +28,7 @@ export default function SeePost({ navigation, route }) {
     const scrollViewRef = useRef();
 
     const handleLayout = () => {
-        scrollViewRef.current.scrollTo({ y: 0, animated: true });
+        scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
     };
 
     const [refreshing, setRefreshing] = useState(false);

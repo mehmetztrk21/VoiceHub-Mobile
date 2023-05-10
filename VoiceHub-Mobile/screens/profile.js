@@ -53,7 +53,7 @@ export default function ProfileScreen({ navigation }) {
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
-    scrollViewRef.current.scrollTo({ y: 0, animated: true })
+    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
   const getPosts = async () => {
