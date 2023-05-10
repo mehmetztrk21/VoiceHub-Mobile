@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { RefreshControl, SafeAreaView, ScrollView, TextInput, View } from "react-native";
+import { FlatList, RefreshControl, SafeAreaView, Text, TextInput, View } from "react-native";
 
 import messageStyle from "../assets/styles/message.style";
 import OtherHeader from "./components/otherHeader";
@@ -50,20 +50,33 @@ export default function Message({ navigation, title, id }) {
           <TextInput style={messageStyle.SearchBar} placeholder="Search" />
         </View>
 
-        <ScrollView style={messageStyle.Items} ref={scrollViewRef} onLayout={handleLayout}
+        <FlatList
+          style={messageStyle.Items}
+          ref={scrollViewRef}
+          onLayout={handleLayout}
+          data={userPostData}
+          renderItem={({ item, index }) => (
+            <MessageItem
+              key={index}
+              navigation={navigation}
+              username={item.username}
+              date={item.date}
+            />
+          )}
           refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-          } >
-          {userPostData.length != 0 ?
-            userPostData.map((item, index) => {
-              return (
-                <MessageItem key={index} navigation={navigation} username={item.username} date={item.date} />
-              )
-            }) :
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={() => pullThePage()}
+              colors={[colors.green]}
+            />
+          }
+          ListEmptyComponent={
             <View>
               <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16 }}>No message yet</Text>
-            </View>}
-        </ScrollView>
+            </View>
+          }
+        />
+
       </View>
     </SafeAreaView>
   );
