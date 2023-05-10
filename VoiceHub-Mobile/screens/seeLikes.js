@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-    Dimensions, RefreshControl, SafeAreaView, ScrollView, TextInput, View
+    Dimensions, FlatList, RefreshControl, SafeAreaView, ScrollView, TextInput, View
 } from "react-native";
 import LikeItem from "./components/LikeItem";
 import OtherHeader from "./components/otherHeader";
@@ -58,16 +58,29 @@ const SeeLikes = ({ navigation, route }) => {
                     />
                 </View>
 
-                <ScrollView style={seeLikesStyle.scroll} ref={scrollViewRef} onLayout={handleLayout}
+                <FlatList
+                    style={seeLikesStyle.scroll}
+                    data={users}
+                    keyExtractor={(item) => item._id}
+                    renderItem={({ item, index }) => (
+                        <LikeItem
+                            navigation={navigation}
+                            userId={item._id}
+                            profilePhotoUrl={item.profilePhotoUrl}
+                            username={item.username}
+                            isTic={item.isTic}
+                            key={index}
+                        />
+                    )}
                     refreshControl={
-                        <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-                    } >
-                    {users?.map((item, index) => {
-                        return (
-                            <LikeItem navigation={navigation} key={index} userId={item._id} profilePhotoUrl={item.profilePhotoUrl} username={item.username} isTic={item.isTic} />
-                        )
-                    })}
-                </ScrollView>
+                        <RefreshControl
+                            refreshing={refreshing}
+                            onRefresh={() => pullThePage()}
+                            colors={[colors.green]}
+                        />
+                    }
+                />
+
             </View>
         </SafeAreaView>
     )
