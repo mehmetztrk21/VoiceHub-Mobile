@@ -201,6 +201,13 @@ export default function ProfileScreen({ navigation }) {
         keyExtractor={(item) => item._id}
         refreshing={refreshing}
         onRefresh={pullThePage}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => pullThePage()}
+            colors={[colors.green]}
+          />
+        }
         showsVerticalScrollIndicator={false}
         contentContainerStyle={profileStyles.scroll}
         ListEmptyComponent={() => (
@@ -216,9 +223,7 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
         renderItem={({ item }) => (
-          <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
-            <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} />
-          </View>
+          <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} />
         )}
       />
     </SafeAreaView>

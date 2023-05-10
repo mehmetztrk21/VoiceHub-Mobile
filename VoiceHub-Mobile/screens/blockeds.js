@@ -66,6 +66,13 @@ const Blockeds = ({ navigation }) => {
                 keyExtractor={(item) => item.id}
                 refreshing={refreshing}
                 onRefresh={pullThePage}
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={() => pullThePage()}
+                        colors={[colors.green]}
+                    />
+                }
                 renderItem={({ item, index }) => (
                     <BlockedItem navigation={navigation} blockedUser={item} index={index} />
                 )}

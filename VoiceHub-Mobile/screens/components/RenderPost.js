@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 
 import colors from "../../assets/colors";
 
 import { baseURL } from "../../utils/constants";
+import { useUser } from "../../utils/userContext";
 import Post from "./post";
 import PostActions from "./postActions";
 import PostCategories from "./postCategories";
 import PostUserInfo from "./postUserInfo";
-import { useUser } from "../../utils/userContext";
 
 const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArchivePopUp, setOpenPopUpPost, post, thisUser }) => {
 
@@ -42,9 +42,9 @@ const RenderPost = ({ navigation, HeaderTitle, setOpenEditPostPopUp, setOpenArch
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
+    width: "90%",
+    marginLeft: "5%",
     backgroundColor: colors.white,
-    marginHorizontal: "5%",
     shadowColor: colors.black,
     shadowOffset: {
       width: 0,

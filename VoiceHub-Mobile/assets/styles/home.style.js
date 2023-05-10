@@ -6,14 +6,15 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: "column",
         justifyContent: "center",
-        width:"100%",
+        width: "100%",
         backgroundColor: colors.white,
     },
-    scroll:{
-        marginTop:"25%",
-        marginBottom:65,
+    scroll: {
+        backgroundColor: colors.white,
+        width: "100%",
+        marginBottom: 65,
     },
-    animScroll:{
-        marginBottom:120,
+    animScroll: {
+        marginBottom: 120,
     },
 });

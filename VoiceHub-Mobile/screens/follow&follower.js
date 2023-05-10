@@ -136,9 +136,10 @@ const FollowFollower = ({ navigation, route }) => {
                 ) : null}
 
                 <FlatList
-                    style={followFollowerStyle.scroll}
                     data={title == "Followers" ? followers : followings}
                     keyExtractor={(item, index) => index.toString()}
+                    refreshing={refreshing}
+                    onRefresh={pullThePage}
                     refreshControl={
                         <RefreshControl
                             refreshing={refreshing}
@@ -229,6 +230,7 @@ const FollowFollower = ({ navigation, route }) => {
                             </Text>
                         </View>
                     }
+                    contentContainerStyle={followFollowerStyle.scroll}
                 />
 
             </View>

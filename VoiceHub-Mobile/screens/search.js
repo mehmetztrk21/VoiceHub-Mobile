@@ -6,6 +6,7 @@ import {
   FlatList,
   Modal,
   RefreshControl,
+  SafeAreaView,
   ScrollView, Text, TextInput, TouchableOpacity, View
 } from "react-native";
 import { Icon } from "react-native-elements";
@@ -115,7 +116,7 @@ export default function SearchScreen({ navigation, route }) {
   if (loading) return <Loading />
 
   return (
-    <View style={searchStyles.container}>
+    <SafeAreaView style={searchStyles.container}>
       <SearchHeader pressLogo={handleScrollToTop} />
 
       <Modal
@@ -245,7 +246,7 @@ export default function SearchScreen({ navigation, route }) {
           data={posts}
           keyExtractor={(item) => item._id}
           showsVerticalScrollIndicator={false}
-          style={searchStyles.scrollContainer}
+          contentContainerStyle={searchStyles.scrollContainer}
           ref={scrollViewRef}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
@@ -256,7 +257,7 @@ export default function SearchScreen({ navigation, route }) {
         />
 
       }
-    </View>
+    </SafeAreaView>
   );
 }
 /**/

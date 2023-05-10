@@ -123,7 +123,10 @@ export default function SavedArchieves({ navigation, route }) {
         </View>
       ) : null}
 
-      <View style={{ marginTop: width * 0.04 }}>
+      <View style={{
+        marginTop: width * 0.25,
+        marginBottom: 65
+      }}>
         <FlatList
           data={posts}
           keyExtractor={(item) => item.id}
