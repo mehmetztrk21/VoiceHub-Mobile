@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { FlatList, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
 
 import colors from "../assets/colors";
 
@@ -61,26 +61,36 @@ const Blockeds = ({ navigation }) => {
         <SafeAreaView style={{ width: "100%", flex: 1, backgroundColor: colors.white, }}>
             <OtherHeader navigation={navigation} HeaderTitle={"Blocked Accounts"} isTic={false} />
 
-            <ScrollView style={{ paddingHorizontal: "7.5%", marginTop: "25%", }} ref={scrollViewRef}
-                onLayout={handleLayout} refreshControl={
-                    <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
-                } >
-
-                {users?.length != 0 ?
-
-                    users?.map((item, index) => {
-
-                        return < BlockedItem navigation={navigation} blockedUser={item} index={index} />
-
-                    }) :
-
+            <FlatList
+                data={users}
+                keyExtractor={(item) => item.id}
+                refreshing={refreshing}
+                onRefresh={pullThePage}
+                renderItem={({ item, index }) => (
+                    <BlockedItem navigation={navigation} blockedUser={item} index={index} />
+                )}
+                ListEmptyComponent={
                     <View style={{ marginTop: "20%" }}>
-                        <Text style={{ textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16, textAlign: "center" }}>
+                        <Text
+                            style={{
+                                textAlign: "center",
+                                marginBottom: 20,
+                                color: colors.green,
+                                fontWeight: "700",
+                                fontSize: 16,
+                                textAlign: "center",
+                            }}
+                        >
                             There are no users you have blocked
                         </Text>
                     </View>
                 }
-            </ScrollView>
+                contentContainerStyle={{
+                    paddingHorizontal: "7.5%",
+                    marginTop: "25%",
+                }}
+            />
+
         </SafeAreaView>
     )
 }
