@@ -14,13 +14,13 @@ const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
     const { user, setUser } = useUser();
 
     const followUnfollow = async () => {
-        await setFollowFollower({ userId: id }).then(async (res) => {
+        await setFollowFollower({ userId: userId }).then(async (res) => {
             if (res?.success) {
                 let temp = { ...user };
                 if (res.data == "Unfollowed successfully")
-                    temp?.followings?.splice(temp?.followings?.indexOf(id), 1);
+                    temp?.followings?.splice(temp?.followings?.indexOf(userId), 1);
                 else
-                    temp?.followings?.push(id);
+                    temp?.followings?.push(userId);
                 await AsyncStorage.setItem("user", JSON.stringify(temp));
                 setUser(temp);
             }

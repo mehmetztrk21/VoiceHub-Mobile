@@ -9,13 +9,17 @@ import { getUserById } from "../services/userServices";
 
 import colors from "../assets/colors";
 import seeLikesStyle from "../assets/styles/seeLikes.style";
+import { useUser } from "../utils/userContext";
+import Loading from "./components/loading";
 
 const { width } = Dimensions.get("window");
 
 const SeeLikes = ({ navigation, route }) => {
     const { likes } = route.params;
+    const { user } = useUser();
 
     const [users, setUsers] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const scrollViewRef = useRef(null);
 
@@ -34,6 +38,7 @@ const SeeLikes = ({ navigation, route }) => {
     }
 
     useEffect(() => {
+        setLoading(true);
         if (likes && likes.length) { // added a check here
             likes.map((item) => {
                 getUserById({ id: item })
@@ -45,7 +50,12 @@ const SeeLikes = ({ navigation, route }) => {
                     });
             });
         }
+        setLoading(false);
     }, []);
+
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <SafeAreaView style={seeLikesStyle.container}>
