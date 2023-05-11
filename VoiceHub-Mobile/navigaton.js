@@ -35,7 +35,7 @@ const SignedInStack = () => {
     headerShown: false
   }
 
-  const [currentRoute, setCurrentRoute] = React.useState("");
+  const [currentRoute, setCurrentRoute] = React.useState("Login");
 
   const handleNavigationStateChange = (state) => {
     if (state && state.routes && state.routes.length > 0) {
