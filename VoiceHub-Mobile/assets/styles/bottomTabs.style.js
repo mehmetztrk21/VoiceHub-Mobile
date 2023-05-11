@@ -8,8 +8,6 @@ export default StyleSheet.create({
         zIndex: 999,
         backgroundColor: colors.green,
         bottom: 0,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
         justifyContent: "center",
     },
     container: {
