@@ -191,7 +191,7 @@ export default function SearchScreen({ navigation, route }) {
         contentContainerStyle={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, paddingBottom: height * 0.025 }}
         data={[{ _id: "all" }, ...categories]}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <TouchableOpacity onPress={() => setSelectedCategory(item._id)}>
             <Text
               style={[
@@ -233,7 +233,7 @@ export default function SearchScreen({ navigation, route }) {
             refreshControl={
               <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
             }
-            renderItem={({ item }) => (
+            renderItem={({ item, index }) => (
               <RenderLastSearchedUser navigation={navigation} thisUser={item} title={"search"} />
             )}
           />) :
@@ -248,7 +248,7 @@ export default function SearchScreen({ navigation, route }) {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
           }
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} post={item} setOpenPopUpPost={setOpenPopUpPost} />
           )}
         />

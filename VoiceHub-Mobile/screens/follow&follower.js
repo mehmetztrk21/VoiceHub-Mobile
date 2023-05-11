@@ -147,8 +147,8 @@ const FollowFollower = ({ navigation, route }) => {
                             colors={[colors.green]}
                         />
                     }
-                    renderItem={({ item }) => (
-                        <View style={followFollowerStyle.item}>
+                    renderItem={({ item, index }) => (
+                        <View style={followFollowerStyle.item} key={index}>
                             <TouchableOpacity
                                 style={followFollowerStyle.seeProfile}
                                 onPress={() => {

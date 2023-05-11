@@ -215,7 +215,7 @@ export default function SeeProfile({ navigation, route }) {
                 ListEmptyComponent={() => (
                     <Text style={seeProfileStyles.notPost}>Have not post anyone yet</Text>
                 )}
-                renderItem={({ item }) => (
+                renderItem={({ item, index }) => (
                     <RenderPost
                         navigation={navigation}
                         HeaderTitle={"OtherProfiles"}

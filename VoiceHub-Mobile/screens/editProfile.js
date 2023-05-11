@@ -1,27 +1,22 @@
 import React, { useState } from "react";
 import { Image, KeyboardAvoidingView, Modal, Text, TextInput, TouchableOpacity, View } from "react-native";
 
-import { Icon } from "react-native-elements";
+import * as FileSystem from 'expo-file-system';
+import { Picker } from "@react-native-picker/picker";
 
-
-import colors from "../assets/colors";
 import editProfileStyle from "../assets/styles/editProfile.style";
 
-import * as FileSystem from 'expo-file-system';
-
-import Loading from "../screens/components/loading";
-
+import Loading from "./components/loading";
 import AddVoice from "./components/addVoice";
 import BioVoicePopUp from "./components/bioVoicePopUp";
 import OtherHeader from "./components/otherHeader";
-import Slider from "./components/slider";
+import Post from "./components/post";
+import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 
-import { Picker } from "@react-native-picker/picker";
-import { Dimensions } from "react-native";
 import { getUserById, removeUserFiles, updateUserInfo } from '../services/userServices';
+
 import { baseURL } from "../utils/constants";
 import { useUser } from "../utils/userContext";
-import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 
 export default function EditProfile({ navigation }) {
 
@@ -171,9 +166,7 @@ export default function EditProfile({ navigation }) {
       <View style={{ marginVertical: "3%", marginHorizontal: "10%" }}>
         {user?.descriptionVoiceUrl != null ? (
           <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "center" }}>
-
-            <Icon type="feather" size={28} name={"play"} color={colors.black} style={{ paddingRight: 10 }} />
-            <Slider />
+            <Post uri={user?.descriptionVoiceUrl} />
             <TouchableOpacity onPress={() => { setOpenBioVoicePopUp(true) }}>
               <Text style={editProfileStyle.editButtonText}>Edit</Text>
             </TouchableOpacity>

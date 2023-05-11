@@ -222,7 +222,7 @@ export default function ProfileScreen({ navigation }) {
             </TouchableOpacity>
           </View>
         )}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} />
         )}
       />

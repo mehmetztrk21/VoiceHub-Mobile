@@ -43,7 +43,7 @@ export default function Message({ navigation }) {
           ref={scrollViewRef}
           onLayout={handleLayout}
           data={userPostData}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             <MessageItem
               navigation={navigation}
               username={item.username}

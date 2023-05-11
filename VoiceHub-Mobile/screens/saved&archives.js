@@ -132,7 +132,7 @@ export default function SavedArchieves({ navigation, route }) {
           keyExtractor={(item) => item.id}
           refreshing={refreshing}
           onRefresh={() => pullThePage()}
-          renderItem={({ item }) => (
+          renderItem={({ item, index }) => (
             HeaderTitle == "Saved" ?
               <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
                 setOpenArchivePopUp={setOpenArchivePopUp} post={item} setOpenPopUpPost={setOpenPopUpPost} /> :
