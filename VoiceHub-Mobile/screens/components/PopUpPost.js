@@ -36,16 +36,6 @@ const PopUpPost = ({ id, setId, uri }) => {
         setId(false);
     }
 
-    const postLiked = async () => {
-        await setLikedPost({ postId: id });
-        setId(false);
-    };
-
-    const postSave = async () => {
-        await setSavedPost({ postId: id });
-        setId(false);
-    };
-
     const shareThisPost = async () => {
         try {
             Share.share({
@@ -90,21 +80,8 @@ const PopUpPost = ({ id, setId, uri }) => {
                     <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={setSeeLike}>
                         <Icon type={"font-awesome"} name={post?.isLikesVisible == true ? "heart-o" : "heart"} size={28} color={colors.white} />
                         <Text style={PopUpPostStyles.text}>{post?.isLikesVisible == true ? "Unshow Likes" : "Show Likes"}</Text>
-                    </TouchableOpacity> : null}
-
-                <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={postLiked}>
-                    <Icon type={"font-awesome"} name={"heart-o"} size={28} color={colors.white} />
-                    <Text style={PopUpPostStyles.text}>
-                        {post?.likes?.includes(user?._id) ? "Unlike Post" : "Like Post"}
-                    </Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={postSave}>
-                    <Icon type={"font-awesome"} name={"bookmark-o"} size={28} color={colors.white} />
-                    <Text style={PopUpPostStyles.text}>
-                        {user?.savedPosts?.includes(post?._id) ? "Unsave Post" : "Save Post"}
-                    </Text>
-                </TouchableOpacity>
+                    </TouchableOpacity>
+                    : null}
 
                 <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={shareThisPost}>
                     <Icon type={"font-awesome"} name={"share"} size={28} color={colors.white} />
