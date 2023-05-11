@@ -126,6 +126,7 @@ export default function Register({ navigation }) {
                     value={password1}
                     secureTextEntry={!isPasswordVisible}
                     onChangeText={password1 => setPassword1(password1)}
+                    autoCapitalize="none"
                 />
                 <TouchableOpacity onPress={handlePasswordVisibility}>
                     <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
@@ -139,6 +140,7 @@ export default function Register({ navigation }) {
                 value={password2}
                 secureTextEntry={!isPasswordVisible}
                 onChangeText={password2 => setPassword2(password2)}
+                autoCapitalize="none"
             />
 
             <TouchableOpacity style={registerStyle.touch} onPress={() => isRegister()}>

@@ -87,6 +87,7 @@ export default function Login({ navigation }) {
                     value={password}
                     secureTextEntry={!isPasswordVisible}
                     onChangeText={password => setPassword(password)}
+                    autoCapitalize="none"
                 />
                 <TouchableOpacity onPress={handlePasswordVisibility}>
                     <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
