@@ -5,19 +5,30 @@ import { Icon } from 'react-native-elements';
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
-import { removeUserFiles } from "../../services/userServices";
+import { getUserById, removeUserFiles } from "../../services/userServices";
 
 import { useUser } from '../../utils/userContext';
+import * as FileSystem from 'expo-file-system';
+import { updateUserInfo } from "../../services/userServices";
 
 import colors from '../../assets/colors';
 import profilePhotoPopUpStyle from '../../assets/styles/profilePhotoPopUp.style';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp, image, setImage }) => {
+const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp, setImage, title }) => {
 
     const { user, setUser } = useUser();
 
     const deletePhoto = async () => {
-        await removeUserFiles({ type: "profilePhoto" })
+        await removeUserFiles({ type: "profilePhoto" });
+
+        getUserById({ id: user?._id }).then(async (res) => {
+            setUser(res?.data);
+            await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+        }).catch((err) => {
+            console.log(err);
+        })
+
         setImage(null);
         setOpenProfilePhotoPopUp(false);
     }
@@ -34,12 +45,39 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp, image, setImage }) => {
             });
 
             if (!result.cancelled) {
-                setImage(result.uri);
+                setImage(res.uri);
+                if (title == "ProfileScreen") {
+                    save(res.uri);
+                }
                 setOpenProfilePhotoPopUp(false);
             }
         } else {
             throw new Error('Camera permission not granted');
         }
+    }
+
+    const save = async (uri) => {
+        const formData = new FormData();
+        const info = await FileSystem.getInfoAsync((uri) ? uri : user?.profilePhotoUrl);
+        if (uri) {
+            formData.append("profilePhoto", {
+                uri: info.uri,
+                type: 'image/jpeg', // ya da 'image/png'
+                name: 'profilePhoto.jpeg',
+            });
+        }
+        const response = await updateUserInfo(formData);
+
+        if (response && response.success) {
+            getUserById({ id: user?._id }).then(async (res) => {
+                setUser(res?.data);
+                await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+            }).catch((err) => {
+                console.log(err);
+            })
+        }
+
+        setOpenProfilePhotoPopUp(false);
     }
 
     const pickImage = async () => {
@@ -53,6 +91,9 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp, image, setImage }) => {
         }).then((res) => {
             if (!res.cancelled) {
                 setImage(res.uri);
+                if (title == "ProfileScreen") {
+                    save(res.uri);
+                }
                 setOpenProfilePhotoPopUp(false);
             }
         });

@@ -24,7 +24,7 @@ import { getMyPosts } from "../services/postServices";
 import { baseURL } from "../utils/constants";
 import { followerCountFormatText } from "../utils/followerCountFormatText";
 import { useUser } from "../utils/userContext";
-
+import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 const { width } = Dimensions.get("window");
 
 export default function ProfileScreen({ navigation }) {
@@ -35,11 +35,13 @@ export default function ProfileScreen({ navigation }) {
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false);
   const [visiblePopUp, setVisiblePopUp] = useState(false);
   const [openEditCategoriesPopUp, setOpenEditCategoriesPopUp] = useState();
+  const [openProfilePhotoPopUp, setOpenProfilePhotoPopUp] = useState(false);
 
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
 
-  const { user } = useUser();
+  const { user, setUser } = useUser();
   const [posts, setPosts] = useState([]);
 
   const pullThePage = () => {
@@ -74,6 +76,7 @@ export default function ProfileScreen({ navigation }) {
       console.error('Share error:', error);
     }
   }
+
 
   useEffect(() => {
     setLoading(true);
@@ -134,11 +137,20 @@ export default function ProfileScreen({ navigation }) {
         <EditCategoriesPopUp setId={setOpenEditPostPopUp} categories={openEditCategoriesPopUp} setCategories={setOpenEditCategoriesPopUp} />
       </Modal>
 
+      <Modal visible={openProfilePhotoPopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setOpenProfilePhotoPopUp(false)
+        }}>
+        <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"ProfileScreen"}/>
+      </Modal>
+
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
-          <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
+          <TouchableOpacity onPress={() => setOpenProfilePhotoPopUp(true)}>
             {user?.profilePhotoUrl ?
               < Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} /> :
               <Image source={require('../assets/avatar.png')} style={profileStyles.userPic} />

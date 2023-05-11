@@ -17,6 +17,7 @@ import { getUserById, removeUserFiles, updateUserInfo } from '../services/userSe
 
 import { baseURL } from "../utils/constants";
 import { useUser } from "../utils/userContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function EditProfile({ navigation }) {
 
@@ -74,6 +75,7 @@ export default function EditProfile({ navigation }) {
     if (response && response.success) {
       getUserById({ id: user?._id }).then(async (res) => {
         setUser(res?.data);
+        await AsyncStorage.setItem("user", JSON.stringify(res?.data));
       }).catch((err) => {
         console.log(err);
       })
@@ -96,7 +98,7 @@ export default function EditProfile({ navigation }) {
         onRequestClose={() => {
           setOpenProfilePhotoPopUp(false)
         }}>
-        <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} image={image} setImage={setImage} />
+        <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"EditProfile"} />
       </Modal>
 
       <Modal visible={openBioVoicePopUp}
