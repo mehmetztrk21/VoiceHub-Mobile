@@ -141,6 +141,7 @@ export default function EditProfile({ navigation }) {
         value={phone}
         onChangeText={phone => setPhone(phone)}
         style={editProfileStyle.searchBar}
+        keyboardType="phone-pad"
       />
 
       <Text style={editProfileStyle.label}>Birth Day</Text>

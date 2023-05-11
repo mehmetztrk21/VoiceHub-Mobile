@@ -108,6 +108,7 @@ export default function Register({ navigation }) {
                 maxLength={36}
                 value={email}
                 onChangeText={email => setEmail(email)}
+                keyboardType='email-address'
             />
 
             <Text style={registerStyle.label}>Phone</Text>
@@ -116,6 +117,7 @@ export default function Register({ navigation }) {
                 maxLength={20}
                 value={phone}
                 onChangeText={phone => setPhone(phone)}
+                keyboardType='phone-pad'
             />
 
             <Text style={registerStyle.label}>Password</Text>
