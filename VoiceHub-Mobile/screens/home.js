@@ -1,13 +1,14 @@
 import { useIsFocused } from "@react-navigation/native";
 
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
 //importing components
 import HomeHeader from "./components/HomeHeader";
 import PopUpPost from "./components/PopUpPost";
 import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
 import Loading from "./components/loading";
+const { height } = Dimensions.get("window");
 
 import { getMainPagePosts } from "../services/postServices";
 
@@ -82,12 +83,10 @@ export default function HomeScreen({ navigation }) {
         data={posts}
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
+        ref={scrollViewRef}
+        contentContainerStyle={homeStyles.scroll}
         refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={() => pullThePage()}
-            colors={[colors.green]}
-          />
+          <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} progressViewOffset={height * 0.15} />
         }
         ListEmptyComponent={
           <View style={{ marginTop: "5%" }}>
@@ -138,7 +137,6 @@ export default function HomeScreen({ navigation }) {
             setOpenPopUpPost={setOpenPopUpPost}
           />
         )}
-        contentContainerStyle={homeStyles.scroll}
       />
 
     </SafeAreaView>
