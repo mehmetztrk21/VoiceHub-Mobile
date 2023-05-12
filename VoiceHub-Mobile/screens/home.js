@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
 //importing components
 import HomeHeader from "./components/HomeHeader";
 import PopUpPost from "./components/PopUpPost";
@@ -11,13 +11,16 @@ import Loading from "./components/loading";
 const { height } = Dimensions.get("window");
 
 import { getMainPagePosts } from "../services/postServices";
-
+import { useUser } from "../utils/userContext";
 //importing styles
 import colors from "../assets/colors";
 import homeStyles from "../assets/styles/home.style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
+  const { user, setUser } = useUser();
+
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -46,6 +49,16 @@ export default function HomeScreen({ navigation }) {
     }
     setLoading(false);
   }
+
+  useEffect(() => {
+    if (user?.reActive) {
+      alert("Welcome again", user?.username);
+      let temp = { ...user };
+      temp.reActive = false;
+      setUser(temp);
+      AsyncStorage.setItem("user", JSON.stringify(temp));
+    }
+  }, [])
 
   useEffect(() => {
     setLoading(true);

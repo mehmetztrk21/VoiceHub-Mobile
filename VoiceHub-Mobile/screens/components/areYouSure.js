@@ -11,7 +11,7 @@ const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) 
     const Operation = async (status) => {
         if (status) {
             if (process == "LogOut") {
-                console.log("LogOut");
+                console.log("Log Out");
                 await logout();
                 setOpenAreYouSure(false);
                 await AsyncStorage.clear();
@@ -23,9 +23,9 @@ const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) 
                 console.log("Deleted Comment");
             }
             else if (process == "Freeze") {
+                console.log("Freeze Account");
                 await deactivateAccount();
                 setOpenAreYouSure(false);
-                console.log("Freeze Account");
                 console.log("LogOut");
                 await AsyncStorage.clear();
                 navigation.navigate("Login");
