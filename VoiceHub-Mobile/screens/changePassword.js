@@ -5,6 +5,7 @@ import colors from "../assets/colors";
 import OtherHeader from "../screens/components/otherHeader";
 import { changePassword } from "../services/userServices";
 import changePasswordStyle from "../assets/styles/changePassword.style";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ChangePassword = ({ navigation }) => {
 
@@ -17,11 +18,17 @@ const ChangePassword = ({ navigation }) => {
 
         if (password1 == password2) {
             await changePassword({ password: old, newPassword: password2 }).then(async (res) => {
-                if (res?.success) {
-                    alert("Your password has been successfully changed!")
+                if (res?.data?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
                 }
                 else {
-                    alert("You did not enter your old password correctly")
+                    if (res?.success) {
+                        alert("Your password has been successfully changed!")
+                    }
+                    else {
+                        alert("You did not enter your old password correctly")
+                    }
                 }
             }).catch((err) => {
                 console.log(err);

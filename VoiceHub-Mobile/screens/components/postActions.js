@@ -7,8 +7,7 @@ import { setLikedPost, setSavedPost } from '../../services/actionServices'
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
-export default function postActions(
-  { navigation, post, likes, postId, title }) {
+export default function postActions({ navigation, post, likes, postId, title }) {
   const { user, setUser } = useUser();
 
   const [liked, setLiked] = useState(false)

@@ -15,7 +15,7 @@ import colors from '../../assets/colors';
 import profilePhotoPopUpStyle from '../../assets/styles/profilePhotoPopUp.style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp, setImage, title }) => {
+const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, title }) => {
 
     const { user, setUser } = useUser();
 
@@ -70,8 +70,15 @@ const ProfilePhotoPopUp = ({ setOpenProfilePhotoPopUp, setImage, title }) => {
 
         if (response && response.success) {
             getUserById({ id: user?._id }).then(async (res) => {
-                setUser(res?.data);
-                await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+                if (res?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+                else {
+                    setUser(res?.data);
+                    await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+                }
+                
             }).catch((err) => {
                 console.log(err);
             })

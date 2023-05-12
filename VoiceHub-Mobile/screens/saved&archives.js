@@ -14,6 +14,7 @@ import colors from '../assets/colors';
 import { baseURL } from '../utils/constants';
 import { useUser } from '../utils/userContext';
 import PopUpPost from './components/PopUpPost';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const { width } = Dimensions.get("window");
 
 export default function SavedArchieves({ navigation, route }) {
@@ -49,11 +50,23 @@ export default function SavedArchieves({ navigation, route }) {
       if (response && response.success) {
         setPosts(response?.data);
       }
+      else {
+        if (response?.message == "Unauthorized") {
+          await AsyncStorage.clear();
+          navigation.navigate("Login");
+        }
+      }
     }
     else if (HeaderTitle == "Saved") {
       const response = await getSavedPosts({ page: 1, limit: 20 });
       if (response && response.success) {
         setPosts(response?.data);
+      }
+      else {
+        if (response?.message == "Unauthorized") {
+          await AsyncStorage.clear();
+          navigation.navigate("Login");
+        }
       }
     }
     else {
@@ -95,7 +108,7 @@ export default function SavedArchieves({ navigation, route }) {
         visible={openPopUpPost ? true : false}
         onRequestClose={() => { setOpenPopUpPost(false) }}
       >
-        <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+        <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
       {(HeaderTitle == "Archived" && posts?.length == 0) ? (

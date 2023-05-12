@@ -14,8 +14,9 @@ import addVoiceStyle from "../../assets/styles/addVoice.style";
 import { createComment } from "../../services/commentServices";
 import { recordingOptions } from '../../utils/recordingOptions';
 import { timeFormatText } from "../../utils/timeFormatText";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice }) {
+export default function AddVoice({ navigation, title, postId, setIsAddVoice, setOpenAddVoice }) {
   const [isRunning, setIsRunning] = useState(false);
   const [recording, setRecording] = useState(null);
   const [seconds, setSeconds] = useState(0);
@@ -101,7 +102,11 @@ export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice
         type: 'audio/mpeg',
       });
 
-      const response = await createPost(formData);
+      const res = await createPost(formData);
+      if (res?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
     }
 
     else if (title == "comments") {
@@ -113,7 +118,11 @@ export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice
 
       formData.append("postId", postId);
 
-      const response = await createComment(formData);
+      const res = await createComment(formData);
+      if (res?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
     }
 
     else if (title == "bio") {

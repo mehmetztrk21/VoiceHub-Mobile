@@ -51,6 +51,12 @@ const FollowFollower = ({ navigation, route }) => {
                 await AsyncStorage.setItem("user", JSON.stringify(temp));
                 setUser(temp);
             }
+            else {
+                if (res?.data?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+            }
         }).catch((err) => {
             console.log(err);
         });
@@ -60,8 +66,14 @@ const FollowFollower = ({ navigation, route }) => {
         setLoading(true);
         if (title == "Followings") {
             getFollowings({ userId: thisUser?._id }).then((res) => {
-                setFollowings(res?.data);
-                setLoading(false);
+                if (res?.data?.message == "Unauthorized") {
+                    AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+                else {
+                    setFollowings(res?.data);
+                    setLoading(false);
+                }
             }).catch((err) => {
                 console.log(err);
                 setLoading(false);
@@ -70,8 +82,14 @@ const FollowFollower = ({ navigation, route }) => {
         }
         else if (title == "Followers") {
             getFollowers({ userId: thisUser?._id }).then((res) => {
-                setFollowers(res?.data);
-                setLoading(false);
+                if (res?.data?.message == "Unauthorized") {
+                    AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+                else {
+                    setFollowers(res?.data);
+                    setLoading(false);
+                }
 
             }).catch((err) => {
                 console.log(err);
@@ -86,7 +104,13 @@ const FollowFollower = ({ navigation, route }) => {
     useEffect(() => {
         if (title == "Followings") {
             getFollowings({ userId: thisUser?._id }).then((res) => {
-                setFollowings(res?.data);
+                if (res?.data?.message == "Unauthorized") {
+                    AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+                else {
+                    setFollowings(res?.data);
+                }
             }).catch((err) => {
                 console.log(err);
 
@@ -94,7 +118,13 @@ const FollowFollower = ({ navigation, route }) => {
         }
         else if (title == "Followers") {
             getFollowers({ userId: thisUser?._id }).then((res) => {
-                setFollowers(res?.data);
+                if (res?.data?.message == "Unauthorized") {
+                    AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+                else {
+                    setFollowers(res?.data);
+                }
 
             }).catch((err) => {
                 console.log(err);

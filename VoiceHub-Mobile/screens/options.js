@@ -41,6 +41,12 @@ const Options = ({ navigation }) => {
             })
 
         }
+        else {
+            if (response?.data?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+        }
     }
 
     const changeUsername = async () => {
@@ -62,7 +68,10 @@ const Options = ({ navigation }) => {
             alert("Username already exists");
         }
         else {
-            alert("error");
+            if (response?.data?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
         }
         setLoading(false);
     }

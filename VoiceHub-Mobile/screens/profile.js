@@ -1,8 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Dimensions, Image, Modal, Share,
-  RefreshControl, SafeAreaView, ScrollView, Text,
-  TouchableOpacity, View, FlatList,
+  Dimensions,
+  FlatList,
+  Image, Modal,
+  RefreshControl, SafeAreaView,
+  Share,
+  Text,
+  TouchableOpacity, View
 } from "react-native";
 
 import { useIsFocused } from "@react-navigation/native";
@@ -10,21 +14,24 @@ import { useIsFocused } from "@react-navigation/native";
 import colors from "../assets/colors";
 import profileStyles from "../assets/styles/profile.style";
 
-import AreYouSure from "./components/areYouSure";
-import EditPostPopUp from "./components/editPostPopUp";
-import EditCategoriesPopUp from "./components/editCategoriesPopUp";
 import PopUp from "./components/ProfileBottomPopUp";
+import RenderPost from "./components/RenderPost";
+import AreYouSure from "./components/areYouSure";
+import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
+import EditCategoriesPopUp from "./components/editCategoriesPopUp";
+import EditPostPopUp from "./components/editPostPopUp";
+import Loading from "./components/loading";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
-import RenderPost from "./components/RenderPost";
-import Loading from "./components/loading";
 
 import { getMyPosts } from "../services/postServices";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { baseURL } from "../utils/constants";
 import { followerCountFormatText } from "../utils/followerCountFormatText";
 import { useUser } from "../utils/userContext";
-import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
+
 const { width } = Dimensions.get("window");
 
 export default function ProfileScreen({ navigation }) {
@@ -41,7 +48,7 @@ export default function ProfileScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState(null);
 
-  const { user, setUser } = useUser();
+  const { user } = useUser();
   const [posts, setPosts] = useState([]);
 
   const pullThePage = () => {
@@ -63,6 +70,12 @@ export default function ProfileScreen({ navigation }) {
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
       setPosts(response?.data);
+    }
+    else {
+      if (response?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
     }
     setLoading(false);
   }
@@ -125,7 +138,7 @@ export default function ProfileScreen({ navigation }) {
         visible={openEditPostPopUp ? true : false}
         onRequestClose={() => { setOpenEditPostPopUp(false) }}
       >
-        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} />
+        <EditPostPopUp navigation={navigation} id={openEditPostPopUp} setId={setOpenEditPostPopUp} setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} />
       </Modal>
 
       <Modal
@@ -143,7 +156,7 @@ export default function ProfileScreen({ navigation }) {
         onRequestClose={() => {
           setOpenProfilePhotoPopUp(false)
         }}>
-        <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"ProfileScreen"}/>
+        <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"ProfileScreen"} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>

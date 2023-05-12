@@ -17,6 +17,7 @@ import { createPost } from "../services/postServices";
 
 import { recordingOptions } from "../utils/recordingOptions";
 import { timeFormatText } from "../utils/timeFormatText";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
@@ -145,7 +146,11 @@ export default function Upload({ navigation }) {
         }
 
 
-        const response = await createPost(formData);
+        const res = await createPost(formData);
+        if (res?.message == "Unauthorized") {
+            await AsyncStorage.clear();
+            navigation.navigate("Login");
+          }
         setRecording(new Audio.Recording());
         console.log("Post loaded");
 

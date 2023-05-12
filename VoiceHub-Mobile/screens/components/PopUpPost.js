@@ -13,27 +13,44 @@ import { getUserById } from "../../services/userServices"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
 
-const PopUpPost = ({ id, setId, uri }) => {
+const PopUpPost = ({ navigation, id, setId, uri }) => {
     const { user, setUser } = useUser();
     const [post, setPost] = useState({});
     const [seeUser, setSeeUser] = useState({});
 
     useEffect(() => {
         getPostById({ postId: id }).then(async (res) => {
-            setPost(res?.data);
-            getUserById({ id: res?.data?.createdBy }).then(async (response) => {
-                setSeeUser(response?.data);
-            }).catch((err) => {
-
-            });
+            if (res?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setPost(res?.data);
+                getUserById({ id: res?.data?.createdBy }).then(async (response) => {
+                    if (response?.message == "Unauthorized") {
+                        await AsyncStorage.clear();
+                        navigation.navigate("Login");
+                    }
+                    else {
+                        setSeeUser(response?.data);
+                    }
+                }).catch((err) => {
+                    console.log(err)
+                });
+            }
         }).catch((err) => {
             console.log(err);
         });
     }, [])
 
     const setSeeLike = async () => {
-        await setSeeLikes({ postId: id });
+        const res = await setSeeLikes({ postId: id });
         setId(false);
+
+        if (res?.message == "Unauthorized") {
+            await AsyncStorage.clear();
+            navigation.navigate("Login");
+        }
     }
 
     const shareThisPost = async () => {
@@ -59,6 +76,12 @@ const PopUpPost = ({ id, setId, uri }) => {
                 await getUser();
                 setId(false);
             }
+            else {
+                if (res?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+            }
         }).catch((err) => {
             console.log(err);
         });
@@ -66,7 +89,13 @@ const PopUpPost = ({ id, setId, uri }) => {
 
     const getUser = async () => {
         getUserById({ id: seeUser._id }).then(async (res) => {
-            setSeeUser(res?.data);
+            if (res?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setSeeUser(res?.data);
+            }
         }).catch((err) => {
             console.log(err);
         })

@@ -59,6 +59,12 @@ export default function SeeProfile({ navigation, route }) {
             setPosts(response?.data);
             console.log(response?.data)
         }
+        else{
+            if (response?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+              }
+        }
         setLoading(false)
     }
     const followUnfollow = async () => {
@@ -74,13 +80,25 @@ export default function SeeProfile({ navigation, route }) {
                 await AsyncStorage.setItem("user", JSON.stringify(temp));
                 await getUser();
             }
+            else {
+                if (res?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+            }
         }).catch((err) => {
             console.log(err);
         });
     }
     const getUser = async () => {
         getUserById({ id: userId }).then(async (res) => {
-            setSeeUser(res?.data);
+            if (res?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setSeeUser(res?.data);
+            }
         }).catch((err) => {
             console.log(err);
         })

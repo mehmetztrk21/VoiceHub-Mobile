@@ -19,6 +19,7 @@ import { getUserById } from "../services/userServices";
 import { getPostById } from "../services/postServices";
 import { baseURL } from "../utils/constants";
 import { FlatList } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
@@ -51,7 +52,13 @@ export default function SeePost({ navigation, route }) {
 
     const getUser = async () => {
         getUserById({ id: userId }).then(async (res) => {
-            setUser(res?.data);
+            if (res?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setUser(res?.data);
+            }
         }).catch((err) => {
             console.log(err, index);
         })
@@ -59,7 +66,13 @@ export default function SeePost({ navigation, route }) {
 
     const getPost = async () => {
         getPostById({ postId: postId }).then(async (res) => {
-            setPost(res?.data);
+            if (res?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setPost(res?.data);
+            }
         }).catch((err) => {
             console.log(err);
         })

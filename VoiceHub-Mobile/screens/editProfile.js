@@ -81,6 +81,12 @@ export default function EditProfile({ navigation }) {
       })
       setLoading(false);
     }
+    else {
+      if (res?.data?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
+    }
     navigation.goBack();
   }
 
@@ -98,7 +104,7 @@ export default function EditProfile({ navigation }) {
         onRequestClose={() => {
           setOpenProfilePhotoPopUp(false)
         }}>
-        <ProfilePhotoPopUp setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"EditProfile"} />
+        <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"EditProfile"} />
       </Modal>
 
       <Modal visible={openBioVoicePopUp}

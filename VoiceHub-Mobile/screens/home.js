@@ -47,12 +47,18 @@ export default function HomeScreen({ navigation }) {
     if (response && response.success) {
       setPosts(response?.data);
     }
+    else {
+      if (response?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
+    }
     setLoading(false);
   }
 
   useEffect(() => {
     if (user?.reActive) {
-      alert("Welcome again", user?.username);
+      alert("Welcome again " + user?.username);
       let temp = { ...user };
       temp.reActive = false;
       setUser(temp);
@@ -89,7 +95,7 @@ export default function HomeScreen({ navigation }) {
         visible={openPopUpPost ? true : false}
         onRequestClose={() => { setOpenPopUpPost(false) }}
       >
-        <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+        <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
       <FlatList

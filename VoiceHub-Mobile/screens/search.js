@@ -23,6 +23,7 @@ import Loading from "./components/loading";
 
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width, height } = Dimensions.get("window");
 
 export default function SearchScreen({ navigation, route }) {
@@ -80,6 +81,12 @@ export default function SearchScreen({ navigation, route }) {
     if (response && response.success) {
       setPosts(response?.data);
     }
+    else {
+      if (response?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
+    }
     setLoading(false);
   }
 
@@ -91,6 +98,12 @@ export default function SearchScreen({ navigation, route }) {
       setCategories(response.data);  //[{_id:"poem",count:1}]
       await getPosts()
     }
+    else {
+      if (response?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
+    }
   }
 
   const onChangeSearch = async () => {
@@ -98,6 +111,12 @@ export default function SearchScreen({ navigation, route }) {
       const response = await searchUser({ search: searchQuery });
       if (response && response.success) {
         setUsers(response?.data);
+      }
+      else {
+        if (response?.message == "Unauthorized") {
+          await AsyncStorage.clear();
+          navigation.navigate("Login");
+        }
       }
     }
   }
@@ -138,7 +157,7 @@ export default function SearchScreen({ navigation, route }) {
         visible={openPopUpPost ? true : false}
         onRequestClose={() => { setOpenPopUpPost(false) }}
       >
-        <PopUpPost id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+        <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
       {/* SEARCHBAR */}

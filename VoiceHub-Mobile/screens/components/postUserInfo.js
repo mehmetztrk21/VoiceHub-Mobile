@@ -10,10 +10,9 @@ import colors from "../../assets/colors";
 import { setFollowFollower } from "../../services/actionServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function PostUserInfo(
-    { navigation, userPic, username, HeaderTitle,
-        setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id, isTic, setOpenPopUpPost }) {
+export default function PostUserInfo({ navigation, userPic, username, HeaderTitle,
+    setOpenEditPostPopUp, setOpenArchivePopUp, userId,
+    date, id, isTic, setOpenPopUpPost }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
     const { user, setUser } = useUser();
@@ -28,6 +27,12 @@ export default function PostUserInfo(
                     temp?.followings?.push(userId);
                 await AsyncStorage.setItem("user", JSON.stringify(temp));
                 setUser(temp);
+            }
+            else {
+                if (res?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
             }
         }).catch((err) => {
             console.log(err);

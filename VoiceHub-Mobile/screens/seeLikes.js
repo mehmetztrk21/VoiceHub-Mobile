@@ -11,6 +11,7 @@ import colors from "../assets/colors";
 import seeLikesStyle from "../assets/styles/seeLikes.style";
 import { useUser } from "../utils/userContext";
 import Loading from "./components/loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 
@@ -43,7 +44,13 @@ const SeeLikes = ({ navigation, route }) => {
             likes.map((item) => {
                 getUserById({ id: item })
                     .then(async (res) => {
-                        setUsers((prevUsers) => [...prevUsers, res?.data]);
+                        if (res?.message == "Unauthorized") {
+                            await AsyncStorage.clear();
+                            navigation.navigate("Login");
+                        }
+                        else {
+                            setUsers((prevUsers) => [...prevUsers, res?.data]);
+                        }
                     })
                     .catch((err) => {
                         console.log(err);

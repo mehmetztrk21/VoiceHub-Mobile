@@ -24,6 +24,12 @@ const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
                 await AsyncStorage.setItem("user", JSON.stringify(temp));
                 setUser(temp);
             }
+            else {
+                if (res?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+            }
         }).catch((err) => {
             console.log(err);
         });

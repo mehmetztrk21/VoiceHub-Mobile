@@ -10,6 +10,7 @@ import { blockedUsers } from "../services/userServices";
 import BlockedItem from "./components/blockedItem";
 import OtherHeader from "./components/otherHeader";
 import Loading from "./components/loading";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Blockeds = ({ navigation }) => {
     const { user } = useUser();
@@ -35,7 +36,13 @@ const Blockeds = ({ navigation }) => {
     useEffect(() => {
         setLoading(true);
         blockedUsers().then(async (res) => {
-            setUsers(res?.data);
+            if (res?.data?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setUsers(res?.data);
+            }
         }).catch((err) => {
             console.log(err);
         })
@@ -45,7 +52,13 @@ const Blockeds = ({ navigation }) => {
     useEffect(() => {
         setLoading(true);
         blockedUsers().then(async (res) => {
-            setUsers(res?.data);
+            if (res?.data?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setUsers(res?.data);
+            }
         }).catch((err) => {
             console.log(err);
         })
