@@ -51,14 +51,6 @@ export default function ProfileScreen({ navigation }) {
   const { user } = useUser();
   const [posts, setPosts] = useState([]);
 
-  const pullThePage = () => {
-    setRefreshing(true);
-
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 800)
-  }
-
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
@@ -66,7 +58,6 @@ export default function ProfileScreen({ navigation }) {
   };
 
   const getPosts = async () => {
-    setLoading(true);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
       setPosts(response?.data);
@@ -78,6 +69,7 @@ export default function ProfileScreen({ navigation }) {
       }
     }
     setLoading(false);
+    setRefreshing(false);
   }
 
   const shareMyProfile = async () => {
@@ -95,6 +87,10 @@ export default function ProfileScreen({ navigation }) {
     setLoading(true);
     getPosts();
   }, [])
+
+  useEffect(() => {
+    getPosts();
+  }, [refreshing])
 
   useEffect(() => {
     setLoading(true);
@@ -225,11 +221,12 @@ export default function ProfileScreen({ navigation }) {
         data={posts}
         keyExtractor={(item) => item._id}
         refreshing={refreshing}
-        onRefresh={pullThePage}
         refreshControl={
           <RefreshControl
             refreshing={refreshing}
-            onRefresh={() => pullThePage()}
+            onRefresh={() => {
+              setRefreshing(true);
+            }}
             colors={[colors.green]}
           />
         }
