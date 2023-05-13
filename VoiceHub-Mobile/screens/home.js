@@ -33,16 +33,7 @@ export default function HomeScreen({ navigation }) {
     scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
-  const pullThePage = () => {
-    setRefreshing(true);
-
-    setTimeout(() => {
-      setRefreshing(false)
-    }, 800)
-  }
-
   const getPosts = async () => {
-    setLoading(true);
     const response = await getMainPagePosts({ page: 1, limit: 20 });
     if (response && response.success) {
       setPosts(response?.data);
@@ -54,6 +45,7 @@ export default function HomeScreen({ navigation }) {
       }
     }
     setLoading(false);
+    setRefreshing(false);
   }
 
   useEffect(() => {
@@ -70,6 +62,10 @@ export default function HomeScreen({ navigation }) {
     setLoading(true);
     getPosts();
   }, [isFocused])
+
+  useEffect(() => {
+    getPosts();
+  }, [refreshing])
 
   if (loading) return <Loading />
 
@@ -105,7 +101,7 @@ export default function HomeScreen({ navigation }) {
         ref={scrollViewRef}
         contentContainerStyle={homeStyles.scroll}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} progressViewOffset={height * 0.15} />
+          <RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true) }} colors={[colors.green]} progressViewOffset={height * 0.15} />
         }
         ListEmptyComponent={
           <View style={{ marginTop: "5%" }}>
