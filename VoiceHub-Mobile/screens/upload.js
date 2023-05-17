@@ -188,8 +188,7 @@ export default function Upload({ navigation }) {
                     setOpenAreYouSure(false);
                 }}
             >
-                <AreYouSure process={"LogOut"} navigation={navigation}
-                    setOpenAreYouSure={setOpenAreYouSure} />
+                <AreYouSure process={"LogOut"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
             </Modal>
 
             {/* SES KAYDEDERKEN ANIMASYON OLACAK */}
@@ -287,6 +286,7 @@ export default function Upload({ navigation }) {
                 onConfirmPressed={() => {
                     setShowAlert(false)
                 }}
+                onDismiss={() => setShowAlert(false)}
             />
         </SafeAreaView>
     );

@@ -90,7 +90,7 @@ export default function SeePost({ navigation, route }) {
                     setOpenAreYouSure(false);
                 }}
             >
-                <AreYouSure process={"DeleteComment"} setOpenAreYouSure={setOpenAreYouSure} />
+                <AreYouSure process={"DeleteComment"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
 
             </Modal>
             <View style={[seePostStyle.top, { marginTop: height * 0.11 }]}>

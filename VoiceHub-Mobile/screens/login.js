@@ -134,6 +134,7 @@ export default function Login({ navigation }) {
                 onConfirmPressed={() => {
                     setShowAlert(false)
                 }}
+                onDismiss={() => setShowAlert(false)}
             />
 
         </KeyboardAvoidingView>

@@ -124,8 +124,8 @@ export default function ProfileScreen({ navigation }) {
         onRequestClose={() => {
           setOpenAreYouSure(false);
         }}>
-        <AreYouSure process={"LogOut"} navigation={navigation}
-          setOpenAreYouSure={setOpenAreYouSure} />
+        <AreYouSure process={"LogOut"} navigation={navigation} setLoading={setLoading}
+          openAreYouSure={openAreYouSure} setOpenAreYouSure={setOpenAreYouSure} />
       </Modal>
 
       <Modal

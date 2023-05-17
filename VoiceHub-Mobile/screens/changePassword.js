@@ -119,6 +119,7 @@ const ChangePassword = ({ navigation }) => {
                 onConfirmPressed={() => {
                     setShowAlert(false)
                 }}
+                onDismiss={() => setShowAlert(false)}
             />
         </SafeAreaView>
     )

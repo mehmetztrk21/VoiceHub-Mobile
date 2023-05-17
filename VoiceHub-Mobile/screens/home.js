@@ -85,8 +85,7 @@ export default function HomeScreen({ navigation }) {
           setOpenAreYouSure(false);
         }}
       >
-        <AreYouSure process={"LogOut"} navigation={navigation}
-          setOpenAreYouSure={setOpenAreYouSure} />
+        <AreYouSure process={"LogOut"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
       </Modal>
 
       <Modal
@@ -163,8 +162,9 @@ export default function HomeScreen({ navigation }) {
         showProgress={false}
         message={alertMessage}
         messageStyle={{
-          fontSize: 15,
-          fontWeight: "500"
+          fontSize: 16,
+          fontWeight: "500",
+          color: colors.darkGray,
         }}
         closeOnTouchOutside={true}
         closeOnHardwareBackPress={false}
@@ -181,6 +181,7 @@ export default function HomeScreen({ navigation }) {
         onConfirmPressed={() => {
           setShowAlert(false)
         }}
+        onDismiss={() => setShowAlert(false)}
       />
 
     </SafeAreaView>

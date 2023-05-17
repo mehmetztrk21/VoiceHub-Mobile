@@ -148,7 +148,7 @@ export default function SearchScreen({ navigation, route }) {
         }}
       >
         <AreYouSure process={"LogOut"} navigation={navigation}
-          setOpenAreYouSure={setOpenAreYouSure} />
+          setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
       </Modal>
 
       <Modal

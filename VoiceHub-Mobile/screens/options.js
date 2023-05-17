@@ -102,7 +102,8 @@ const Options = ({ navigation }) => {
                     setOpenAreYouSure(false);
                 }}
             >
-                <AreYouSure process={"Freeze"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} />
+                <AreYouSure process={"Freeze"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} 
+                openAreYouSure={openAreYouSure} setLoading={setLoading}/>
             </Modal>
 
             <View style={optionsStyle.isSecretAccount}>
@@ -180,6 +181,7 @@ const Options = ({ navigation }) => {
                 onConfirmPressed={() => {
                     setShowAlert(false)
                 }}
+                onDismiss={() => setShowAlert(false)}
             />
 
         </SafeAreaView>

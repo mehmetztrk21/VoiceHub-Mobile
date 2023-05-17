@@ -182,6 +182,7 @@ export default function Register({ navigation }) {
                 onConfirmPressed={() => {
                     setShowAlert(false)
                 }}
+                onDismiss={() => setShowAlert(false)}
             />
 
         </KeyboardAvoidingView>

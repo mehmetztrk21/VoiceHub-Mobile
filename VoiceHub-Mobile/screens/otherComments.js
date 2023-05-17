@@ -13,13 +13,8 @@ const { width } = Dimensions.get("window");
 
 export default function OtherComments({ navigation, route }) {
     const { postId, comments } = route.params;
-    const scrollViewRef = useRef(null);
 
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
-
-    const handleLayout = () => {
-        scrollViewRef.current.scrollToEnd({ animated: true });
-    };
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "column", backgroundColor: colors.white }}>
@@ -33,7 +28,7 @@ export default function OtherComments({ navigation, route }) {
                     setOpenAreYouSure(false);
                 }}
             >
-                <AreYouSure process={"DeleteComment"} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
+                <AreYouSure process={"DeleteComment"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
             </Modal>
 
             <View style={{ marginTop: width * 0.04 }}>

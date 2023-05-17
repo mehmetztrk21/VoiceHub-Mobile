@@ -112,6 +112,7 @@ export default function ForgotPassword({ navigation }) {
                 onConfirmPressed={() => {
                     setShowAlert(false)
                 }}
+                onDismiss={() => setShowAlert(false)}
             />
         </SafeAreaView>
     );

@@ -246,8 +246,7 @@ export default function SeeProfile({ navigation, route }) {
 
             {
                 openAreYouSure == true ? (
-                    <AreYouSure process={'LogOut'} navigation={navigation}
-                        setOpenAreYouSure={setOpenAreYouSure} />
+                    <AreYouSure process={'LogOut'} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
                 ) : null
             }
         </SafeAreaView >

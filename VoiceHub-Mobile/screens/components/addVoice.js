@@ -200,6 +200,7 @@ export default function AddVoice({ navigation, title, postId, setIsAddVoice, set
         onConfirmPressed={() => {
           setShowAlert(false)
         }}
+        onDismiss={() => setShowAlert(false)}
       />
 
     </View>
