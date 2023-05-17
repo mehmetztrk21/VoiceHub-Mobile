@@ -26,6 +26,7 @@
     "expo-status-bar": "~1.4.4",
     "react": "^18.2.0",
     "react-native": "^0.71.4",
+    "react-native-awesome-alerts": "^2.0.0",
     "react-native-document-picker": "^8.2.0",
     "react-native-elements": "^3.4.3",
     "react-native-gesture-handler": "^2.9.0",

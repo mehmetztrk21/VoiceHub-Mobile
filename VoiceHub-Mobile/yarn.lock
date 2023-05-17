@@ -7256,6 +7256,13 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   "version" "18.2.0"
 
+"react-native-awesome-alerts@^2.0.0":
+  "integrity" "sha512-ZRBNnDfpE+aQCtXXnQcfGLqwzZ53Q45CNkQI4hOiF8/9JPuCyMUQL2aqtiypnLpCIX+CB28Jcx1KVJ6/reaZsg=="
+  "resolved" "https://registry.npmjs.org/react-native-awesome-alerts/-/react-native-awesome-alerts-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "react-native-codegen@^0.71.5":
   "integrity" "sha512-rfsuc0zkuUuMjFnrT55I1mDZ+pBRp2zAiRwxck3m6qeGJBGK5OV5JH66eDQ4aa+3m0of316CqrJDRzVlYufzIg=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.71.5.tgz"

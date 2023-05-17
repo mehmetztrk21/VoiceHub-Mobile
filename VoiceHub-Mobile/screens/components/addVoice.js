@@ -15,11 +15,14 @@ import { createComment } from "../../services/commentServices";
 import { recordingOptions } from '../../utils/recordingOptions';
 import { timeFormatText } from "../../utils/timeFormatText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 export default function AddVoice({ navigation, title, postId, setIsAddVoice, setOpenAddVoice }) {
   const [isRunning, setIsRunning] = useState(false);
   const [recording, setRecording] = useState(null);
   const [seconds, setSeconds] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     let intervalId;
@@ -63,7 +66,8 @@ export default function AddVoice({ navigation, title, postId, setIsAddVoice, set
           await recording.stopAndUnloadAsync();
           console.log('Recording stopped');
           if (seconds < 1) {
-            alert("You recorded voice must be longer 1 seconds.");
+            setAlertMessage("You recorded voice must be longer 1 seconds.");
+            setShowAlert(true)
           }
           else {
             save();
@@ -172,6 +176,31 @@ export default function AddVoice({ navigation, title, postId, setIsAddVoice, set
           <Icon type="feather" size={28} name={"mic"} color={colors.white} />
         </TouchableOpacity>
       </View>
+
+      <AwesomeAlert
+        show={showAlert}
+        showProgress={false}
+        message={alertMessage}
+        messageStyle={{
+          fontSize: 15,
+          fontWeight: "500"
+        }}
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="Okay"
+        confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+        confirmButtonStyle={{
+          backgroundColor: colors.green,
+          borderRadius: 30,
+          width: "50%",
+          marginTop: "5%",
+        }}
+        contentContainerStyle={{ borderRadius: 20 }}
+        onConfirmPressed={() => {
+          setShowAlert(false)
+        }}
+      />
 
     </View>
   )

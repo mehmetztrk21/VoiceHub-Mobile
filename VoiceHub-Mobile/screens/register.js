@@ -8,6 +8,7 @@ import RegisterProfilePhotoPopUp from "../screens/components/registerProfilePhot
 import { login, register } from "../services/authServices";
 import { registerCondition } from "../utils/registerCondition";
 import { useUser } from "../utils/userContext";
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function Register({ navigation }) {
     const { user, setUser } = useUser()
@@ -22,6 +23,9 @@ export default function Register({ navigation }) {
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
     const [openRegisterProfilePhotoPopUp, setOpenRegisterProfilePhotoPopUp] = useState(false);
 
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+
     const handlePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
@@ -29,7 +33,7 @@ export default function Register({ navigation }) {
     let isGoHomePage = false
 
     const isRegister = async () => {
-        isGoHomePage = registerCondition(firstName, lastName, username, email, password1, password2);
+        isGoHomePage = registerCondition(firstName, lastName, username, email, password1, password2, setShowAlert, setAlertMessage);
         if (isGoHomePage) {
             const formData = new FormData();
 
@@ -52,11 +56,13 @@ export default function Register({ navigation }) {
                     navigation.navigate("HomeScreen")
                 }
                 else {
-                    alert("The Information You Entered Is Incorrect")
+                    setAlertMessage("Username already exists")
+                    setShowAlert(true)
                 }
             }
             else {
-                alert("The Information You Entered Is Incorrect")
+                setAlertMessage("Username already exists")
+                setShowAlert(true)
             }
         }
     }
@@ -152,6 +158,32 @@ export default function Register({ navigation }) {
             <TouchableOpacity style={registerStyle.touch} onPress={() => navigation.goBack()}>
                 <Text style={registerStyle.textButton}>Do you have accont? Go Log in</Text>
             </TouchableOpacity>
+
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                message={alertMessage}
+                messageStyle={{
+                    fontSize: 15,
+                    fontWeight: "500"
+                }}
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="Okay"
+                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+                confirmButtonStyle={{
+                    backgroundColor: colors.green,
+                    borderRadius: 30,
+                    width: "50%",
+                    marginTop: "5%",
+                }}
+                contentContainerStyle={{ borderRadius: 20 }}
+                onConfirmPressed={() => {
+                    setShowAlert(false)
+                }}
+            />
+
         </KeyboardAvoidingView>
     );
 }

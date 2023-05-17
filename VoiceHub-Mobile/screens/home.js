@@ -16,6 +16,7 @@ import { useUser } from "../utils/userContext";
 import colors from "../assets/colors";
 import homeStyles from "../assets/styles/home.style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
@@ -26,6 +27,8 @@ export default function HomeScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   const [openPopUpPost, setOpenPopUpPost] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const scrollViewRef = useRef();
 
@@ -50,7 +53,8 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     if (user?.reActive) {
-      alert("Welcome again " + user?.username);
+      setAlertMessage("Welcome again " + user?.username)
+      setShowAlert(true)
       let temp = { ...user };
       temp.reActive = false;
       setUser(temp);
@@ -152,6 +156,31 @@ export default function HomeScreen({ navigation }) {
             setOpenPopUpPost={setOpenPopUpPost}
           />
         )}
+      />
+
+      <AwesomeAlert
+        show={showAlert}
+        showProgress={false}
+        message={alertMessage}
+        messageStyle={{
+          fontSize: 15,
+          fontWeight: "500"
+        }}
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="Okay"
+        confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+        confirmButtonStyle={{
+          backgroundColor: colors.green,
+          borderRadius: 30,
+          width: "50%",
+          marginTop: "5%",
+        }}
+        contentContainerStyle={{ borderRadius: 20 }}
+        onConfirmPressed={() => {
+          setShowAlert(false)
+        }}
       />
 
     </SafeAreaView>

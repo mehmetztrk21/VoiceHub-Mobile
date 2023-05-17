@@ -5,6 +5,7 @@ import forgotPasswordStyle from "../assets/styles/forgotPassword.style";
 
 import { Dimensions } from "react-native";
 import colors from '../assets/colors';
+import AwesomeAlert from "react-native-awesome-alerts";
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
@@ -13,6 +14,8 @@ export default function ForgotPassword({ navigation }) {
     const [username, setUsername] = useState("");
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const Reset = () => {
         if (password1 === password2) {
@@ -22,20 +25,23 @@ export default function ForgotPassword({ navigation }) {
                         navigation.navigate("HomeScreen")
                     }
                     else {
-                        alert("Username must be at least 3 characters.");
+                        setAlertMessage("Username must be at least 3 characters.");
+                        setShowAlert(true);
                     }
                 }
                 else {
-                    alert("Your password must be at least 8 characters");
+                    setAlertMessage("Your password must be at least 8 characters");
+                    setShowAlert(true);
                 }
             }
             else {
-                alert("Password cannot be left blank.");
-
+                setAlertMessage("Password cannot be left blank.");
+                setShowAlert(true);
             }
         }
         else {
-            alert("Passwords are not equal.");
+            setAlertMessage("Passwords are not equal.");
+            setShowAlert(true);
         }
     }
 
@@ -83,6 +89,30 @@ export default function ForgotPassword({ navigation }) {
                     <Text style={forgotPasswordStyle.ButtonText}>Reset Password</Text>
                 </TouchableOpacity>
             </View>
+
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                message={alertMessage}
+                messageStyle={forgotPasswordStyle.label}
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="Okay"
+                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+                confirmButtonStyle={{
+                    backgroundColor: colors.green,
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                    borderRadius: 40,
+                    width: "50%",
+                    marginTop: "5%",
+                }}
+                contentContainerStyle={{ borderRadius: 20 }}
+                onConfirmPressed={() => {
+                    setShowAlert(false)
+                }}
+            />
         </SafeAreaView>
     );
 }

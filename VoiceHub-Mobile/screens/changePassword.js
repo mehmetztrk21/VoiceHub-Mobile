@@ -6,6 +6,7 @@ import OtherHeader from "../screens/components/otherHeader";
 import { changePassword } from "../services/userServices";
 import changePasswordStyle from "../assets/styles/changePassword.style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 const ChangePassword = ({ navigation }) => {
 
@@ -13,6 +14,10 @@ const ChangePassword = ({ navigation }) => {
     const [password1, setPassword1] = useState("");
     const [password2, setPassword2] = useState("");
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+
 
     const confirm = async () => {
 
@@ -24,10 +29,12 @@ const ChangePassword = ({ navigation }) => {
                 }
                 else {
                     if (res?.success) {
-                        alert("Your password has been successfully changed!")
+                        setAlertMessage("Your password has been successfully changed!");
+                        setShowAlert(true);
                     }
                     else {
-                        alert("You did not enter your old password correctly")
+                        setAlertMessage("You did not enter your old password correctly");
+                        setShowAlert(true);
                     }
                 }
             }).catch((err) => {
@@ -35,7 +42,8 @@ const ChangePassword = ({ navigation }) => {
             })
         }
         else {
-            alert("The passwords you will create do not match.")
+            setAlertMessage("The passwords you will create do not match.")
+            setShowAlert(true);
         }
     };
 
@@ -88,6 +96,30 @@ const ChangePassword = ({ navigation }) => {
                 style={changePasswordStyle.confirmButton}>
                 <Text style={changePasswordStyle.confirmButtonText}>Confirm</Text>
             </TouchableOpacity>
+
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                message={alertMessage}
+                messageStyle={changePasswordStyle.repeatHeader}
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="Okay"
+                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+                confirmButtonStyle={{
+                    backgroundColor: colors.green,
+                    paddingHorizontal: 20,
+                    paddingVertical: 10,
+                    borderRadius: 40,
+                    width: "50%",
+                    marginTop: "5%",
+                }}
+                contentContainerStyle={{ borderRadius: 20 }}
+                onConfirmPressed={() => {
+                    setShowAlert(false)
+                }}
+            />
         </SafeAreaView>
     )
 }

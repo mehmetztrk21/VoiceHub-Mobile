@@ -10,6 +10,7 @@ import { useUser } from "../utils/userContext";
 import Loading from "./components/loading";
 import AreYouSure from "./components/areYouSure";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 const Options = ({ navigation }) => {
 
@@ -19,6 +20,8 @@ const Options = ({ navigation }) => {
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
     const [username, setUserName] = useState(user?.username);
     const [isSecretAccount, setIsSecretAccount] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
         setIsSecretAccount(newIsSecretAccount);
@@ -62,10 +65,14 @@ const Options = ({ navigation }) => {
             }).catch((err) => {
                 console.log(err);
             })
-            alert("change your username succesfully")
+
+            setAlertMessage("Change your username succesfully")
+            setShowAlert(true)
         }
         else if ((!response.succes) && response.message == "Username or email already exists") {
-            alert("Username already exists");
+
+            setAlertMessage("Username already exists")
+            setShowAlert(true)
         }
         else {
             if (response?.data?.message == "Unauthorized") {
@@ -149,6 +156,31 @@ const Options = ({ navigation }) => {
                 style={optionsStyle.Button}>
                 <Text style={optionsStyle.buttonTexts}>Freeze my account</Text>
             </TouchableOpacity>
+
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                message={alertMessage}
+                messageStyle={{
+                    fontSize: 15,
+                    fontWeight: "500"
+                }}
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="Okay"
+                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+                confirmButtonStyle={{
+                    backgroundColor: colors.green,
+                    borderRadius: 30,
+                    width: "50%",
+                    marginTop: "5%",
+                }}
+                contentContainerStyle={{ borderRadius: 20 }}
+                onConfirmPressed={() => {
+                    setShowAlert(false)
+                }}
+            />
 
         </SafeAreaView>
     )

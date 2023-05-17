@@ -9,6 +9,7 @@ import colors from "../assets/colors";
 import { login } from "../services/authServices";
 import { useUser } from "../utils/userContext";
 import Loading from "./components/loading";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 export default function Login({ navigation }) {
 
@@ -18,6 +19,8 @@ export default function Login({ navigation }) {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const handlePasswordVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
@@ -41,12 +44,14 @@ export default function Login({ navigation }) {
             }
             else {
                 setLoading(false);
-                alert("username or password is worng");
+                setAlertMessage("Username or password is worng")
+                setShowAlert(true)
             }
         }
         else {
             setLoading(false);
-            alert("Dont empty inputs");
+            setAlertMessage("Don't empty inputs")
+            setShowAlert(true)
         }
     }
 
@@ -105,6 +110,32 @@ export default function Login({ navigation }) {
             <TouchableOpacity style={loginStyle.touch} onPress={() => navigation.navigate("Register")}>
                 <Text style={loginStyle.textButton}>Do you have not account?</Text>
             </TouchableOpacity>
+
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                message={alertMessage}
+                messageStyle={{
+                    fontSize: 15,
+                    fontWeight: "500"
+                }}
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="Okay"
+                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+                confirmButtonStyle={{
+                    backgroundColor: colors.green,
+                    borderRadius: 30,
+                    width: "50%",
+                    marginTop: "5%",
+                }}
+                contentContainerStyle={{ borderRadius: 20 }}
+                onConfirmPressed={() => {
+                    setShowAlert(false)
+                }}
+            />
+
         </KeyboardAvoidingView>
     );
 }
