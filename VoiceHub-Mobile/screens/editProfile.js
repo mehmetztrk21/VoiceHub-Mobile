@@ -3,6 +3,7 @@ import { Image, KeyboardAvoidingView, Modal, Text, TextInput, TouchableOpacity, 
 
 import * as FileSystem from 'expo-file-system';
 import DatePicker from "react-native-modern-datepicker";
+import { Picker } from "@react-native-picker/picker";
 
 import editProfileStyle from "../assets/styles/editProfile.style";
 
@@ -44,6 +45,8 @@ export default function EditProfile({ navigation }) {
   const save = async () => {
     setLoading(true);
 
+    console.log("1")
+
     const formData = new FormData();
     if (isDeleteVoice == true) {
       await removeUserFiles({ type: "descriptionVoice" });
@@ -56,21 +59,39 @@ export default function EditProfile({ navigation }) {
       });
     }
 
+    console.log("2")
+
     const info = null;
 
+    console.log("3")
+
     if (image == null) {
+      console.log("4")
       const info = user?.profilePhotoUrl
+      console.log("5")
     }
     else {
+      console.log("6")
       const info = await FileSystem.getInfoAsync(image);
+      console.log("7")
     }
+    console.log("8")
 
     formData.append("name", firstname);
     formData.append("surname", surname);
     formData.append("phone", phone);
-    formData.append("birthDay", formatDate());
+    console.log("8.1")
+    let birth = null;
+    if (birthDay.includes("/")) {
+      birth = formatDate();
+    }
+    else {
+      birth = birthDay;
+    }
+    formData.append("birthDay", birth);
+    console.log("8.2")
     formData.append("gender", gender);
-
+    console.log("9")
     if (image) {
       formData.append("profilePhoto", {
         uri: info.uri,
@@ -78,9 +99,9 @@ export default function EditProfile({ navigation }) {
         name: 'profilePhoto.jpeg',
       });
     }
-
+    console.log("10")
     const response = await updateUserInfo(formData);
-
+    console.log("11")
     if (response && response.success) {
       getUserById({ id: user?._id }).then(async (res) => {
         setUser(res?.data);
@@ -205,16 +226,34 @@ export default function EditProfile({ navigation }) {
       />
 
       <Text style={editProfileStyle.label}>Birth Day</Text>
-      <TouchableOpacity onPress={openDatePicker}>
-        <Text style={{
-          backgroundColor: colors.lightgray,
-          borderRadius: 45,
-          paddingVertical: "1.5%",
-          paddingHorizontal: 10,
-          width: "80%",
-          marginHorizontal: "10%",
-        }}>{birthDay.includes("-") ? formatDateString() : birthDay}</Text>
+      <TouchableOpacity onPress={openDatePicker} style={{
+        backgroundColor: colors.lightgray,
+        borderRadius: 45,
+        paddingVertical: "2.5%",
+        paddingHorizontal: 10,
+        width: "80%",
+        marginHorizontal: "10%",
+      }}>
+        <Text>{birthDay.includes("-") ? formatDateString() : birthDay}</Text>
       </TouchableOpacity>
+
+      <Text style={editProfileStyle.label}>Gender</Text>
+      <View style={{
+        backgroundColor: colors.lightgray,
+        borderRadius: 45,
+        paddingHorizontal: 10,
+        width: "80%",
+        marginHorizontal: "10%",
+      }}>
+        <Picker
+          selectedValue={gender}
+          onValueChange={(itemValue) => setGender(itemValue)}
+          dropdownIconColor={colors.green}
+          dropdownIconRippleColor={colors.gray}>
+          <Picker.Item label="Male" value="Male" />
+          <Picker.Item label="Female" value="Female" />
+        </Picker>
+      </View>
 
       {isDeleteVoice ? <Text style={editProfileStyle.isDeleteVoice}>Is delete?</Text> : null}
       <View style={{ marginVertical: "3%", marginHorizontal: "10%" }}>
