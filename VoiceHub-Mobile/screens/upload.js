@@ -4,21 +4,19 @@ import * as FileSystem from "expo-file-system";
 import * as Permissions from "expo-permissions";
 
 import React, { useEffect, useState } from "react";
-import { Dimensions, Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-
+import { Animated, Dimensions, Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 
 import colors from "../assets/colors";
-import holoGif from "../assets/images/holo.gif";
 
 import AreYouSure from "./components/areYouSure";
 
 import { createPost } from "../services/postServices";
 
-import { recordingOptions } from "../utils/recordingOptions";
-import { timeFormatText } from "../utils/timeFormatText";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AwesomeAlert from "react-native-awesome-alerts";
+import { recordingOptions } from "../utils/recordingOptions";
+import { timeFormatText } from "../utils/timeFormatText";
 
 const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
@@ -30,6 +28,7 @@ export default function Upload({ navigation }) {
     const [openReadCategory, setOpenReadCategory] = useState(false);
 
     const [isRunning, setIsRunning] = useState(false);
+    const [rotation] = useState(new Animated.Value(0));
     const [recording, setRecording] = useState(null);
     const [seconds, setSeconds] = useState(0);
 
@@ -39,9 +38,20 @@ export default function Upload({ navigation }) {
     useEffect(() => {
         let intervalId;
         if (isRunning) {
+            Animated.loop(
+                Animated.timing(rotation, {
+                    toValue: 1,
+                    duration: 60000, // Dönme süresi (ms)
+                    useNativeDriver: true,
+                })
+            ).start();
+
             intervalId = setInterval(() => {
                 setSeconds(prevSeconds => prevSeconds + 1);
             }, 1000);
+        }
+        else {
+            rotation.stopAnimation();
         }
         return () => clearInterval(intervalId);
     }, [isRunning]);
@@ -121,6 +131,7 @@ export default function Upload({ navigation }) {
 
 
     const save = async () => {
+        rotation.setValue(0);
         let uri = recording;//create uri variable
 
         //recording.uri for pick files
@@ -164,6 +175,7 @@ export default function Upload({ navigation }) {
     }
 
     const handleReset = () => {
+        rotation.setValue(0);
         console.log("Timer Reseted");
         console.log("Sound Reseted");
 
@@ -191,10 +203,21 @@ export default function Upload({ navigation }) {
                 <AreYouSure process={"LogOut"} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
             </Modal>
 
-            {/* SES KAYDEDERKEN ANIMASYON OLACAK */}
-            <Image source={holoGif}
-                style={{ marginTop: height * 0.1, marginBottom: height * 0.1, width: height * 0.3, height: height * 0.3, }}
-                borderRadius={height * 0.15} />
+            <Animated.Image
+                source={require("../assets/images/VoiceHub-7.png")}
+                style={{
+                    transform: [
+                        {
+                            rotate: rotation.interpolate({
+                                inputRange: [0, 1],
+                                outputRange: ["0deg", "360deg"],
+                            }),
+                        },
+                    ], marginTop: height * 0.1, marginBottom: height * 0.1,
+                    width: height * 0.3, height: height * 0.3, borderRadius: height * 0.15,
+                    backgroundColor: colors.black,
+                }}
+            />
 
             {/* Seconds, Minutes and Hours */}
 
