@@ -82,19 +82,17 @@ export default function ProfileScreen({ navigation }) {
     }
   }
 
-
   useEffect(() => {
-    setLoading(true);
-    getPosts();
-  }, [])
-
-  useEffect(() => {
-    getPosts();
+    if (refreshing == true) {
+      getPosts();
+    }
   }, [refreshing])
 
   useEffect(() => {
-    setLoading(true);
-    getPosts();
+    if (isFocused == true) {
+      setLoading(true);
+      getPosts();
+    }
   }, [isFocused])
 
   if (loading) {

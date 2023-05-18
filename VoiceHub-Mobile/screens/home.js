@@ -60,15 +60,21 @@ export default function HomeScreen({ navigation }) {
       setUser(temp);
       AsyncStorage.setItem("user", JSON.stringify(temp));
     }
+    console.log("başlangıç home")
+
   }, [])
 
   useEffect(() => {
-    setLoading(true);
-    getPosts();
+    if (isFocused == true) {
+      setLoading(true)
+      getPosts();
+    }
   }, [isFocused])
 
   useEffect(() => {
-    getPosts();
+    if (refreshing == true) {
+      getPosts();
+    }
   }, [refreshing])
 
   if (loading) return <Loading />
