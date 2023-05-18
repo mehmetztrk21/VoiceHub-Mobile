@@ -209,8 +209,8 @@ export default function SearchScreen({ navigation, route }) {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, paddingBottom: height * 0.025 }}
         data={[{ _id: "all" }, ...categories]}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item, index }) => (
+        keyExtractor={(item) => item._id}
+        renderItem={({ item }) => (
           <TouchableOpacity onPress={() => setSelectedCategory(item._id)}>
             <Text
               style={[

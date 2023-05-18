@@ -147,8 +147,9 @@ export default function HomeScreen({ navigation }) {
             </TouchableOpacity>
           </View>
         }
-        renderItem={({ item, index }) => (
+        renderItem={({ item }) => (
           <RenderPost
+            key={item.id}
             navigation={navigation}
             HeaderTitle={"HomeScreen"}
             post={item}
