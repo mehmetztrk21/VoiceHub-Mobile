@@ -1,18 +1,21 @@
-import { useIsFocused } from "@react-navigation/native";
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
+import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import colors from "../assets/colors";
 import searchStyles from "../assets/styles/search.style";
+
 import PopUpPost from "./components/PopUpPost";
 import RenderLastSearchedUser from "./components/RenderLastSearchedUser";
 import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
 import AreYouSure from "./components/areYouSure";
 import Loading from "./components/loading";
+
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width, height } = Dimensions.get("window");
 
@@ -207,15 +210,15 @@ export default function SearchScreen({ navigation, route }) {
             marginEnd: width * 0.0125,
             paddingBottom: height * 0.025,
           }}
-          data={[{ _id: "all" }, ...categories]}
+          data={[{ _id: "all", count: 1 }, ...categories]}
           keyExtractor={(item) => item._id}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => setSelectedCategory(item._id)}>
+            <TouchableOpacity onPress={() => { setSelectedCategory(item._id); console.log(item._id) }}>
               <Text
                 style={[
                   searchStyles.SecondText,
                   { width: width * 0.3, marginHorizontal: width * 0.0125 },
-                  selectedCategory === item._id
+                  selectedCategory == item._id
                     ? {
                       borderWidth: 2,
                       borderColor: colors.green,
