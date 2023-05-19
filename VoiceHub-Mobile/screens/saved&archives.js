@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
 
 import ArchivePopUp from "./components/archivePopUp";
 import OtherHeader from './components/otherHeader';
@@ -9,23 +9,17 @@ import savedStyle from "../assets/styles/saved.style";
 
 import { getMyPosts, getSavedPosts } from "../services/postServices";
 
-import { Dimensions } from "react-native";
-import colors from '../assets/colors';
-import { baseURL } from '../utils/constants';
-import { useUser } from '../utils/userContext';
-import PopUpPost from './components/PopUpPost';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-const { width } = Dimensions.get("window");
+import colors from '../assets/colors';
+import { useUser } from '../utils/userContext';
+import Loading from './components/loading';
+import PopUpPost from './components/PopUpPost';
+const { width, height } = Dimensions.get("window");
 
 export default function SavedArchieves({ navigation, route }) {
   const { HeaderTitle } = route.params;
 
   const { user } = useUser();
-  const scrollViewRef = useRef();
-
-  const handleLayout = () => {
-    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
-  };
 
   const [openArchivePopUp, setOpenArchivePopUp] = useState(false)
   const [loading, setLoading] = useState(false);
@@ -34,16 +28,7 @@ export default function SavedArchieves({ navigation, route }) {
 
   const [openPopUpPost, setOpenPopUpPost] = useState(false);
 
-  const pullThePage = () => {
-    setRefreshing(true);
-
-    setTimeout(() => {
-      setRefreshing(false)
-    }, 800)
-  }
-
   const getPosts = async () => {
-    setLoading(true);
     if (HeaderTitle == "Archived") {
       const response = await getMyPosts({ isArchived: true, userId: user?._id });
 
@@ -73,17 +58,26 @@ export default function SavedArchieves({ navigation, route }) {
       console.error(err)
     }
     setLoading(false);
+    setRefreshing(false);
   }
 
   useEffect(() => {
+    setLoading(true);
     getPosts();
   }, [])
 
   useEffect(() => {
+    if (refreshing) {
+      getPosts();
+    }
+  }, [refreshing])
+
+  useEffect(() => {
+    setLoading(true);
     getPosts();
   }, [openArchivePopUp])
 
-  //if (loading) return <Loading />
+  if (loading) return <Loading />
 
 
   return (
@@ -143,8 +137,9 @@ export default function SavedArchieves({ navigation, route }) {
         <FlatList
           data={posts}
           keyExtractor={(item) => item.id}
-          refreshing={refreshing}
-          onRefresh={() => pullThePage()}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true) }} colors={[colors.green]} progressViewOffset={height * 0.15} />
+          }
           renderItem={({ item, index }) => (
             HeaderTitle == "Saved" ?
               <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
