@@ -66,17 +66,17 @@ export default function PostUserInfo({ navigation, userPic, username, HeaderTitl
                             : null}
 
                         {HeaderTitle == "SearchScreen" ?
-                            <TouchableOpacity onPress={followUnfollow} style={
+                            (user?._id != userId ? < TouchableOpacity onPress={followUnfollow} style={
                                 { marginLeft: "5%", backgroundColor: colors.white, borderRadius: 10, paddingHorizontal: 7.5, paddingVertical: 2.5, borderWidth: 2, borderColor: colors.green }}>
                                 <Text style={{ fontWeight: "700", fontSize: 15, color: colors.green, textAlign: "center" }}>
                                     {user?.followings?.includes(userId) ? "Unfollow" : "Follow"}
                                 </Text>
-                            </TouchableOpacity> : null}
+                            </TouchableOpacity> : null) : null}
                     </View>
                     <Text style={postUserInfoStyle.timeAgo}>{differenceInDays}</Text>
                 </View>
 
-            </TouchableOpacity>
+            </TouchableOpacity >
 
             <View style={{ marginRight: 16 }}>
                 {HeaderTitle == "ProfileScreen" ? (
@@ -93,6 +93,6 @@ export default function PostUserInfo({ navigation, userPic, username, HeaderTitl
                     </TouchableOpacity>
                 ) : null}
             </View>
-        </View>
+        </View >
     );
 }
