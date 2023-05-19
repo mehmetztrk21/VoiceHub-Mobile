@@ -1,7 +1,7 @@
 import { useIsFocused } from "@react-navigation/native";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, View, BackHandler } from "react-native";
 //importing components
 import HomeHeader from "./components/HomeHeader";
 import PopUpPost from "./components/PopUpPost";
@@ -60,7 +60,15 @@ export default function HomeScreen({ navigation }) {
       setUser(temp);
       AsyncStorage.setItem("user", JSON.stringify(temp));
     }
-    console.log("başlangıç home")
+
+    const backAction = () => {
+      handleScrollToTop();
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener("hardwareBackPress", backAction);
+
+    return () => backHandler.remove();
 
   }, [])
 
