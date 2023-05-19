@@ -134,8 +134,9 @@ const FollowFollower = ({ navigation, route }) => {
     }, [user])
 
     const filteredData = title === "Followers"
-        ? followers.filter(item => item.username.includes(searchQuery))
-        : followings.filter(item => item.username.includes(searchQuery));
+        ? followers.filter(item => item.username.toLowerCase().includes(searchQuery.toLowerCase()) || item.username.includes(searchQuery))
+        : followings.filter(item => item.username.toLowerCase().includes(searchQuery.toLowerCase()) || item.username.includes(searchQuery));
+
 
     if (loading) return <Loading />
 
