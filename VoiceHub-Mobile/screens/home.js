@@ -22,6 +22,8 @@ export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
   const { user, setUser } = useUser();
 
+  const scrollViewRef = useRef();
+
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [loading, setLoading] = useState(false);
   const [posts, setPosts] = useState([]);
@@ -29,15 +31,19 @@ export default function HomeScreen({ navigation }) {
   const [openPopUpPost, setOpenPopUpPost] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
+  const [renderCount, setRenderCount] = useState(0);
 
-  const scrollViewRef = useRef();
+  const handleFlatlistEndReached = () => {
+    setRenderCount(prevCount => prevCount + 1);
+  };
+
 
   const handleScrollToTop = () => {
     scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
   const getPosts = async () => {
-    const response = await getMainPagePosts({ page: 1, limit: 20 });
+    const response = await getMainPagePosts({ page: 1, limit: 15 });
     if (response && response.success) {
       setPosts(response?.data);
     }
@@ -71,6 +77,10 @@ export default function HomeScreen({ navigation }) {
     return () => backHandler.remove();
 
   }, [])
+
+  useEffect(() => {
+    console.log(renderCount)
+  }, [renderCount])
 
   useEffect(() => {
     if (isFocused == true) {
@@ -116,7 +126,9 @@ export default function HomeScreen({ navigation }) {
         keyExtractor={(item) => item.id}
         showsVerticalScrollIndicator={false}
         ref={scrollViewRef}
-        contentContainerStyle={homeStyles.scroll}
+        contentContainerStyle={[homeStyles.scroll, { paddingBottom: height * 0.2 }]}
+        initialNumToRender={15}
+        onEndReached={handleFlatlistEndReached}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true) }} colors={[colors.green]} progressViewOffset={height * 0.15} />
         }

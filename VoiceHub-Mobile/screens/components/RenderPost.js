@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     borderRadius: 20,
-    marginVertical: 10,
+    marginVertical: "3%",
   },
 })
 
