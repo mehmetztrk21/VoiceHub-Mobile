@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -40,8 +40,8 @@ export default function SearchScreen({ navigation, route }) {
   const [categories, setCategories] = useState([]);
 
   const handleScrollToTop = () => {
+    categoryScrollViewRef.current.scrollTo({ x: 0, animated: true });
     scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
-    categoryScrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
   const getPosts = async () => {
@@ -201,45 +201,34 @@ export default function SearchScreen({ navigation, route }) {
 
       {/* CATEGORIES */}
       {focused === false ? (
-        <FlatList
-          ref={categoryScrollViewRef}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{
-            marginStart: width * 0.0125,
-            marginEnd: width * 0.0125,
-            paddingBottom: height * 0.025,
-          }}
-          data={[{ _id: "all", count: 1 }, ...categories]}
-          keyExtractor={(item) => item._id}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => { setSelectedCategory(item._id); console.log(item._id) }}>
-              <Text
-                style={[
-                  searchStyles.SecondText,
-                  { width: width * 0.3, marginHorizontal: width * 0.0125 },
-                  selectedCategory == item._id
-                    ? {
-                      borderWidth: 2,
-                      borderColor: colors.green,
-                      backgroundColor: colors.white,
-                      color: colors.green,
-                      paddingVertical: "15%",
-                    }
-                    : {
-                      borderWidth: 2,
-                      borderColor: colors.green,
-                      backgroundColor: colors.green,
-                      color: colors.white,
-                      paddingVertical: "15%",
-                    },
-                ]}
-              >
-                #{item._id}
-              </Text>
-            </TouchableOpacity>
-          )}
-        />
+        <ScrollView ref={categoryScrollViewRef}
+          horizontal showsHorizontalScrollIndicator={false}
+          style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, marginVertical: 5 }}>
+
+          <TouchableOpacity onPress={() => setSelectedCategory("all")} key={"all"}>
+            <Text style={[searchStyles.SecondText,
+            { width: width * 0.3, marginHorizontal: width * 0.0125, },
+            selectedCategory == "all" ? {
+              borderWidth: 2, borderColor: colors.green,
+              backgroundColor: colors.white, color: colors.green
+            } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#all</Text>
+
+          </TouchableOpacity>
+
+          {categories.map((item, index) => {
+            return (
+              <TouchableOpacity onPress={() => setSelectedCategory(item._id)} key={index}>
+                <Text style={[searchStyles.SecondText,
+                { width: width * 0.3, marginHorizontal: width * 0.0125, },
+                selectedCategory == item._id ? {
+                  borderWidth: 2, borderColor: colors.green,
+                  backgroundColor: colors.white, color: colors.green
+                } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#{item._id}</Text>
+
+              </TouchableOpacity>
+            )
+          })}
+        </ScrollView>
       ) : null}
 
       {/* POSTS */}
@@ -261,7 +250,7 @@ export default function SearchScreen({ navigation, route }) {
           data={posts}
           keyExtractor={(item) => item._id}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={[searchStyles.scrollContainer, { paddingBottom: height * 0.35 }]}
+          contentContainerStyle={[searchStyles.scrollContainer, { paddingBottom: height * 0.075 }]}
           ref={scrollViewRef}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} colors={[colors.green]} />}
           renderItem={({ item, index }) => (

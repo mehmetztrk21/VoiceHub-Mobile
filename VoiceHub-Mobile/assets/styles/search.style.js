@@ -2,14 +2,15 @@ import { StyleSheet } from "react-native";
 import colors from "../colors";
 export default StyleSheet.create({
   container: {
-    flexDirection: "column",
     width: "100%",
     backgroundColor: colors.white,
+    flex: 1,
   },
 
   scrollContainer: {
     backgroundColor: colors.white,
     width: "100%",
+    flex: 1,
   },
   closeButtonTouch: {
     justifyContent: "center",
@@ -21,7 +22,6 @@ export default StyleSheet.create({
     borderRadius: 30,
     fontSize: 16,
     textAlign: "center",
-    textAlignVertical: "center",
-
+    paddingVertical: 10,
   },
 });
