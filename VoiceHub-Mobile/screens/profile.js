@@ -218,6 +218,7 @@ export default function ProfileScreen({ navigation }) {
       <FlatList
         data={posts}
         keyExtractor={(item) => item._id}
+        ref={scrollViewRef}
         refreshing={refreshing}
         refreshControl={
           <RefreshControl
