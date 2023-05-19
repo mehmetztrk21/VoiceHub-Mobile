@@ -23,14 +23,12 @@ const FollowFollower = ({ navigation, route }) => {
     const { user, setUser } = useUser();//logined user
 
     const scrollViewRef = useRef();
-    const handleLayout = () => {
-        scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
-    };
 
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
     const [followings, setFollowings] = useState([]);
     const [followers, setFollowers] = useState([]);
+    const [searchQuery, setSearchQuery] = useState("");
 
     const pullThePage = () => {
         setRefreshing(true);
@@ -135,6 +133,10 @@ const FollowFollower = ({ navigation, route }) => {
         }
     }, [user])
 
+    const filteredData = title === "Followers"
+        ? followers.filter(item => item.username.includes(searchQuery))
+        : followings.filter(item => item.username.includes(searchQuery));
+
     if (loading) return <Loading />
 
     return (
@@ -145,6 +147,10 @@ const FollowFollower = ({ navigation, route }) => {
                     <TextInput
                         placeholder="Search"
                         style={[followFollowerStyle.searchBar, { marginBottom: width * 0.03 }]}
+                        value={searchQuery}
+                        onChangeText={searchQuery => setSearchQuery(searchQuery)}
+                        autoCapitalize="none"
+                        maxLength={18}
                     />
                 </View>
 
@@ -166,7 +172,7 @@ const FollowFollower = ({ navigation, route }) => {
                 ) : null}
 
                 <FlatList
-                    data={title == "Followers" ? followers : followings}
+                    data={filteredData}
                     keyExtractor={(item, index) => index.toString()}
                     refreshing={refreshing}
                     onRefresh={pullThePage}
