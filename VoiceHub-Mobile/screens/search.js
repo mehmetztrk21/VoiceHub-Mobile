@@ -38,6 +38,15 @@ export default function SearchScreen({ navigation, route }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState(getCategory);
   const [categories, setCategories] = useState([]);
+  const [endScreen, setEndScreen] = useState(false);
+  const [renderCount, setRenderCount] = useState(1);
+
+  const handleFlatlistEndReached = () => {
+    if (endScreen == false) {
+      setEndScreen(true);
+      setRenderCount(prevCount => prevCount + 1);
+    }
+  };
 
   const handleScrollToTop = () => {
     categoryScrollViewRef.current.scrollTo({ x: 0, animated: true });
@@ -45,10 +54,11 @@ export default function SearchScreen({ navigation, route }) {
   };
 
   const getPosts = async () => {
-    const response = await getExplorePosts({ page: 1, limit: 30, category: selectedCategory });
+    const response = await getExplorePosts({ page: renderCount, limit: 15, category: selectedCategory });
 
     if (response && response.success) {
-      setPosts(response?.data);
+      let post = [...posts, ...(response?.data)];
+      setPosts(post);
     } else {
       if (response?.message === "Unauthorized") {
         await AsyncStorage.clear();
@@ -57,13 +67,15 @@ export default function SearchScreen({ navigation, route }) {
     }
     setLoading(false);
     setRefreshing(false);
+    setEndScreen(false);
   };
 
   const getCategories = async () => {
     const response = await getTopCategories(); //{success:true,message:"success",data:[{_id:"poem",count:3}]}
 
     if (response && response.success) {
-      setCategories(response.data); //[{_id:"poem",count:1}]
+
+      setCategories(response?.data)//[{_id:"poem",count:1}]
     } else {
       if (response?.message === "Unauthorized") {
         await AsyncStorage.clear();
@@ -99,7 +111,9 @@ export default function SearchScreen({ navigation, route }) {
     }
 
     if (isFocused == true) {
-      setLoading(true)
+      setLoading(true);
+      setEndScreen(false);
+      setRenderCount(1);
       getCategories();
       getPosts();
     }
@@ -107,10 +121,16 @@ export default function SearchScreen({ navigation, route }) {
 
   useEffect(() => {
     if (refreshing == true) {
+      setEndScreen(false);
+      setRenderCount(1);
       getCategories();
       getPosts();
     }
   }, [refreshing]);
+
+  useEffect(() => {
+    getPosts();
+  }, [endScreen])
 
   useEffect(() => {
     onChangeSearch();
@@ -250,6 +270,8 @@ export default function SearchScreen({ navigation, route }) {
           data={posts}
           keyExtractor={(item) => item._id}
           showsVerticalScrollIndicator={false}
+          initialNumToRender={15}
+          onEndReached={handleFlatlistEndReached}
           contentContainerStyle={[searchStyles.scrollContainer, { paddingBottom: height * 0.075 }]}
           ref={scrollViewRef}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} colors={[colors.green]} />}

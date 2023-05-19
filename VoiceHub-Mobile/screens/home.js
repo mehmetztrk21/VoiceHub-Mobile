@@ -35,8 +35,10 @@ export default function HomeScreen({ navigation }) {
   const [renderCount, setRenderCount] = useState(1);
 
   const handleFlatlistEndReached = () => {
-    setRenderCount(prevCount => prevCount + 1);
-    setEndScreen(true);
+    if (endScreen == false) {
+      setEndScreen(true);
+      setRenderCount(prevCount => prevCount + 1);
+    }
   };
 
 
