@@ -30,11 +30,13 @@ export default function HomeScreen({ navigation }) {
   const [refreshing, setRefreshing] = useState(false);
   const [openPopUpPost, setOpenPopUpPost] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
+  const [endScreen, setEndScreen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
-  const [renderCount, setRenderCount] = useState(0);
+  const [renderCount, setRenderCount] = useState(1);
 
   const handleFlatlistEndReached = () => {
     setRenderCount(prevCount => prevCount + 1);
+    setEndScreen(true);
   };
 
 
@@ -43,9 +45,10 @@ export default function HomeScreen({ navigation }) {
   };
 
   const getPosts = async () => {
-    const response = await getMainPagePosts({ page: 1, limit: 15 });
+    const response = await getMainPagePosts({ page: renderCount, limit: 15 });
     if (response && response.success) {
-      setPosts(response?.data);
+      let post = [...posts, ...(response?.data)];
+      setPosts(post);
     }
     else {
       if (response?.message == "Unauthorized") {
@@ -54,6 +57,7 @@ export default function HomeScreen({ navigation }) {
       }
     }
     setLoading(false);
+    setEndScreen(false);
     setRefreshing(false);
   }
 
@@ -79,8 +83,8 @@ export default function HomeScreen({ navigation }) {
   }, [])
 
   useEffect(() => {
-    console.log(renderCount)
-  }, [renderCount])
+    getPosts();
+  }, [endScreen])
 
   useEffect(() => {
     if (isFocused == true) {
@@ -91,6 +95,8 @@ export default function HomeScreen({ navigation }) {
 
   useEffect(() => {
     if (refreshing == true) {
+      setEndScreen(false);
+      setRenderCount(1);
       getPosts();
     }
   }, [refreshing])
