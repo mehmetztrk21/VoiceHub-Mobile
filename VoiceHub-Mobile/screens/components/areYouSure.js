@@ -45,7 +45,7 @@ const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure, se
 
     return (
         <AwesomeAlert
-            show={(typeof openAreYouSure) == "string" ? true : false}
+            show={(((typeof openAreYouSure) == "string") || openAreYouSure == true) ? true : false}
             showProgress={false}
             message={process == "DeleteComment" ?
                 ("Are you sure you want to delete the comment?") :

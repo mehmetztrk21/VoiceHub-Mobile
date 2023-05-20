@@ -31,6 +31,7 @@ export default function HomeScreen({ navigation }) {
   const [openPopUpPost, setOpenPopUpPost] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
   const [endScreen, setEndScreen] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const [renderCount, setRenderCount] = useState(1);
 
@@ -47,10 +48,19 @@ export default function HomeScreen({ navigation }) {
   };
 
   const getPosts = async () => {
+    if (isFinished) {
+      return;
+    }
     const response = await getMainPagePosts({ page: renderCount, limit: 15 });
     if (response && response.success) {
-      let post = [...posts, ...(response?.data)];
-      setPosts(post);
+      if (response.data.length > 0) {
+        let post = [...posts, ...(response?.data)];
+        setPosts(post);
+      }
+      else {
+        setIsFinished(true)
+      }
+
     }
     else {
       if (response?.message == "Unauthorized") {
@@ -85,7 +95,9 @@ export default function HomeScreen({ navigation }) {
   }, [])
 
   useEffect(() => {
-    getPosts();
+    if (endScreen) {
+      getPosts();
+    }
   }, [endScreen])
 
   useEffect(() => {
@@ -98,6 +110,7 @@ export default function HomeScreen({ navigation }) {
   useEffect(() => {
     if (refreshing == true) {
       setEndScreen(false);
+      setIsFinished(false);
       setRenderCount(1);
       getPosts();
     }

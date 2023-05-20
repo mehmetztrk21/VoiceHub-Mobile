@@ -40,7 +40,7 @@ export default function Upload({ navigation }) {
         if (isRunning) {
             Animated.loop(
                 Animated.timing(rotation, {
-                    toValue: 1,
+                    toValue: 4,
                     duration: 60000, // Dönme süresi (ms)
                     useNativeDriver: true,
                 })
