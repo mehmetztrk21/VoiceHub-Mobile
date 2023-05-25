@@ -82,6 +82,14 @@ export default function HomeScreen({ navigation }) {
       setUser(temp);
       AsyncStorage.setItem("user", JSON.stringify(temp));
     }
+    if (user?.isNew) {
+      setAlertMessage("Welcome " + user?.username + "!")
+      setShowAlert(true)
+      let temp = { ...user };
+      temp.isNew = false;
+      setUser(temp);
+      AsyncStorage.setItem("user", JSON.stringify(temp));
+    }
 
     const backAction = () => {
       handleScrollToTop();
