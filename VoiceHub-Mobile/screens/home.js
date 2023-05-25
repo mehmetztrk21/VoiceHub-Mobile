@@ -1,22 +1,22 @@
 import { useIsFocused } from "@react-navigation/native";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, View, BackHandler } from "react-native";
+import { BackHandler, Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
 //importing components
 import HomeHeader from "./components/HomeHeader";
 import PopUpPost from "./components/PopUpPost";
 import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
 import Loading from "./components/loading";
-const { height } = Dimensions.get("window");
+const { height, width } = Dimensions.get("window");
 
 import { getMainPagePosts } from "../services/postServices";
 import { useUser } from "../utils/userContext";
 //importing styles
-import colors from "../assets/colors";
-import homeStyles from "../assets/styles/home.style";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import AwesomeAlert from "react-native-awesome-alerts";
+import colors from "../assets/colors";
+import homeStyles from "../assets/styles/home.style";
 
 export default function HomeScreen({ navigation }) {
   const isFocused = useIsFocused();
@@ -124,6 +124,11 @@ export default function HomeScreen({ navigation }) {
     }
   }, [refreshing])
 
+  const dismiss = () => {
+    console.log("kapandı")
+    setOpenPopUpPost(false)
+  }
+
   if (loading) return <Loading />
 
   return (
@@ -147,6 +152,9 @@ export default function HomeScreen({ navigation }) {
         visible={openPopUpPost ? true : false}
         onRequestClose={() => { setOpenPopUpPost(false) }}
       >
+        <TouchableWithoutFeedback onPress={dismiss}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
