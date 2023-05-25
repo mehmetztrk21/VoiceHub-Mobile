@@ -109,11 +109,11 @@ export default function SearchScreen({ navigation, route }) {
       console.log("screen type error. Search.js");
       setFocused(false);
     }
-
     if (isFocused == true) {
       setLoading(true);
       setEndScreen(false);
       setRenderCount(1);
+      clearPosts();
       getCategories();
       getPosts();
     }
@@ -122,11 +122,16 @@ export default function SearchScreen({ navigation, route }) {
   useEffect(() => {
     if (refreshing == true) {
       setEndScreen(false);
+      clearPosts();
       setRenderCount(1);
       getCategories();
       getPosts();
     }
   }, [refreshing]);
+
+  const clearPosts = () => {
+    setPosts([]);
+  };
 
   useEffect(() => {
     getPosts();
