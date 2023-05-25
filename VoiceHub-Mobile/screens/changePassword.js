@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 import colors from "../assets/colors";
 import OtherHeader from "../screens/components/otherHeader";
 import { changePassword } from "../services/userServices";
@@ -65,7 +66,7 @@ const ChangePassword = ({ navigation }) => {
                         onChangeText={old => setOld(old)}
                     />
                     <TouchableOpacity onPress={handlePasswordVisibility}>
-                        <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
+                        <Ionicons size={20} name={isPasswordVisible ? "eye-outline" : "eye-off-outline"} color={colors.green} />
                     </TouchableOpacity>
                 </View>
             </View>

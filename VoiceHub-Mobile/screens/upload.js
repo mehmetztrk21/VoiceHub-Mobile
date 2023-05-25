@@ -5,7 +5,8 @@ import * as Permissions from "expo-permissions";
 
 import React, { useEffect, useState } from "react";
 import { Animated, Dimensions, Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 
 import colors from "../assets/colors";
 
@@ -247,20 +248,20 @@ export default function Upload({ navigation }) {
                     <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                         <TouchableOpacity onPress={handleReset}
                             style={{
-                                width: width * 0.2, height: width * 0.2,
+                                width: width * 0.2, height: width * 0.2, alignItems:"center",
                                 borderRadius: width * 0.1, borderWidth: 7, borderColor: colors.tealGreen,
                                 backgroundColor: colors.white, justifyContent: "center",
                             }}>
-                            <Icon type={"font-awesome"} name={"trash"} size={width * 0.12} color={colors.green} />
+                            <Ionicons name={"trash"} size={width * 0.12} color={colors.green} />
                         </TouchableOpacity>
 
                         <TouchableOpacity onPress={save}
                             style={{
-                                width: width * 0.2, height: width * 0.2,
+                                width: width * 0.2, height: width * 0.2, alignItems:"center",
                                 borderRadius: width * 0.1, borderWidth: 7, borderColor: colors.tealGreen,
                                 backgroundColor: colors.white, justifyContent: "center",
                             }}>
-                            <Icon type={"font-awesome"} name={"check"} size={width * 0.12} color={colors.green} />
+                            <Ionicons name={"checkmark"} size={width * 0.12} color={colors.green} />
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -268,20 +269,20 @@ export default function Upload({ navigation }) {
                 <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity onPress={pickFile}
                         style={{
-                            width: width * 0.24, height: width * 0.24,
+                            width: width * 0.24, height: width * 0.24, alignItems:"center",
                             borderRadius: width * 0.12, borderWidth: 7, borderColor: colors.tealGreen,
                             backgroundColor: colors.white, justifyContent: "center", marginRight: width * 0.06
                         }}>
-                        <Icon type={"font-awesome"} name={"folder"} size={50} color={colors.green} />
+                        <Ionicons name={"folder"} size={width * 0.132} color={colors.green} />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={toggleRecord}
                         style={{
-                            width: width * 0.24, height: width * 0.24,
+                            width: width * 0.24, height: width * 0.24, alignItems:"center",
                             borderRadius: width * 0.12, borderWidth: 7, borderColor: colors.tealGreen,
                             backgroundColor: colors.white, justifyContent: "center", marginLeft: width * 0.06
                         }}>
-                        <Icon type={"font-awesome"} name={"microphone"} size={50} color={colors.green} />
+                        <Ionicons name={"mic"} size={width * 0.132} color={colors.green} />
                     </TouchableOpacity>
                 </View>
             }

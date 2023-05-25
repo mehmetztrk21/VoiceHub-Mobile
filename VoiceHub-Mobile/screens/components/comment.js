@@ -5,7 +5,8 @@ import ver from "../../assets/ver.png";
 import Post from "../components/post";
 
 import { Dimensions } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 import colors from "../../assets/colors";
 import avatar from "../../assets/avatar.png"
 import { timeAgoText } from "../../utils/timeAgoText";
@@ -55,7 +56,7 @@ export default function Comment({ navigation, commentId, contentUrl, userPic, us
 
             {user?.posts?.includes(postId) || user?._id == userId ? (
                 <TouchableOpacity onPress={deleteComment}>
-                    <Icon type="font-awesome" name="trash" size={16} color={colors.green} />
+                    <Ionicons name="trash" size={16} color={colors.green} />
                 </TouchableOpacity>
             ) : null}
 

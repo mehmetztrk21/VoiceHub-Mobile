@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Header, Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 import ver from "../../assets/ver.png";
 import { timeAgoText } from "../../utils/timeAgoText";
@@ -81,15 +81,15 @@ export default function PostUserInfo({ navigation, userPic, username, HeaderTitl
             <View style={{ marginRight: 16 }}>
                 {HeaderTitle == "ProfileScreen" ? (
                     <TouchableOpacity onPress={() => { setOpenEditPostPopUp(id ? id : false); }}>
-                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
+                        <Ionicons name={"ellipsis-vertical"} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == "Archived" ? (
                     <TouchableOpacity onPress={() => { setOpenArchivePopUp(id ? id : false) }}>
-                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
+                        <Ionicons name={"ellipsis-vertical"} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == "HomeScreen" || HeaderTitle == "SearchScreen" || HeaderTitle == "Saved" ? (
                     <TouchableOpacity onPress={() => { setOpenPopUpPost(id ? id : false) }}>
-                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
+                        <Ionicons name={"ellipsis-vertical"} size={28} />
                     </TouchableOpacity>
                 ) : null}
             </View>

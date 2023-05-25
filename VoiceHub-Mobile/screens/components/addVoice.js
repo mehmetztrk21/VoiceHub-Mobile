@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
@@ -173,7 +174,7 @@ export default function AddVoice({ navigation, title, postId, setIsAddVoice, set
         </View>
 
         <TouchableOpacity style={addVoiceStyle.touch} onPress={toggleRecord}>
-          <Icon type="feather" size={28} name={"mic"} color={colors.white} />
+          <Ionicons size={28} name={"mic"} color={colors.white} />
         </TouchableOpacity>
       </View>
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { Image, Text, TouchableOpacity, View } from "react-native"
-import { Icon } from "react-native-elements"
+import { Ionicons } from '@expo/vector-icons';
 import avatar from "../../assets/avatar.png"
 import colors from "../../assets/colors"
 import RenderLastSearchedUserStyle from "../../assets/styles/RenderLastSearchedUser.style"
@@ -64,7 +64,7 @@ const RenderLastSearchedUser = ({ navigation, thisUser, title }) => {
         </TouchableOpacity>
 
         < TouchableOpacity style={{ alignItems: "center", }} onPress={() => { /*deleteItem(item)*/ }}>
-          <Icon type={"font-awesome"} size={20} name={"times"} color={colors.gray} />
+          <Ionicons size={20} name={"close"} color={colors.gray} />
         </TouchableOpacity>
       </View>
     })

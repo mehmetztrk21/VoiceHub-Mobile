@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 import forgotPasswordStyle from "../assets/styles/forgotPassword.style";
 
 import { Dimensions } from "react-native";
@@ -50,7 +51,7 @@ export default function ForgotPassword({ navigation }) {
 
             <View style={{ marginBottom: "2.5%", marginLeft: "2.5%", flexDirection: "row", height: height * 0.07 }}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon type="ionicon" size={30} name={"arrow-back-outline"} style={{ marginRight: "1%", paddingTop: 7.5, }} />
+                    <Ionicons type="ionicon" size={30} name={"arrow-back-outline"} style={{ marginRight: "1%", paddingTop: 7.5, }} />
                 </TouchableOpacity>
                 <Text style={{ fontSize: 30, fontWeight: "500" }}>Forgot Password</Text>
             </View>

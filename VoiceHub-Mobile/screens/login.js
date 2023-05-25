@@ -4,7 +4,8 @@ import { Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } 
 import loginStyle from "../assets/styles/login.style";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 import colors from "../assets/colors";
 import { login } from "../services/authServices";
 import { useUser } from "../utils/userContext";
@@ -95,7 +96,7 @@ export default function Login({ navigation }) {
                     autoCapitalize="none"
                 />
                 <TouchableOpacity onPress={handlePasswordVisibility}>
-                    <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
+                    <Ionicons size={20} name={isPasswordVisible ? "eye-outline" : "eye-off-outline"} color={colors.green} />
                 </TouchableOpacity>
             </View>
 

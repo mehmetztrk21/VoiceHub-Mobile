@@ -1,7 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from "react";
 import { Image, Modal, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 import colors from "../assets/colors";
 import registerStyle from "../assets/styles/register.style";
 import RegisterProfilePhotoPopUp from "../screens/components/registerProfilePhotoPopUp";
@@ -137,7 +138,7 @@ export default function Register({ navigation }) {
                     autoCapitalize="none"
                 />
                 <TouchableOpacity onPress={handlePasswordVisibility}>
-                    <Icon type="font-awesome" size={20} name={isPasswordVisible ? "eye" : "eye-slash"} color={colors.green} />
+                    <Ionicons size={20} name={isPasswordVisible ? "eye-outline" : "eye-off-outline"} color={colors.green} />
                 </TouchableOpacity>
             </View>
 

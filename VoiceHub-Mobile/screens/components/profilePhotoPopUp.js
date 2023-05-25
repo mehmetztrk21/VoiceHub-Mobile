@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons'
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
@@ -113,19 +113,19 @@ const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, tit
 
                 <TouchableOpacity onPress={pickImage}
                     style={{ flexDirection: "row", alignItems: "center", marginBottom: 12.5, }}>
-                    <Icon size={20} type={"font-awesome"} name={"folder"} color={colors.white} />
+                    <Ionicons size={20} name={"folder"} color={colors.white} />
                     <Text style={profilePhotoPopUpStyle.button}>Choose Photo</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={takeImage}
                     style={{ flexDirection: "row", alignItems: "center", marginBottom: 12.5, }}>
-                    <Icon size={20} type={"font-awesome"} name={"camera"} color={colors.white} />
+                    <Ionicons size={20} name={"camera-outline"} color={colors.white} />
                     <Text style={profilePhotoPopUpStyle.button}>Take a Photo</Text>
                 </TouchableOpacity>
 
                 {user?.profilePhotoUrl ? <TouchableOpacity onPress={() => deletePhoto()}
                     style={{ flexDirection: "row", alignItems: "center", }}>
-                    <Icon size={20} type={"font-awesome"} name={"trash"} color={colors.white} />
+                    <Ionicons size={20} name={"trash"} color={colors.white} />
                     <Text style={profilePhotoPopUpStyle.button}>Remove Photo</Text>
                 </TouchableOpacity> : null}
 

@@ -1,17 +1,17 @@
-import { View, Text, TouchableOpacity, Share } from "react-native"
-import React, { useEffect, useState } from "react"
-import colors from "../../assets/colors"
-import PopUpPostStyles from "../../assets/styles/PopUpPost.style"
+import { Feather, Ionicons } from '@expo/vector-icons';
+import React, { useEffect, useState } from "react";
+import { Share, Text, TouchableOpacity, View } from "react-native";
+import colors from "../../assets/colors";
+import PopUpPostStyles from "../../assets/styles/PopUpPost.style";
 
-import { Icon } from "react-native-elements"
 
-import { useUser } from "../../utils/userContext"
+import { useUser } from "../../utils/userContext";
 
-import { setFollowFollower, setLikedPost, setSavedPost, setSeeLikes } from "../../services/actionServices"
-import { getPostById } from "../../services/postServices"
-import { getUserById } from "../../services/userServices"
+import { setFollowFollower, setSeeLikes } from "../../services/actionServices";
+import { getPostById } from "../../services/postServices";
+import { getUserById } from "../../services/userServices";
 
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const PopUpPost = ({ navigation, id, setId, uri }) => {
     const { user, setUser } = useUser();
@@ -107,19 +107,19 @@ const PopUpPost = ({ navigation, id, setId, uri }) => {
 
                 {user?.posts?.includes(post?._id) ?
                     <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={setSeeLike}>
-                        <Icon type={"font-awesome"} name={post?.isLikesVisible == true ? "heart-o" : "heart"} size={28} color={colors.white} />
+                        <Ionicons name={post?.isLikesVisible == true ? "heart-outline" : "heart-sharp"} size={28} color={colors.white} />
                         <Text style={PopUpPostStyles.text}>{post?.isLikesVisible == true ? "Unshow Likes" : "Show Likes"}</Text>
                     </TouchableOpacity>
                     : null}
 
                 <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={shareThisPost}>
-                    <Icon type={"font-awesome"} name={"share"} size={28} color={colors.white} />
+                    <Ionicons name={"share-outline"} size={28} color={colors.white} />
                     <Text style={PopUpPostStyles.text}>Share This Post</Text>
                 </TouchableOpacity>
 
                 {user?._id != seeUser._id ?
                     <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={followUnfollow}>
-                        <Icon type={"feather"} name={user?.followings?.includes(seeUser?._id) ? "user-minus" : "user"} size={28} color={colors.white} />
+                        <Feather name={user?.followings?.includes(seeUser?._id) ? "user-minus" : "user"} size={28} color={colors.white} />
                         <Text style={PopUpPostStyles.text}>
                             {user?.followings?.includes(seeUser?._id) ? "Unfollow" : "Follow"}
                         </Text>

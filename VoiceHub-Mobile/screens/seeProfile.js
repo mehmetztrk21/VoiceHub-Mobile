@@ -8,7 +8,8 @@ import colors from "../assets/colors";
 import seeProfileStyles from '../assets/styles/seeProfile.style';
 import verfy from "../assets/ver.png";
 
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 
 import DontShowPosts from "./components/DontShowPosts";
 import RenderPost from "./components/RenderPost";
@@ -118,7 +119,7 @@ export default function SeeProfile({ navigation, route }) {
             <View style={seeProfileStyles.SeeProfileHeader}>
                 <View style={seeProfileStyles.nameHolder}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <Icon style={seeProfileStyles.BackButton} type="ionicon" size={28} name={"arrow-back-outline"} />
+                        <Ionicons style={seeProfileStyles.BackButton} size={28} name={"arrow-back-outline"} />
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={handleLayout} style={{ flexDirection: "row" }}>
@@ -131,7 +132,7 @@ export default function SeeProfile({ navigation, route }) {
                 </View>
 
                 <TouchableOpacity onPress={() => { setOpenSeeProfileOptions(true) }} style={{ paddingHorizontal: "5%" }}>
-                    <Icon type={"font-awesome"} size={24} name={"ellipsis-v"} />
+                    <Ionicons size={24} name={"ellipsis-vertical"} />
                 </TouchableOpacity>
             </View>
 

@@ -16,12 +16,4 @@ export default StyleSheet.create({
     justifyContent: "center",
     marginLeft: "1%"
   },
-  SecondText: {
-    color: colors.white,
-    fontWeight: "600",
-    borderRadius: 30,
-    fontSize: 16,
-    textAlign: "center",
-    paddingVertical: 10,
-  },
 });

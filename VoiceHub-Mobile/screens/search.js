@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -141,6 +142,15 @@ export default function SearchScreen({ navigation, route }) {
     onChangeSearch();
   }, [searchQuery]);
 
+  const TruncatedText = (text) => {
+    if (text.length > 10) {
+      return `#${text.slice(0, 10)}...`;
+    }
+    else {
+      return "#" + text;
+    }
+  }
+
   if (loading) return <Loading />;
 
   return (
@@ -219,7 +229,7 @@ export default function SearchScreen({ navigation, route }) {
             }}
             style={searchStyles.closeButtonTouch}
           >
-            <Icon type="font-awesome" size={20} name={"times"} color={colors.green} />
+            <Ionicons size={20} name={"close"} color={colors.green} />
           </TouchableOpacity>
         ) : null}
       </View>
@@ -230,61 +240,67 @@ export default function SearchScreen({ navigation, route }) {
           horizontal showsHorizontalScrollIndicator={false}
           style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, marginVertical: 5 }}>
 
-          <TouchableOpacity onPress={() => setSelectedCategory("all")} key={"all"}>
-            <Text style={[searchStyles.SecondText,
-            { width: width * 0.3, marginHorizontal: width * 0.0125, },
+          <TouchableOpacity onPress={() => setSelectedCategory("all")} key={"all"}
+            style={[{ borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
             selectedCategory == "all" ? {
-              borderWidth: 2, borderColor: colors.green,
-              backgroundColor: colors.white, color: colors.green
-            } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#all</Text>
+              backgroundColor: colors.white
+            } : {
+              backgroundColor: colors.green
+            }]}>
+            <Text style={[{ paddingVertical: 10, textAlign: "center", fontWeight: "600", fontSize: 16, }, selectedCategory == "all" ? { color: colors.green } : { color: colors.white }]}>#all</Text>
 
           </TouchableOpacity>
 
           {categories.map((item, index) => {
             return (
-              <TouchableOpacity onPress={() => setSelectedCategory(item._id)} key={index}>
-                <Text style={[searchStyles.SecondText,
-                { width: width * 0.3, marginHorizontal: width * 0.0125, },
+              <TouchableOpacity onPress={() => setSelectedCategory(item._id)} key={index}
+                style={[{ borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
                 selectedCategory == item._id ? {
-                  borderWidth: 2, borderColor: colors.green,
-                  backgroundColor: colors.white, color: colors.green
-                } : { borderWidth: 2, borderColor: colors.green, backgroundColor: colors.green, color: colors.white }]}>#{item._id}</Text>
+                  backgroundColor: colors.white
+                } : {
+                  backgroundColor: colors.green
+                }]}>
+                <Text style={[{ paddingVertical: 10, textAlign: "center", fontWeight: "600", fontSize: 16, }, selectedCategory == item._id ?
+                  { color: colors.green } : { color: colors.white }]}>{item._id.length > 9 ? `#${item._id.slice(0, 9)}...` : ("#" + item._id)}</Text>
 
               </TouchableOpacity>
             )
           })}
         </ScrollView>
-      ) : null}
+      ) : null
+      }
 
       {/* POSTS */}
-      {focused === true ? (
-        searchQuery.length !== 0 ? (
+      {
+        focused === true ? (
+          searchQuery.length !== 0 ? (
+            <FlatList
+              data={users}
+              keyExtractor={(item) => item._id}
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={searchStyles.scrollContainer}
+              ref={scrollViewRef}
+              renderItem={({ item, index }) => <RenderLastSearchedUser navigation={navigation} thisUser={item} title={"search"} />}
+            />
+          ) : (
+            <RenderLastSearchedUser navigation={navigation} title={"last"} />
+          )
+        ) : (
           <FlatList
-            data={users}
+            data={posts}
             keyExtractor={(item) => item._id}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={searchStyles.scrollContainer}
+            initialNumToRender={15}
+            onEndReached={handleFlatlistEndReached}
+            contentContainerStyle={[searchStyles.scrollContainer, { paddingBottom: height * 0.075 }]}
             ref={scrollViewRef}
-            renderItem={({ item, index }) => <RenderLastSearchedUser navigation={navigation} thisUser={item} title={"search"} />}
+            refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} colors={[colors.green]} />}
+            renderItem={({ item, index }) => (
+              <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} post={item} setOpenPopUpPost={setOpenPopUpPost} />
+            )}
           />
-        ) : (
-          <RenderLastSearchedUser navigation={navigation} title={"last"} />
         )
-      ) : (
-        <FlatList
-          data={posts}
-          keyExtractor={(item) => item._id}
-          showsVerticalScrollIndicator={false}
-          initialNumToRender={15}
-          onEndReached={handleFlatlistEndReached}
-          contentContainerStyle={[searchStyles.scrollContainer, { paddingBottom: height * 0.075 }]}
-          ref={scrollViewRef}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} colors={[colors.green]} />}
-          renderItem={({ item, index }) => (
-            <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} post={item} setOpenPopUpPost={setOpenPopUpPost} />
-          )}
-        />
-      )}
-    </SafeAreaView>
+      }
+    </SafeAreaView >
   );
 }

@@ -1,7 +1,8 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Share } from 'react-native';
 
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 import React from "react"
 import colors from "../../assets/colors";
 import seeProfilePopUpStyles from "../../assets/styles/seeProfilePopUp.styles";
@@ -46,12 +47,12 @@ const seeProfilePopUp = ({ userId, setOpenSeeProfileOptions }) => {
 
                 <TouchableOpacity onPress={block}
                     style={{ flexDirection: "row", alignItems: "center", marginBottom: 12.5, }}>
-                    <Icon size={22} type={"font-awesome"} name={"ban"} color={colors.white} />
+                    <Ionicons size={22} name={"ban"} color={colors.white} />
                     <Text style={seeProfilePopUpStyles.button}>{user?.blockedUsers?.includes(userId) ? "Unblock" : "Block"} Account</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={shareThisProfile} style={{ flexDirection: "row", alignItems: "center", }}>
-                    <Icon size={22} type={"font-awesome"} name={"share"} color={colors.white} />
+                    <Ionicons size={22} name={"share-outline"} color={colors.white} />
                     <Text style={seeProfilePopUpStyles.button}>Share Profile</Text>
                 </TouchableOpacity>
 
