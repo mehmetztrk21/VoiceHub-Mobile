@@ -47,6 +47,7 @@ export default function Message({ navigation }) {
             <MessageItem
               navigation={navigation}
               username={item.username}
+              key={index}
             />
           )}
           refreshControl={

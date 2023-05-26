@@ -1,18 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, FlatList, Image, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Image, RefreshControl, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import OtherHeader from "./components/otherHeader";
 
 import { getFollowers, getFollowings } from "../services/userServices";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../assets/colors";
 import followFollowerStyle from "../assets/styles/follow&follower.style";
 import ver from "../assets/ver.png";
-import { baseURL } from "../utils/constants";
-import Loading from "./components/loading";
-import { useUser } from "../utils/userContext";
 import { setFollowFollower } from "../services/actionServices";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { baseURL } from "../utils/constants";
+import { useUser } from "../utils/userContext";
+import Loading from "./components/loading";
 
 const { width } = Dimensions.get("window");
 
@@ -174,7 +174,7 @@ const FollowFollower = ({ navigation, route }) => {
 
                 <FlatList
                     data={filteredData}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={(index) => index.toString()}
                     refreshing={refreshing}
                     onRefresh={pullThePage}
                     refreshControl={

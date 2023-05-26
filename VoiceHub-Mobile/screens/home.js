@@ -1,7 +1,10 @@
 import { useIsFocused } from "@react-navigation/native";
 
 import React, { useEffect, useRef, useState } from "react";
-import { BackHandler, Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from "react-native";
+import {
+  BackHandler, Dimensions, FlatList, Modal, RefreshControl, SafeAreaView,
+  Text, TouchableOpacity, TouchableWithoutFeedback, View
+} from "react-native";
 //importing components
 import HomeHeader from "./components/HomeHeader";
 import PopUpPost from "./components/PopUpPost";
@@ -82,13 +85,10 @@ export default function HomeScreen({ navigation }) {
       setUser(temp);
       AsyncStorage.setItem("user", JSON.stringify(temp));
     }
-    if (user?.isNew) {
+    if (user?.isNew == true) {
       setAlertMessage("Welcome " + user?.username + "!")
       setShowAlert(true)
-      let temp = { ...user };
-      temp.isNew = false;
-      setUser(temp);
-      AsyncStorage.setItem("user", JSON.stringify(temp));
+
     }
 
     const backAction = () => {
@@ -124,11 +124,6 @@ export default function HomeScreen({ navigation }) {
     }
   }, [refreshing])
 
-  const dismiss = () => {
-    console.log("kapandı")
-    setOpenPopUpPost(false)
-  }
-
   if (loading) return <Loading />
 
   return (
@@ -152,7 +147,7 @@ export default function HomeScreen({ navigation }) {
         visible={openPopUpPost ? true : false}
         onRequestClose={() => { setOpenPopUpPost(false) }}
       >
-        <TouchableWithoutFeedback onPress={dismiss}>
+        <TouchableWithoutFeedback onPress={() => setOpenPopUpPost(false)}>
           <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
         </TouchableWithoutFeedback>
         <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
@@ -160,7 +155,7 @@ export default function HomeScreen({ navigation }) {
 
       <FlatList
         data={posts}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(index) => index.toString()}
         showsVerticalScrollIndicator={false}
         ref={scrollViewRef}
         contentContainerStyle={[homeStyles.scroll, { paddingBottom: height * 0.2 }]}
@@ -210,13 +205,14 @@ export default function HomeScreen({ navigation }) {
             </TouchableOpacity>
           </View>
         }
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <RenderPost
-            key={item.id}
+            key={index}
             navigation={navigation}
             HeaderTitle={"HomeScreen"}
             post={item}
             setOpenPopUpPost={setOpenPopUpPost}
+
           />
         )}
       />

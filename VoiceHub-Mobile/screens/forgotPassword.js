@@ -7,8 +7,7 @@ import forgotPasswordStyle from "../assets/styles/forgotPassword.style";
 import { Dimensions } from "react-native";
 import colors from '../assets/colors';
 import AwesomeAlert from "react-native-awesome-alerts";
-const { width } = Dimensions.get("window");
-const { height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default function ForgotPassword({ navigation }) {
 

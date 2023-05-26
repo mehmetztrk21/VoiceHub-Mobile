@@ -1867,6 +1867,11 @@
   dependencies:
     "invariant" "^2.2.4"
 
+"@react-native-community/netinfo@^9.3.10":
+  "integrity" "sha512-OwnqoJUp/4sa9e3ju+wQavAa8l0fiA3DheeLMKzKxtKeAe0CA7bNxWRM752JvRQ6A/igPnt1V0zSlu5owvQEuA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-9.3.10.tgz"
+  "version" "9.3.10"
+
 "@react-native-picker/picker@github:react-native-picker/picker":
   "resolved" "git+ssh://git@github.com/react-native-picker/picker.git#acf2375b3da2d3f5a83a3cc0863c7a21506ed714"
   "version" "2.4.10"

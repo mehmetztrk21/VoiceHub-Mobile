@@ -2,8 +2,7 @@ import React, { useRef, useState } from "react";
 import {
   FlatList,
   RefreshControl,
-  SafeAreaView,
-  ScrollView
+  SafeAreaView
 } from "react-native";
 
 import activityStyles from "../assets/styles/notifications.style";
@@ -41,14 +40,14 @@ export default function NotificationScreen({ navigation }) {
       <FlatList
         style={[activityStyles.sContainer, { marginTop: width * 0.06 }]}
         data={userPostData}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(index) => index.toString()}
         renderItem={({ item, index }) => (
           <ActivityItem
             navigation={navigation}
             userPic={item.userPic}
             username={item.username}
             text={item.caption}
-            index={index}
+            key={index}
           />
         )}
         refreshControl={

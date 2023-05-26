@@ -1,11 +1,14 @@
 import { Audio } from "expo-av";
 import React, { useEffect, useState } from "react";
 import { TouchableOpacity, View } from "react-native";
-import {  Slider } from "react-native-elements";
-import { Ionicons } from '@expo/vector-icons';
+import { Slider } from "react-native-elements";
+
+import { Feather, Ionicons } from '@expo/vector-icons';
+
 import postStyle from "../../assets/styles/post.style";
 import sliderStyle from "../../assets/styles/slider.style";
 import colors from "../../assets/colors";
+
 import { baseURL } from "../../utils/constants";
 
 const Post = ({ uri }) => {
@@ -84,7 +87,7 @@ const Post = ({ uri }) => {
         onPress={isPlaying ? pauseSound : playSound}
       >
         {isPlaying ? (
-          <Ionicons
+          <Feather
             size={28}
             name={"pause"}
             color={colors.black}

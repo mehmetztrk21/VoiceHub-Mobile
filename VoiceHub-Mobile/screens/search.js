@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions, FlatList, Modal, RefreshControl, SafeAreaView,
+  ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View
+} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 import { useIsFocused } from "@react-navigation/native";
@@ -58,8 +61,15 @@ export default function SearchScreen({ navigation, route }) {
     const response = await getExplorePosts({ page: renderCount, limit: 15, category: selectedCategory });
 
     if (response && response.success) {
-      let post = [...posts, ...(response?.data)];
-      setPosts(post);
+      if (endScreen == true) {
+        console.log("üzerine ekledi")
+        let post = [...posts, ...(response?.data)];
+        setPosts(post);
+      }
+      else {
+        setPosts(response?.data)
+      }
+
     } else {
       if (response?.message === "Unauthorized") {
         await AsyncStorage.clear();
@@ -77,6 +87,8 @@ export default function SearchScreen({ navigation, route }) {
     if (response && response.success) {
 
       setCategories(response?.data)//[{_id:"poem",count:1}]
+
+      getPosts();
     } else {
       if (response?.message === "Unauthorized") {
         await AsyncStorage.clear();
@@ -111,28 +123,21 @@ export default function SearchScreen({ navigation, route }) {
       setFocused(false);
     }
     if (isFocused == true) {
+      console.log("girdi")
       setLoading(true);
       setEndScreen(false);
       setRenderCount(1);
-      clearPosts();
       getCategories();
-      getPosts();
     }
   }, [isFocused, selectedCategory]);
 
   useEffect(() => {
     if (refreshing == true) {
       setEndScreen(false);
-      clearPosts();
       setRenderCount(1);
       getCategories();
-      getPosts();
     }
   }, [refreshing]);
-
-  const clearPosts = () => {
-    setPosts([]);
-  };
 
   useEffect(() => {
     getPosts();
@@ -141,15 +146,6 @@ export default function SearchScreen({ navigation, route }) {
   useEffect(() => {
     onChangeSearch();
   }, [searchQuery]);
-
-  const TruncatedText = (text) => {
-    if (text.length > 10) {
-      return `#${text.slice(0, 10)}...`;
-    }
-    else {
-      return "#" + text;
-    }
-  }
 
   if (loading) return <Loading />;
 
@@ -176,6 +172,9 @@ export default function SearchScreen({ navigation, route }) {
           setOpenPopUpPost(false);
         }}
       >
+        <TouchableWithoutFeedback onPress={() => setOpenPopUpPost(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
@@ -240,28 +239,28 @@ export default function SearchScreen({ navigation, route }) {
           horizontal showsHorizontalScrollIndicator={false}
           style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, marginVertical: 5 }}>
 
-          <TouchableOpacity onPress={() => setSelectedCategory("all")} key={"all"}
-            style={[{ borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
+          <TouchableOpacity onPress={() => setSelectedCategory("all")}
+            style={[{ alignItems: "center", paddingVertical: 10, borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
             selectedCategory == "all" ? {
               backgroundColor: colors.white
             } : {
               backgroundColor: colors.green
             }]}>
-            <Text style={[{ paddingVertical: 10, textAlign: "center", fontWeight: "600", fontSize: 16, }, selectedCategory == "all" ? { color: colors.green } : { color: colors.white }]}>#all</Text>
+            <Text style={[{ textAlign: "center", fontWeight: "600", fontSize: 16, }, selectedCategory == "all" ? { color: colors.green } : { color: colors.white }]}>#all</Text>
 
           </TouchableOpacity>
 
           {categories.map((item, index) => {
             return (
               <TouchableOpacity onPress={() => setSelectedCategory(item._id)} key={index}
-                style={[{ borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
+                style={[{ alignItems: "center", paddingVertical: 10, borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
                 selectedCategory == item._id ? {
                   backgroundColor: colors.white
                 } : {
                   backgroundColor: colors.green
                 }]}>
-                <Text style={[{ paddingVertical: 10, textAlign: "center", fontWeight: "600", fontSize: 16, }, selectedCategory == item._id ?
-                  { color: colors.green } : { color: colors.white }]}>{item._id.length > 9 ? `#${item._id.slice(0, 9)}...` : ("#" + item._id)}</Text>
+                <Text style={[{ textAlign: "center", fontWeight: "600", fontSize: 16, }, selectedCategory == item._id ?
+                  { color: colors.green } : { color: colors.white }]}>{"#" + item._id}</Text>
 
               </TouchableOpacity>
             )
@@ -276,11 +275,11 @@ export default function SearchScreen({ navigation, route }) {
           searchQuery.length !== 0 ? (
             <FlatList
               data={users}
-              keyExtractor={(item) => item._id}
+              keyExtractor={(index) => index.toString()}
               showsVerticalScrollIndicator={false}
               contentContainerStyle={searchStyles.scrollContainer}
               ref={scrollViewRef}
-              renderItem={({ item, index }) => <RenderLastSearchedUser navigation={navigation} thisUser={item} title={"search"} />}
+              renderItem={({ item, index }) => <RenderLastSearchedUser navigation={navigation} thisUser={item} title={"search"} key={index} />}
             />
           ) : (
             <RenderLastSearchedUser navigation={navigation} title={"last"} />
@@ -288,7 +287,7 @@ export default function SearchScreen({ navigation, route }) {
         ) : (
           <FlatList
             data={posts}
-            keyExtractor={(item) => item._id}
+            keyExtractor={(index) => index.toString()}
             showsVerticalScrollIndicator={false}
             initialNumToRender={15}
             onEndReached={handleFlatlistEndReached}
@@ -296,7 +295,7 @@ export default function SearchScreen({ navigation, route }) {
             ref={scrollViewRef}
             refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} colors={[colors.green]} />}
             renderItem={({ item, index }) => (
-              <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} post={item} setOpenPopUpPost={setOpenPopUpPost} />
+              <RenderPost navigation={navigation} HeaderTitle={"SearchScreen"} post={item} setOpenPopUpPost={setOpenPopUpPost} key={index} />
             )}
           />
         )

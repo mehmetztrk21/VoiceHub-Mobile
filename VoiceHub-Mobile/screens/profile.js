@@ -1,12 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Dimensions,
-  FlatList,
-  Image, Modal,
+  Dimensions, FlatList,
+  Image, Modal, Share,
   RefreshControl, SafeAreaView,
-  Share,
-  Text,
-  TouchableOpacity, View
+  Text, TouchableWithoutFeedback,
+  TouchableOpacity, View,
 } from "react-native";
 
 import { useIsFocused } from "@react-navigation/native";
@@ -17,12 +15,12 @@ import profileStyles from "../assets/styles/profile.style";
 import PopUp from "./components/ProfileBottomPopUp";
 import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
-import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 import EditCategoriesPopUp from "./components/editCategoriesPopUp";
 import EditPostPopUp from "./components/editPostPopUp";
 import Loading from "./components/loading";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
+import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 
 import { getMyPosts } from "../services/postServices";
 
@@ -32,7 +30,7 @@ import { baseURL } from "../utils/constants";
 import { followerCountFormatText } from "../utils/followerCountFormatText";
 import { useUser } from "../utils/userContext";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default function ProfileScreen({ navigation }) {
 
@@ -111,6 +109,9 @@ export default function ProfileScreen({ navigation }) {
         onRequestClose={() => {
           setVisiblePopUp(false)
         }}>
+        <TouchableWithoutFeedback onPress={() => setVisiblePopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
           setVisiblePopUp={setVisiblePopUp} />
       </Modal>
@@ -132,6 +133,9 @@ export default function ProfileScreen({ navigation }) {
         visible={openEditPostPopUp ? true : false}
         onRequestClose={() => { setOpenEditPostPopUp(false) }}
       >
+        <TouchableWithoutFeedback onPress={() => setOpenEditPostPopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <EditPostPopUp navigation={navigation} id={openEditPostPopUp} setId={setOpenEditPostPopUp} setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} />
       </Modal>
 
@@ -141,6 +145,9 @@ export default function ProfileScreen({ navigation }) {
         visible={openEditCategoriesPopUp ? true : false}
         onRequestClose={() => { setOpenEditCategoriesPopUp(false) }}
       >
+        <TouchableWithoutFeedback onPress={() => setOpenEditCategoriesPopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <EditCategoriesPopUp setId={setOpenEditPostPopUp} categories={openEditCategoriesPopUp} setCategories={setOpenEditCategoriesPopUp} />
       </Modal>
 
@@ -150,6 +157,9 @@ export default function ProfileScreen({ navigation }) {
         onRequestClose={() => {
           setOpenProfilePhotoPopUp(false)
         }}>
+        <TouchableWithoutFeedback onPress={() => setOpenProfilePhotoPopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"ProfileScreen"} />
       </Modal>
 
@@ -217,7 +227,7 @@ export default function ProfileScreen({ navigation }) {
       {/* Posts */}
       <FlatList
         data={posts}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(index) => index.toString()}
         ref={scrollViewRef}
         refreshing={refreshing}
         refreshControl={
@@ -244,7 +254,7 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
         renderItem={({ item, index }) => (
-          <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} />
+          <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} key={index}/>
         )}
       />
     </SafeAreaView>
