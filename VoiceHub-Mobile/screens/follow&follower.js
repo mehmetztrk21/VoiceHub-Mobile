@@ -174,7 +174,7 @@ const FollowFollower = ({ navigation, route }) => {
 
                 <FlatList
                     data={filteredData}
-                    keyExtractor={(item, index) => index.toString()}
+                    keyExtractor={(index) => index.toString()}
                     refreshing={refreshing}
                     onRefresh={pullThePage}
                     refreshControl={

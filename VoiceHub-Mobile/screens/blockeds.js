@@ -6,7 +6,7 @@ import colors from "../assets/colors";
 import { useUser } from "../utils/userContext";
 
 import { blockedUsers } from "../services/userServices";
-
+import NetInfo from '@react-native-community/netinfo';
 import BlockedItem from "./components/blockedItem";
 import OtherHeader from "./components/otherHeader";
 import Loading from "./components/loading";
@@ -41,6 +41,15 @@ const Blockeds = ({ navigation }) => {
                 navigation.navigate("Login");
             }
             else {
+                NetInfo.fetch().then(state => {
+                    if (!state.isConnected) {
+                        Alert.alert(
+                            'İnternet Bağlantısı',
+                            'İnternet bağlantınızı kontrol edin.',
+                            [{ text: 'Tamam' }]
+                        );
+                    }
+                });
                 setUsers(res?.data);
             }
         }).catch((err) => {
@@ -87,7 +96,7 @@ const Blockeds = ({ navigation }) => {
                     />
                 }
                 renderItem={({ item, index }) => (
-                    <BlockedItem navigation={navigation} blockedUser={item} index={index} />
+                    <BlockedItem navigation={navigation} blockedUser={item} key={index} />
                 )}
                 ListEmptyComponent={
                     <View style={{ marginTop: "20%" }}>

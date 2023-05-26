@@ -231,7 +231,7 @@ export default function SeeProfile({ navigation, route }) {
                 contentContainerStyle={seeProfileStyles.scroll}
                 refreshing={refreshing}
                 onRefresh={pullThePage}
-                keyExtractor={(item) => item._id}
+                keyExtractor={(index) => index.toString()}
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                 }
@@ -244,6 +244,7 @@ export default function SeeProfile({ navigation, route }) {
                         HeaderTitle={"OtherProfiles"}
                         post={item}
                         thisUser={seeUser}
+                        key={index}
                     />
                 )}
             />

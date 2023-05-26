@@ -56,7 +56,7 @@ export default function Register({ navigation }) {
                     await AsyncStorage.setItem('token', response2.data.accessToken)
                     await AsyncStorage.setItem('user', JSON.stringify(response2.data.user))
                     setUser(response2.data.user);
-                    navigation.navigate("HomeScreen")
+                    navigation.navigate("HomeScreen", { isNew: true })
                 }
                 else {
                     setAlertMessage("Username already exists")

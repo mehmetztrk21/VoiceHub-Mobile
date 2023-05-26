@@ -227,7 +227,7 @@ export default function ProfileScreen({ navigation }) {
       {/* Posts */}
       <FlatList
         data={posts}
-        keyExtractor={(item) => item._id}
+        keyExtractor={(index) => index.toString()}
         ref={scrollViewRef}
         refreshing={refreshing}
         refreshControl={
@@ -254,7 +254,7 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
         renderItem={({ item, index }) => (
-          <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} />
+          <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} key={index}/>
         )}
       />
     </SafeAreaView>

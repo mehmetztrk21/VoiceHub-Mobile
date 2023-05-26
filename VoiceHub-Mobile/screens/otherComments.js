@@ -34,7 +34,7 @@ export default function OtherComments({ navigation, route }) {
             <View style={{ marginTop: width * 0.04 }}>
                 <FlatList
                     data={comments}
-                    keyExtractor={(item) => item._id}
+                    keyExtractor={(index) => index.toString()}
                     renderItem={({ item, index }) => (
                         <Comment
                             commentId={item._id}
@@ -46,6 +46,7 @@ export default function OtherComments({ navigation, route }) {
                             setOpenAreYouSure={setOpenAreYouSure}
                             userId={item.createdBy._id}
                             postId={postId}
+                            key={index}
                         />
                     )}
                     ListEmptyComponent={

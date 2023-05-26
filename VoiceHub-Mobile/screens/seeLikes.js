@@ -78,7 +78,7 @@ const SeeLikes = ({ navigation, route }) => {
                 <FlatList
                     style={seeLikesStyle.scroll}
                     data={users}
-                    keyExtractor={(item) => item._id}
+                    keyExtractor={(index) => index.toString()}
                     renderItem={({ item, index }) => (
                         <LikeItem
                             navigation={navigation}

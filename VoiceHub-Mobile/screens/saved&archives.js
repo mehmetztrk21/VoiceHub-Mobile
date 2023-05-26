@@ -142,17 +142,17 @@ export default function SavedArchieves({ navigation, route }) {
       }}>
         <FlatList
           data={posts}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(index) => index.toString()}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={() => { setRefreshing(true) }} colors={[colors.green]} progressViewOffset={height * 0.15} />
           }
           renderItem={({ item, index }) => (
             HeaderTitle == "Saved" ?
-              <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
+              <RenderPost navigation={navigation} HeaderTitle={HeaderTitle} key={index}
                 setOpenArchivePopUp={setOpenArchivePopUp} post={item} setOpenPopUpPost={setOpenPopUpPost} /> :
 
               <RenderPost navigation={navigation} HeaderTitle={HeaderTitle}
-                setOpenArchivePopUp={setOpenArchivePopUp} post={item} />
+                setOpenArchivePopUp={setOpenArchivePopUp} post={item} key={index} />
 
           )}
         />
