@@ -61,18 +61,19 @@ export default function EditProfile({ navigation }) {
 
     console.log("2")
 
-    const info = null;
+    let info = null;
 
     console.log("3")
 
     if (image == null) {
       console.log("4")
-      const info = user?.profilePhotoUrl
+       info = user?.profilePhotoUrl
       console.log("5")
     }
     else {
+      console.log(image, "image")
       console.log("6")
-      const info = await FileSystem.getInfoAsync(image);
+       info = await FileSystem.getInfoAsync(image);
       console.log("7")
     }
     console.log("8")
@@ -91,7 +92,7 @@ export default function EditProfile({ navigation }) {
     formData.append("birthDay", birth);
     console.log("8.2")
     formData.append("gender", gender);
-    console.log("9")
+    console.log("9","213131232131")
     if (image) {
       formData.append("profilePhoto", {
         uri: info.uri,

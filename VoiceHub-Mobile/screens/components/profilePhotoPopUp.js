@@ -35,22 +35,23 @@ const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, tit
 
     const takeImage = async () => {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
-
+        console.log("takeImage", status)
         if (status === 'granted') {
-            let result = await ImagePicker.launchCameraAsync({
+            await ImagePicker.launchCameraAsync({
                 mediaTypes: ImagePicker.MediaTypeOptions.All,
                 allowsEditing: true,
                 aspect: [2, 2],
                 quality: 1,
-            });
-
-            if (!result.cancelled) {
-                setImage(res.uri);
-                if (title == "ProfileScreen") {
-                    save(res.uri);
+            }).then((res) => {
+                        
+                if (!res.cancelled) {
+                    setImage(res.uri);
+                    if (title == "ProfileScreen") {
+                        save(res.uri);
+                    }
+                    setOpenProfilePhotoPopUp(false);
                 }
-                setOpenProfilePhotoPopUp(false);
-            }
+            });
         } else {
             throw new Error('Camera permission not granted');
         }
@@ -59,6 +60,8 @@ const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, tit
     const save = async (uri) => {
         const formData = new FormData();
         const info = await FileSystem.getInfoAsync((uri) ? uri : user?.profilePhotoUrl);
+
+        console.log(info, "infoooooooooo")
         if (uri) {
             formData.append("profilePhoto", {
                 uri: info.uri,
@@ -78,7 +81,7 @@ const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, tit
                     setUser(res?.data);
                     await AsyncStorage.setItem("user", JSON.stringify(res?.data));
                 }
-                
+
             }).catch((err) => {
                 console.log(err);
             })
@@ -88,7 +91,7 @@ const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, tit
     }
 
     const pickImage = async () => {
-
+        console.log("pickImage")
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
