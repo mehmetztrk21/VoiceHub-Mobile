@@ -20,7 +20,6 @@ import { getPostById } from "../services/postServices";
 import { baseURL } from "../utils/constants";
 import { FlatList } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-const { width } = Dimensions.get("window");
 const { height } = Dimensions.get("window");
 
 export default function SeePost({ navigation, route }) {

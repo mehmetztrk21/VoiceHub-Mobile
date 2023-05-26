@@ -1,14 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from "react";
-import { Image, Modal, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, Modal, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View, TouchableWithoutFeedback, Dimensions } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 import colors from "../assets/colors";
 import registerStyle from "../assets/styles/register.style";
 import RegisterProfilePhotoPopUp from "../screens/components/registerProfilePhotoPopUp";
 import { login, register } from "../services/authServices";
+const { width, height } = Dimensions.get("window");
 import { registerCondition } from "../utils/registerCondition";
 import { useUser } from "../utils/userContext";
+
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default function Register({ navigation }) {
@@ -78,6 +80,9 @@ export default function Register({ navigation }) {
                 onRequestClose={() => {
                     setOpenRegisterProfilePhotoPopUp(false)
                 }}>
+                <TouchableWithoutFeedback onPress={() => setOpenRegisterProfilePhotoPopUp(false)}>
+                    <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+                </TouchableWithoutFeedback>
                 <RegisterProfilePhotoPopUp setOpenRegisterProfilePhotoPopUp={setOpenRegisterProfilePhotoPopUp} />
             </Modal>
 

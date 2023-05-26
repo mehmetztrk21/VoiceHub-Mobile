@@ -15,11 +15,11 @@ import Post from "./components/post";
 import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 
 import { getUserById, removeUserFiles, updateUserInfo } from '../services/userServices';
-
 import { baseURL } from "../utils/constants";
 import { useUser } from "../utils/userContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../assets/colors";
+import { TouchableWithoutFeedback } from "react-native";
 
 export default function EditProfile({ navigation }) {
 
@@ -177,6 +177,9 @@ export default function EditProfile({ navigation }) {
         onRequestClose={() => {
           setOpenProfilePhotoPopUp(false)
         }}>
+        <TouchableWithoutFeedback onPress={()=>setOpenProfilePhotoPopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"EditProfile"} />
       </Modal>
 
@@ -186,6 +189,9 @@ export default function EditProfile({ navigation }) {
         onRequestClose={() => {
           setOpenBioVoicePopUp(false)
         }}>
+        <TouchableWithoutFeedback onPress={()=>setOpenBioVoicePopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <BioVoicePopUp setIsDeleteVoice={setIsDeleteVoice} setOpenAddVoice={setOpenAddVoice} setOpenBioVoicePopUp={setOpenBioVoicePopUp} />
       </Modal>
 

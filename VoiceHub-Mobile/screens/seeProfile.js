@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-    FlatList,
-    Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TouchableOpacity, View
+    FlatList, Image, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, TouchableWithoutFeedback, View
 } from "react-native";
 
 import colors from "../assets/colors";
@@ -11,7 +10,6 @@ import verfy from "../assets/ver.png";
 import { Ionicons } from '@expo/vector-icons';
 
 
-import DontShowPosts from "./components/DontShowPosts";
 import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
 import Post from "./components/post";
@@ -19,11 +17,14 @@ import Post from "./components/post";
 import { setFollowFollower } from "../services/actionServices";
 import { getMyPosts } from "../services/postServices";
 import { getUserById } from "../services/userServices";
+
 import { baseURL } from "../utils/constants";
 import { followerCountFormatText } from "../utils/followerCountFormatText";
 import { useUser } from "../utils/userContext";
+
 import Loading from "./components/loading";
 import SeeProfilePopUp from "./components/seeProfilePopUp";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SeeProfile({ navigation, route }) {
@@ -60,11 +61,11 @@ export default function SeeProfile({ navigation, route }) {
             setPosts(response?.data);
             console.log(response?.data)
         }
-        else{
+        else {
             if (response?.message == "Unauthorized") {
                 await AsyncStorage.clear();
                 navigation.navigate("Login");
-              }
+            }
         }
         setLoading(false)
     }
@@ -143,6 +144,9 @@ export default function SeeProfile({ navigation, route }) {
                 onRequestClose={() => {
                     setOpenSeeProfileOptions(false)
                 }}>
+                <TouchableWithoutFeedback onPress={() => setOpenSeeProfileOptions(false)}>
+                    <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+                </TouchableWithoutFeedback>
                 <SeeProfilePopUp navigation={navigation} userId={userId} openSeeProfileOptions={openSeeProfileOptions} setOpenSeeProfileOptions={setOpenSeeProfileOptions} />
             </Modal>
 

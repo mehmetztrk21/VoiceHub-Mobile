@@ -3,10 +3,10 @@ import colors from "../colors";
 
 export default StyleSheet.create({
     wrapper: {
-        flex: 1,
         width: "70%",
         alignSelf: "center",
         justifyContent: "center",
+        top: "40%"
     },
     container: {
         width: "100%",

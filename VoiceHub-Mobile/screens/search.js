@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import {
+  Dimensions, FlatList, Modal, RefreshControl, SafeAreaView,
+  ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View
+} from "react-native";
 import { Ionicons } from '@expo/vector-icons';
 
 import { useIsFocused } from "@react-navigation/native";
@@ -176,6 +179,9 @@ export default function SearchScreen({ navigation, route }) {
           setOpenPopUpPost(false);
         }}
       >
+        <TouchableWithoutFeedback onPress={() => setOpenPopUpPost(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
       </Modal>
 
@@ -240,7 +246,7 @@ export default function SearchScreen({ navigation, route }) {
           horizontal showsHorizontalScrollIndicator={false}
           style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, marginVertical: 5 }}>
 
-          <TouchableOpacity onPress={() => setSelectedCategory("all")} key={"all"}
+          <TouchableOpacity onPress={() => setSelectedCategory("all")}
             style={[{ borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
             selectedCategory == "all" ? {
               backgroundColor: colors.white

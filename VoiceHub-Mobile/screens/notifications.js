@@ -2,8 +2,7 @@ import React, { useRef, useState } from "react";
 import {
   FlatList,
   RefreshControl,
-  SafeAreaView,
-  ScrollView
+  SafeAreaView
 } from "react-native";
 
 import activityStyles from "../assets/styles/notifications.style";

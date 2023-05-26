@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, FlatList, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 
 import ArchivePopUp from "./components/archivePopUp";
 import OtherHeader from './components/otherHeader';
@@ -11,9 +11,12 @@ import { getMyPosts, getSavedPosts } from "../services/postServices";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../assets/colors';
+
 import { useUser } from '../utils/userContext';
+
 import Loading from './components/loading';
 import PopUpPost from './components/PopUpPost';
+
 const { width, height } = Dimensions.get("window");
 
 export default function SavedArchieves({ navigation, route }) {
@@ -93,6 +96,9 @@ export default function SavedArchieves({ navigation, route }) {
           setOpenArchivePopUp(false);
         }}
       >
+        <TouchableWithoutFeedback onPress={() => setOpenArchivePopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <ArchivePopUp id={openArchivePopUp} setId={setOpenArchivePopUp} />
       </Modal>
 

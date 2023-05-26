@@ -19,8 +19,7 @@ import AwesomeAlert from "react-native-awesome-alerts";
 import { recordingOptions } from "../utils/recordingOptions";
 import { timeFormatText } from "../utils/timeFormatText";
 
-const { width } = Dimensions.get("window");
-const { height } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default function Upload({ navigation }) {
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
@@ -248,7 +247,7 @@ export default function Upload({ navigation }) {
                     <View style={{ flexDirection: "row", justifyContent: "space-around" }}>
                         <TouchableOpacity onPress={handleReset}
                             style={{
-                                width: width * 0.2, height: width * 0.2, alignItems:"center",
+                                width: width * 0.2, height: width * 0.2, alignItems: "center",
                                 borderRadius: width * 0.1, borderWidth: 7, borderColor: colors.tealGreen,
                                 backgroundColor: colors.white, justifyContent: "center",
                             }}>
@@ -257,7 +256,7 @@ export default function Upload({ navigation }) {
 
                         <TouchableOpacity onPress={save}
                             style={{
-                                width: width * 0.2, height: width * 0.2, alignItems:"center",
+                                width: width * 0.2, height: width * 0.2, alignItems: "center",
                                 borderRadius: width * 0.1, borderWidth: 7, borderColor: colors.tealGreen,
                                 backgroundColor: colors.white, justifyContent: "center",
                             }}>
@@ -269,7 +268,7 @@ export default function Upload({ navigation }) {
                 <View style={{ flexDirection: "row" }}>
                     <TouchableOpacity onPress={pickFile}
                         style={{
-                            width: width * 0.24, height: width * 0.24, alignItems:"center",
+                            width: width * 0.24, height: width * 0.24, alignItems: "center",
                             borderRadius: width * 0.12, borderWidth: 7, borderColor: colors.tealGreen,
                             backgroundColor: colors.white, justifyContent: "center", marginRight: width * 0.06
                         }}>
@@ -278,7 +277,7 @@ export default function Upload({ navigation }) {
 
                     <TouchableOpacity onPress={toggleRecord}
                         style={{
-                            width: width * 0.24, height: width * 0.24, alignItems:"center",
+                            width: width * 0.24, height: width * 0.24, alignItems: "center",
                             borderRadius: width * 0.12, borderWidth: 7, borderColor: colors.tealGreen,
                             backgroundColor: colors.white, justifyContent: "center", marginLeft: width * 0.06
                         }}>
