@@ -58,8 +58,9 @@ export default function SearchScreen({ navigation, route }) {
     scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
-  const  getPosts = async () => {
+  const getPosts = async () => {
     if (isFinished) {
+      console.log("finish")
       return;
     }
     const response = await getExplorePosts({ page: renderCount, limit: 15, category: selectedCategory });
@@ -94,7 +95,7 @@ export default function SearchScreen({ navigation, route }) {
 
     if (response && response.success) {
 
-      setCategories(response?.data)//[{_id:"poem",count:1}]
+      setCategories(response?.data)
 
       getPosts();
     } else {
@@ -131,8 +132,13 @@ export default function SearchScreen({ navigation, route }) {
       setFocused(false);
     }
     if (isFocused == true) {
+      console.log("1");
       setLoading(true);
+
+      console.log("2");
       setIsFinished(false)
+
+      console.log("3");
       setEndScreen(false);
       setRenderCount(1);
       getCategories();
