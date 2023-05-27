@@ -242,16 +242,22 @@ export default function SearchScreen({ navigation, route }) {
       {focused === false ? (
         <ScrollView ref={categoryScrollViewRef}
           horizontal showsHorizontalScrollIndicator={false}
-          style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, marginVertical: 5 }}>
+          style={{ marginStart: width * 0.0125, marginEnd: width * 0.0125, height: height * 0.15 }}>
 
           <TouchableOpacity onPress={() => setSelectedCategory("all")}
-            style={[{ alignItems: "center", paddingVertical: 10, borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
+            style={[{
+              height: height * 0.075, alignItems: "center", borderRadius: 30,
+              borderColor: colors.green, borderWidth: 2, width: width * 0.3,
+              marginHorizontal: width * 0.0125
+            },
             selectedCategory == "all" ? {
-              backgroundColor: colors.white
+              backgroundColor: colors.white,
             } : {
               backgroundColor: colors.green
             }]}>
-            <Text style={[{ textAlign: "center", fontWeight: "600", fontSize: 16, }, selectedCategory == "all" ? { color: colors.green } : { color: colors.white }]}>#all</Text>
+            <Text style={[{
+              textAlign: "center", fontWeight: "600", fontSize: height * 0.025, height: height * 0.05, marginTop: height * 0.015
+            }, selectedCategory == "all" ? { color: colors.green } : { color: colors.white }]}>#all</Text>
 
           </TouchableOpacity>
 
@@ -259,16 +265,19 @@ export default function SearchScreen({ navigation, route }) {
             return (
               <TouchableOpacity onPress={() => setSelectedCategory(item._id)} key={index}
                 style={[{
-                  alignItems: "center", paddingVertical: 10, borderRadius: 30, borderColor: colors.green,
-                  borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125
+                  height: height * 0.075, alignItems: "center", borderRadius: 30,
+                  borderColor: colors.green, borderWidth: 2, width: width * 0.3,
+                  marginHorizontal: width * 0.0125
                 },
                 selectedCategory == item._id ? {
                   backgroundColor: colors.white
                 } : {
                   backgroundColor: colors.green
                 }]}>
-                <Text style={[{ textAlign: "center", fontWeight: "600", fontSize: 16, }, selectedCategory == item._id ?
-                  { color: colors.green } : { color: colors.white }]}>{"#" + item._id}</Text>
+                <Text style={[{
+                  textAlign: "center", fontWeight: "600", fontSize: height * 0.025, height: height * 0.05, marginTop: height * 0.015
+                }, selectedCategory == item._id ?
+                  { color: colors.green } : { color: colors.white }]}>{item._id.length > 5 ? "#" + item._id.slice(0, 5) + "..." : "#" + item._id}</Text>
 
               </TouchableOpacity>
             )
