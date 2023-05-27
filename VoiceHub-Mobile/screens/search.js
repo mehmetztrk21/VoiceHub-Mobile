@@ -35,6 +35,7 @@ export default function SearchScreen({ navigation, route }) {
   const [posts, setPosts] = useState([]);
   const [openPopUpPost, setOpenPopUpPost] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isFinished, setIsFinished] = useState(false);
 
   const [focused, setFocused] = useState(false);
   const [openAreYouSure, setOpenAreYouSure] = useState(false);
@@ -57,17 +58,24 @@ export default function SearchScreen({ navigation, route }) {
     scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
-  const getPosts = async () => {
+  const  getPosts = async () => {
+    if (isFinished) {
+      return;
+    }
     const response = await getExplorePosts({ page: renderCount, limit: 15, category: selectedCategory });
 
     if (response && response.success) {
-      if (endScreen == true) {
-        console.log("üzerine ekledi")
-        let post = [...posts, ...(response?.data)];
-        setPosts(post);
+      if (response.data.length > 0) {
+        if (endScreen) {
+          let post = [...posts, ...(response?.data)];
+          setPosts(post);
+        }
+        else {
+          setPosts(response?.data);
+        }
       }
       else {
-        setPosts(response?.data)
+        setIsFinished(true)
       }
 
     } else {
@@ -77,8 +85,8 @@ export default function SearchScreen({ navigation, route }) {
       }
     }
     setLoading(false);
-    setRefreshing(false);
     setEndScreen(false);
+    setRefreshing(false);
   };
 
   const getCategories = async () => {
@@ -123,8 +131,8 @@ export default function SearchScreen({ navigation, route }) {
       setFocused(false);
     }
     if (isFocused == true) {
-      console.log("girdi")
       setLoading(true);
+      setIsFinished(false)
       setEndScreen(false);
       setRenderCount(1);
       getCategories();
@@ -134,13 +142,16 @@ export default function SearchScreen({ navigation, route }) {
   useEffect(() => {
     if (refreshing == true) {
       setEndScreen(false);
+      setIsFinished(false);
       setRenderCount(1);
       getCategories();
     }
   }, [refreshing]);
 
   useEffect(() => {
-    getPosts();
+    if (endScreen) {
+      getPosts();
+    }
   }, [endScreen])
 
   useEffect(() => {
