@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Alert, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import loginStyle from "../assets/styles/login.style";
+import NetInfo from '@react-native-community/netinfo';
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Ionicons } from '@expo/vector-icons';
@@ -29,23 +30,32 @@ export default function Login({ navigation }) {
 
 
     const isLogin = async () => {
-        setLoading(true);
+        //setLoading(true);
         if (username !== "" && password !== "") {
-            const response = await login({ username: username, password: password });
-            if (response && response.success) {
-                await AsyncStorage.setItem("token", response.data.accessToken);
-                await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
-                setUser(response.data.user);
-                setUsername("");
-                setPassword("");
-                navigation.navigate("HomeScreen");
-                setTimeout(() => {
+
+            const netInfo = await NetInfo.fetch();
+            if (netInfo.isConnected) {
+                const response = await login({ username: username, password: password });
+
+                if (response && response.success) {
+                    await AsyncStorage.setItem("token", response.data.accessToken);
+                    await AsyncStorage.setItem("user", JSON.stringify(response.data.user));
+                    setUser(response.data.user);
+                    setUsername("");
+                    setPassword("");
+                    navigation.navigate("HomeScreen");
+                    setTimeout(() => {
+                        setLoading(false);
+                    }, 1000);
+                }
+                else {
                     setLoading(false);
-                }, 1000);
-            }
-            else {
+                    setAlertMessage("Username or password is worng")
+                    setShowAlert(true)
+                }
+            } else {
                 setLoading(false);
-                setAlertMessage("Username or password is worng")
+                setAlertMessage("No internet connection")
                 setShowAlert(true)
             }
         }

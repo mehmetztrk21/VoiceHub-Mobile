@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
+import { Image, SafeAreaView, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 
@@ -10,7 +10,7 @@ import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 const HomeHeader = ({ navigation, pressLogo }) => {
 
   return (
-    <View style={homeHeaderStyles.wrapper}>
+    <SafeAreaView style={homeHeaderStyles.wrapper}>
 
       <View style={homeHeaderStyles.head}>
 
@@ -33,7 +33,7 @@ const HomeHeader = ({ navigation, pressLogo }) => {
         </View>
 
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

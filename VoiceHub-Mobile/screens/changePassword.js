@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-
+import NetInfo from '@react-native-community/netinfo';
 import colors from "../assets/colors";
 import OtherHeader from "../screens/components/otherHeader";
 import { changePassword } from "../services/userServices";
@@ -23,24 +23,35 @@ const ChangePassword = ({ navigation }) => {
     const confirm = async () => {
 
         if (password1 == password2) {
-            await changePassword({ password: old, newPassword: password2 }).then(async (res) => {
-                if (res?.data?.message == "Unauthorized") {
-                    await AsyncStorage.clear();
-                    navigation.navigate("Login");
-                }
-                else {
-                    if (res?.success) {
-                        setAlertMessage("Your password has been successfully changed!");
-                        setShowAlert(true);
+
+            const netInfo = NetInfo.fetch();
+            if (netInfo.isConnected) {
+                await changePassword({ password: old, newPassword: password2 }).then(async (res) => {
+                    if (res?.data?.message == "Unauthorized") {
+                        await AsyncStorage.clear();
+                        navigation.navigate("Login");
                     }
                     else {
-                        setAlertMessage("You did not enter your old password correctly");
-                        setShowAlert(true);
+                        if (res?.success) {
+                            setAlertMessage("Your password has been successfully changed!");
+                            setShowAlert(true);
+                        }
+                        else {
+                            setAlertMessage("You did not enter your old password correctly");
+                            setShowAlert(true);
+                        }
                     }
-                }
-            }).catch((err) => {
-                console.log(err);
-            })
+                }).catch((err) => {
+                    console.log(err);
+                })
+            }
+            else {
+                setLoading(false);
+                setAlertMessage("No Internet Connection");
+                setShowAlert(true);
+            }
+
+
         }
         else {
             setAlertMessage("The passwords you will create do not match.")

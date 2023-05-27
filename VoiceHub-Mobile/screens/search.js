@@ -183,12 +183,12 @@ export default function SearchScreen({ navigation, route }) {
         style={{
           backgroundColor: "lightgray",
           borderRadius: 25,
-          paddingHorizontal: "3%",
-          width: "90%",
-          marginLeft: "5%",
+          paddingHorizontal: width * 0.03,
+          width: width * 0.9,
+          marginLeft: width * 0.05,
           flexDirection: "row",
           justifyContent: "space-between",
-          marginTop: height * 0.1,
+          marginTop: height * 0.2,
           marginBottom: height * 0.015,
         }}
       >
@@ -199,14 +199,14 @@ export default function SearchScreen({ navigation, route }) {
           style={[
             focused === true
               ? {
-                width: "81%",
+                width: width * 0.81,
                 backgroundColor: colors.lightgray,
                 borderRadius: 22.5,
                 paddingVertical: 10,
                 paddingHorizontal: 12.5,
               }
               : {
-                width: "90%",
+                width: width * 0.9,
                 backgroundColor: colors.lightgray,
                 borderRadius: 22.5,
                 paddingVertical: 10,
@@ -253,7 +253,10 @@ export default function SearchScreen({ navigation, route }) {
           {categories.map((item, index) => {
             return (
               <TouchableOpacity onPress={() => setSelectedCategory(item._id)} key={index}
-                style={[{ alignItems: "center", paddingVertical: 10, borderRadius: 30, borderColor: colors.green, borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125 },
+                style={[{
+                  alignItems: "center", paddingVertical: 10, borderRadius: 30, borderColor: colors.green,
+                  borderWidth: 2, width: width * 0.3, marginHorizontal: width * 0.0125
+                },
                 selectedCategory == item._id ? {
                   backgroundColor: colors.white
                 } : {

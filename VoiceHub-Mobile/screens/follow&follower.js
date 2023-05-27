@@ -4,7 +4,7 @@ import { Dimensions, FlatList, Image, RefreshControl, SafeAreaView, Text, TextIn
 import OtherHeader from "./components/otherHeader";
 
 import { getFollowers, getFollowings } from "../services/userServices";
-
+import NetInfo from '@react-native-community/netinfo';
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../assets/colors";
 import followFollowerStyle from "../assets/styles/follow&follower.style";
@@ -13,6 +13,7 @@ import { setFollowFollower } from "../services/actionServices";
 import { baseURL } from "../utils/constants";
 import { useUser } from "../utils/userContext";
 import Loading from "./components/loading";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 const { width } = Dimensions.get("window");
 
@@ -29,6 +30,8 @@ const FollowFollower = ({ navigation, route }) => {
     const [followings, setFollowings] = useState([]);
     const [followers, setFollowers] = useState([]);
     const [searchQuery, setSearchQuery] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     const pullThePage = () => {
         setRefreshing(true);
@@ -39,97 +42,125 @@ const FollowFollower = ({ navigation, route }) => {
     }
 
     const followUnfollow = async (id) => {
-        await setFollowFollower({ userId: id }).then(async (res) => {
-            if (res?.success) {
-                let temp = { ...user };
-                if (res.data == "Unfollowed successfully")
-                    temp?.followings?.splice(temp?.followings?.indexOf(id), 1);
-                else
-                    temp?.followings?.push(id);
-                await AsyncStorage.setItem("user", JSON.stringify(temp));
-                setUser(temp);
-            }
-            else {
-                if (res?.data?.message == "Unauthorized") {
-                    await AsyncStorage.clear();
-                    navigation.navigate("Login");
+
+        const netInfo = NetInfo.fetch();
+        if (netInfo.isConnected) {
+            await setFollowFollower({ userId: id }).then(async (res) => {
+                if (res?.success) {
+                    let temp = { ...user };
+                    if (res.data == "Unfollowed successfully")
+                        temp?.followings?.splice(temp?.followings?.indexOf(id), 1);
+                    else
+                        temp?.followings?.push(id);
+                    await AsyncStorage.setItem("user", JSON.stringify(temp));
+                    setUser(temp);
                 }
-            }
-        }).catch((err) => {
-            console.log(err);
-        });
+                else {
+                    if (res?.data?.message == "Unauthorized") {
+                        await AsyncStorage.clear();
+                        navigation.navigate("Login");
+                    }
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+        else {
+            setLoading(false);
+            setAlertMessage("No Internet Connection");
+            setShowAlert(true);
+        }
+
+
     }
 
     useEffect(() => {
-        setLoading(true);
-        if (title == "Followings") {
-            getFollowings({ userId: thisUser?._id }).then((res) => {
-                if (res?.data?.message == "Unauthorized") {
-                    AsyncStorage.clear();
-                    navigation.navigate("Login");
-                }
-                else {
-                    setFollowings(res?.data);
+        const netInfo = NetInfo.fetch();
+        if (netInfo.isConnected) {
+            setLoading(true);
+            if (title == "Followings") {
+                getFollowings({ userId: thisUser?._id }).then((res) => {
+                    if (res?.data?.message == "Unauthorized") {
+                        AsyncStorage.clear();
+                        navigation.navigate("Login");
+                    }
+                    else {
+                        setFollowings(res?.data);
+                        setLoading(false);
+                    }
+                }).catch((err) => {
+                    console.log(err);
                     setLoading(false);
-                }
-            }).catch((err) => {
-                console.log(err);
-                setLoading(false);
 
-            })
-        }
-        else if (title == "Followers") {
-            getFollowers({ userId: thisUser?._id }).then((res) => {
-                if (res?.data?.message == "Unauthorized") {
-                    AsyncStorage.clear();
-                    navigation.navigate("Login");
-                }
-                else {
-                    setFollowers(res?.data);
+                })
+            }
+            else if (title == "Followers") {
+                getFollowers({ userId: thisUser?._id }).then((res) => {
+                    if (res?.data?.message == "Unauthorized") {
+                        AsyncStorage.clear();
+                        navigation.navigate("Login");
+                    }
+                    else {
+                        setFollowers(res?.data);
+                        setLoading(false);
+                    }
+
+                }).catch((err) => {
+                    console.log(err);
                     setLoading(false);
-                }
-
-            }).catch((err) => {
-                console.log(err);
-                setLoading(false);
-            })
+                })
+            }
+            else {
+                //empty
+            }
         }
         else {
-            //empty
+            setLoading(false);
+            setAlertMessage("No Internet Connection");
+            setShowAlert(true);
         }
+
     }, [thisUser])
 
     useEffect(() => {
-        if (title == "Followings") {
-            getFollowings({ userId: thisUser?._id }).then((res) => {
-                if (res?.data?.message == "Unauthorized") {
-                    AsyncStorage.clear();
-                    navigation.navigate("Login");
-                }
-                else {
-                    setFollowings(res?.data);
-                }
-            }).catch((err) => {
-                console.log(err);
+        const netInfo = NetInfo.fetch();
+        if (netInfo.isConnected) {
+            if (title == "Followings") {
+                getFollowings({ userId: thisUser?._id }).then((res) => {
+                    if (res?.data?.message == "Unauthorized") {
+                        AsyncStorage.clear();
+                        navigation.navigate("Login");
+                    }
+                    else {
+                        setFollowings(res?.data);
+                    }
+                }).catch((err) => {
+                    console.log(err);
 
-            })
-        }
-        else if (title == "Followers") {
-            getFollowers({ userId: thisUser?._id }).then((res) => {
-                if (res?.data?.message == "Unauthorized") {
-                    AsyncStorage.clear();
-                    navigation.navigate("Login");
-                }
-                else {
-                    setFollowers(res?.data);
-                }
+                })
+            }
+            else if (title == "Followers") {
+                getFollowers({ userId: thisUser?._id }).then((res) => {
+                    if (res?.data?.message == "Unauthorized") {
+                        AsyncStorage.clear();
+                        navigation.navigate("Login");
+                    }
+                    else {
+                        setFollowers(res?.data);
+                    }
 
-            }).catch((err) => {
-                console.log(err);
-            })
+                }).catch((err) => {
+                    console.log(err);
+                })
+            }
+            else {
+                //empty
+            }
         }
         else {
-            //empty
+            setLoading(false);
+            setAlertMessage("No Internet Connection");
+            setShowAlert(true);
         }
     }, [user])
 
@@ -271,6 +302,33 @@ const FollowFollower = ({ navigation, route }) => {
                 />
 
             </View>
+
+            <AwesomeAlert
+                show={showAlert}
+                showProgress={false}
+                message={alertMessage}
+                messageStyle={{
+                    fontSize: 15,
+                    fontWeight: "500"
+                }}
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="Okay"
+                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+                confirmButtonStyle={{
+                    backgroundColor: colors.green,
+                    borderRadius: 30,
+                    width: "50%",
+                    marginTop: "5%",
+                }}
+                contentContainerStyle={{ borderRadius: 20 }}
+                onConfirmPressed={() => {
+                    setShowAlert(false)
+                }}
+                onDismiss={() => setShowAlert(false)}
+            />
+
         </SafeAreaView>
     )
 }

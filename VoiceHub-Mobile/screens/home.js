@@ -12,7 +12,6 @@ import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
 import Loading from "./components/loading";
 const { height, width } = Dimensions.get("window");
-
 import { getMainPagePosts } from "../services/postServices";
 import { useUser } from "../utils/userContext";
 //importing styles
