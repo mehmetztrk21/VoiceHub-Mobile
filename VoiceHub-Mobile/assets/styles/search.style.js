@@ -11,8 +11,4 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     width: "100%",
   },
-  closeButtonTouch: {
-    justifyContent: "center",
-    marginLeft: "1%"
-  },
 });

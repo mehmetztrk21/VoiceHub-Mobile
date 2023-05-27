@@ -181,15 +181,15 @@ export default function SearchScreen({ navigation, route }) {
       {/* SEARCHBAR */}
       <View
         style={{
-          backgroundColor: "lightgray",
+          backgroundColor: colors.lightgray,
           borderRadius: 25,
-          paddingHorizontal: width * 0.03,
           width: width * 0.9,
           marginLeft: width * 0.05,
           flexDirection: "row",
           justifyContent: "space-between",
-          marginTop: height * 0.2,
+          marginTop: height * 0.15,
           marginBottom: height * 0.015,
+          height: height * 0.075,
         }}
       >
         {/* Search Bar */}
@@ -199,18 +199,20 @@ export default function SearchScreen({ navigation, route }) {
           style={[
             focused === true
               ? {
-                width: width * 0.81,
+                width: width * 0.85,
                 backgroundColor: colors.lightgray,
-                borderRadius: 22.5,
                 paddingVertical: 10,
                 paddingHorizontal: 12.5,
+                height: height * 0.075,
+                borderRadius: 25,
               }
               : {
                 width: width * 0.9,
                 backgroundColor: colors.lightgray,
-                borderRadius: 22.5,
                 paddingVertical: 10,
                 paddingHorizontal: 12.5,
+                height: height * 0.075,
+                borderRadius: 25,
               },
           ]}
           onChangeText={(searchQuery) => setSearchQuery(searchQuery)}
@@ -226,7 +228,10 @@ export default function SearchScreen({ navigation, route }) {
               setSearchQuery("");
               inputRef.current.blur();
             }}
-            style={searchStyles.closeButtonTouch}
+            style={{
+              justifyContent: "center",
+              marginRight: width * 0.05,
+            }}
           >
             <Ionicons size={20} name={"close"} color={colors.green} />
           </TouchableOpacity>
