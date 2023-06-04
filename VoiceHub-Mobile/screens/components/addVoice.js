@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
@@ -14,11 +15,15 @@ import addVoiceStyle from "../../assets/styles/addVoice.style";
 import { createComment } from "../../services/commentServices";
 import { recordingOptions } from '../../utils/recordingOptions';
 import { timeFormatText } from "../../utils/timeFormatText";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import AwesomeAlert from "react-native-awesome-alerts";
 
-export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice }) {
+export default function AddVoice({ navigation, title, postId, setIsAddVoice, setOpenAddVoice }) {
   const [isRunning, setIsRunning] = useState(false);
   const [recording, setRecording] = useState(null);
   const [seconds, setSeconds] = useState(0);
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     let intervalId;
@@ -62,7 +67,8 @@ export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice
           await recording.stopAndUnloadAsync();
           console.log('Recording stopped');
           if (seconds < 1) {
-            alert("You recorded voice must be longer 1 seconds.");
+            setAlertMessage("You recorded voice must be longer 1 seconds.");
+            setShowAlert(true)
           }
           else {
             save();
@@ -101,7 +107,11 @@ export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice
         type: 'audio/mpeg',
       });
 
-      const response = await createPost(formData);
+      const res = await createPost(formData);
+      if (res?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
     }
 
     else if (title == "comments") {
@@ -113,7 +123,11 @@ export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice
 
       formData.append("postId", postId);
 
-      const response = await createComment(formData);
+      const res = await createComment(formData);
+      if (res?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
     }
 
     else if (title == "bio") {
@@ -160,9 +174,35 @@ export default function AddVoice({ title, postId, setIsAddVoice, setOpenAddVoice
         </View>
 
         <TouchableOpacity style={addVoiceStyle.touch} onPress={toggleRecord}>
-          <Icon type="feather" size={28} name={"mic"} color={colors.white} />
+          <Ionicons size={28} name={"mic"} color={colors.white} />
         </TouchableOpacity>
       </View>
+
+      <AwesomeAlert
+        show={showAlert}
+        showProgress={false}
+        message={alertMessage}
+        messageStyle={{
+          fontSize: 15,
+          fontWeight: "500"
+        }}
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={false}
+        showConfirmButton={true}
+        confirmText="Okay"
+        confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+        confirmButtonStyle={{
+          backgroundColor: colors.green,
+          borderRadius: 30,
+          width: "50%",
+          marginTop: "5%",
+        }}
+        contentContainerStyle={{ borderRadius: 20 }}
+        onConfirmPressed={() => {
+          setShowAlert(false)
+        }}
+        onDismiss={() => setShowAlert(false)}
+      />
 
     </View>
   )

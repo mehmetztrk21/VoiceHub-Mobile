@@ -1860,6 +1860,18 @@
     "prompts" "^2.4.0"
     "semver" "^6.3.0"
 
+"@react-native-community/datetimepicker@^7.1.0":
+  "integrity" "sha512-bXK1/UnutKgJMbHKcbh6TQN3GmzOWROo6Hc9z6tfVG6KIwq5MrdvxZTFJA97PB6xwW8p3v9ddkaSfkFa1pelPA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/datetimepicker/-/datetimepicker-7.1.0.tgz"
+  "version" "7.1.0"
+  dependencies:
+    "invariant" "^2.2.4"
+
+"@react-native-community/netinfo@^9.3.10":
+  "integrity" "sha512-OwnqoJUp/4sa9e3ju+wQavAa8l0fiA3DheeLMKzKxtKeAe0CA7bNxWRM752JvRQ6A/igPnt1V0zSlu5owvQEuA=="
+  "resolved" "https://registry.npmjs.org/@react-native-community/netinfo/-/netinfo-9.3.10.tgz"
+  "version" "9.3.10"
+
 "@react-native-picker/picker@github:react-native-picker/picker":
   "resolved" "git+ssh://git@github.com/react-native-picker/picker.git#acf2375b3da2d3f5a83a3cc0863c7a21506ed714"
   "version" "2.4.10"
@@ -3957,9 +3969,9 @@
   "version" "1.3.0"
 
 "eslint-visitor-keys@^3.3.0":
-  "integrity" "sha512-HPpKPUBQcAsZOsHAFwTtIKcYlCje62XB7SEAcxjtmW6TD1WVpkS6i6/hOVtTZIl4zGj/mBqpFVGvaDneik+VoQ=="
-  "resolved" "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.0.tgz"
-  "version" "3.4.0"
+  "integrity" "sha512-pZnmmLwYzf+kWaM/Qgrvpen51upAktaaiI01nsJD/Yr3lMOdNtq0cxkrrg16w64VtisN6okbs7Q8AfGqj4c9fA=="
+  "resolved" "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-3.4.1.tgz"
+  "version" "3.4.1"
 
 "esprima@^4.0.0", "esprima@^4.0.1", "esprima@~4.0.0":
   "integrity" "sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A=="
@@ -5294,6 +5306,11 @@
     "istanbul-lib-coverage" "^3.2.0"
     "semver" "^6.3.0"
 
+"jalaali-js@^1.1.0":
+  "integrity" "sha512-io974va+Qyu+UfuVX3UIAgJlxLhAMx9Y8VMfh+IG00Js7hXQo1qNQuwSiSa0xxco0SVgx5HWNkaiCcV+aZ8WPw=="
+  "resolved" "https://registry.npmjs.org/jalaali-js/-/jalaali-js-1.2.6.tgz"
+  "version" "1.2.6"
+
 "jest-diff@^29.5.0":
   "integrity" "sha512-LtxijLLZBduXnHSniy0WMdaHjmQnt3g5sa16W4p0HqukYTTsyTW3GD1q41TyGl5YFXj/5B2U6dlh5FM1LIMgxw=="
   "resolved" "https://registry.npmjs.org/jest-diff/-/jest-diff-29.5.0.tgz"
@@ -6490,6 +6507,28 @@
   "resolved" "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz"
   "version" "1.0.4"
 
+"moment-jalaali@^0.9.2":
+  "integrity" "sha512-v8wXjQplvk5ez+sUqgsWIrafwIf1BEXXvzTYwsg1wHcqh27nSgKPCJ6FnZRrCz03MoNyB9N31L0oms+vE8Rq7g=="
+  "resolved" "https://registry.npmjs.org/moment-jalaali/-/moment-jalaali-0.9.6.tgz"
+  "version" "0.9.6"
+  dependencies:
+    "jalaali-js" "^1.1.0"
+    "moment" "^2.22.2"
+    "moment-timezone" "^0.5.21"
+    "rimraf" "^3.0.2"
+
+"moment-timezone@^0.5.21":
+  "integrity" "sha512-72j3aNyuIsDxdF1i7CEgV2FfxM1r6aaqJyLB2vwb33mXYyoyLly+F1zbWqhA3/bVIoJ4szlUoMbUnVdid32NUQ=="
+  "resolved" "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.5.43.tgz"
+  "version" "0.5.43"
+  dependencies:
+    "moment" "^2.29.4"
+
+"moment@^2.22.2", "moment@^2.29.4":
+  "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
+  "version" "2.29.4"
+
 "ms@^2.1.1", "ms@2.1.2":
   "integrity" "sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w=="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.1.2.tgz"
@@ -7256,6 +7295,13 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   "version" "18.2.0"
 
+"react-native-awesome-alerts@^2.0.0":
+  "integrity" "sha512-ZRBNnDfpE+aQCtXXnQcfGLqwzZ53Q45CNkQI4hOiF8/9JPuCyMUQL2aqtiypnLpCIX+CB28Jcx1KVJ6/reaZsg=="
+  "resolved" "https://registry.npmjs.org/react-native-awesome-alerts/-/react-native-awesome-alerts-2.0.0.tgz"
+  "version" "2.0.0"
+  dependencies:
+    "prop-types" "^15.7.2"
+
 "react-native-codegen@^0.71.5":
   "integrity" "sha512-rfsuc0zkuUuMjFnrT55I1mDZ+pBRp2zAiRwxck3m6qeGJBGK5OV5JH66eDQ4aa+3m0of316CqrJDRzVlYufzIg=="
   "resolved" "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.71.5.tgz"
@@ -7302,6 +7348,14 @@
   "integrity" "sha512-H2BjG2zk7B7Wii9sXvd9qhCVRQYDAHSWdMw9tscmZBqSP62DkIWEQSk4/B2GhQ4aK9ydVXgtqR6tBeg3yy8TSA=="
   "resolved" "https://registry.npmjs.org/react-native-gradle-plugin/-/react-native-gradle-plugin-0.71.16.tgz"
   "version" "0.71.16"
+
+"react-native-modern-datepicker@^1.0.0-beta.91":
+  "integrity" "sha512-tyyS6iswwxn/CWIgk9j82X5/9gkgAQuI4fiWa+TEWjOo1WIhBr0x7914mtagrVuVgJCMRnHCopCIWL78afakHw=="
+  "resolved" "https://registry.npmjs.org/react-native-modern-datepicker/-/react-native-modern-datepicker-1.0.0-beta.91.tgz"
+  "version" "1.0.0-beta.91"
+  dependencies:
+    "moment-jalaali" "^0.9.2"
+    "prop-types" "^15.7.2"
 
 "react-native-ratings@8.0.4":
   "integrity" "sha512-Xczu5lskIIRD6BEdz9A0jDRpEck/SFxRqiglkXi0u67yAtI1/pcJC76P4MukCbT8K4BPVl+42w83YqXBoBRl7A=="

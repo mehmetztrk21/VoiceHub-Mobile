@@ -1,66 +1,73 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
-  Dimensions, Image, Modal, Share,
-  RefreshControl, SafeAreaView, ScrollView, Text,
+  Dimensions, FlatList,
+  Image, Modal, Share,
+  RefreshControl, SafeAreaView,
+  Text, TouchableWithoutFeedback,
   TouchableOpacity, View,
 } from "react-native";
+
 import { useIsFocused } from "@react-navigation/native";
 
 import colors from "../assets/colors";
 import profileStyles from "../assets/styles/profile.style";
 
-import AreYouSure from "./components/areYouSure";
-import BottomTabs from "./components/BottomTabs";
-import EditPostPopUp from "./components/editPostPopUp";
-import EditCategoriesPopUp from "./components/editCategoriesPopUp";
 import PopUp from "./components/ProfileBottomPopUp";
+import RenderPost from "./components/RenderPost";
+import AreYouSure from "./components/areYouSure";
+import EditCategoriesPopUp from "./components/editCategoriesPopUp";
+import EditPostPopUp from "./components/editPostPopUp";
+import Loading from "./components/loading";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
-import RenderPost from "./components/RenderPost";
+import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
 
 import { getMyPosts } from "../services/postServices";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { baseURL } from "../utils/constants";
-import Loading from "./components/loading";
 import { followerCountFormatText } from "../utils/followerCountFormatText";
 import { useUser } from "../utils/userContext";
 
-const { width } = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 export default function ProfileScreen({ navigation }) {
 
   const isFocused = useIsFocused();
 
-  const [visiblePopUp, setVisiblePopUp] = useState(false)
   const [openAreYouSure, setOpenAreYouSure] = useState(false)
   const [openEditPostPopUp, setOpenEditPostPopUp] = useState(false);
+  const [visiblePopUp, setVisiblePopUp] = useState(false);
   const [openEditCategoriesPopUp, setOpenEditCategoriesPopUp] = useState();
+  const [openProfilePhotoPopUp, setOpenProfilePhotoPopUp] = useState(false);
 
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [image, setImage] = useState(null);
 
   const { user } = useUser();
   const [posts, setPosts] = useState([]);
 
-  const pullThePage = () => {
-    setRefreshing(true);
-
-    setTimeout(() => {
-      setRefreshing(false);
-    }, 800)
-  }
   const scrollViewRef = useRef();
 
   const handleScrollToTop = () => {
-    scrollViewRef.current.scrollTo({ y: 0, animated: true })
+    scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
   };
 
   const getPosts = async () => {
-    setLoading(true);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
       setPosts(response?.data);
     }
+    else {
+      if (response?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
+    }
     setLoading(false);
+    setRefreshing(false);
   }
 
   const shareMyProfile = async () => {
@@ -74,13 +81,16 @@ export default function ProfileScreen({ navigation }) {
   }
 
   useEffect(() => {
-    setLoading(true);
-    getPosts();
-  }, [])
+    if (refreshing == true) {
+      getPosts();
+    }
+  }, [refreshing])
 
   useEffect(() => {
-    setLoading(true);
-    getPosts();
+    if (isFocused == true) {
+      setLoading(true);
+      getPosts();
+    }
   }, [isFocused])
 
   if (loading) {
@@ -90,7 +100,7 @@ export default function ProfileScreen({ navigation }) {
   return (
     <SafeAreaView style={profileStyles.container}>
 
-      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} />
+      <ProfileHeader navigation={navigation} pressLogo={handleScrollToTop} setVisiblePopUp={setVisiblePopUp} />
 
       <Modal
         visible={visiblePopUp}
@@ -99,6 +109,9 @@ export default function ProfileScreen({ navigation }) {
         onRequestClose={() => {
           setVisiblePopUp(false)
         }}>
+        <TouchableWithoutFeedback onPress={() => setVisiblePopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <PopUp navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
           setVisiblePopUp={setVisiblePopUp} />
       </Modal>
@@ -109,10 +122,9 @@ export default function ProfileScreen({ navigation }) {
         visible={openAreYouSure}
         onRequestClose={() => {
           setOpenAreYouSure(false);
-        }}
-      >
-        <AreYouSure process={"LogOut"} navigation={navigation}
-          setOpenAreYouSure={setOpenAreYouSure} />
+        }}>
+        <AreYouSure process={"LogOut"} navigation={navigation} setLoading={setLoading}
+          openAreYouSure={openAreYouSure} setOpenAreYouSure={setOpenAreYouSure} />
       </Modal>
 
       <Modal
@@ -121,7 +133,10 @@ export default function ProfileScreen({ navigation }) {
         visible={openEditPostPopUp ? true : false}
         onRequestClose={() => { setOpenEditPostPopUp(false) }}
       >
-        <EditPostPopUp id={openEditPostPopUp} setId={setOpenEditPostPopUp} setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} />
+        <TouchableWithoutFeedback onPress={() => setOpenEditPostPopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
+        <EditPostPopUp navigation={navigation} id={openEditPostPopUp} setId={setOpenEditPostPopUp} setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} />
       </Modal>
 
       <Modal
@@ -130,14 +145,29 @@ export default function ProfileScreen({ navigation }) {
         visible={openEditCategoriesPopUp ? true : false}
         onRequestClose={() => { setOpenEditCategoriesPopUp(false) }}
       >
+        <TouchableWithoutFeedback onPress={() => setOpenEditCategoriesPopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
         <EditCategoriesPopUp setId={setOpenEditPostPopUp} categories={openEditCategoriesPopUp} setCategories={setOpenEditCategoriesPopUp} />
+      </Modal>
+
+      <Modal visible={openProfilePhotoPopUp}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => {
+          setOpenProfilePhotoPopUp(false)
+        }}>
+        <TouchableWithoutFeedback onPress={() => setOpenProfilePhotoPopUp(false)}>
+          <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
+        </TouchableWithoutFeedback>
+        <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"ProfileScreen"} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>
 
         {/* PP, Follow Count,  */}
         <View style={profileStyles.actView}>
-          <TouchableOpacity onPress={() => navigation.navigate("EditProfile")}>
+          <TouchableOpacity onPress={() => setOpenProfilePhotoPopUp(true)}>
             {user?.profilePhotoUrl ?
               < Image source={{ uri: baseURL + user?.profilePhotoUrl }} style={profileStyles.userPic} /> :
               <Image source={require('../assets/avatar.png')} style={profileStyles.userPic} />
@@ -195,38 +225,38 @@ export default function ProfileScreen({ navigation }) {
       </View>
 
       {/* Posts */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
+      <FlatList
+        data={posts}
+        keyExtractor={(index) => index.toString()}
         ref={scrollViewRef}
+        refreshing={refreshing}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={() => {
+              setRefreshing(true);
+            }}
+            colors={[colors.green]}
+          />
         }
-        style={profileStyles.scroll}
-      >
-        <View style={[profileStyles.postView, { backgroundColor: colors.green }]}>
-          {posts?.length > 0 ? (
-            <RenderPost navigation={navigation} posts={posts} thisUser={user}
-              HeaderTitle={"ProfileScreen"} setOpenEditPostPopUp={setOpenEditPostPopUp} />
-          ) :
-            <View style={{ marginTop: "5%", }}>
-              <Text style={
-                { textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }
-              }>
-                {"You have not post anyone yet :("}
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={profileStyles.scroll}
+        ListEmptyComponent={() => (
+          <View style={{ marginTop: "5%" }}>
+            <Text style={{ textAlign: "center", marginBottom: 20, color: colors.white, fontWeight: "700", fontSize: 16 }}>
+              {"You have not posted anything yet :("}
+            </Text>
+            <TouchableOpacity onPress={() => navigation.navigate("Upload")}>
+              <Text style={{ width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16, backgroundColor: colors.white, borderRadius: 15, paddingVertical: 10 }}>
+                Upload Now!
               </Text>
-
-              <TouchableOpacity onPress={() => { navigation.navigate("Upload") }}>
-                <Text style={
-                  { width: "60%", marginLeft: "20%", textAlign: "center", marginBottom: 20, color: colors.green, fontWeight: "700", fontSize: 16, backgroundColor: colors.white, borderRadius: 15, paddingVertical: 10, }}>
-                  Upload Now!
-                </Text>
-              </TouchableOpacity>
-            </View>
-          }
-        </View>
-      </ScrollView>
-
-      <BottomTabs navigation={navigation} setVisiblePopUp={setVisiblePopUp} title={"profile"} />
+            </TouchableOpacity>
+          </View>
+        )}
+        renderItem={({ item, index }) => (
+          <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} key={index}/>
+        )}
+      />
     </SafeAreaView>
   );
 }

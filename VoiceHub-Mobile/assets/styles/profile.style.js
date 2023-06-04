@@ -4,18 +4,16 @@ import colors from "../colors";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
+    flexDirection: "column",
     justifyContent: "center",
     width: "100%",
     backgroundColor: colors.green,
   },
-
-
   actView: {
     flexDirection: "row",
     alignItems: "center",
     paddingVertical: 22,
-    justifyContent: "center"
+    justifyContent: "center",
   },
   userPic: {
     width: 90,
@@ -84,13 +82,13 @@ export default StyleSheet.create({
   btnTextF: {
     fontSize: 16,
     color: colors.white,
-    alignSelf: "center"
+    alignSelf: "center",
   },
 
 
   scroll: {
-    marginBottom: "16%",
     width: "100%",
+    paddingBottom: "16%",
   },
   uploadMargin: {
     marginBottom: 120,

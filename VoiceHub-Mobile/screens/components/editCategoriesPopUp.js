@@ -12,12 +12,12 @@ const editCategoriesPopUp = ({ categories, setCategories }) => {
     }, [])
 
     const submit = async () => {
-        await updatePost({ id: categories[1], categories: (newCategory.split(",").map(item => item.trim())) });
+        await updatePost({ id: categories[1], categories: (newCategory.split(" ").map(item => item.trim())) });
         setCategories(false);
     }
 
     const renderItem = (item) => {
-        return `${item}, `;
+        return `${item} `;
     };
 
     const concatenatedString = categories[0].map(renderItem).join('').replace(/,\s*$/, '');

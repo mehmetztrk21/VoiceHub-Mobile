@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
+
 import colors from "../../assets/colors";
 import { useUser } from "../../utils/userContext"
 import { setLikedPost, setSavedPost } from '../../services/actionServices'
 
 import postActionsStyle from "../../assets/styles/postActions.style";
 
-export default function postActions(
-  { navigation, post, likes, postId, title }) {
+export default function postActions({ navigation, post, likes, postId, title }) {
   const { user, setUser } = useUser();
 
   const [liked, setLiked] = useState(false)
@@ -74,7 +74,7 @@ export default function postActions(
       {liked == true ? (
         <View style={{ flexDirection: "row" }}>
           <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
-            <Icon type="font-awesome" size={20} name={"heart"} color={colors.green} />
+            <Ionicons size={20} name={"heart-sharp"} color={colors.green} />
           </TouchableOpacity>
 
           <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { likes: likes })}>
@@ -90,7 +90,7 @@ export default function postActions(
       ) :
         <View style={{ flexDirection: "row", }}>
           <TouchableOpacity style={postActionsStyle.pactions} onPress={postLiked}>
-            <Icon type="font-awesome" size={20} name={"heart-o"} color={colors.black} />
+            <Ionicons size={20} name={"heart-outline"} color={colors.black} />
           </TouchableOpacity>
 
           <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("SeeLikes", { likes: likes })}>
@@ -106,7 +106,7 @@ export default function postActions(
 
       {/* Comments */}
       {title != "seePost" ? <TouchableOpacity style={postActionsStyle.pactions} onPress={() => navigation.navigate("OtherComments", { postId: postId, comments: post?.comments })}>
-        <Icon type="font-awesome" size={20} name={"comment-o"} color={colors.black} />
+        <Ionicons size={20} name={"chatbubble-outline"} color={colors.black} />
         <Text style={{ fontWeight: "700", fontSize: 14, marginLeft: 5, color: colors.black }}>
           {post?.comments?.length.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         </Text>
@@ -116,9 +116,9 @@ export default function postActions(
       <TouchableOpacity style={postActionsStyle.pactions} onPress={postSave}>
         {
           saved == true ? (
-            <Icon type="font-awesome" size={20} name={"bookmark"} color={colors.green} />
+            <Ionicons size={20} name={"bookmark"} color={colors.green} />
           ) :
-            <Icon type="font-awesome" size={20} name={"bookmark-o"} color={colors.black} />
+            <Ionicons size={20} name={"bookmark-outline"} color={colors.black} />
         }
       </TouchableOpacity>
     </View>

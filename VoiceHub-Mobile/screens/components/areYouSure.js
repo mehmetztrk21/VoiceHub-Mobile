@@ -4,13 +4,19 @@ import { Text, TouchableOpacity, View } from "react-native"
 import areYouSureStyle from "../../assets/styles/areYouSure.style"
 import { deleteComment } from "../../services/commentServices"
 import { deactivateAccount } from "../../services/actionServices"
+import { logout } from "../../services/authServices"
+import AwesomeAlert from "react-native-awesome-alerts"
+import colors from "../../assets/colors"
 
-const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) => {
+const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure, setLoading }) => {
 
     const Operation = async (status) => {
         if (status) {
             if (process == "LogOut") {
-                console.log("LogOut");
+                setLoading(true)
+                console.log("Log Out");
+                await logout();
+                setOpenAreYouSure(false);
                 await AsyncStorage.clear();
                 navigation.navigate("Login");
             }
@@ -20,9 +26,10 @@ const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) 
                 console.log("Deleted Comment");
             }
             else if (process == "Freeze") {
+                setLoading(true)
+                console.log("Freeze Account");
                 await deactivateAccount();
                 setOpenAreYouSure(false);
-                console.log("Freeze Account");
                 console.log("LogOut");
                 await AsyncStorage.clear();
                 navigation.navigate("Login");
@@ -37,19 +44,48 @@ const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure }) 
     }
 
     return (
-        <View style={areYouSureStyle.container}>
-            <View style={areYouSureStyle.container2}>
-                <Text style={areYouSureStyle.title}>Are you sure?</Text>
+        <AwesomeAlert
+            show={(((typeof openAreYouSure) == "string") || openAreYouSure == true) ? true : false}
+            showProgress={false}
+            message={process == "DeleteComment" ?
+                ("Are you sure you want to delete the comment?") :
+                process == "LogOut" ?
+                    ("Are you sure you want to log out?") :
+                    "Are you sure you want to freeze your account?"}
+            messageStyle={{
+                fontSize: 15,
+                fontWeight: "500"
+            }}
+            closeOnTouchOutside={true}
+            closeOnHardwareBackPress={true}
+            showConfirmButton={true}
+            showCancelButton={true}
+            confirmText="Yes"
+            cancelText="No"
+            confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+            confirmButtonStyle={{
+                backgroundColor: colors.green,
+                borderRadius: 30,
+                width: "40%",
+                marginTop: "5%",
+            }}
+            cancelButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
+            cancelButtonStyle={{
+                backgroundColor: colors.red,
+                borderRadius: 30,
+                width: "40%",
+                marginTop: "5%",
+            }}
+            contentContainerStyle={{ borderRadius: 20 }}
+            onConfirmPressed={() => {
+                Operation(true)
+            }}
+            onCancelPressed={() => {
+                Operation(false)
+            }}
+            onDismiss={() => Operation(false)}
+        />
 
-                <TouchableOpacity onPress={() => Operation(true)}>
-                    <Text style={areYouSureStyle.button}>Yes</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity onPress={() => Operation(false)}>
-                    <Text style={areYouSureStyle.button}>No</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
     )
 }
 

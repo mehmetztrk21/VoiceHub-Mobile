@@ -1,45 +1,57 @@
-import { View, Text, TouchableOpacity, Share } from "react-native"
-import React, { useEffect, useState } from "react"
-import colors from "../../assets/colors"
-import { Icon } from "react-native-elements"
-import { useUser } from "../../utils/userContext"
-import { setFollowFollower, setLikedPost, setSavedPost, setSeeLikes } from "../../services/actionServices"
-import { getPostById } from "../../services/postServices"
-import { getUserById } from "../../services/userServices"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import { Feather, Ionicons } from '@expo/vector-icons';
+import React, { useEffect, useState } from "react";
+import { Share, Text, TouchableOpacity, View } from "react-native";
+import colors from "../../assets/colors";
+import PopUpPostStyles from "../../assets/styles/PopUpPost.style";
 
-const PopUpPost = ({ id, setId, uri }) => {
+
+import { useUser } from "../../utils/userContext";
+
+import { setFollowFollower, setSeeLikes } from "../../services/actionServices";
+import { getPostById } from "../../services/postServices";
+import { getUserById } from "../../services/userServices";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const PopUpPost = ({ navigation, id, setId, uri }) => {
     const { user, setUser } = useUser();
     const [post, setPost] = useState({});
     const [seeUser, setSeeUser] = useState({});
 
     useEffect(() => {
         getPostById({ postId: id }).then(async (res) => {
-            setPost(res?.data);
-            getUserById({ id: res?.data?.createdBy }).then(async (response) => {
-                setSeeUser(response?.data);
-            }).catch((err) => {
-
-            });
+            if (res?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setPost(res?.data);
+                getUserById({ id: res?.data?.createdBy }).then(async (response) => {
+                    if (response?.message == "Unauthorized") {
+                        await AsyncStorage.clear();
+                        navigation.navigate("Login");
+                    }
+                    else {
+                        setSeeUser(response?.data);
+                    }
+                }).catch((err) => {
+                    console.log(err)
+                });
+            }
         }).catch((err) => {
             console.log(err);
         });
     }, [])
 
     const setSeeLike = async () => {
-        await setSeeLikes({ postId: id });
+        const res = await setSeeLikes({ postId: id });
         setId(false);
+
+        if (res?.message == "Unauthorized") {
+            await AsyncStorage.clear();
+            navigation.navigate("Login");
+        }
     }
-
-    const postLiked = async () => {
-        await setLikedPost({ postId: id });
-        setId(false);
-    };
-
-    const postSave = async () => {
-        await setSavedPost({ postId: id });
-        setId(false);
-    };
 
     const shareThisPost = async () => {
         try {
@@ -64,6 +76,12 @@ const PopUpPost = ({ id, setId, uri }) => {
                 await getUser();
                 setId(false);
             }
+            else {
+                if (res?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+            }
         }).catch((err) => {
             console.log(err);
         });
@@ -71,104 +89,44 @@ const PopUpPost = ({ id, setId, uri }) => {
 
     const getUser = async () => {
         getUserById({ id: seeUser._id }).then(async (res) => {
-            setSeeUser(res?.data);
+            if (res?.message == "Unauthorized") {
+                await AsyncStorage.clear();
+                navigation.navigate("Login");
+            }
+            else {
+                setSeeUser(res?.data);
+            }
         }).catch((err) => {
             console.log(err);
         })
     }
 
     return (
-        <View style={{
-            flex: 1,
-            width: "70%",
-            alignSelf: "center",
-            justifyContent: "center",
-        }}>
-            <View style={{
-                width: "100%",
-                alignSelf: "center",
-                justifyContent: "center",
-                paddingHorizontal: 20,
-                paddingVertical: 10,
-                borderRadius: 20,
-                backgroundColor: colors.green,
-                shadowColor: colors.black,
-                shadowOffset: {
-                    width: 0,
-                    height: 8,
-                },
-                shadowOpacity: 1,
-                shadowRadius: 4,
-                elevation: 10,
-            }}>
+        <View style={PopUpPostStyles.wrapper}>
+            <View style={PopUpPostStyles.container}>
 
                 {user?.posts?.includes(post?._id) ?
-                    <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={setSeeLike}>
-                        <Icon type={"font-awesome"} name={post?.isLikesVisible == true ? "heart-o" : "heart"} size={28} color={colors.white} />
-                        <Text style={{
-                            fontSize: 15,
-                            fontWeight: "700",
-                            paddingBottom: 5,
-                            paddingHorizontal: 5,
-                            textAlign: "center",
-                            color: colors.white,
-                        }}>{post?.isLikesVisible == true ? "Unshow Likes" : "Show Likes"}</Text>
-                    </TouchableOpacity> : null}
+                    <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={setSeeLike}>
+                        <Ionicons name={post?.isLikesVisible == true ? "heart-outline" : "heart-sharp"} size={28} color={colors.white} />
+                        <Text style={PopUpPostStyles.text}>{post?.isLikesVisible == true ? "Unshow Likes" : "Show Likes"}</Text>
+                    </TouchableOpacity>
+                    : null}
 
-                <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={postLiked}>
-                    <Icon type={"font-awesome"} name={"heart-o"} size={28} color={colors.white} />
-                    <Text style={{
-                        fontSize: 15,
-                        fontWeight: "700",
-                        paddingBottom: 5,
-                        paddingHorizontal: 5,
-                        textAlign: "center",
-                        color: colors.white,
-                    }}>{post?.likes?.includes(user?._id) ? "Unlike Post" : "Like Post"}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={postSave}>
-                    <Icon type={"font-awesome"} name={"bookmark-o"} size={28} color={colors.white} />
-                    <Text style={{
-                        fontSize: 15,
-                        fontWeight: "700",
-                        paddingBottom: 5,
-                        paddingHorizontal: 5,
-                        textAlign: "center",
-                        color: colors.white,
-                    }}>{user?.savedPosts?.includes(post?._id) ? "Unsave Post" : "Save Post"}</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={shareThisPost}>
-                    <Icon type={"font-awesome"} name={"share"} size={28} color={colors.white} />
-                    <Text style={{
-                        fontSize: 15,
-                        fontWeight: "700",
-                        paddingBottom: 5,
-                        paddingHorizontal: 5,
-                        textAlign: "center",
-                        color: colors.white,
-                    }}>Share This Post</Text>
+                <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={shareThisPost}>
+                    <Ionicons name={"share-outline"} size={28} color={colors.white} />
+                    <Text style={PopUpPostStyles.text}>Share This Post</Text>
                 </TouchableOpacity>
 
                 {user?._id != seeUser._id ?
-                    <TouchableOpacity style={{ flexDirection: "row", paddingVertical: 10 }} onPress={followUnfollow}>
-                        <Icon type={"feather"} name={user?.followings?.includes(seeUser?._id) ? "user-minus" : "user"} size={28} color={colors.white} />
-                        <Text style={{
-                            color: colors.red, fontSize: 15,
-                            fontWeight: "700",
-                            paddingBottom: 5,
-                            paddingHorizontal: 5,
-                            textAlign: "center",
-                            color: colors.white,
-                        }}>{user?.followings?.includes(seeUser?._id) ? "Unfollow" : "Follow"}</Text>
+                    <TouchableOpacity style={PopUpPostStyles.buttonHolder} onPress={followUnfollow}>
+                        <Feather name={user?.followings?.includes(seeUser?._id) ? "user-minus" : "user"} size={28} color={colors.white} />
+                        <Text style={PopUpPostStyles.text}>
+                            {user?.followings?.includes(seeUser?._id) ? "Unfollow" : "Follow"}
+                        </Text>
                     </TouchableOpacity> : null}
 
                 <TouchableOpacity style={{ paddingVertical: 10 }} onPress={() => { setId(false) }}>
-                    <Text style={{
-                        color: colors.green, fontSize: 14, textAlign: "center", fontWeight: "600",
-                        backgroundColor: colors.white, padding: 10, borderRadius: 10,
-                    }}>Close</Text>
+                    <Text style={PopUpPostStyles.cancelText}>Close</Text>
                 </TouchableOpacity>
             </View>
         </View >

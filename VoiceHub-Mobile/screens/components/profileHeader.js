@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { Icon } from 'react-native-elements';
+import { Ionicons } from '@expo/vector-icons';
 import colors from '../../assets/colors';
 
 import profileHeaderStyle from "../../assets/styles/profileHeader.style";
 import verfy from "../../assets/ver.png";
 import { useUser } from '../../utils/userContext';
 
-const profileHeader = ({ navigation, pressLogo }) => {
+const profileHeader = ({ navigation, pressLogo, setVisiblePopUp }) => {
   const { user } = useUser();
 
   return (
@@ -25,15 +25,15 @@ const profileHeader = ({ navigation, pressLogo }) => {
 
         <View style={profileHeaderStyle.rightTop}>
           <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { HeaderTitle: 'Archived' })}>
-            <Icon type="feather" size={28} name={"archive"} color={colors.black} />
+            <Ionicons size={28} name={"archive-outline"} color={colors.black} />
           </TouchableOpacity>
 
           <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("SavedArchived", { HeaderTitle: 'Saved' })}>
-            <Icon type="font-awesome" size={28} name={"bookmark-o"} color={colors.black} />
+            <Ionicons size={28} name={"bookmark-outline"} color={colors.black} />
           </TouchableOpacity>
 
-          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => navigation.navigate("ActivityScreen")}>
-            <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
+          <TouchableOpacity style={profileHeaderStyle.pactions} onPress={() => setVisiblePopUp(true)}>
+            <Ionicons size={30} name={'reorder-three-outline'} color={colors.black} />
           </TouchableOpacity>
         </View>
 

@@ -29,3 +29,18 @@ export const register = async (data) => {
     );
     return res;
 }
+
+export const logout = async () => {
+    const res = await apiAxios.get("/auth/logout", {
+        headers: {
+            "content-type": "application/json",
+        }
+    }).then(res => {
+        return res.data;
+    }).catch(err => {
+        console.log(err, "hata");
+        return null
+    }
+    );
+    return res;
+}

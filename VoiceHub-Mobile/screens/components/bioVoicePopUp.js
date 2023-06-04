@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect } from 'react'
 import bioVoicePopUpStyle from '../../assets/styles/bioVoicePopUp.style'
-import { Icon } from 'react-native-elements'
+import { Ionicons } from '@expo/vector-icons'
 import colors from '../../assets/colors'
 
 const bioVoicePopUp = ({ setIsDeleteVoice, setOpenAddVoice, setOpenBioVoicePopUp }) => {
@@ -18,13 +18,13 @@ const bioVoicePopUp = ({ setIsDeleteVoice, setOpenAddVoice, setOpenBioVoicePopUp
 
                 <TouchableOpacity onPress={() => { setOpenAddVoice(true); setOpenBioVoicePopUp(false); }}
                     style={{ flexDirection: "row", alignItems: "center", marginBottom: 12.5, }}>
-                    <Icon size={20} type={"font-awesome"} name={"plus"} color={colors.white} />
+                    <Ionicons size={20} name={"add"} color={colors.white} />
                     <Text style={bioVoicePopUpStyle.button}>Add Voice</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity onPress={() => { setIsDeleteVoice(true); setOpenBioVoicePopUp(false); }}
                     style={{ flexDirection: "row", alignItems: "center", }}>
-                    <Icon size={20} type={"font-awesome"} name={"trash"} color={colors.white} />
+                    <Ionicons size={20} name={"trash"} color={colors.white} />
                     <Text style={bioVoicePopUpStyle.button}>Delete Voice</Text>
                 </TouchableOpacity>
 

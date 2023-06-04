@@ -1,4 +1,4 @@
-export const registerCondition = (firstName, lastName, username, email, password1, password2) => {
+export const registerCondition = (firstName, lastName, username, email, password1, password2, setShowAlert, setAlertMessage) => {
     if ((firstName, lastName, username, email, password1, password2) !== "") {
         if (password1 == password2) {
             if (username.length >= 1) {
@@ -6,18 +6,22 @@ export const registerCondition = (firstName, lastName, username, email, password
                     return true
                 }
                 else {
-                    alert("Password length may be 8 chart");
+                    setShowAlert(true);
+                    setAlertMessage("Password length may be 8 chart");
                 }
             }
             else {
-                alert("User Name length may be 8 chart");
+                setShowAlert(true);
+                setAlertMessage("User Name length may be 8 chart");
             }
         }
         else {
-            alert("Passwords don't equal");
+            setShowAlert(true);
+            setAlertMessage("Passwords don't equal");
         }
     }
     else {
-        alert("don't empty inputs");
+        setShowAlert(true);
+        setAlertMessage("don't empty inputs");
     }
 }

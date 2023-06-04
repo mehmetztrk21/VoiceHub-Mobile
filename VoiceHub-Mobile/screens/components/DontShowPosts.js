@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Icon } from 'react-native-elements'
+import { Ionicons } from '@expo/vector-icons'
 import colors from '../../assets/colors'
 import { useUser } from '../../utils/userContext'
 import { blockAccount } from '../../services/actionServices'
@@ -21,14 +21,14 @@ const DontShowPosts = ({ userId, title }) => {
         else {
             temp?.blockedUsers?.push(userId);
         }
-        
+
         await AsyncStorage.setItem("user", JSON.stringify(temp));
         setUser(temp);
     }
 
     return (
         <View style={{ flexDirection: "column", justifyContent: "center", alignItems: 'center', paddingTop: 20 }}>
-            <Icon type={"font-awesome"} name={title == "secret" ? "lock" : "ban"} size={140} color={colors.white} />
+            <Ionicons name={title == "secret" ? "lock-closed" : "ban"} size={140} color={colors.white} />
             <Text style={{ color: colors.white, fontSize: 24, fontWeight: "700", marginBottom: 15 }}>
                 {title == "secret" ?
                     "This Profile is Secret Follow Now!" :

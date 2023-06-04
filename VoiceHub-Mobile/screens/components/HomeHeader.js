@@ -1,18 +1,16 @@
 import React from 'react';
-import { Image, TouchableOpacity, View } from 'react-native';
-import { Icon } from "react-native-elements";
+import { Image, SafeAreaView, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+
 
 import colors from '../../assets/colors';
 import logo from "../../assets/images/VoiceHub-1.png";
 import homeHeaderStyles from '../../assets/styles/HomeHeader.style';
 
-import { Dimensions } from "react-native";
-const { width } = Dimensions.get("window");
-
 const HomeHeader = ({ navigation, pressLogo }) => {
 
   return (
-    <View style={homeHeaderStyles.wrapper}>
+    <SafeAreaView style={homeHeaderStyles.wrapper}>
 
       <View style={homeHeaderStyles.head}>
 
@@ -24,18 +22,18 @@ const HomeHeader = ({ navigation, pressLogo }) => {
 
           <View style={{ flexDirection: "row" }}>
             <TouchableOpacity onPress={() => navigation.navigate("Message")}>
-              <Icon type="font-awesome" size={30} name={"envelope-o"} color={colors.black} />
+              <Ionicons size={30} name={"mail-outline"} color={colors.black} />
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => navigation.navigate("ActivityScreen")} style={{ marginLeft: 10 }}>
-              <Icon type="font-awesome" size={30} name={'heart-o'} color={colors.black} />
+            <TouchableOpacity onPress={() => navigation.navigate("Notifications")} style={{ marginLeft: 10 }}>
+              <Ionicons size={30} name={'heart-outline'} color={colors.black} />
             </TouchableOpacity>
           </View>
 
         </View>
 
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

@@ -5,6 +5,7 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: "center",
+        backgroundColor: colors.white
     },
     logoView: {
         alignItems: "center",
@@ -36,7 +37,7 @@ export default StyleSheet.create({
         width: "80%",
         marginLeft: "8%",
         flexDirection: "row",
-        justifyContent:"space-between",
+        justifyContent: "space-between",
     },
     touch: {
         width: "55%",

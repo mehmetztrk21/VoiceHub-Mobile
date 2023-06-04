@@ -1,57 +1,44 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { TouchableOpacity, View } from "react-native";
-import { Icon } from "react-native-elements";
+import { Dimensions, TouchableOpacity, View } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
+
 import colors from "../../assets/colors";
 import bottomTabsStyle from "../../assets/styles/bottomTabs.style";
+const { height } = Dimensions.get("window");
 
-const BottomTabs = ({ navigation, setVisiblePopUp, title }) => {
-  const [timer, setTimer] = useState(null);
+const BottomTabs = () => {
+  const navigation = useNavigation();
+  const [activeTab, setActiveTab] = useState("home");
 
-  const ProfileButtonPress = () => {
-    let timerId = setTimeout(() => {
-      setVisiblePopUp(prev => !prev)
-    }, 1000);
-    setTimer(timerId);
-  }
   const Select = (page) => {
+
     if (page == "SearchScreen") {
-      setTimer(0);
-      setVisiblePopUp(false)
       navigation.navigate(page, { getCategory: "all", type: "discovery" });
     }
     else {
-      setTimer(0);
-      setVisiblePopUp(false)
       navigation.navigate(page);
     }
   }
 
   return (
-    <View style={bottomTabsStyle.wrapper}>
+    <View style={[bottomTabsStyle.wrapper, { height: height * 0.075 }]}>
       <View style={bottomTabsStyle.container}>
 
-        <TouchableOpacity onPress={() => navigation.navigate("HomeScreen")}>
-          {title == "home" ?
-            <Icon size={25} type="font-awesome" name={"home"} color={colors.white} /> :
-            <Icon size={25} type="feather" name={"home"} color={colors.white} />}
+        <TouchableOpacity onPress={() => { setActiveTab("home"); Select("HomeScreen") }}>
+          <Ionicons size={height * 0.0375} name={activeTab == "home" ? "home" : "home-outline"} color={colors.white} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Select("SearchScreen")}>
-          {title == "search" ?
-            <Icon size={25} type="font-awesome" name={"search"} color={colors.white} /> :
-            <Icon size={25} type="font-awesome" name={"search"} color={colors.white} />}
+        <TouchableOpacity onPress={() => { setActiveTab("search"); Select("SearchScreen") }}>
+          <Ionicons size={height * 0.0375} name={activeTab == "search" ? "search" : "search-outline"} color={colors.white} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Select("Upload")}>
-          {title == "upload" ?
-            <Icon size={25} type="font-awesome" name={"plus"} color={colors.white} /> :
-            <Icon size={25} type="entypo" name={"plus"} color={colors.white} />}
+        <TouchableOpacity onPress={() => { setActiveTab("add"); Select("Upload") }}>
+          <Ionicons size={height * 0.0375} name={activeTab == "add" ? "add" : "add-outline"} color={colors.white} />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={() => Select("ProfileScreen")} onPressIn={ProfileButtonPress} onPressOut={() => { console.log("Butondan elini cekti") }}>
-          {title == "profile" ?
-            <Icon size={25} type="font-awesome" name={"user"} color={colors.white} /> :
-            <Icon size={25} type="feather" name={"user"} color={colors.white} />}
+        <TouchableOpacity onPress={() => { setActiveTab("person"); Select("ProfileScreen") }}>
+          <Ionicons size={height * 0.0375} name={activeTab == "person" ? "person" : "person-outline"} color={colors.white} />
         </TouchableOpacity>
 
       </View>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
-import { Header, Icon } from "react-native-elements";
+import { Ionicons } from '@expo/vector-icons';
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 import ver from "../../assets/ver.png";
 import { timeAgoText } from "../../utils/timeAgoText";
@@ -10,10 +10,9 @@ import colors from "../../assets/colors";
 import { setFollowFollower } from "../../services/actionServices";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function PostUserInfo(
-    { navigation, userPic, username, HeaderTitle,
-        setOpenEditPostPopUp, setOpenArchivePopUp, userId,
-        date, id, isTic, setOpenPopUpPost }) {
+export default function PostUserInfo({ navigation, userPic, username, HeaderTitle,
+    setOpenEditPostPopUp, setOpenArchivePopUp, userId,
+    date, id, isTic, setOpenPopUpPost }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
     const { user, setUser } = useUser();
@@ -28,6 +27,12 @@ export default function PostUserInfo(
                     temp?.followings?.push(userId);
                 await AsyncStorage.setItem("user", JSON.stringify(temp));
                 setUser(temp);
+            }
+            else {
+                if (res?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
             }
         }).catch((err) => {
             console.log(err);
@@ -61,33 +66,33 @@ export default function PostUserInfo(
                             : null}
 
                         {HeaderTitle == "SearchScreen" ?
-                            <TouchableOpacity onPress={followUnfollow} style={
+                            (user?._id != userId ? < TouchableOpacity onPress={followUnfollow} style={
                                 { marginLeft: "5%", backgroundColor: colors.white, borderRadius: 10, paddingHorizontal: 7.5, paddingVertical: 2.5, borderWidth: 2, borderColor: colors.green }}>
                                 <Text style={{ fontWeight: "700", fontSize: 15, color: colors.green, textAlign: "center" }}>
                                     {user?.followings?.includes(userId) ? "Unfollow" : "Follow"}
                                 </Text>
-                            </TouchableOpacity> : null}
+                            </TouchableOpacity> : null) : null}
                     </View>
                     <Text style={postUserInfoStyle.timeAgo}>{differenceInDays}</Text>
                 </View>
 
-            </TouchableOpacity>
+            </TouchableOpacity >
 
             <View style={{ marginRight: 16 }}>
                 {HeaderTitle == "ProfileScreen" ? (
                     <TouchableOpacity onPress={() => { setOpenEditPostPopUp(id ? id : false); }}>
-                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
+                        <Ionicons name={"ellipsis-vertical"} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == "Archived" ? (
                     <TouchableOpacity onPress={() => { setOpenArchivePopUp(id ? id : false) }}>
-                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
+                        <Ionicons name={"ellipsis-vertical"} size={28} />
                     </TouchableOpacity>
                 ) : HeaderTitle == "HomeScreen" || HeaderTitle == "SearchScreen" || HeaderTitle == "Saved" ? (
                     <TouchableOpacity onPress={() => { setOpenPopUpPost(id ? id : false) }}>
-                        <Icon type={"font-awesome"} name={"ellipsis-v"} size={28} />
+                        <Ionicons name={"ellipsis-vertical"} size={28} />
                     </TouchableOpacity>
                 ) : null}
             </View>
-        </View>
+        </View >
     );
 }

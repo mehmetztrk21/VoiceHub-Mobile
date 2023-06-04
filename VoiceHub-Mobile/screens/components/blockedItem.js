@@ -1,13 +1,15 @@
-import React from "react"
-import { Image, Text, TouchableOpacity, View } from "react-native"
+import React from "react";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 
-import avatar from "../../assets/avatar.png"
-import blockedItemStyle from "../../assets/styles/blockedItem.style"
-import ver from "../../assets/ver.png"
-import { baseURL } from "../../utils/constants"
-import { useUser } from "../../utils/userContext"
-import { blockAccount } from "../../services/actionServices"
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import avatar from "../../assets/avatar.png";
+import blockedItemStyle from "../../assets/styles/blockedItem.style";
+import ver from "../../assets/ver.png";
+
+import { baseURL } from "../../utils/constants";
+import { useUser } from "../../utils/userContext";
+import { blockAccount } from "../../services/actionServices";
+
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const BlockedItem = ({ navigation, blockedUser }) => {
 
@@ -15,11 +17,10 @@ const BlockedItem = ({ navigation, blockedUser }) => {
 
     const block = async () => {
         await blockAccount({ userId: blockedUser?._id })
-
         let temp = { ...user };
         temp?.blockedUsers?.splice(temp?.blockedUsers?.indexOf(blockedUser?._id), 1);
-        await AsyncStorage.setItem("user", JSON.stringify(temp));
         setUser(temp);
+        await AsyncStorage.setItem("user", JSON.stringify(temp));
     }
 
     return (
