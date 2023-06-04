@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-    FlatList, Image, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, TouchableWithoutFeedback, View
+    Dimensions, FlatList, Image, Modal, RefreshControl, SafeAreaView, Text, TouchableOpacity, TouchableWithoutFeedback, View
 } from "react-native";
 
 import colors from "../assets/colors";
@@ -26,7 +26,7 @@ import Loading from "./components/loading";
 import SeeProfilePopUp from "./components/seeProfilePopUp";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+const { width, height } = Dimensions.get("window");
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
     const { user, setUser } = useUser();

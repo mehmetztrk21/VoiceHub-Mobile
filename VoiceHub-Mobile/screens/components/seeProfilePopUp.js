@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { Share } from 'react-native';
 
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, FontAwesome5 } from '@expo/vector-icons';
 
 import React from "react"
 import colors from "../../assets/colors";
@@ -47,7 +47,7 @@ const seeProfilePopUp = ({ userId, setOpenSeeProfileOptions }) => {
 
                 <TouchableOpacity onPress={block}
                     style={{ flexDirection: "row", alignItems: "center", marginBottom: 12.5, }}>
-                    <Ionicons size={22} name={"ban"} color={colors.white} />
+                    <FontAwesome5 size={22} name={"ban"} color={colors.white} />
                     <Text style={seeProfilePopUpStyles.button}>{user?.blockedUsers?.includes(userId) ? "Unblock" : "Block"} Account</Text>
                 </TouchableOpacity>
 

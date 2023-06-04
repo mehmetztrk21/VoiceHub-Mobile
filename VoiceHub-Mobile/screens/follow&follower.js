@@ -75,8 +75,6 @@ const FollowFollower = ({ navigation, route }) => {
     }
 
     useEffect(() => {
-        const netInfo = NetInfo.fetch();
-        if (netInfo.isConnected) {
             setLoading(true);
             if (title == "Followings") {
                 getFollowings({ userId: thisUser?._id }).then((res) => {
@@ -113,18 +111,11 @@ const FollowFollower = ({ navigation, route }) => {
             else {
                 //empty
             }
-        }
-        else {
-            setLoading(false);
-            setAlertMessage("No Internet Connection");
-            setShowAlert(true);
-        }
+        
 
     }, [thisUser])
 
     useEffect(() => {
-        const netInfo = NetInfo.fetch();
-        if (netInfo.isConnected) {
             if (title == "Followings") {
                 getFollowings({ userId: thisUser?._id }).then((res) => {
                     if (res?.data?.message == "Unauthorized") {
@@ -156,13 +147,7 @@ const FollowFollower = ({ navigation, route }) => {
             else {
                 //empty
             }
-        }
-        else {
-            setLoading(false);
-            setAlertMessage("No Internet Connection");
-            setShowAlert(true);
-        }
-    }, [user])
+    },[user])
 
     const filteredData = title === "Followers"
         ? followers.filter(item => item.username.toLowerCase().includes(searchQuery.toLowerCase()) || item.username.includes(searchQuery))
