@@ -5,7 +5,7 @@ import * as Permissions from "expo-permissions";
 
 import { Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from "react";
-import { Animated, Dimensions, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Animated, StatusBar, Dimensions, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 
 import colors from "../assets/colors";
@@ -193,7 +193,7 @@ export default function Upload({ navigation }) {
             flex: 1, width: width, flexDirection: "column",
             alignItems: "center", backgroundColor: colors.green,
         }}>
-
+            <StatusBar barStyle="light-content" backgroundColor={colors.green} />
             <Modal
                 animationType="slide"
                 transparent={true}

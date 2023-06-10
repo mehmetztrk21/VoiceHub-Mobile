@@ -1,5 +1,5 @@
-import React, { useRef, useState } from "react";
-import { Alert, Dimensions, FlatList, Modal, SafeAreaView, ScrollView, Text } from "react-native";
+import React, { useState } from "react";
+import { Dimensions, FlatList, Modal, SafeAreaView, Text, StatusBar } from "react-native";
 
 import AddVoice from "./components/addVoice";
 import AreYouSure from "./components/areYouSure";
