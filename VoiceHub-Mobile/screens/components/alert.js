@@ -1,5 +1,6 @@
 import React from 'react'
 import AwesomeAlert from "react-native-awesome-alerts";
+import colors from '../../assets/colors';
 const Alert = ({ showAlert, setShowAlert, alertMessage }) => {
     return (
         <AwesomeAlert

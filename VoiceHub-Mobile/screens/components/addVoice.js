@@ -15,7 +15,7 @@ import { createComment } from "../../services/commentServices";
 
 import { recordingOptions } from '../../utils/recordingOptions';
 import { timeFormatText } from "../../utils/timeFormatText";
-import { checkInternetConnection } from "../utils/NetworkUtils";
+import { checkInternetConnection } from "../../utils/NetworkUtils";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
