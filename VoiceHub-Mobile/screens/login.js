@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Image, KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 import loginStyle from "../assets/styles/login.style";
 import NetInfo from '@react-native-community/netinfo';
@@ -11,7 +11,7 @@ import colors from "../assets/colors";
 import { login } from "../services/authServices";
 import { useUser } from "../utils/userContext";
 import Loading from "./components/loading";
-import AwesomeAlert from "react-native-awesome-alerts";
+import Alert from "./components/alert";
 
 export default function Login({ navigation }) {
 
@@ -122,31 +122,7 @@ export default function Login({ navigation }) {
                 <Text style={loginStyle.textButton}>Do you have not account?</Text>
             </TouchableOpacity>
 
-            <AwesomeAlert
-                show={showAlert}
-                showProgress={false}
-                message={alertMessage}
-                messageStyle={{
-                    fontSize: 15,
-                    fontWeight: "500"
-                }}
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={false}
-                showConfirmButton={true}
-                confirmText="Okay"
-                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-                confirmButtonStyle={{
-                    backgroundColor: colors.green,
-                    borderRadius: 30,
-                    width: "50%",
-                    marginTop: "5%",
-                }}
-                contentContainerStyle={{ borderRadius: 20 }}
-                onConfirmPressed={() => {
-                    setShowAlert(false)
-                }}
-                onDismiss={() => setShowAlert(false)}
-            />
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
 
         </KeyboardAvoidingView>
     );

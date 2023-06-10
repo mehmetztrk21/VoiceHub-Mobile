@@ -13,12 +13,14 @@ import { Ionicons } from '@expo/vector-icons';
 import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
 import Post from "./components/post";
+import Alert from "./components/alert";
 
 import { setFollowFollower } from "../services/actionServices";
 import { getMyPosts } from "../services/postServices";
 import { getUserById } from "../services/userServices";
 
 import { baseURL } from "../utils/constants";
+import { checkInternetConnection } from "../utils/NetworkUtils";
 import { followerCountFormatText } from "../utils/followerCountFormatText";
 import { useUser } from "../utils/userContext";
 
@@ -35,6 +37,9 @@ export default function SeeProfile({ navigation, route }) {
     const handleLayout = () => {
         scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
     };
+
+    const [alertMessage, setAlertMessage] = useState("");
+    const [showAlert, setShowAlert] = useState(false)
 
     const [seeUser, setSeeUser] = useState({});
     const [posts, setPosts] = useState([]);
@@ -56,6 +61,7 @@ export default function SeeProfile({ navigation, route }) {
 
     const getPosts = async () => {
         setLoading(true)
+        checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
         const response = await getMyPosts({ isArchived: false, userId: userId });
         if (response && response.success) {
             setPosts(response?.data);
@@ -70,6 +76,7 @@ export default function SeeProfile({ navigation, route }) {
         setLoading(false)
     }
     const followUnfollow = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
         await setFollowFollower({ userId: seeUser._id }).then(async (res) => {
             console.log(res);
             if (res?.success) {
@@ -93,6 +100,7 @@ export default function SeeProfile({ navigation, route }) {
         });
     }
     const getUser = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
         getUserById({ id: userId }).then(async (res) => {
             if (res?.message == "Unauthorized") {
                 await AsyncStorage.clear();
@@ -255,6 +263,7 @@ export default function SeeProfile({ navigation, route }) {
                     <AreYouSure process={'LogOut'} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure} openAreYouSure={openAreYouSure} />
                 ) : null
             }
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </SafeAreaView >
     );
 }

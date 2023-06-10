@@ -1,11 +1,15 @@
 import { Feather, Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from "react";
 import { Share, Text, TouchableOpacity, View } from "react-native";
+
+import Alert from './alert';
+
 import colors from "../../assets/colors";
 import PopUpPostStyles from "../../assets/styles/PopUpPost.style";
 
 
 import { useUser } from "../../utils/userContext";
+import { checkInternetConnection } from "../../utils/NetworkUtils";
 
 import { setFollowFollower, setSeeLikes } from "../../services/actionServices";
 import { getPostById } from "../../services/postServices";
@@ -18,7 +22,11 @@ const PopUpPost = ({ navigation, id, setId, uri }) => {
     const [post, setPost] = useState({});
     const [seeUser, setSeeUser] = useState({});
 
+    const [alertMessage, setAlertMessage] = useState("");
+    const [showAlert, setShowAlert] = useState(false)
+
     useEffect(() => {
+        checkInternetConnection(setShowAlert, setAlertMessage);
         getPostById({ postId: id }).then(async (res) => {
             if (res?.message == "Unauthorized") {
                 await AsyncStorage.clear();
@@ -26,6 +34,7 @@ const PopUpPost = ({ navigation, id, setId, uri }) => {
             }
             else {
                 setPost(res?.data);
+                checkInternetConnection(setShowAlert, setAlertMessage);
                 getUserById({ id: res?.data?.createdBy }).then(async (response) => {
                     if (response?.message == "Unauthorized") {
                         await AsyncStorage.clear();
@@ -44,6 +53,7 @@ const PopUpPost = ({ navigation, id, setId, uri }) => {
     }, [])
 
     const setSeeLike = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage);
         const res = await setSeeLikes({ postId: id });
         setId(false);
 
@@ -64,6 +74,7 @@ const PopUpPost = ({ navigation, id, setId, uri }) => {
     }
 
     const followUnfollow = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage);
         await setFollowFollower({ userId: seeUser._id }).then(async (res) => {
             if (res?.success) {
                 let temp = { ...user };
@@ -88,6 +99,7 @@ const PopUpPost = ({ navigation, id, setId, uri }) => {
     }
 
     const getUser = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage);
         getUserById({ id: seeUser._id }).then(async (res) => {
             if (res?.message == "Unauthorized") {
                 await AsyncStorage.clear();
@@ -129,6 +141,7 @@ const PopUpPost = ({ navigation, id, setId, uri }) => {
                     <Text style={PopUpPostStyles.cancelText}>Close</Text>
                 </TouchableOpacity>
             </View>
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </View >
     )
 }

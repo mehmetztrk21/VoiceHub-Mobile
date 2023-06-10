@@ -11,12 +11,16 @@ import PopUpPost from "./components/PopUpPost";
 import RenderPost from "./components/RenderPost";
 import AreYouSure from "./components/areYouSure";
 import Loading from "./components/loading";
+
 const { height, width } = Dimensions.get("window");
 import { getMainPagePosts } from "../services/postServices";
+
+import { checkInternetConnection } from "../utils/NetworkUtils"
 import { useUser } from "../utils/userContext";
 //importing styles
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AwesomeAlert from "react-native-awesome-alerts";
+import Alert from "./components/alert";
+
 import colors from "../assets/colors";
 import homeStyles from "../assets/styles/home.style";
 
@@ -53,6 +57,7 @@ export default function HomeScreen({ navigation }) {
     if (isFinished) {
       return;
     }
+    checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
     const response = await getMainPagePosts({ page: renderCount, limit: 15 });
     if (response && response.success) {
       if (response.data.length > 0) {
@@ -216,32 +221,7 @@ export default function HomeScreen({ navigation }) {
         )}
       />
 
-      <AwesomeAlert
-        show={showAlert}
-        showProgress={false}
-        message={alertMessage}
-        messageStyle={{
-          fontSize: 16,
-          fontWeight: "500",
-          color: colors.darkGray,
-        }}
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={false}
-        showConfirmButton={true}
-        confirmText="Okay"
-        confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-        confirmButtonStyle={{
-          backgroundColor: colors.green,
-          borderRadius: 30,
-          width: "50%",
-          marginTop: "5%",
-        }}
-        contentContainerStyle={{ borderRadius: 20 }}
-        onConfirmPressed={() => {
-          setShowAlert(false)
-        }}
-        onDismiss={() => setShowAlert(false)}
-      />
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
 
     </SafeAreaView>
   );

@@ -3,9 +3,9 @@ import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from "expo-file-system";
 import * as Permissions from "expo-permissions";
 
-import React, { useEffect, useState } from "react";
-import { Animated, Dimensions, Image, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+import React, { useEffect, useState } from "react";
+import { Animated, Dimensions, Modal, SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 
 
 import colors from "../assets/colors";
@@ -15,7 +15,9 @@ import AreYouSure from "./components/areYouSure";
 import { createPost } from "../services/postServices";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AwesomeAlert from "react-native-awesome-alerts";
+import Alert from "./components/alert";
+
+import { checkInternetConnection } from "../utils/NetworkUtils";
 import { recordingOptions } from "../utils/recordingOptions";
 import { timeFormatText } from "../utils/timeFormatText";
 
@@ -161,7 +163,7 @@ export default function Upload({ navigation }) {
             }
         }
 
-
+        checkInternetConnection(setShowAlert, setAlertMessage);
         const res = await createPost(formData);
         if (res?.message == "Unauthorized") {
             await AsyncStorage.clear();
@@ -286,31 +288,7 @@ export default function Upload({ navigation }) {
                 </View>
             }
 
-            <AwesomeAlert
-                show={showAlert}
-                showProgress={false}
-                message={alertMessage}
-                messageStyle={{
-                    fontSize: 15,
-                    fontWeight: "500"
-                }}
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={false}
-                showConfirmButton={true}
-                confirmText="Okay"
-                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-                confirmButtonStyle={{
-                    backgroundColor: colors.green,
-                    borderRadius: 30,
-                    width: "50%",
-                    marginTop: "5%",
-                }}
-                contentContainerStyle={{ borderRadius: 20 }}
-                onConfirmPressed={() => {
-                    setShowAlert(false)
-                }}
-                onDismiss={() => setShowAlert(false)}
-            />
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </SafeAreaView>
     );
 }

@@ -5,8 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import forgotPasswordStyle from "../assets/styles/forgotPassword.style";
 
 import { Dimensions } from "react-native";
-import colors from '../assets/colors';
-import AwesomeAlert from "react-native-awesome-alerts";
+import Alert from "./components/alert";
 const { width, height } = Dimensions.get("window");
 
 export default function ForgotPassword({ navigation }) {
@@ -90,30 +89,7 @@ export default function ForgotPassword({ navigation }) {
                 </TouchableOpacity>
             </View>
 
-            <AwesomeAlert
-                show={showAlert}
-                showProgress={false}
-                message={alertMessage}
-                messageStyle={forgotPasswordStyle.label}
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={false}
-                showConfirmButton={true}
-                confirmText="Okay"
-                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-                confirmButtonStyle={{
-                    backgroundColor: colors.green,
-                    paddingHorizontal: 20,
-                    paddingVertical: 10,
-                    borderRadius: 40,
-                    width: "50%",
-                    marginTop: "5%",
-                }}
-                contentContainerStyle={{ borderRadius: 20 }}
-                onConfirmPressed={() => {
-                    setShowAlert(false)
-                }}
-                onDismiss={() => setShowAlert(false)}
-            />
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </SafeAreaView>
     );
 }

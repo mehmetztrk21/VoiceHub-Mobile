@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Dimensions, Image, Modal, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { Dimensions, Image, Modal, RefreshControl, SafeAreaView, Text, View } from "react-native";
 
+import avatar from "../assets/avatar.png";
 import colors from "../assets/colors";
 import seePostStyle from "../assets/styles/seePost.style";
-import avatar from "../assets/avatar.png";
 import ver from "../assets/ver.png";
 
+import Alert from "./components/alert";
 import AddVoice from "./components/addVoice";
 import AreYouSure from "./components/areYouSure";
 import Comment from "./components/comment";
@@ -15,11 +16,14 @@ import PostActions from "./components/postActions";
 import PostCategories from "./components/postCategories";
 import userPostData from "./components/userPostData";
 
-import { getUserById } from "../services/userServices";
 import { getPostById } from "../services/postServices";
+import { getUserById } from "../services/userServices";
+
 import { baseURL } from "../utils/constants";
-import { FlatList } from "react-native";
+import { checkInternetConnection } from "../utils/NetworkUtils";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { FlatList } from "react-native";
 const { height } = Dimensions.get("window");
 
 export default function SeePost({ navigation, route }) {
@@ -27,9 +31,8 @@ export default function SeePost({ navigation, route }) {
 
     const scrollViewRef = useRef();
 
-    const handleLayout = () => {
-        scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
-    };
+    const [alertMessage, setAlertMessage] = useState("");
+    const [showAlert, setShowAlert] = useState(false)
 
     const [refreshing, setRefreshing] = useState(false);
     const [user, setUser] = useState(null);
@@ -50,6 +53,7 @@ export default function SeePost({ navigation, route }) {
     }, [])
 
     const getUser = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
         getUserById({ id: userId }).then(async (res) => {
             if (res?.message == "Unauthorized") {
                 await AsyncStorage.clear();
@@ -64,6 +68,7 @@ export default function SeePost({ navigation, route }) {
     }
 
     const getPost = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
         getPostById({ postId: postId }).then(async (res) => {
             if (res?.message == "Unauthorized") {
                 await AsyncStorage.clear();
@@ -145,7 +150,7 @@ export default function SeePost({ navigation, route }) {
                 }
             />
 
-
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
             <AddVoice title={"comments"} />
         </SafeAreaView>
     );

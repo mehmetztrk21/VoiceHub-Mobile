@@ -1,16 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
-import { FlatList, RefreshControl, SafeAreaView, ScrollView, Text, View } from "react-native";
+import { FlatList, RefreshControl, SafeAreaView, Text, View } from "react-native";
 
 import colors from "../assets/colors";
 
 import { useUser } from "../utils/userContext";
-
-import { blockedUsers } from "../services/userServices";
-import NetInfo from '@react-native-community/netinfo';
-import BlockedItem from "./components/blockedItem";
-import OtherHeader from "./components/otherHeader";
-import Loading from "./components/loading";
+import { checkInternetConnection } from "../utils/NetworkUtils"
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { blockedUsers } from "../services/userServices";
+
+import Alert from "./components/alert";
+import BlockedItem from "./components/blockedItem";
+import Loading from "./components/loading";
+import OtherHeader from "./components/otherHeader";
 
 const Blockeds = ({ navigation }) => {
     const { user } = useUser();
@@ -29,27 +30,15 @@ const Blockeds = ({ navigation }) => {
         }, 800)
     }
 
-    const handleLayout = () => {
-        scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
-    };
-
     useEffect(() => {
         setLoading(true);
+        checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
         blockedUsers().then(async (res) => {
             if (res?.data?.message == "Unauthorized") {
                 await AsyncStorage.clear();
                 navigation.navigate("Login");
             }
             else {
-                NetInfo.fetch().then(state => {
-                    if (!state.isConnected) {
-                        Alert.alert(
-                            'İnternet Bağlantısı',
-                            'İnternet bağlantınızı kontrol edin.',
-                            [{ text: 'Tamam' }]
-                        );
-                    }
-                });
                 setUsers(res?.data);
             }
         }).catch((err) => {
@@ -60,6 +49,7 @@ const Blockeds = ({ navigation }) => {
 
     useEffect(() => {
         setLoading(true);
+        checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
         blockedUsers().then(async (res) => {
             if (res?.data?.message == "Unauthorized") {
                 await AsyncStorage.clear();
@@ -119,7 +109,7 @@ const Blockeds = ({ navigation }) => {
                     marginTop: "25%",
                 }}
             />
-
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </SafeAreaView>
     )
 }

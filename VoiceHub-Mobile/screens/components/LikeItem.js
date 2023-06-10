@@ -1,19 +1,27 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+
 import likeItemStyle from '../../assets/styles/likeItem.style'
 import ver from "../../assets/ver.png"
 import avatar from "../../assets/avatar.png"
 import colors from '../../assets/colors'
+
+import Alert from './alert'
+
+import { checkInternetConnection } from "../../utils/NetworkUtils";
 import { baseURL } from '../../utils/constants'
 import { useUser } from "../../utils/userContext"
+
 import { setFollowFollower } from "../../services/actionServices";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic }) => {
+const LikeItem = ({ navigation, userId, profilePhotoUrl, username, isTic, setShowAlert, setAlertMessage }) => {
 
     const { user, setUser } = useUser();
 
     const followUnfollow = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage);
         await setFollowFollower({ userId: userId }).then(async (res) => {
             if (res?.success) {
                 let temp = { ...user };

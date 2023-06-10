@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { SafeAreaView, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
-import NetInfo from '@react-native-community/netinfo';
+
 import colors from "../assets/colors";
 import OtherHeader from "../screens/components/otherHeader";
 import { changePassword } from "../services/userServices";
 import changePasswordStyle from "../assets/styles/changePassword.style";
+
+import { checkInternetConnection } from "../utils/NetworkUtils"
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AwesomeAlert from "react-native-awesome-alerts";
+import Alert from "./components/alert";
 
 const ChangePassword = ({ navigation }) => {
 
@@ -23,33 +26,25 @@ const ChangePassword = ({ navigation }) => {
     const confirm = async () => {
 
         if (password1 == password2) {
-
-            const netInfo = NetInfo.fetch();
-            if (netInfo.isConnected) {
-                await changePassword({ password: old, newPassword: password2 }).then(async (res) => {
-                    if (res?.data?.message == "Unauthorized") {
-                        await AsyncStorage.clear();
-                        navigation.navigate("Login");
+            checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
+            await changePassword({ password: old, newPassword: password2 }).then(async (res) => {
+                if (res?.data?.message == "Unauthorized") {
+                    await AsyncStorage.clear();
+                    navigation.navigate("Login");
+                }
+                else {
+                    if (res?.success) {
+                        setAlertMessage("Your password has been successfully changed!");
+                        setShowAlert(true);
                     }
                     else {
-                        if (res?.success) {
-                            setAlertMessage("Your password has been successfully changed!");
-                            setShowAlert(true);
-                        }
-                        else {
-                            setAlertMessage("You did not enter your old password correctly");
-                            setShowAlert(true);
-                        }
+                        setAlertMessage("You did not enter your old password correctly");
+                        setShowAlert(true);
                     }
-                }).catch((err) => {
-                    console.log(err);
-                })
-            }
-            else {
-                setLoading(false);
-                setAlertMessage("No Internet Connection");
-                setShowAlert(true);
-            }
+                }
+            }).catch((err) => {
+                console.log(err);
+            })
 
 
         }
@@ -109,30 +104,7 @@ const ChangePassword = ({ navigation }) => {
                 <Text style={changePasswordStyle.confirmButtonText}>Confirm</Text>
             </TouchableOpacity>
 
-            <AwesomeAlert
-                show={showAlert}
-                showProgress={false}
-                message={alertMessage}
-                messageStyle={changePasswordStyle.repeatHeader}
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={false}
-                showConfirmButton={true}
-                confirmText="Okay"
-                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-                confirmButtonStyle={{
-                    backgroundColor: colors.green,
-                    paddingHorizontal: 20,
-                    paddingVertical: 10,
-                    borderRadius: 40,
-                    width: "50%",
-                    marginTop: "5%",
-                }}
-                contentContainerStyle={{ borderRadius: 20 }}
-                onConfirmPressed={() => {
-                    setShowAlert(false)
-                }}
-                onDismiss={() => setShowAlert(false)}
-            />
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </SafeAreaView>
     )
 }

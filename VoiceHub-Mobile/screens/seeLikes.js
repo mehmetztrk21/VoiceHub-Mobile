@@ -1,26 +1,31 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-    Dimensions, FlatList, RefreshControl, SafeAreaView, ScrollView, TextInput, View
+    Dimensions, FlatList, RefreshControl, SafeAreaView,
+    TextInput, View
 } from "react-native";
 import LikeItem from "./components/LikeItem";
+import Loading from "./components/loading";
 import OtherHeader from "./components/otherHeader";
+import Alert from "./components/alert";
 
 import { getUserById } from "../services/userServices";
 
 import colors from "../assets/colors";
 import seeLikesStyle from "../assets/styles/seeLikes.style";
+
+import { checkInternetConnection } from "../utils/NetworkUtils";
 import { useUser } from "../utils/userContext";
-import Loading from "./components/loading";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { width } = Dimensions.get("window");
 
 const SeeLikes = ({ navigation, route }) => {
-    const { likes } = route.params;
+    const { likes, setShowAlert, setAlertMessage } = route.params;
     const { user } = useUser();
 
     const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const scrollViewRef = useRef(null);
 
@@ -42,6 +47,7 @@ const SeeLikes = ({ navigation, route }) => {
         setLoading(true);
         if (likes && likes.length) { // added a check here
             likes.map((item) => {
+                checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
                 getUserById({ id: item })
                     .then(async (res) => {
                         if (res?.message == "Unauthorized") {
@@ -86,6 +92,8 @@ const SeeLikes = ({ navigation, route }) => {
                             profilePhotoUrl={item.profilePhotoUrl}
                             username={item.username}
                             isTic={item.isTic}
+                            setShowAlert={setShowAlert}
+                            setAlertMessage={setAlertMessage}
                             key={index}
                         />
                     )}
@@ -99,6 +107,7 @@ const SeeLikes = ({ navigation, route }) => {
                 />
 
             </View>
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </SafeAreaView>
     )
 }

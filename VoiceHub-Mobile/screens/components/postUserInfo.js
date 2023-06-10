@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from '@expo/vector-icons';
+
 import postUserInfoStyle from "../../assets/styles/postUserInfo.style";
 import ver from "../../assets/ver.png";
+import colors from "../../assets/colors";
+
+import Alert from "./alert";
+
 import { timeAgoText } from "../../utils/timeAgoText";
 import { useUser } from "../../utils/userContext";
 import { baseURL } from "../../utils/constants";
-import colors from "../../assets/colors";
+import { checkInternetConnection } from "../../utils/NetworkUtils";
+
 import { setFollowFollower } from "../../services/actionServices";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function PostUserInfo({ navigation, userPic, username, HeaderTitle,
@@ -15,9 +22,13 @@ export default function PostUserInfo({ navigation, userPic, username, HeaderTitl
     date, id, isTic, setOpenPopUpPost }) {
 
     const [differenceInDays, setDifferenceInDays] = useState("0");
+    const [alertMessage, setAlertMessage] = useState("");
+    const [showAlert, setShowAlert] = useState(false)
+
     const { user, setUser } = useUser();
 
     const followUnfollow = async () => {
+        checkInternetConnection(setShowAlert, setAlertMessage);
         await setFollowFollower({ userId: userId }).then(async (res) => {
             if (res?.success) {
                 let temp = { ...user };
@@ -93,6 +104,7 @@ export default function PostUserInfo({ navigation, userPic, username, HeaderTitl
                     </TouchableOpacity>
                 ) : null}
             </View>
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </View >
     );
 }

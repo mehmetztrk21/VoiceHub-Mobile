@@ -13,9 +13,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import colors from '../assets/colors';
 
 import { useUser } from '../utils/userContext';
+import { checkInternetConnection } from "../utils/NetworkUtils"
 
 import Loading from './components/loading';
 import PopUpPost from './components/PopUpPost';
+import Alert from './components/alert';
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,10 +31,14 @@ export default function SavedArchieves({ navigation, route }) {
   const [posts, setPosts] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
 
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false)
+
   const [openPopUpPost, setOpenPopUpPost] = useState(false);
 
   const getPosts = async () => {
     if (HeaderTitle == "Archived") {
+      checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
       const response = await getMyPosts({ isArchived: true, userId: user?._id });
 
       if (response && response.success) {
@@ -46,6 +52,7 @@ export default function SavedArchieves({ navigation, route }) {
       }
     }
     else if (HeaderTitle == "Saved") {
+      checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
       const response = await getSavedPosts({ page: 1, limit: 20 });
       if (response && response.success) {
         setPosts(response?.data);
@@ -157,7 +164,7 @@ export default function SavedArchieves({ navigation, route }) {
           )}
         />
       </View>
-
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
     </SafeAreaView>
   );
 }

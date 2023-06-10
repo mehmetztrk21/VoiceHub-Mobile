@@ -9,11 +9,19 @@ import editPostPopUpStyle from "../../assets/styles/editPostPopUp.style";
 
 import { setArchivePost, setSeeLikes, } from "../../services/actionServices";
 import { deletePost, getPostById } from "../../services/postServices.js";
+
+import { checkInternetConnection } from "../../utils/NetworkUtils";
+
+import Alert from "./alert.js";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp }) => {
 
   const [post, setPost] = useState({});
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false)
 
   const setArchive = async () => {
     await setArchivePost({ id: id });
@@ -41,6 +49,7 @@ const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp }) =>
   }
 
   useEffect(() => {
+    checkInternetConnection(setShowAlert, setAlertMessage);
     getPostById({ postId: id }).then(async (res) => {
       if (res?.message == "Unauthorized") {
         await AsyncStorage.clear();
@@ -94,6 +103,7 @@ const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp }) =>
           }}>Close</Text>
         </TouchableOpacity>
       </View>
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
     </View >
   )
 

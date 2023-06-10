@@ -8,16 +8,20 @@ import * as Permissions from 'expo-permissions';
 import { getUserById, removeUserFiles } from "../../services/userServices";
 
 import { useUser } from '../../utils/userContext';
+import { checkInternetConnection } from "../../utils/NetworkUtils";
+
 import * as FileSystem from 'expo-file-system';
 import { updateUserInfo } from "../../services/userServices";
 
 import colors from '../../assets/colors';
 import profilePhotoPopUpStyle from '../../assets/styles/profilePhotoPopUp.style';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, title }) => {
+const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, title, setShowAlert, setAlertMessage }) => {
 
     const { user, setUser } = useUser();
+    const [] = useState(false)
 
     const deletePhoto = async () => {
         await removeUserFiles({ type: "profilePhoto" });
@@ -43,7 +47,7 @@ const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, tit
                 aspect: [2, 2],
                 quality: 1,
             }).then((res) => {
-                        
+
                 if (!res.cancelled) {
                     setImage(res.uri);
                     if (title == "ProfileScreen") {
@@ -69,9 +73,11 @@ const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, tit
                 name: 'profilePhoto.jpeg',
             });
         }
+        checkInternetConnection(setShowAlert, setAlertMessage);
         const response = await updateUserInfo(formData);
 
         if (response && response.success) {
+            checkInternetConnection(setShowAlert, setAlertMessage);
             getUserById({ id: user?._id }).then(async (res) => {
                 if (res?.message == "Unauthorized") {
                     await AsyncStorage.clear();

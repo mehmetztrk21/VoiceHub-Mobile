@@ -17,9 +17,12 @@ import RenderPost from "./components/RenderPost";
 import SearchHeader from "./components/SearchHeader";
 import AreYouSure from "./components/areYouSure";
 import Loading from "./components/loading";
+import Alert from "./components/alert";
 
 import { getExplorePosts, getTopCategories } from "../services/postServices";
 import { searchUser } from "../services/userServices";
+
+import { checkInternetConnection } from "../utils/NetworkUtils"
 
 const { width, height } = Dimensions.get("window");
 
@@ -46,6 +49,9 @@ export default function SearchScreen({ navigation, route }) {
   const [endScreen, setEndScreen] = useState(false);
   const [renderCount, setRenderCount] = useState(1);
 
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false)
+
   const handleFlatlistEndReached = () => {
     if (endScreen == false) {
       setEndScreen(true);
@@ -63,6 +69,7 @@ export default function SearchScreen({ navigation, route }) {
       console.log("finish")
       return;
     }
+    checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
     const response = await getExplorePosts({ page: renderCount, limit: 15, category: selectedCategory });
 
     if (response && response.success) {
@@ -91,6 +98,7 @@ export default function SearchScreen({ navigation, route }) {
   };
 
   const getCategories = async () => {
+    checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
     const response = await getTopCategories(); //{success:true,message:"success",data:[{_id:"poem",count:3}]}
 
     if (response && response.success) {
@@ -108,6 +116,7 @@ export default function SearchScreen({ navigation, route }) {
 
   const onChangeSearch = async () => {
     if (searchQuery.trim() !== "") {
+      checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
       const response = await searchUser({ search: searchQuery });
       if (response && response.success) {
         setUsers(response?.data);
@@ -334,6 +343,7 @@ export default function SearchScreen({ navigation, route }) {
           />
         )
       }
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
     </SafeAreaView >
   );
 }

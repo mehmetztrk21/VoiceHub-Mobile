@@ -6,6 +6,7 @@ import DatePicker from "react-native-modern-datepicker";
 import { Picker } from "@react-native-picker/picker";
 
 import editProfileStyle from "../assets/styles/editProfile.style";
+import colors from "../assets/colors";
 
 import Loading from "./components/loading";
 import AddVoice from "./components/addVoice";
@@ -13,14 +14,16 @@ import BioVoicePopUp from "./components/bioVoicePopUp";
 import OtherHeader from "./components/otherHeader";
 import Post from "./components/post";
 import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
-import NetInfo from '@react-native-community/netinfo';
+
 import { getUserById, removeUserFiles, updateUserInfo } from '../services/userServices';
+
+import { checkInternetConnection } from "../utils/NetworkUtils"
 import { baseURL } from "../utils/constants";
 import { useUser } from "../utils/userContext";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import colors from "../assets/colors";
 import { TouchableWithoutFeedback } from "react-native";
-import AwesomeAlert from "react-native-awesome-alerts";
+import Alert from "./components/alert";
 const { width, height } = Dimensions.get("window");
 
 
@@ -91,32 +94,24 @@ export default function EditProfile({ navigation }) {
         name: 'profilePhoto.jpeg',
       });
     }
-
-    const netInfo = NetInfo.fetch();
-    if (netInfo.isConnected == true) {
-      const response = await updateUserInfo(formData);
-      if (response && response.success) {
-        getUserById({ id: user?._id }).then(async (res) => {
-          setUser(res?.data);
-          await AsyncStorage.setItem("user", JSON.stringify(res?.data));
-        }).catch((err) => {
-          console.log(err);
-        })
-        setLoading(false);
-      }
-      else {
-        if (res?.data?.message == "Unauthorized") {
-          await AsyncStorage.clear();
-          navigation.navigate("Login");
-        }
-      }
-      navigation.goBack();
+    checkInternetConnection(setShowAlert, setAlertMessage, setLoading);
+    const response = await updateUserInfo(formData);
+    if (response && response.success) {
+      getUserById({ id: user?._id }).then(async (res) => {
+        setUser(res?.data);
+        await AsyncStorage.setItem("user", JSON.stringify(res?.data));
+      }).catch((err) => {
+        console.log(err);
+      })
+      setLoading(false);
     }
     else {
-      setLoading(false);
-      setAlertMessage("No Internet Connection");
-      setShowAlert(true);
+      if (res?.data?.message == "Unauthorized") {
+        await AsyncStorage.clear();
+        navigation.navigate("Login");
+      }
     }
+    navigation.goBack();
   }
 
   if (loading) {
@@ -179,7 +174,8 @@ export default function EditProfile({ navigation }) {
         <TouchableWithoutFeedback onPress={() => setOpenProfilePhotoPopUp(false)}>
           <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
         </TouchableWithoutFeedback>
-        <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"EditProfile"} />
+        <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp}
+          setImage={setImage} title={"EditProfile"} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} />
       </Modal>
 
       <Modal visible={openBioVoicePopUp}
@@ -288,31 +284,7 @@ export default function EditProfile({ navigation }) {
 
       {openAddVoice ? (<AddVoice title={"bio"} setIsAddVoice={setIsAddVoice} setOpenAddVoice={setOpenAddVoice} />) : null}
 
-      <AwesomeAlert
-        show={showAlert}
-        showProgress={false}
-        message={alertMessage}
-        messageStyle={{
-          fontSize: 15,
-          fontWeight: "500"
-        }}
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={false}
-        showConfirmButton={true}
-        confirmText="Okay"
-        confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-        confirmButtonStyle={{
-          backgroundColor: colors.green,
-          borderRadius: 30,
-          width: "50%",
-          marginTop: "5%",
-        }}
-        contentContainerStyle={{ borderRadius: 20 }}
-        onConfirmPressed={() => {
-          setShowAlert(false)
-        }}
-        onDismiss={() => setShowAlert(false)}
-      />
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
 
     </KeyboardAvoidingView >
   );

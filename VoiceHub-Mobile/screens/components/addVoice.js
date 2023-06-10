@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Image, Text, TouchableOpacity, View } from "react-native";
+
 import { Ionicons } from '@expo/vector-icons';
-
-
 import { Audio } from 'expo-av';
 import * as FileSystem from 'expo-file-system';
 import * as Permissions from 'expo-permissions';
@@ -13,17 +12,17 @@ import waweGif from "../../assets/images/record.gif";
 import addVoiceStyle from "../../assets/styles/addVoice.style";
 
 import { createComment } from "../../services/commentServices";
+
 import { recordingOptions } from '../../utils/recordingOptions';
 import { timeFormatText } from "../../utils/timeFormatText";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import AwesomeAlert from "react-native-awesome-alerts";
+import { checkInternetConnection } from "../utils/NetworkUtils";
 
-export default function AddVoice({ navigation, title, postId, setIsAddVoice, setOpenAddVoice }) {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+export default function AddVoice({ navigation, title, postId, setIsAddVoice, setOpenAddVoice, setShowAlert, setAlertMessage }) {
   const [isRunning, setIsRunning] = useState(false);
   const [recording, setRecording] = useState(null);
   const [seconds, setSeconds] = useState(0);
-  const [showAlert, setShowAlert] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
     let intervalId;
@@ -107,6 +106,7 @@ export default function AddVoice({ navigation, title, postId, setIsAddVoice, set
         type: 'audio/mpeg',
       });
 
+      checkInternetConnection(setShowAlert, setAlertMessage);
       const res = await createPost(formData);
       if (res?.message == "Unauthorized") {
         await AsyncStorage.clear();
@@ -123,6 +123,7 @@ export default function AddVoice({ navigation, title, postId, setIsAddVoice, set
 
       formData.append("postId", postId);
 
+      checkInternetConnection(setShowAlert, setAlertMessage);
       const res = await createComment(formData);
       if (res?.message == "Unauthorized") {
         await AsyncStorage.clear();
@@ -177,32 +178,6 @@ export default function AddVoice({ navigation, title, postId, setIsAddVoice, set
           <Ionicons size={28} name={"mic"} color={colors.white} />
         </TouchableOpacity>
       </View>
-
-      <AwesomeAlert
-        show={showAlert}
-        showProgress={false}
-        message={alertMessage}
-        messageStyle={{
-          fontSize: 15,
-          fontWeight: "500"
-        }}
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={false}
-        showConfirmButton={true}
-        confirmText="Okay"
-        confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-        confirmButtonStyle={{
-          backgroundColor: colors.green,
-          borderRadius: 30,
-          width: "50%",
-          marginTop: "5%",
-        }}
-        contentContainerStyle={{ borderRadius: 20 }}
-        onConfirmPressed={() => {
-          setShowAlert(false)
-        }}
-        onDismiss={() => setShowAlert(false)}
-      />
 
     </View>
   )
