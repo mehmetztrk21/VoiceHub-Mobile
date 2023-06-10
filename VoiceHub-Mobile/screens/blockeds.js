@@ -20,6 +20,10 @@ const Blockeds = ({ navigation }) => {
     const [refreshing, setRefreshing] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const [alertMessage, setAlertMessage] = useState("");
+    const [showAlert, setShowAlert] = useState(false);
+
+
     const scrollViewRef = useRef();
 
     const pullThePage = () => {

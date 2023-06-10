@@ -1,14 +1,14 @@
+import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import { Ionicons } from '@expo/vector-icons'
 
 import * as ImagePicker from 'expo-image-picker';
 import * as Permissions from 'expo-permissions';
 
 import { getUserById, removeUserFiles } from "../../services/userServices";
 
-import { useUser } from '../../utils/userContext';
 import { checkInternetConnection } from "../../utils/NetworkUtils";
+import { useUser } from '../../utils/userContext';
 
 import * as FileSystem from 'expo-file-system';
 import { updateUserInfo } from "../../services/userServices";

@@ -150,8 +150,8 @@ export default function SeePost({ navigation, route }) {
                 }
             />
 
+            <AddVoice title={"comments"} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} />
             <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
-            <AddVoice title={"comments"} />
         </SafeAreaView>
     );
 }

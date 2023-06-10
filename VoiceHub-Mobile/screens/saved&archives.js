@@ -115,7 +115,9 @@ export default function SavedArchieves({ navigation, route }) {
         visible={openPopUpPost ? true : false}
         onRequestClose={() => { setOpenPopUpPost(false) }}
       >
-        <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+        <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} 
+        uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} showAlert={showAlert}
+        setShowAlert={setShowAlert} setAlertMessage={setAlertMessage}/>
       </Modal>
 
       {(HeaderTitle == "Archived" && posts?.length == 0) ? (

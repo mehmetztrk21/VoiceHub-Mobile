@@ -143,7 +143,9 @@ export default function ProfileScreen({ navigation }) {
         <TouchableWithoutFeedback onPress={() => setOpenEditPostPopUp(false)}>
           <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
         </TouchableWithoutFeedback>
-        <EditPostPopUp navigation={navigation} id={openEditPostPopUp} setId={setOpenEditPostPopUp} setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} />
+        <EditPostPopUp navigation={navigation} id={openEditPostPopUp} setId={setOpenEditPostPopUp}
+          setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} setAlertMessage={setAlertMessage}
+          setShowAlert={setShowAlert} />
       </Modal>
 
       <Modal

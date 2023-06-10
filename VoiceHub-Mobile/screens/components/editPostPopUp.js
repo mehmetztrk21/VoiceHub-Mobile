@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View, Share } from "react-native";
+import { Share, Text, TouchableOpacity, View } from "react-native";
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -12,16 +12,12 @@ import { deletePost, getPostById } from "../../services/postServices.js";
 
 import { checkInternetConnection } from "../../utils/NetworkUtils";
 
-import Alert from "./alert.js";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp }) => {
+const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp, setShowAlert, setAlertMessage }) => {
 
   const [post, setPost] = useState({});
-
-  const [alertMessage, setAlertMessage] = useState("");
-  const [showAlert, setShowAlert] = useState(false)
 
   const setArchive = async () => {
     await setArchivePost({ id: id });
@@ -103,7 +99,6 @@ const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp }) =>
           }}>Close</Text>
         </TouchableOpacity>
       </View>
-      <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
     </View >
   )
 

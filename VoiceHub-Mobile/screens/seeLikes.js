@@ -3,10 +3,11 @@ import {
     Dimensions, FlatList, RefreshControl, SafeAreaView,
     TextInput, View
 } from "react-native";
+
 import LikeItem from "./components/LikeItem";
+import Alert from "./components/alert";
 import Loading from "./components/loading";
 import OtherHeader from "./components/otherHeader";
-import Alert from "./components/alert";
 
 import { getUserById } from "../services/userServices";
 
@@ -21,17 +22,16 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 const { width } = Dimensions.get("window");
 
 const SeeLikes = ({ navigation, route }) => {
-    const { likes, setShowAlert, setAlertMessage } = route.params;
+    const { likes } = route.params;
     const { user } = useUser();
 
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false)
 
-    const scrollViewRef = useRef(null);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
-    const handleLayout = () => {
-        scrollViewRef.current.scrollToOffset({ offset: 0, animated: true });
-    };
+    const scrollViewRef = useRef(null);
 
     const [refreshing, setRefreshing] = useState(false);
 

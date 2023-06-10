@@ -2,14 +2,13 @@ import { Feather, Ionicons } from '@expo/vector-icons';
 import React, { useEffect, useState } from "react";
 import { Share, Text, TouchableOpacity, View } from "react-native";
 
-import Alert from './alert';
 
 import colors from "../../assets/colors";
 import PopUpPostStyles from "../../assets/styles/PopUpPost.style";
 
 
-import { useUser } from "../../utils/userContext";
 import { checkInternetConnection } from "../../utils/NetworkUtils";
+import { useUser } from "../../utils/userContext";
 
 import { setFollowFollower, setSeeLikes } from "../../services/actionServices";
 import { getPostById } from "../../services/postServices";
@@ -17,13 +16,10 @@ import { getUserById } from "../../services/userServices";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const PopUpPost = ({ navigation, id, setId, uri }) => {
+const PopUpPost = ({ navigation, id, setId, uri, setShowAlert, setAlertMessage }) => {
     const { user, setUser } = useUser();
     const [post, setPost] = useState({});
     const [seeUser, setSeeUser] = useState({});
-
-    const [alertMessage, setAlertMessage] = useState("");
-    const [showAlert, setShowAlert] = useState(false)
 
     useEffect(() => {
         checkInternetConnection(setShowAlert, setAlertMessage);
@@ -141,7 +137,6 @@ const PopUpPost = ({ navigation, id, setId, uri }) => {
                     <Text style={PopUpPostStyles.cancelText}>Close</Text>
                 </TouchableOpacity>
             </View>
-            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </View >
     )
 }

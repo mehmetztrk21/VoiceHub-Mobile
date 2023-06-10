@@ -201,7 +201,9 @@ export default function SearchScreen({ navigation, route }) {
         <TouchableWithoutFeedback onPress={() => setOpenPopUpPost(false)}>
           <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
         </TouchableWithoutFeedback>
-        <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost} uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} />
+        <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost}
+          uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} showAlert={showAlert}
+          setShowAlert={setShowAlert} setAlertMessage={setAlertMessage}/>
       </Modal>
 
       {/* SEARCHBAR */}
