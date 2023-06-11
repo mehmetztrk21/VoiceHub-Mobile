@@ -1,12 +1,10 @@
 import AsyncStorage from "@react-native-async-storage/async-storage"
 import React from "react"
-import { Text, TouchableOpacity, View } from "react-native"
-import areYouSureStyle from "../../assets/styles/areYouSure.style"
-import { deleteComment } from "../../services/commentServices"
-import { deactivateAccount } from "../../services/actionServices"
-import { logout } from "../../services/authServices"
 import AwesomeAlert from "react-native-awesome-alerts"
 import colors from "../../assets/colors"
+import { deactivateAccount } from "../../services/actionServices"
+import { logout } from "../../services/authServices"
+import { deleteComment } from "../../services/commentServices"
 
 const areYouSure = ({ process, navigation, openAreYouSure, setOpenAreYouSure, setLoading }) => {
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Text, TouchableOpacity, View, Share } from "react-native";
+import { Share, Text, TouchableOpacity, View } from "react-native";
 
 import { Ionicons } from '@expo/vector-icons';
 
@@ -9,9 +9,13 @@ import editPostPopUpStyle from "../../assets/styles/editPostPopUp.style";
 
 import { setArchivePost, setSeeLikes, } from "../../services/actionServices";
 import { deletePost, getPostById } from "../../services/postServices.js";
+
+import { checkInternetConnection } from "../../utils/NetworkUtils";
+
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp }) => {
+const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp, setShowAlert, setAlertMessage }) => {
 
   const [post, setPost] = useState({});
 
@@ -41,6 +45,7 @@ const editPostPopUp = ({ navigation, id, setId, setOpenEditCategoriesPopUp }) =>
   }
 
   useEffect(() => {
+    checkInternetConnection(setShowAlert, setAlertMessage);
     getPostById({ postId: id }).then(async (res) => {
       if (res?.message == "Unauthorized") {
         await AsyncStorage.clear();

@@ -4,13 +4,19 @@ import colors from "../assets/colors";
 import OtherHeader from "./components/otherHeader";
 
 import { TouchableOpacity } from "react-native";
+
 import optionsStyle from "../assets/styles/options.style";
+
 import { getUserById, updateUserInfo } from "../services/userServices";
+
 import { useUser } from "../utils/userContext";
+import { checkInternetConnection } from "../utils/NetworkUtils"
+
 import Loading from "./components/loading";
 import AreYouSure from "./components/areYouSure";
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import AwesomeAlert from "react-native-awesome-alerts";
+import Alert from "./components/alert";
 
 const Options = ({ navigation }) => {
 
@@ -32,10 +38,11 @@ const Options = ({ navigation }) => {
 
         const formData = new FormData();
         formData.append("isSecretAccount", isSecretAccount);
-
+        checkInternetConnection(setShowAlert, setAlertMessage, setLoading);
         const response = await updateUserInfo(formData);
 
         if (response && response.success) {
+            checkInternetConnection(setShowAlert, setAlertMessage, setLoading);
             getUserById({ id: user?._id }).then(async (res) => {
                 setUser(res?.data);
                 await AsyncStorage.setItem("user", JSON.stringify(res?.data));
@@ -57,9 +64,11 @@ const Options = ({ navigation }) => {
         const formData = new FormData();
 
         formData.append("username", username);
+        checkInternetConnection(setShowAlert, setAlertMessage, setLoading);
         const response = await updateUserInfo(formData);
 
         if (response && response.success) {
+            checkInternetConnection(setShowAlert, setAlertMessage, setLoading);
             getUserById({ id: user?._id }).then(async (res) => {
                 setUser(res?.data);
             }).catch((err) => {
@@ -158,31 +167,7 @@ const Options = ({ navigation }) => {
                 <Text style={optionsStyle.buttonTexts}>Freeze my account</Text>
             </TouchableOpacity>
 
-            <AwesomeAlert
-                show={showAlert}
-                showProgress={false}
-                message={alertMessage}
-                messageStyle={{
-                    fontSize: 15,
-                    fontWeight: "500"
-                }}
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={false}
-                showConfirmButton={true}
-                confirmText="Okay"
-                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-                confirmButtonStyle={{
-                    backgroundColor: colors.green,
-                    borderRadius: 30,
-                    width: "50%",
-                    marginTop: "5%",
-                }}
-                contentContainerStyle={{ borderRadius: 20 }}
-                onConfirmPressed={() => {
-                    setShowAlert(false)
-                }}
-                onDismiss={() => setShowAlert(false)}
-            />
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
 
         </SafeAreaView>
     )

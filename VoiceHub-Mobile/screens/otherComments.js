@@ -1,10 +1,12 @@
-import React, { useRef, useState } from "react";
-import { Dimensions, FlatList, Modal, SafeAreaView, ScrollView, Text } from "react-native";
+import React, { useState } from "react";
+import { Dimensions, FlatList, Modal, SafeAreaView, Text, StatusBar } from "react-native";
 
 import AddVoice from "./components/addVoice";
 import AreYouSure from "./components/areYouSure";
 import Comment from "./components/comment";
 import OtherHeader from "./components/otherHeader";
+
+import Alert from "./components/alert";
 
 import { View } from "react-native";
 import colors from "../assets/colors";
@@ -15,6 +17,8 @@ export default function OtherComments({ navigation, route }) {
     const { postId, comments } = route.params;
 
     const [openAreYouSure, setOpenAreYouSure] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
 
     return (
         <SafeAreaView style={{ flex: 1, flexDirection: "column", backgroundColor: colors.white }}>
@@ -57,7 +61,11 @@ export default function OtherComments({ navigation, route }) {
                 />
             </View>
 
-            <AddVoice title={"comments"} postId={postId} />
+            <AddVoice title={"comments"} postId={postId}
+                setAlertMessage={setAlertMessage}
+                setShowAlert={setShowAlert} />
+
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
 
         </SafeAreaView >
     );

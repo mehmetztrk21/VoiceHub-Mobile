@@ -21,12 +21,14 @@ import Loading from "./components/loading";
 import Post from "./components/post";
 import ProfileHeader from "./components/profileHeader";
 import ProfilePhotoPopUp from "./components/profilePhotoPopUp";
+import Alert from "./components/alert";
 
 import { getMyPosts } from "../services/postServices";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { baseURL } from "../utils/constants";
+import { checkInternetConnection } from "../utils/NetworkUtils"
 import { followerCountFormatText } from "../utils/followerCountFormatText";
 import { useUser } from "../utils/userContext";
 
@@ -44,6 +46,10 @@ export default function ProfileScreen({ navigation }) {
 
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const [alertMessage, setAlertMessage] = useState("");
+  const [showAlert, setShowAlert] = useState(false)
+
   const [image, setImage] = useState(null);
 
   const { user } = useUser();
@@ -56,6 +62,7 @@ export default function ProfileScreen({ navigation }) {
   };
 
   const getPosts = async () => {
+    checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
     const response = await getMyPosts({ isArchived: false, userId: user?._id });
     if (response && response.success) {
       setPosts(response?.data);
@@ -136,7 +143,9 @@ export default function ProfileScreen({ navigation }) {
         <TouchableWithoutFeedback onPress={() => setOpenEditPostPopUp(false)}>
           <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
         </TouchableWithoutFeedback>
-        <EditPostPopUp navigation={navigation} id={openEditPostPopUp} setId={setOpenEditPostPopUp} setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} />
+        <EditPostPopUp navigation={navigation} id={openEditPostPopUp} setId={setOpenEditPostPopUp}
+          setOpenEditCategoriesPopUp={setOpenEditCategoriesPopUp} setAlertMessage={setAlertMessage}
+          setShowAlert={setShowAlert} />
       </Modal>
 
       <Modal
@@ -160,7 +169,8 @@ export default function ProfileScreen({ navigation }) {
         <TouchableWithoutFeedback onPress={() => setOpenProfilePhotoPopUp(false)}>
           <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
         </TouchableWithoutFeedback>
-        <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp} setImage={setImage} title={"ProfileScreen"} />
+        <ProfilePhotoPopUp navigation={navigation} setOpenProfilePhotoPopUp={setOpenProfilePhotoPopUp}
+          setImage={setImage} title={"ProfileScreen"} setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} />
       </Modal>
 
       <View style={{ width: width, borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white, marginTop: 80 }}>
@@ -254,9 +264,10 @@ export default function ProfileScreen({ navigation }) {
           </View>
         )}
         renderItem={({ item, index }) => (
-          <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} key={index}/>
+          <RenderPost navigation={navigation} post={item} thisUser={user} HeaderTitle="ProfileScreen" setOpenEditPostPopUp={setOpenEditPostPopUp} key={index} />
         )}
       />
+      <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
     </SafeAreaView>
   );
 }

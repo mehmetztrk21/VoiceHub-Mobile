@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get("window");
 import { registerCondition } from "../utils/registerCondition";
 import { useUser } from "../utils/userContext";
 
-import AwesomeAlert from 'react-native-awesome-alerts';
+import Alert from "./components/alert";
 
 export default function Register({ navigation }) {
     const { user, setUser } = useUser()
@@ -165,31 +165,7 @@ export default function Register({ navigation }) {
                 <Text style={registerStyle.textButton}>Do you have accont? Go Log in</Text>
             </TouchableOpacity>
 
-            <AwesomeAlert
-                show={showAlert}
-                showProgress={false}
-                message={alertMessage}
-                messageStyle={{
-                    fontSize: 15,
-                    fontWeight: "500"
-                }}
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={false}
-                showConfirmButton={true}
-                confirmText="Okay"
-                confirmButtonTextStyle={{ textAlign: "center", fontWeight: "600", fontSize: 16 }}
-                confirmButtonStyle={{
-                    backgroundColor: colors.green,
-                    borderRadius: 30,
-                    width: "50%",
-                    marginTop: "5%",
-                }}
-                contentContainerStyle={{ borderRadius: 20 }}
-                onConfirmPressed={() => {
-                    setShowAlert(false)
-                }}
-                onDismiss={() => setShowAlert(false)}
-            />
+            <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
 
         </KeyboardAvoidingView>
     );
