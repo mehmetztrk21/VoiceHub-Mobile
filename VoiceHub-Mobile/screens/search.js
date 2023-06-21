@@ -131,23 +131,13 @@ export default function SearchScreen({ navigation, route }) {
 
   useEffect(() => {
     if (type === "lastSearched") {
-      console.log("lastSearched bölümüne geldi");
       setFocused(true);
-    } else if (type === "discovery") {
-      console.log("discovery bölümüne geldi");
-      setFocused(false);
     } else {
-      console.log("screen type error. Search.js");
       setFocused(false);
     }
     if (isFocused == true) {
-      console.log("1");
       setLoading(true);
-
-      console.log("2");
       setIsFinished(false)
-
-      console.log("3");
       setEndScreen(false);
       setRenderCount(1);
       getCategories();
@@ -203,7 +193,7 @@ export default function SearchScreen({ navigation, route }) {
         </TouchableWithoutFeedback>
         <PopUpPost navigation={navigation} id={openPopUpPost} setId={setOpenPopUpPost}
           uri={"https://github.com/mehmetztrk21/VoiceHub-Mobile/"} showAlert={showAlert}
-          setShowAlert={setShowAlert} setAlertMessage={setAlertMessage}/>
+          setShowAlert={setShowAlert} setAlertMessage={setAlertMessage} />
       </Modal>
 
       {/* SEARCHBAR */}
