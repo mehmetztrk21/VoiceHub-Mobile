@@ -155,7 +155,7 @@ export default function SeeProfile({ navigation, route }) {
                 <TouchableWithoutFeedback onPress={() => setOpenSeeProfileOptions(false)}>
                     <View style={{ flex: 1, position: "absolute", width: width, height: height }} />
                 </TouchableWithoutFeedback>
-                <SeeProfilePopUp navigation={navigation} userId={userId} openSeeProfileOptions={openSeeProfileOptions} setOpenSeeProfileOptions={setOpenSeeProfileOptions} />
+                <SeeProfilePopUp navigation={navigation} userId={userId} setOpenSeeProfileOptions={setOpenSeeProfileOptions} />
             </Modal>
 
             <View style={{ width: "100%", borderBottomStartRadius: 26, borderBottomEndRadius: 26, backgroundColor: colors.white }}>
