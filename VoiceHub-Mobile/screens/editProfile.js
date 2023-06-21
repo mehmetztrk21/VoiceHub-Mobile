@@ -71,7 +71,6 @@ export default function EditProfile({ navigation }) {
       info = user?.profilePhotoUrl
     }
     else {
-      console.log(image, "image")
       info = await FileSystem.getInfoAsync(image);
     }
 

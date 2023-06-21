@@ -36,11 +36,9 @@ export default function postActions({ navigation, post, likes, postId, title }) 
   const postLiked = async () => {
     setLiked(prev => {
       if (!prev == true) {
-        console.log("beğenildi");
         setLikeCount(prev => prev + 1);
       }
       else {
-        console.log("beğenme geri çekildi");
         setLikeCount(prev => prev - 1);
 
       }
@@ -52,13 +50,11 @@ export default function postActions({ navigation, post, likes, postId, title }) 
   const postSave = async () => {
     setSaved(prev => {
       if (!prev == true) {
-        console.log("kaydedildi");
         let temp = { ...user };
         temp?.savedPosts?.push(postId);
         setUser(temp);
       }
       else {
-        console.log("kaydetme geri çekildi");
         let temp = { ...user };
         temp?.savedPosts?.splice(temp?.savedPosts?.indexOf(postId), 1);
         setUser(temp);

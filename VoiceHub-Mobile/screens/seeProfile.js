@@ -66,7 +66,6 @@ export default function SeeProfile({ navigation, route }) {
         const response = await getMyPosts({ isArchived: false, userId: userId });
         if (response && response.success) {
             setPosts(response?.data);
-            console.log(response?.data)
         }
         else {
             if (response?.message == "Unauthorized") {
@@ -79,7 +78,6 @@ export default function SeeProfile({ navigation, route }) {
     const followUnfollow = async () => {
         checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
         await setFollowFollower({ userId: seeUser._id }).then(async (res) => {
-            console.log(res);
             if (res?.success) {
                 let temp = { ...user };
                 if (res.data == "Unfollowed successfully")

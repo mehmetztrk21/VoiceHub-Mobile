@@ -66,7 +66,6 @@ export default function SearchScreen({ navigation, route }) {
 
   const getPosts = async () => {
     if (isFinished) {
-      console.log("finish")
       return;
     }
     checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);

@@ -23,7 +23,6 @@ const RenderLastSearchedUser = ({ navigation, thisUser, title }) => {
   }
 */}
   const touch = async (id, item) => {
-    console.log("touch'a gitti");
 
     if (title === "search") {
       if (JSON.parse(setLast)._id !== id) {
