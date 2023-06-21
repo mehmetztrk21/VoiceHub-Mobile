@@ -50,7 +50,7 @@ const BlockedItem = ({ navigation, blockedUser }) => {
 
 
             <TouchableOpacity style={blockedItemStyle.removeButtonHolder} onPress={block}>
-                <Text style={blockedItemStyle.removeButtonText}>Remove</Text>
+                <Text style={blockedItemStyle.removeButtonText}>UnBlock</Text>
             </TouchableOpacity>
         </View >
     )

@@ -15,7 +15,7 @@ import AreYouSure from "./components/areYouSure";
 import Post from "./components/post";
 import Alert from "./components/alert";
 
-import { setFollowFollower } from "../services/actionServices";
+import { blockAccount, setFollowFollower } from "../services/actionServices";
 import { getMyPosts } from "../services/postServices";
 import { getUserById } from "../services/userServices";
 
@@ -120,6 +120,22 @@ export default function SeeProfile({ navigation, route }) {
         getPosts();
     }, []);
 
+    const block = async () => {
+        await blockAccount({ userId: userId })
+
+        let temp = { ...user };
+
+        if (user?.blockedUsers?.includes(userId)) {
+            temp?.blockedUsers?.splice(temp?.blockedUsers?.indexOf(userId), 1);
+        }
+        else {
+            temp?.blockedUsers?.push(userId);
+        }
+
+        await AsyncStorage.setItem("user", JSON.stringify(temp));
+        setUser(temp);
+    }
+
     if (loading) return <Loading />
 
     return (
@@ -177,7 +193,9 @@ export default function SeeProfile({ navigation, route }) {
                         </View>
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
-                            onPress={() => { (seeUser?.isSecretAccount == false) || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null }}>
+                            onPress={() => {
+                                ((!user?.blockedUsers?.includes(userId)) || (!seeUser?.isSecretAccount)) ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null
+                            }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(seeUser?.followers?.length)}
                             </Text>
@@ -185,7 +203,10 @@ export default function SeeProfile({ navigation, route }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
-                            onPress={() => { (seeUser?.isSecretAccount == false) || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: seeUser }) : null }}>
+                            onPress={() => {
+                                (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Following", thisUser: seeUser }) :
+                                    !seeUser?.isSecretAccount ? navigation.navigate("FollowFollower", { title: "Following", thisUser: seeUser }) : null
+                            }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(seeUser?.followings?.length)}
                             </Text>
@@ -202,28 +223,27 @@ export default function SeeProfile({ navigation, route }) {
                 </View>
 
                 {/* Message and Follow Buttons */}
-                <View style={seeProfileStyles.btnHolder}>
-                    {!user?.blockedUsers?.includes(userId) ? (
-                        <View>
-                            <TouchableOpacity style={seeProfileStyles.messageButtonHolder}
-                                onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: seeUser?._id }); }}>
-                                <Text style={seeProfileStyles.messageButtonText}>Message</Text>
-                            </TouchableOpacity>
+                {!user?.blockedUsers?.includes(userId) ? (
+                    <View style={seeProfileStyles.btnHolder}>
+                        <TouchableOpacity style={seeProfileStyles.messageButtonHolder}
+                            onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: seeUser?._id }); }}>
+                            <Text style={seeProfileStyles.messageButtonText}>Message</Text>
+                        </TouchableOpacity>
 
-                            <TouchableOpacity style={seeUser?.followers?.includes(user._id) ? seeProfileStyles.unfollowButtonHolder : seeProfileStyles.followButtonHolder}
-                                onPress={() => { followUnfollow() }}>
-                                <Text style={seeUser?.followers?.includes(user._id) ? seeProfileStyles.unfollowButtonText : seeProfileStyles.followButtonText}>
-                                    {seeUser?.followers?.includes(user._id) ? "Unfollow" : "Follow"}
-                                </Text>
-                            </TouchableOpacity>
-                        </View>) : (
-
+                        <TouchableOpacity style={seeUser?.followers?.includes(user._id) ? seeProfileStyles.unfollowButtonHolder : seeProfileStyles.followButtonHolder}
+                            onPress={() => { followUnfollow() }}>
+                            <Text style={seeUser?.followers?.includes(user._id) ? seeProfileStyles.unfollowButtonText : seeProfileStyles.followButtonText}>
+                                {seeUser?.followers?.includes(user._id) ? "Unfollow" : "Follow"}
+                            </Text>
+                        </TouchableOpacity>
+                    </View>) : (
+                    <View style={seeProfileStyles.btnHolder}>
                         <TouchableOpacity style={seeProfileStyles.unblockButtonHolder}
-                            onPress={() => { }}>
+                            onPress={block}>
                             <Text style={seeProfileStyles.unblockButtonText}>UnBlock</Text>
                         </TouchableOpacity>
-                    )}
-                </View>
+                    </View>
+                )}
             </View>
             {/* Posts */}
 
