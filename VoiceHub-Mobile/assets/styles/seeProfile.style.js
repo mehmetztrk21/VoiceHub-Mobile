@@ -112,6 +112,22 @@ export default StyleSheet.create({
     fontWeight: "600"
   },
 
+  unblockButtonHolder: {
+    width: "85%",
+    alignItems: "center",
+    padding: "2%",
+    backgroundColor: colors.green,
+    borderRadius: 12.5,
+    marginLeft: "7.5%",
+    borderWidth: 2.5,
+    borderColor: colors.green,
+  },
+  unblockButtonText: {
+    color: colors.white,
+    fontSize: 16,
+    fontWeight: "600",
+  },
+
   btnHolder: {
     marginBottom: "2%",
     marginTop: "1%",

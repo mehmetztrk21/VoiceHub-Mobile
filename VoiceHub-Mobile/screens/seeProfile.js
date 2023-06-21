@@ -28,6 +28,7 @@ import Loading from "./components/loading";
 import SeeProfilePopUp from "./components/seeProfilePopUp";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import DontShowPosts from "./components/DontShowPosts";
 const { width, height } = Dimensions.get("window");
 export default function SeeProfile({ navigation, route }) {
     const { userId } = route.params;
@@ -176,7 +177,7 @@ export default function SeeProfile({ navigation, route }) {
                         </View>
 
                         <TouchableOpacity style={seeProfileStyles.followerCount}
-                            onPress={() => { seeUser?.isSecretAccount == false || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null }}>
+                            onPress={() => { (seeUser?.isSecretAccount == false) || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followers", thisUser: seeUser }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(seeUser?.followers?.length)}
                             </Text>
@@ -184,7 +185,7 @@ export default function SeeProfile({ navigation, route }) {
                         </TouchableOpacity>
 
                         <TouchableOpacity style={seeProfileStyles.followCount}
-                            onPress={() => { seeUser?.isSecretAccount == false || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: seeUser }) : null }}>
+                            onPress={() => { (seeUser?.isSecretAccount == false) || (!user?.blockedUsers?.includes(userId)) ? navigation.navigate("FollowFollower", { title: "Followings", thisUser: seeUser }) : null }}>
                             <Text style={seeProfileStyles.fNumber}>
                                 {followerCountFormatText(seeUser?.followings?.length)}
                             </Text>
@@ -202,39 +203,33 @@ export default function SeeProfile({ navigation, route }) {
 
                 {/* Message and Follow Buttons */}
                 <View style={seeProfileStyles.btnHolder}>
-                    <TouchableOpacity style={seeProfileStyles.messageButtonHolder}
-                        onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: seeUser?._id }); }}>
-                        <Text style={seeProfileStyles.messageButtonText}>
-                            Message
-                        </Text>
-                    </TouchableOpacity>
-                    {
-                        seeUser?.followers?.includes(user._id) ?
-                            (
-                                <TouchableOpacity style={seeProfileStyles.unfollowButtonHolder}
-                                    onPress={() => { followUnfollow() }}
-                                >
-                                    <Text style={seeProfileStyles.unfollowButtonText}>
-                                        Unfollow
-                                    </Text>
-                                </TouchableOpacity>
-                            ) : (
-                                <TouchableOpacity style={seeProfileStyles.followButtonHolder}
-                                    onPress={() => { followUnfollow() }}
-                                >
-                                    <Text style={seeProfileStyles.followButtonText}>
-                                        Follow
-                                    </Text>
-                                </TouchableOpacity>
-                            )
-                    }
+                    {!user?.blockedUsers?.includes(userId) ? (
+                        <View>
+                            <TouchableOpacity style={seeProfileStyles.messageButtonHolder}
+                                onPress={() => { navigation.navigate("Message", { title: "UserMessage", id: seeUser?._id }); }}>
+                                <Text style={seeProfileStyles.messageButtonText}>Message</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={seeUser?.followers?.includes(user._id) ? seeProfileStyles.unfollowButtonHolder : seeProfileStyles.followButtonHolder}
+                                onPress={() => { followUnfollow() }}>
+                                <Text style={seeUser?.followers?.includes(user._id) ? seeProfileStyles.unfollowButtonText : seeProfileStyles.followButtonText}>
+                                    {seeUser?.followers?.includes(user._id) ? "Unfollow" : "Follow"}
+                                </Text>
+                            </TouchableOpacity>
+                        </View>) : (
+
+                        <TouchableOpacity style={seeProfileStyles.unblockButtonHolder}
+                            onPress={() => { }}>
+                            <Text style={seeProfileStyles.unblockButtonText}>UnBlock</Text>
+                        </TouchableOpacity>
+                    )}
                 </View>
             </View>
             {/* Posts */}
 
 
             <FlatList
-                data={posts}
+                data={!user?.blockedUsers?.includes(userId) ? posts : []}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={seeProfileStyles.scroll}
                 refreshing={refreshing}
@@ -243,9 +238,11 @@ export default function SeeProfile({ navigation, route }) {
                 refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={() => pullThePage()} colors={[colors.green]} />
                 }
-                ListEmptyComponent={() => (
-                    <Text style={seeProfileStyles.notPost}>Have not post anyone yet</Text>
-                )}
+                ListEmptyComponent={() => !user?.blockedUsers?.includes(userId) ?
+                    ((seeUser?.isSecretAccount == false) ? (
+                        <Text style={seeProfileStyles.notPost}>Have not post anyone yet</Text>
+                    ) : <DontShowPosts userId={userId} title={"secret"} />
+                    ) : <DontShowPosts userId={userId} title={"blocked"} />}
                 renderItem={({ item, index }) => (
                     <RenderPost
                         navigation={navigation}

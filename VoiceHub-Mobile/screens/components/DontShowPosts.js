@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Ionicons } from '@expo/vector-icons'
+import { FontAwesome5, Ionicons } from '@expo/vector-icons'
 import colors from '../../assets/colors'
 import { useUser } from '../../utils/userContext'
 import { blockAccount } from '../../services/actionServices'
@@ -28,20 +28,16 @@ const DontShowPosts = ({ userId, title }) => {
 
     return (
         <View style={{ flexDirection: "column", justifyContent: "center", alignItems: 'center', paddingTop: 20 }}>
-            <Ionicons name={title == "secret" ? "lock-closed" : "ban"} size={140} color={colors.white} />
-            <Text style={{ color: colors.white, fontSize: 24, fontWeight: "700", marginBottom: 15 }}>
+            {title == "secret" ?
+                <Ionicons name={"lock-closed"} size={125} color={colors.white} /> :
+                <FontAwesome5 name={"ban"} size={125} color={colors.white} />
+            }
+            <Text style={{ color: colors.white, fontSize: 24, fontWeight: "700", marginBottom: 15, marginTop: 15, }}>
                 {title == "secret" ?
                     "This Profile is Secret Follow Now!" :
                     "You blocked this profile"
                 }
             </Text>
-
-            {title == "blocked" ?
-                <TouchableOpacity onPress={block}>
-                    <Text style={{
-                        color: colors.green, fontSize: 16, textAlign: "center", fontWeight: "700", backgroundColor: colors.white, padding: 10, borderRadius: 10,
-                    }}>Unblock User</Text>
-                </TouchableOpacity> : null}
         </View>
     )
 }
