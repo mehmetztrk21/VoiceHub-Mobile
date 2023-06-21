@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
+import React, { useState } from "react";
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import * as ImagePicker from 'expo-image-picker';
