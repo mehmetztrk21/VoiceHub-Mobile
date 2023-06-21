@@ -257,13 +257,6 @@ export default function SeeProfile({ navigation, route }) {
                 )}
             />
 
-
-            {
-                openAreYouSure == true ? (
-                    <AreYouSure process={'LogOut'} navigation={navigation} setOpenAreYouSure={setOpenAreYouSure}
-                        openAreYouSure={openAreYouSure} />
-                ) : null
-            }
             <Alert showAlert={showAlert} setShowAlert={setShowAlert} alertMessage={alertMessage} />
         </SafeAreaView >
     );
