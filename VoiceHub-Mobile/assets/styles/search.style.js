@@ -11,4 +11,9 @@ export default StyleSheet.create({
     backgroundColor: colors.white,
     width: "100%",
   },
+  scrollContainer2: {
+    backgroundColor: colors.white,
+    width: "100%",
+    paddingLeft: "5%"
+  }
 });

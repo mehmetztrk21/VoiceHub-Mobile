@@ -115,10 +115,9 @@ export default function SearchScreen({ navigation, route }) {
 
   const onChangeSearch = async () => {
     if (searchQuery.trim() !== "") {
-      checkInternetConnection(setShowAlert, setAlertMessage, setRefreshing, setLoading);
       const response = await searchUser({ search: searchQuery });
       if (response && response.success) {
-        setUsers(response?.data);
+        setUsers(response?.data)
       } else {
         if (response?.message === "Unauthorized") {
           await AsyncStorage.clear();
@@ -305,19 +304,15 @@ export default function SearchScreen({ navigation, route }) {
 
       {/* POSTS */}
       {
-        focused === true ? (
-          searchQuery.length !== 0 ? (
-            <FlatList
-              data={users}
-              keyExtractor={(index) => index.toString()}
-              showsVerticalScrollIndicator={false}
-              contentContainerStyle={searchStyles.scrollContainer}
-              ref={scrollViewRef}
-              renderItem={({ item, index }) => <RenderLastSearchedUser navigation={navigation} thisUser={item} title={"search"} key={index} />}
-            />
-          ) : (
-            <RenderLastSearchedUser navigation={navigation} title={"last"} />
-          )
+        (focused === true && searchQuery.length !== 0) ? (
+          <FlatList
+            data={users}
+            keyExtractor={(index) => index.toString()}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={searchStyles.scrollContainer2}
+            ref={scrollViewRef}
+            renderItem={({ item, index }) => <RenderLastSearchedUser navigation={navigation} users={item} key={index} />}
+          />
         ) : (
           <FlatList
             data={posts}

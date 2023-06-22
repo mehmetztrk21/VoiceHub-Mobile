@@ -21,7 +21,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const ProfilePhotoPopUp = ({ navigation, setOpenProfilePhotoPopUp, setImage, title, setShowAlert, setAlertMessage }) => {
 
     const { user, setUser } = useUser();
-    const [] = useState(false)
 
     const deletePhoto = async () => {
         await removeUserFiles({ type: "profilePhoto" });
